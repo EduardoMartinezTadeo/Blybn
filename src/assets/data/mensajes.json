@@ -1,0 +1,27 @@
+[
+    {
+        "usr": "Simmon",
+        "createdAt": "1554090856000",
+        "msg": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit."
+    },
+    {
+        "usr": "Simmon",
+        "createdAt": "1554091156000",
+        "msg": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit."
+    },
+    {
+        "usr": "Alex",
+        "createdAt": "1554090956000",
+        "msg": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit."
+    },
+    {
+        "usr": "Alex",
+        "createdAt": "1554090856000",
+        "msg": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit."
+    },
+    {
+        "usr": "Hugo",
+        "createdAt": "1554090856000",
+        "msg": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit."
+    }
+]

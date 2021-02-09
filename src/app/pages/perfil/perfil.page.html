@@ -1,0 +1,107 @@
+<ion-header class="ion-no-border" translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="salir()">
+        <ion-icon slot="icon-only" color="primary" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-row>
+    <h1>Perfil</h1>
+  </ion-row>
+  <ion-list>
+    <ion-item class="perfiles">
+      <ion-avatar>
+        <img src="/assets/imgs/avatar.png" />
+      </ion-avatar>
+      <ion-label>
+        <h2>Usuario Blybn</h2>
+        <h3>Propietario</h3>
+        <p></p>
+        <p>usuario@blybn.com</p>
+      </ion-label>
+      <div slot="end">
+        <ion-button color="primary" expand="block" class="perfilbuton" (click)="mostrarModal()">
+          <ion-icon name="create-outline" slot="start"></ion-icon>
+          Editar
+        </ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
+  <br>
+  <app-according title="Facturación">
+    <ion-list>
+      <ion-item class="listFactura">
+        <ion-label>
+          Razón Social
+        </ion-label>
+        <ion-input type="text" disabled></ion-input>
+      </ion-item>
+      <ion-item class="listFactura">
+        <ion-label>
+          RFC
+        </ion-label>
+        <ion-input type="text" disabled></ion-input>
+      </ion-item>
+      <ion-item class="listFactura">
+        <ion-label>
+          Dirección fiscal
+        </ion-label>
+        <ion-input type="text" disabled></ion-input>
+      </ion-item>
+      <ion-item class="listFactura">
+        <ion-label>
+          Correo electrónico
+        </ion-label>
+        <ion-input type="text" disabled></ion-input>
+      </ion-item>
+    </ion-list>
+  </app-according>
+  <app-according title="Métodos de pago">
+    <ion-list>
+      <ion-item class="item-content" *ngFor="let item of [1,1,1]">
+        <div slot="start">
+          <ion-row class="ion-align-items-center ion-no-padding">
+            <ion-img src="/assets/imgs/visa.svg" style="height: 45px; width: 45px;"></ion-img>
+            &nbsp;&nbsp;
+            <ion-img src="/assets/imgs/mastercard.svg" style="height: 35px; width: 35px;"></ion-img>
+          </ion-row>
+        </div>
+        <div slot="end" class="cardEdit">
+          <ion-label>
+            <h4 (click)="mostrarModal()">Editar</h4>
+            <p> **** 0231</p>
+          </ion-label>
+        </div>
+      </ion-item>
+      <ion-item class="item-contentMetodo">
+        <ion-icon name="add-circle-outline" slot="start" color="primary" (click)="mostrarModal()"></ion-icon>
+        <ion-label class="tituloMetodo">Nuevo método de pago</ion-label>
+      </ion-item>
+      <br>
+    </ion-list>
+  </app-according>
+  <app-according title="Administrar cuentas para pago">
+    <ion-list>
+      <ion-item class="item-content" *ngFor="let item of [1]">
+        <div slot="start">
+          <ion-row class="ion-align-items-center ion-no-padding">
+            <ion-img src="/assets/imgs/visa.svg" style="height: 45px; width: 45px;"></ion-img>
+            &nbsp;&nbsp;
+            <ion-img src="/assets/imgs/mastercard.svg" style="height: 35px; width: 35px;"></ion-img>
+          </ion-row>
+        </div>
+        <div slot="end" class="cardEdit">
+          <ion-label>
+            <h4 (click)="mostrarModal()">Editar</h4>
+            <p> **** 0231</p>
+          </ion-label>
+        </div>
+      </ion-item>
+      <br>
+    </ion-list>
+  </app-according>
+</ion-content>

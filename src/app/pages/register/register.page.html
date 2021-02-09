@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+      <ion-buttons slot="end">
+          <ion-button (click)="cerrar()">
+              <ion-icon slot="icon-only" name="close-outline" color="primary"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form #formulario="ngForm" class="form ion-padding">
+      <ion-grid style="background-color: transparent !important;">
+          <ion-row>
+              <ion-col>
+                  <h2>Regístrate</h2>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col>
+                  <div padding>
+                      <ion-list style="background-color: transparent !important;">
+                          <ion-item>
+                              <ion-input placeholder="Nombre de usuario" type="text" name="nombre"
+                                  [(ngModel)]="registro.nombreUsuario" required></ion-input>
+                          </ion-item>
+                          <br>
+                          <ion-item>
+                              <ion-input type="email" placeholder="Correo electrónico" name="email"
+                                  [(ngModel)]="registro.correoElectronico"
+                                  pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required>
+                              </ion-input>
+                          </ion-item>
+                          <br>
+                          <ion-item>
+                              <ion-input type="number" placeholder="Teléfono celular" name="telefono"
+                                  [(ngModel)]="registro.numTelefono" required></ion-input>
+                          </ion-item>
+                          <br>
+                          <br>
+                          <ion-label
+                              style="font-family: Helvetica; font-size: 13px; color: #ffffff; font-weight: bold; margin-left: 2%;">
+                              Fecha de Nacimiento</ion-label>
+                          <br>
+                          <ion-row>
+                              <ion-col size="4">
+                                  <ion-item size="4">
+                                      <ion-input disabled required>{{registro.dia[0]}}</ion-input>
+                                  </ion-item>
+                              </ion-col>
+                              <ion-col size="4">
+                                  <ion-item size="4">
+                                      <ion-input disabled required name="mes">{{registro.mes[0]}}</ion-input>
+                                  </ion-item>
+                              </ion-col>
+                              <ion-col size="4">
+                                  <ion-item>
+                                      <ion-input type="number" name="years" [(ngModel)]="registro.years" required class="input">
+                                      </ion-input>
+                                  </ion-item>
+                              </ion-col>
+                          </ion-row>
+                          <ion-row>
+                              <ion-col size="4" class="alinearButton">
+                                  <ion-button fill="clear" (click)="showPickerDia()" class="fechaTitulo">Día
+                                  </ion-button>
+                              </ion-col>
+                              <ion-col size="4" class="alinearButton">
+                                  <ion-button fill="clear" (click)="showPickerMes()" class="fechaTitulo">Mes
+                                  </ion-button>
+                              </ion-col>
+                              <ion-col size="4" class="fechaTituloLabel">
+                                  <ion-label>Año</ion-label>
+                              </ion-col>
+                          </ion-row>
+                          <br>
+                          <ion-item>
+                              <ion-label
+                                  style="font-family: Helvetica; font-size: 13px; color: #ffffff; font-weight: bold;">
+                                  Sexo</ion-label>
+                              <ion-select name="sexo" [(ngModel)]="registro.sexo"
+                                  [interfaceOptions]='{ backdropDismiss: false }' cancelText="Cancelar" okText="Hecho"
+                                  required>
+                                  <ion-select-option value="f">Femenino</ion-select-option>
+                                  <ion-select-option value="m">Masculino</ion-select-option>
+                              </ion-select>
+                          </ion-item>
+                          <br>
+                          <ion-item>
+                              <ion-input type="password" name="password" [(ngModel)]="registro.contrasena"
+                                  placeholder="Contraseña" required>
+                              </ion-input>
+                          </ion-item>
+                          <br>
+                          <ion-item>
+                              <ion-input type="password" name="passwordConfirm"
+                                  [(ngModel)]="registro.contrasenaconfirm" placeholder="Confirmar contraseña"
+                                  required>
+                              </ion-input>
+                          </ion-item>
+                          <br>
+                          <ion-item *ngFor="let item of data" lines="none">
+                              <ion-label class="ion-text-wrap"
+                                  style="font-family: Helvetica; font-size: 13px; color: #ffffff; font-weight: bold;">
+                                  {{ item.name }}</ion-label>
+                              <ion-checkbox color="primary" slot="start" name="termino" ([ngModel])="registro.termino" required>
+                              </ion-checkbox>
+                          </ion-item>
+                          <br>
+                          <ion-button [disabled]="formulario.invalid" type="submit" expand="full" color="primary"
+                              shape="block" style="text-transform: capitalize; font-size: 14px;"
+                              (click)="onRegister()">
+                              Registrarse
+                          </ion-button>
+                      </ion-list>
+                  </div>
+              </ion-col>
+          </ion-row>
+      </ion-grid>
+  </form>
+</ion-content>

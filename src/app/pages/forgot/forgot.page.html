@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon slot="icon-only" name="close-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)" class="form ion-padding">
+    <ion-grid style="background-color: transparent !important;">
+      <ion-row>
+        <ion-col>
+          <h2>Recuperar Contraseña</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div padding>
+            <ion-list style="background-color: transparent !important;">
+              <ion-item lines="none">
+                <ion-label class="parrafos">¿Has olvidado tu contraseña?</ion-label>
+              </ion-item>
+              <p class="parrafos">
+                No te preocupes solo ingresa tu correo electrónico para recuperarla...
+              </p>
+              <br>
+              <ion-item>
+                <ion-input type="email" placeholder="Correo electrónico" name="email" [(ngModel)]="forgot.correo"
+                  pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required>
+                </ion-input>
+              </ion-item>
+              <br>
+              <ion-button [disabled]="formulario.invalid" type="submit" expand="full" color="primary" shape="block"
+                style="text-transform: capitalize; font-size: 14px;" (click)="presentAlert()">
+                Enviar
+              </ion-button>
+              <br>
+              <ion-row>
+                <p class="parrafo">¿Ya tienes una cuenta? Inicia sesión <u class="parrafo" (click)="onLogin()">aquí</u>
+                </p>
+              </ion-row>
+              <ion-row>
+                <p class="parrafo">No tienes una cuenta, regístrate <u class="parrafo" (click)="onRegister()">aquí</u>
+                </p>
+              </ion-row>
+            </ion-list>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,0 +1,13 @@
+ion-content {
+    --background: #76801a ;
+}
+
+
+.container {
+    -webkit-animation:slide-in-elliptic-top-fwd 2s cubic-bezier(.785,.135,.15,.86) .5s alternate backwards;animation:slide-in-elliptic-top-fwd 2s cubic-bezier(.785,.135,.15,.86) .5s alternate backwards;
+    img {
+        width: 100%;
+        height: 25%;
+        margin-top: 70%;
+    }
+}

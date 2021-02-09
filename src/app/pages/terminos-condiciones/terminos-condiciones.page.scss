@@ -1,0 +1,46 @@
+ion-content {
+    ion-card {
+        border-radius: 38px;
+        text-align: justify;
+        font-size: 12px;
+        --color: #000000;
+        font-family: "Helvetica";
+    }
+
+    ion-card-content {
+        font-family: Helvetica;
+    }
+
+    h2 {
+        font-family: "HelveticaBold";
+        font-size: 18px;
+        padding: 15px;
+    }
+}
+
+.card {
+    background: #f2f2f2;
+}
+
+
+ion-toolbar {
+    --background: transparent;
+    --ion-color-base: transparent !important;
+}
+
+/* Show background if class is active */
+.show-background {
+    border-style: none;
+    background: var(--ion-color-searchbar);
+}
+
+/* Remove bottom border on md */
+.header-md::after {
+    background-image: none;
+}
+
+/* Remove bottom border on ios */
+.header-ios ion-toolbar:last-child {
+    --border-width: 0;
+}
+

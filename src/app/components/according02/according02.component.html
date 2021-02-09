@@ -1,0 +1,14 @@
+<ion-card>
+  <div>
+    <ion-item button detail="false" (click)="toggleAccordion()">
+      <ion-label class="titulo">
+        <b style="color: black;">{{ title }}</b>
+      </ion-label>
+      <ion-icon name="help-circle-outline" color="dark" slot="start" (click)="openModal2()"></ion-icon>
+      <ion-icon slot="end" color="primary" [name]="icon"></ion-icon>
+    </ion-item>
+  </div>
+  <ion-card-content #expandWrapper>
+    <ng-content></ng-content>
+  </ion-card-content>
+</ion-card>

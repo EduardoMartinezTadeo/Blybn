@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 import { TerminosCondicionesPage } from '../terminos-condiciones/terminos-condiciones.page';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-inicio-menu',
@@ -9,9 +10,22 @@ import { TerminosCondicionesPage } from '../terminos-condiciones/terminos-condic
 })
 export class InicioMenuPage implements OnInit {
 
-  constructor(private actionSheetController: ActionSheetController, private modalCtrl: ModalController, private alertCtrl: AlertController) { }
+  constructor(
+    private actionSheetController: ActionSheetController, 
+    private modalCtrl: ModalController, 
+    private alertCtrl: AlertController,
+    private storage: Storage) { }
 
   ngOnInit() {
+  }
+
+  datastorage: any;
+  datos: string;
+  roleValue: any;
+  ionViewDidEnter(){
+    this.storage.get('storage_blybn').then((res) => {
+      console.log(res);
+    });
   }
 
   onAviso() {

@@ -27,13 +27,13 @@
                           <ion-item>
                               <ion-input type="email" placeholder="Correo electrónico" name="email"
                                   [(ngModel)]="registro.correoElectronico"
-                                  pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required>
+                                  pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" inputmode="email" required>
                               </ion-input>
                           </ion-item>
                           <br>
                           <ion-item>
-                              <ion-input type="number" placeholder="Teléfono celular" name="telefono"
-                                  [(ngModel)]="registro.numTelefono" required></ion-input>
+                              <ion-input placeholder="Teléfono celular" name="telefono"
+                                  [(ngModel)]="registro.numTelefono" inputmode="numeric" type="tel" maxlength="10"  required></ion-input>
                           </ion-item>
                           <br>
                           <br>
@@ -54,7 +54,7 @@
                               </ion-col>
                               <ion-col size="4">
                                   <ion-item>
-                                      <ion-input type="number" name="years" [(ngModel)]="registro.years" required class="input">
+                                      <ion-input class="input" name="years" [(ngModel)]="year" inputmode="numeric" type="tel" maxlength="4" required>
                                       </ion-input>
                                   </ion-item>
                               </ion-col>
@@ -86,16 +86,17 @@
                           </ion-item>
                           <br>
                           <ion-item>
-                              <ion-input type="password" name="password" [(ngModel)]="registro.contrasena"
-                                  placeholder="Contraseña" required>
-                              </ion-input>
+                            <ion-input [type]="showPassword ? 'text': 'password'" name="contrasena" [(ngModel)]="registro.contrasena"
+                            placeholder="Contraseña" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}" required>
+                          </ion-input>
+                          <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()" color="primary"></ion-icon>
                           </ion-item>
                           <br>
                           <ion-item>
-                              <ion-input type="password" name="passwordConfirm"
-                                  [(ngModel)]="registro.contrasenaconfirm" placeholder="Confirmar contraseña"
-                                  required>
-                              </ion-input>
+                            <ion-input [type]="showPasswordcf ? 'text': 'password'" name="confirmarCn" [(ngModel)]="registro.contrasenaconfirm"
+                            placeholder="Confirmar contraseña" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}" required>
+                          </ion-input>
+                          <ion-icon slot="end" [name]="passwordToggleIconcf" (click)="togglePasswordcf()" color="primary"></ion-icon>
                           </ion-item>
                           <br>
                           <ion-item *ngFor="let item of data" lines="none">
@@ -117,4 +118,5 @@
           </ion-row>
       </ion-grid>
   </form>
+  <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" [(ngModel)]="fechaCorta" style="display:none;"></ion-datetime>
 </ion-content>

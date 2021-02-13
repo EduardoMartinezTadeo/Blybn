@@ -4,6 +4,7 @@ import { NavController, ToastController } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
 import { PickerController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-register',
@@ -11,51 +12,6 @@ import { PickerOptions } from '@ionic/core';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-
-  data = [
-    {
-      name: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      selected: false
-    }
-  ];
-
-
-  registro = {
-    nombreUsuario: '',
-    correoElectronico: '',
-    numTelefono: '',
-    dia: [''],
-    mes: [''],
-    years: '',
-    sexo: '',
-    contrasena: '',
-    contrasenaconfirm: '',
-    termino: false
-  }
-
-  responseData: any;
-
-  async presentToast() {
-    const toast = await this.toastCtrl.create({
-      message: '¡Se ha registrado exitosamente!',
-      duration: 2000,
-      cssClass: 'toast-scheme'
-    });
-    toast.present();
-  }
-
-
-  onRegister() {
-    this.presentToast();
-    this.servicio.registrarUsuario(this.registro.nombreUsuario, this.registro.correoElectronico, this.registro.numTelefono, this.registro.dia, this.registro.mes, this.registro.years, this.registro.sexo, this.registro.contrasena).subscribe(data => {
-      this.responseData = data;
-      console.log(data);
-    });
-  }
-
-  cerrar() {
-    this.navCtrl.back();
-  }
 
 
   constructor(
@@ -65,10 +21,63 @@ export class RegisterPage implements OnInit {
     private servicio: DataService,
     private pickerCtrl: PickerController) { }
 
-  ngOnInit() {
+  data = [
+    {
+      name: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+      selected: false
+    }
+  ];
+
+  registro = {
+    nombreUsuario: '',
+    correoElectronico: '',
+    numTelefono: '',
+    dia: [''],
+    mes: [''],
+    sexo: '',
+    contrasena: '',
+    contrasenaconfirm: '',
+    termino: ''
+   }
+  year;
+  responseData: any;
+
+  async presentToast(a) {
+    const toast = await this.toastCtrl.create({
+      message: a,
+      duration: 2000,
+      cssClass: 'toast-scheme'
+    });
+    toast.present();
   }
 
+  fechaCorta = new Date().getFullYear();
+  edad;
+  onRegister() {
+    var n1 = (this.fechaCorta);
+    var n2 = (this.year);  
+    this.edad = (n1 - n2);
+    if( this.edad > 18) {
+      console.log(this.edad);
+      if(this.registro.contrasena != this.registro.contrasenaconfirm){
+        this.presentToast("Las contraseñas no coinciden...");
+      } else {
+        this.servicio.registrarUsuario(this.registro.nombreUsuario, this.registro.correoElectronico, this.registro.numTelefono, this.registro.dia, this.registro.mes, this.year, this.registro.sexo, this.registro.contrasena).subscribe(data => {
+          this.responseData = data;
+          console.log(data);
+        });
+      }
+    } else {
+      this.presentToast("Se requiere ser mayor de edad...");
+    }  
+  }
 
+  cerrar() {
+    this.navCtrl.back();
+  }
+
+  ngOnInit() {
+  }
 
   async showPickerDia() {
     let opts: PickerOptions = {
@@ -145,18 +154,18 @@ export class RegisterPage implements OnInit {
         {
           name: 'Mes',
           options: [
-            { text: 'Enero',   value: '01' },
+            { text: 'Enero', value: '01' },
             { text: 'Febrero', value: '02' },
-            { text: 'Marzo',   value: '03' },
-            { text: 'Abril',   value: '04' },
-            { text: 'Mayo',    value: '05' },
-            { text: 'Junio',   value: '06' },
-            { text: 'Julio',   value: '07' },
-            { text: 'Agosto',     value: '08' },
+            { text: 'Marzo', value: '03' },
+            { text: 'Abril', value: '04' },
+            { text: 'Mayo', value: '05' },
+            { text: 'Junio', value: '06' },
+            { text: 'Julio', value: '07' },
+            { text: 'Agosto', value: '08' },
             { text: 'Septiembre', value: '09' },
-            { text: 'Octubre',    value: '10' },
-            { text: 'Noviembre',  value: '11' },
-            { text: 'Diciembre',  value: '12' },
+            { text: 'Octubre', value: '10' },
+            { text: 'Noviembre', value: '11' },
+            { text: 'Diciembre', value: '12' },
           ]
         }
       ]
@@ -171,4 +180,28 @@ export class RegisterPage implements OnInit {
     });
   }
 
+
+  showPassword = false;
+  passwordToggleIcon = 'eye';
+
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
+    if (this.passwordToggleIcon == 'eye') {
+      this.passwordToggleIcon = 'eye-off';
+    } else {
+      this.passwordToggleIcon = 'eye';
+    }
+  }
+
+  showPasswordcf = false;
+  passwordToggleIconcf = 'eye';
+
+  togglePasswordcf(): void {
+    this.showPasswordcf = !this.showPasswordcf;
+    if (this.passwordToggleIconcf == 'eye') {
+      this.passwordToggleIconcf = 'eye-off';
+    } else {
+      this.passwordToggleIconcf = 'eye';
+    }
+  }
 }

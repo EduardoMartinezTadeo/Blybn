@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { ToastController, LoadingController } from '@ionic/angular';
+import { ToastController, LoadingController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
-
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,9 @@ export class DataService {
     public http: HttpClient,
     public toastController: ToastController,
     public loadingController: LoadingController,
-    private router: Router
+    private router: Router,
+    private storage: Storage,
+    private navCtrl: NavController
   ) { }
 
   registrarUsuario(nombreUsuario: string, correoElectronico: string, numTelefono: string, dia: any, mes: any, years: string, sexo: string, contrasena: string) {
@@ -29,7 +31,25 @@ export class DataService {
         this.router.navigate(['/login']);
         if (correoElectronico == "" && contrasena == "" && nombreUsuario == "" && numTelefono == "" && dia == "" && mes == "" && years == "" && sexo == "" && contrasena == "") {
           this.toast = this.toastController.create({
-            message: ''
+            message: '¡Debe completar todos los campos solicitados!',
+            duration: 2000
+          }).then((toastData) => {
+            toastData.present();
+          });
+        } else if (this.responseData == "Ya hay un registro de este usuario"){
+          this.toast = this.toastController.create({
+            message: 'Ya hay un registro de este usuario',
+            duration: 2000
+          }).then((toastData) => {
+            toastData.present();
+          });
+        } else {
+          this.router.navigate(['/login']);
+          this.toast = this.toastController.create({
+            message: 'Se ha registrado exitosamente',
+            duration: 2000
+          }).then((toastData)=> {
+            toastData.present();
           });
         }
       }
@@ -39,8 +59,42 @@ export class DataService {
   iniciarSesion(correoElectronico: string, contrasena: string) {
     return this.http.get(`${this.apiLoginURL}?correoElectronico=${correoElectronico}&contrasena=${contrasena}`).pipe(map(
       results => {
-        localStorage.setItem('usuarioData', JSON.stringify(this.result));
-        this.router.navigate(['/dashboard/menutabs/inicio-menu']);
+        this.result = results;
+        if(correoElectronico == "" && contrasena == "") {
+          this.toast = this.toastController.create({
+            message: '¡Debe completar todos los campos solicitados!',
+            duration: 2000
+          }).then((toastData) => {
+              toastData.present();
+          });
+        } else if (this.result == "¡Correo electronico o contrasena incorrectos!"){
+          this.toast = this.toastController.create({
+            message: '¡Correo electronico o contrasena incorrectos!',
+            duration: 2000
+          }).then((toastData) => {
+            toastData.present();
+          });
+        } else if (this.result == "Blybn"){
+          this.loadingController.create({
+            duration:2000
+          }).then((res) => {
+            res.present();
+            res.onDidDismiss().then((dis) => {
+              this.storage.set('storage_blybn', this.result);
+              this.navCtrl.navigateRoot(['/dashboard2']);
+            });
+          });
+        } else if (this.result == "Propietario Blybner"){
+          this.loadingController.create({
+            duration: 2000
+          }).then((res)=>{
+            res.present();
+            res.onDidDismiss().then((dis) => {
+              this.storage.set('storage_blybn', this.result);
+              this.navCtrl.navigateRoot(['/dashboard/menutabs/inicio-menu']);
+            });
+          });
+        }
       }
     ));
   }

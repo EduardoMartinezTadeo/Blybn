@@ -68,8 +68,11 @@ const routes: Routes = [
   {
     path: 'modal5',
     loadChildren: () => import('./Modals/modal5/modal5.module').then( m => m.Modal5PageModule)
-  }
- 
+  },   {
+    path: 'dashboard2',
+    loadChildren: () => import('./pages/dashboard2/dashboard2.module').then( m => m.Dashboard2PageModule)
+  },
+
 ];
 
 @NgModule({

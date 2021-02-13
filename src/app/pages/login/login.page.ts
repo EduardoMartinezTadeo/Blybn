@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+    import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ForgotPage } from '../forgot/forgot.page';
 import { DataService } from '../../services/data.service';
-
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-login',
@@ -18,14 +18,13 @@ export class LoginPage implements OnInit {
   }
   responseData: any;
 
-
   showPassword = false;
   passwordToggleIcon = 'eye';
-  constructor(private router: Router, private modalCtrl: ModalController, private service: DataService) { 
-    if(localStorage.getItem('userdata')){
-      this.router.navigate(['/dashboard/menutabs/inicio-menu']);
-    }
-  }
+  constructor(
+    private router: Router, 
+    private modalCtrl: ModalController, 
+    private service: DataService, 
+    private storage: Storage) {  }
 
   onLogin() {
     this.service.iniciarSesion(this.usuario.correoElectronico, this.usuario.contrasena).subscribe(
@@ -33,7 +32,6 @@ export class LoginPage implements OnInit {
         this.responseData = data;
       });
   }
-
 
   async mostrarModal() {
     const modal = await this.modalCtrl.create({
@@ -51,10 +49,7 @@ export class LoginPage implements OnInit {
     }
   }
 
-  ngOnInit() {
-  }
-
-  
+  ngOnInit() { }
 
   onRegister() {
     this.router.navigateByUrl('/register');

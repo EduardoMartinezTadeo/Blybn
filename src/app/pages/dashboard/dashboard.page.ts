@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
+
+
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +12,15 @@ import { Router } from '@angular/router';
 })
 export class DashboardPage implements OnInit {
 
+  toast2: any;
+
+  constructor(
+    public alertCtrl: AlertController, 
+    private router: Router,
+    private storage: Storage,
+    private navCtrl: NavController,
+    private toast: ToastController) { 
+  }
   
   pages = [
     {
@@ -71,11 +83,6 @@ export class DashboardPage implements OnInit {
     },
   ];
 
-  
-
-  constructor(public alertCtrl: AlertController, private router: Router) { 
-  }
-
   ngOnInit() {
   }
 
@@ -95,7 +102,14 @@ export class DashboardPage implements OnInit {
         }, {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigateByUrl('/login');
+            this.storage.remove('storage_blybn');
+            this.navCtrl.navigateRoot(['/login']);
+            this.toast2 = this.toast.create({
+              message: 'Se ha cerrado la sesión exitosamente',
+              duration: 2000
+            }).then((toastData) => {
+              toastData.present();
+            });
           }
         }
       ]

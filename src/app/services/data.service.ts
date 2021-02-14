@@ -4,14 +4,15 @@ import { HttpClient } from '@angular/common/http';
 import { ToastController, LoadingController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { environment } from '../../environments/environment.prod';
+
+const apiUrlRegistro = environment.apiRegistroURL;
+const apiUrlLogin    = environment.apiLoginURL;
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
-
-  apiRegistroURL = "http://192.168.0.105/server_blybn/api/db_registroUsuario.php";
-  apiLoginURL = "http://192.168.0.105/server_blybn/api/db_iniciarSesion.php";
+export class DataService {  
   result: any;
   responseData: any;
   toast: any;
@@ -21,11 +22,12 @@ export class DataService {
     public loadingController: LoadingController,
     private router: Router,
     private storage: Storage,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+
   ) { }
 
   registrarUsuario(nombreUsuario: string, correoElectronico: string, numTelefono: string, dia: any, mes: any, years: string, sexo: string, contrasena: string) {
-    return this.http.get(`${this.apiRegistroURL}?nombreUsuario=${nombreUsuario}&correoElectronico=${correoElectronico}&numTelefono=${numTelefono}&dia=${dia}&mes=${mes}&years=${years}&sexo=${sexo}&contrasena=${contrasena}`).pipe(map(
+    return this.http.get(`${apiUrlRegistro}?nombreUsuario=${nombreUsuario}&correoElectronico=${correoElectronico}&numTelefono=${numTelefono}&dia=${dia}&mes=${mes}&years=${years}&sexo=${sexo}&contrasena=${contrasena}`).pipe(map(
       results => {
         this.responseData = results;
         this.router.navigate(['/login']);
@@ -57,7 +59,7 @@ export class DataService {
   }
 
   iniciarSesion(correoElectronico: string, contrasena: string) {
-    return this.http.get(`${this.apiLoginURL}?correoElectronico=${correoElectronico}&contrasena=${contrasena}`).pipe(map(
+    return this.http.get(`${apiUrlLogin}?correoElectronico=${correoElectronico}&contrasena=${contrasena}`).pipe(map(
       results => {
         this.result = results;
         if(correoElectronico == "" && contrasena == "") {

@@ -26,8 +26,8 @@ export class DataService {
 
   ) { }
 
-  registrarUsuario(nombreUsuario: string, correoElectronico: string, numTelefono: string, dia: any, mes: any, years: string, sexo: string, contrasena: string) {
-    return this.http.get(`${apiUrlRegistro}?nombreUsuario=${nombreUsuario}&correoElectronico=${correoElectronico}&numTelefono=${numTelefono}&dia=${dia}&mes=${mes}&years=${years}&sexo=${sexo}&contrasena=${contrasena}`).pipe(map(
+  registrarUsuario(nombreUsuario: string, correoElectronico: string, numTelefono: string, dia: any, mes: any, years: string, sexo: string, contrasena: string, termino: boolean) {
+    return this.http.get(`${apiUrlRegistro}?nombreUsuario=${nombreUsuario}&correoElectronico=${correoElectronico}&numTelefono=${numTelefono}&dia=${dia}&mes=${mes}&years=${years}&sexo=${sexo}&contrasena=${contrasena}&termino=${termino}`).pipe(map(
       results => {
         this.responseData = results;
         this.router.navigate(['/login']);
@@ -83,7 +83,7 @@ export class DataService {
             res.present();
             res.onDidDismiss().then((dis) => {
               this.storage.set('storage_blybn', this.result);
-              this.navCtrl.navigateRoot(['/dashboard2']);
+              this.navCtrl.navigateRoot(['/dashboard2/menutabs/inicio-menu']);
             });
           });
         } else if (this.result == "Propietario Blybner"){

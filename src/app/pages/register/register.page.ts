@@ -23,8 +23,8 @@ export class RegisterPage implements OnInit {
 
   data = [
     {
-      name: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      selected: false
+      name: 'Acepto los términos y condiciones del uso de este servicio.',
+      selected: true
     }
   ];
 
@@ -37,7 +37,7 @@ export class RegisterPage implements OnInit {
     sexo: '',
     contrasena: '',
     contrasenaconfirm: '',
-    termino: ''
+    termino: true
    }
   year;
   responseData: any;
@@ -62,7 +62,7 @@ export class RegisterPage implements OnInit {
       if(this.registro.contrasena != this.registro.contrasenaconfirm){
         this.presentToast("Las contraseñas no coinciden...");
       } else {
-        this.servicio.registrarUsuario(this.registro.nombreUsuario, this.registro.correoElectronico, this.registro.numTelefono, this.registro.dia, this.registro.mes, this.year, this.registro.sexo, this.registro.contrasena).subscribe(data => {
+        this.servicio.registrarUsuario(this.registro.nombreUsuario, this.registro.correoElectronico, this.registro.numTelefono, this.registro.dia, this.registro.mes, this.year, this.registro.sexo, this.registro.contrasena, this.registro.termino).subscribe(data => {
           this.responseData = data;
           console.log(data);
         });

@@ -10,6 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './services/data.service';
+import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +25,8 @@ import { DataService } from './services/data.service';
   providers: [
     StatusBar,
     DataService,
+    NativePageTransitions,
+    InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

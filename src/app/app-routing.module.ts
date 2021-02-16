@@ -72,7 +72,14 @@ const routes: Routes = [
     path: 'dashboard2',
     loadChildren: () => import('./pages/dashboard2/dashboard2.module').then( m => m.Dashboard2PageModule)
   },
-
+  {
+    path: 'perfil2',
+    loadChildren: () => import('./pages/perfil2/perfil2.module').then( m => m.Perfil2PageModule)
+  },
+  {
+    path: 'detalle-perfil2',
+    loadChildren: () => import('./pages/detalle-perfil2/detalle-perfil2.module').then( m => m.DetallePerfil2PageModule)
+  },
 ];
 
 @NgModule({

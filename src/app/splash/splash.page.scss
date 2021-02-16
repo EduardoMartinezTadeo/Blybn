@@ -2,12 +2,7 @@ ion-content {
     --background: #76801a;
 }
 
-
 .container {
-    -webkit-animation:slide-in-elliptic-top-fwd 2s cubic-bezier(.785,.135,.15,.86) .5s alternate backwards;animation:slide-in-elliptic-top-fwd 2s cubic-bezier(.785,.135,.15,.86) .5s alternate backwards;
-    img {
-        width: 100%;
-        height: 25%;
-        margin-top: 70%;
-    }
-}
+    -webkit-animation: slide-in-elliptic-top-fwd 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.5s alternate backwards;
+    animation: slide-in-elliptic-top-fwd 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.5s alternate backwards;
+  }

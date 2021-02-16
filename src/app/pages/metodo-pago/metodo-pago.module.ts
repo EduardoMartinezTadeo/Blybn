@@ -13,8 +13,7 @@ import { MetodoPagoPage } from './metodo-pago.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    MetodoPagoPageRoutingModule,
-    
+    MetodoPagoPageRoutingModule    
   ],
   declarations: [MetodoPagoPage]
 })

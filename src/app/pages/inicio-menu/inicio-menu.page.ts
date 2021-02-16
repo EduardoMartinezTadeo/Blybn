@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 import { TerminosCondicionesPage } from '../terminos-condiciones/terminos-condiciones.page';
 import { Storage } from '@ionic/storage';
+import { NativePageTransitions, NativeTransitionOptions} from '@ionic-native/native-page-transitions/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 
 @Component({
   selector: 'app-inicio-menu',
@@ -14,7 +17,9 @@ export class InicioMenuPage implements OnInit {
     private actionSheetController: ActionSheetController, 
     private modalCtrl: ModalController, 
     private alertCtrl: AlertController,
-    private storage: Storage) { }
+    private storage: Storage,
+    private nativePageTransitions: NativePageTransitions,
+    private iab: InAppBrowser) { }
 
   ngOnInit() {
   }
@@ -43,42 +48,28 @@ export class InicioMenuPage implements OnInit {
           icon: 'logo-facebook',
           cssClass: 'iconFacebook',
           handler: () => {
-            console.log('Facebook seleccionado');
+            this.iab.create(`https://www.facebook.com/Blybnmx`, `_system`);
           }
         }, {
           text: 'Instragram',
           icon: 'logo-instagram',
           cssClass: 'iconInstagram',
           handler: () => {
-            console.log('Instagram seleccionado');
+            this.iab.create(`https://www.instagram.com/blybnmx/`, `_system`);
           }
         }, {
           text: 'Twitter',
           icon: 'logo-twitter',
           cssClass: 'iconTwitter',
           handler: () => {
-            console.log('Twitter seleccionado');
-          }
-        }, {
-          text: 'Youtube',
-          icon: 'logo-youtube',
-          cssClass: 'iconYoutube',
-          handler: () => {
-            console.log('Youtube seleccionado');
+            this.iab.create(`https://twitter.com/Blybnmx?s=09`, `_system`);
           }
         }, {
           text: 'TikTok',
           icon: 'logo-tiktok',
           cssClass: 'iconTiktok',
           handler: () => {
-            console.log('Youtube seleccionado');
-          }
-        }, {
-          text: 'Snapchat',
-          icon: 'logo-snapchat',
-          cssClass: 'iconSnapchat',
-          handler: () => {
-            console.log('Youtube seleccionado');
+            this.iab.create(`https://www.tiktok.com/@blybnmx?lang=es`, `_system`);
           }
         }, {
           text: 'Cancelar',
@@ -94,6 +85,11 @@ export class InicioMenuPage implements OnInit {
   }
 
   async mostrarModal() {
+    let options: NativeTransitionOptions = {
+      direction: 'up',
+      duration: 600
+    }
+    this.nativePageTransitions.flip(options);
     const modal = await this.modalCtrl.create({
       component: TerminosCondicionesPage,
       cssClass: 'my-custom-modal-css'

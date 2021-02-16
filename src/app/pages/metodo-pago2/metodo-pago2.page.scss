@@ -1,0 +1,65 @@
+h1 {
+    padding: 5px;
+    font-family: "HelveticaBold";
+    font-size: 30px;
+    margin-top: 2%;
+}
+
+h4 {
+    padding: 10px;
+    font-family: "HelveticaBold";
+    font-size: 18px;
+    margin-top: 2%;
+    margin-bottom: 0%;
+    color: #1897ed;
+}
+
+.item-content {
+    --ion-background-color: #d1d1cf;
+    border-radius: 5px 5px 5px 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.cardEdit {
+    h4 {
+        text-align: right;
+        font-family: "HelveticaLight";
+        font-size: 13px;
+        font-weight: bold;
+        color: black;
+    }
+
+    p {
+        text-align: center;
+        font-weight: bold;
+        font-size: 15px;
+        font-family: "HelveticaMedium";
+    }
+}
+
+.listCards {
+    width: 100%;
+    height: 15%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px 20px 20px 20px;
+}
+
+.detailCards {
+    h3 {
+        text-align: left;
+        font-family: "HelveticaLight";
+        font-size: 13px;
+        font-weight: bold;
+        color: black;
+    }
+
+    p {
+        text-align: left;
+        font-weight: bold;
+        font-size: 15px;
+        font-family: "HelveticaMedium";
+    }
+}
+

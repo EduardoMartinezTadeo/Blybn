@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { ProviderService } from '../../services/provider.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -16,7 +16,8 @@ export class Modal6Page implements OnInit {
     private modalCtrl: ModalController,
     private toastCtrl: ToastController,
     private postPvdr: ProviderService,
-    private acRoute: ActivatedRoute
+    private acRoute: ActivatedRoute,
+    private alertCtrl: AlertController
   ) { }
 
   bly_correoElectronico: string = "";
@@ -105,5 +106,30 @@ export class Modal6Page implements OnInit {
       cssClass: 'toast-scheme'
     });
     toast.present();
+  }
+
+  async presentCerrarForgot() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Cancelar Operación',
+      message: '¿Está seguro de abortar esta operación?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.cerrar();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

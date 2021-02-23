@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Error',
-      message: '<strong>Ha ocurrido un error, verifique su conexión</strong>!!!',
+      message: 'Ha ocurrido un error, verifique su conexión!!!',
       buttons: [{
         text: 'Reintentar',
         handler: () => {

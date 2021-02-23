@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AvisoService } from '../services/aviso.service';
 
+
 @Component({
   selector: 'app-aviso',
   templateUrl: './aviso.page.html',
@@ -8,9 +9,13 @@ import { AvisoService } from '../services/aviso.service';
 })
 export class AvisoPage implements OnInit {
 
-  constructor(private aviso:AvisoService) { }
+  constructor(
+    private aviso:AvisoService) { 
+
+    }
 
   ngOnInit() {
+ 
   }
 
   onlogin(){

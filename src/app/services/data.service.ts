@@ -7,12 +7,12 @@ import { Storage } from '@ionic/storage';
 import { environment } from '../../environments/environment.prod';
 
 const apiUrlRegistro = environment.apiRegistroURL;
-const apiUrlLogin    = environment.apiLoginURL;
+const apiUrlLogin = environment.apiLoginURL;
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {  
+export class DataService {
   result: any;
   responseData: any;
   toast: any;
@@ -22,8 +22,7 @@ export class DataService {
     public loadingController: LoadingController,
     private router: Router,
     private storage: Storage,
-    private navCtrl: NavController,
-
+    private navCtrl: NavController
   ) { }
 
   registrarUsuario(nombreUsuario: string, correoElectronico: string, numTelefono: string, dia: any, mes: any, years: string, sexo: string, contrasena: string, termino: boolean) {
@@ -38,7 +37,7 @@ export class DataService {
           }).then((toastData) => {
             toastData.present();
           });
-        } else if (this.responseData == "Ya hay un registro de este usuario"){
+        } else if (this.responseData == "Ya hay un registro de este usuario") {
           this.toast = this.toastController.create({
             message: 'Ya hay un registro de este usuario',
             duration: 2000
@@ -50,7 +49,7 @@ export class DataService {
           this.toast = this.toastController.create({
             message: 'Se ha registrado exitosamente',
             duration: 2000
-          }).then((toastData)=> {
+          }).then((toastData) => {
             toastData.present();
           });
         }
@@ -62,23 +61,26 @@ export class DataService {
     return this.http.get(`${apiUrlLogin}?correoElectronico=${correoElectronico}&contrasena=${contrasena}`).pipe(map(
       results => {
         this.result = results;
-        if(correoElectronico == "" && contrasena == "") {
+        if (correoElectronico == "" && contrasena == "") {
           this.toast = this.toastController.create({
             message: '¡Debe completar todos los campos solicitados!',
             duration: 2000
           }).then((toastData) => {
-              toastData.present();
+            toastData.present();
           });
-        } else if (this.result == "¡Correo electronico o contrasena incorrectos!"){
+        } else if (this.result == "¡Correo electronico o contrasena incorrectos!") {
           this.toast = this.toastController.create({
             message: '¡Correo electronico o contrasena incorrectos!',
             duration: 2000
           }).then((toastData) => {
             toastData.present();
           });
-        } else if (this.result == "Blybn"){
+        } else if (this.result == "Blybn") {
           this.loadingController.create({
-            duration:2000
+            message: "Espere un momento…",
+            spinner: "bubbles",
+            translucent: true,
+            duration: 2000
           }).then((res) => {
             res.present();
             res.onDidDismiss().then((dis) => {
@@ -86,10 +88,13 @@ export class DataService {
               this.navCtrl.navigateRoot(['/dashboard2/menutabs/inicio-menu']);
             });
           });
-        } else if (this.result == "Propietario Blybner"){
+        } else if (this.result == "Propietario Blybner") {
           this.loadingController.create({
+            message: "Espere un momento…",
+            spinner: "bubbles",
+            translucent: true,
             duration: 2000
-          }).then((res)=>{
+          }).then((res) => {
             res.present();
             res.onDidDismiss().then((dis) => {
               this.storage.set('storage_blybn', this.result);

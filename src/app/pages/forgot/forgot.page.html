@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)" class="form ion-padding">
+  <form #formulario="ngForm"  class="form ion-padding">
     <ion-grid style="background-color: transparent !important;">
       <ion-row>
         <ion-col>
@@ -28,13 +28,13 @@
               </p>
               <br>
               <ion-item>
-                <ion-input type="email" placeholder="Correo electrónico" name="email" [(ngModel)]="forgot.correo"
+                <ion-input type="email" placeholder="Correo electrónico" name="email" [(ngModel)]="data.correoElectronico"
                   pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required>
                 </ion-input>
               </ion-item>
               <br>
               <ion-button [disabled]="formulario.invalid" type="submit" expand="full" color="primary" shape="block"
-                style="text-transform: capitalize; font-size: 14px;" (click)="presentAlert()">
+                style="text-transform: capitalize; font-size: 14px;" (click)="presentLoadingServer()">
                 Enviar
               </ion-button>
               <br>

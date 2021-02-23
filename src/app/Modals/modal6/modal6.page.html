@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon slot="icon-only" name="close-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form #formulario="ngForm"  class="form ion-padding">
+    <ion-grid style="background-color: transparent !important;">
+      <ion-row>
+        <ion-col>
+          <h2>Hola</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let dato of datosPerfil">
+        <ion-col>
+          <h2>{{dato.bly_nombreUsuario}}</h2>
+        </ion-col>
+      </ion-row>
+      <p class="parrafos">
+        Se ha iniciado el proceso de recuperación de contraseña.
+      </p>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input type="email" placeholder="Confirma Correo electrónico" name="email" [(ngModel)]="bly_correoElectronico"
+              pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required>
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+       <ion-col>
+        <ion-item>
+          <ion-input [type]="showPassword ? 'text': 'password'" name="contrasena" [(ngModel)]="bly_contrasena"
+          placeholder="Contraseña" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}" required>
+        </ion-input>
+        <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()" color="primary"></ion-icon>
+        </ion-item>
+       </ion-col> 
+      </ion-row>     
+      <br>
+      <ion-item>
+        <ion-input [type]="showPasswordcf ? 'text': 'password'" name="confirmContrasena" [(ngModel)]="confirmContrasena"
+        placeholder="Confirmar contraseña" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}" required>
+      </ion-input>
+      <ion-icon slot="end" [name]="passwordToggleIconcf" (click)="togglePasswordcf()" color="primary"></ion-icon>
+      </ion-item>
+      <br>
+      <ion-button [disabled]="formulario.invalid" type="submit" expand="full" color="primary" shape="block"
+      style="text-transform: capitalize; font-size: 14px;" (click)="recuperarContrasena()">
+      Recuperar
+    </ion-button>
+    </ion-grid>
+  </form>
+</ion-content>

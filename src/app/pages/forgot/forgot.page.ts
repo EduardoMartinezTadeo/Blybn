@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit} from '@angular/core';
+import { AlertController, ModalController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { OperacionesService } from '../../services/operaciones.service';
+
 
 @Component({
   selector: 'app-forgot',
@@ -10,22 +11,23 @@ import { Router } from '@angular/router';
 })
 export class ForgotPage implements OnInit {
 
-  constructor(private modalCtrl: ModalController, private router: Router, public alertCtrl: AlertController) { }
+  constructor(
+    private modalCtrl: ModalController, 
+    private router: Router, 
+    public alertCtrl: AlertController,
+    public operacionesService: OperacionesService,
+    private loading: LoadingController) { }
 
-  ngOnInit() {
+  ngOnInit() {    
   }
 
-  forgot = {
-    correo: ''
+  data = {
+    correoElectronico: ''
   }
+  responseData: any;
 
   cerrar() {
     this.modalCtrl.dismiss();
-  }
-
-  onSubmit(formulario: NgForm) {
-    console.log('submit');
-    console.log(formulario);
   }
 
   onLogin() {
@@ -38,21 +40,69 @@ export class ForgotPage implements OnInit {
     this.router.navigateByUrl('/register');
   }
 
-  async presentAlert() {
+  async presentAlertServer() {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Contraseña',
       subHeader: 'Restablecer contraseña',
-      message: '<p style="color:#0000">Se ha enviado un correo electronico, con las instrucciones para recuperar su contraseña.</p>',
+      message: '<p style="color:#0000">¿Está a punto de restaurar su contraseña desea continuar?</p>',
       buttons: [{
-        text: 'Aceptar',
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: (blah) => {
+          this.cerrar();
+        }
+      }, {
+        text: 'Continuar',
         handler: () => {
-          this.modalCtrl.dismiss();
+          this.cerrar();
+          this.operacionesService.consultarPerfil(this.data.correoElectronico).subscribe(data => {
+            this.responseData = data;
+          });          
+        } 
+      }]
+    });
+    await alert.present();
+  }
+
+  async presentAlertServerOffline() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      message: '<strong>Ha ocurrido un error, verifique su conexión</strong>!!!',
+      buttons: [{
+        text: 'Reintentar',
+        handler: () => {
+          this.router.navigateByUrl('/forgot');
         }
       }]
     });
-
     await alert.present();
   }
+
+  async presentLoadingServerOffline() {
+    const loading = await this.loading.create({
+      cssClass: 'my-custom-class',
+      duration: 1500,
+      spinner: "bubbles"
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.presentAlertServerOffline();
+    }, 2000);
+  }
+
+  async presentLoadingServer() {
+    const loading = await this.loading.create({
+      cssClass: 'my-custom-class',
+      duration: 1000,
+      spinner: "bubbles"
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.presentAlertServer();
+    }, 1500);
+  }
+  
 
 }

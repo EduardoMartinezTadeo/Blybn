@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './services/data.service';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Network } from '@ionic-native/network/ngx';
+import { OperacionesService } from './services/operaciones.service';
+import { ProviderService } from './services/provider.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,8 +28,11 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
   providers: [
     StatusBar,
     DataService,
+    OperacionesService,
     NativePageTransitions,
     InAppBrowser,
+    Network,
+    ProviderService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

@@ -1,9 +1,8 @@
-    import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController, LoadingController } from '@ionic/angular';
 import { ForgotPage } from '../forgot/forgot.page';
 import { DataService } from '../../services/data.service';
-import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-login',
@@ -21,22 +20,55 @@ export class LoginPage implements OnInit {
   showPassword = false;
   passwordToggleIcon = 'eye';
   constructor(
-    private router: Router, 
-    private modalCtrl: ModalController, 
-    private service: DataService, 
-    private storage: Storage) {  }
+    private router: Router,
+    private modalCtrl: ModalController,
+    private service: DataService,
+    private alertController: AlertController,
+    private loading: LoadingController
+    ) { }
 
   onLogin() {
     this.service.iniciarSesion(this.usuario.correoElectronico, this.usuario.contrasena).subscribe(
       data => {
         this.responseData = data;
+      }, (error) => {
+        this.presentLoadingServer();
       });
   }
 
+  async presentAlertServer() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      message: '<strong>Ha ocurrido un error, verifique su conexión</strong>!!!',
+      buttons: [{
+        text: 'Reintentar',
+        handler: () => {
+          this.router.navigateByUrl('/login');
+        }
+      }
+      ]
+    });
+    await alert.present();
+  }
+
+  async presentLoadingServer() {
+    const loading = await this.loading.create({
+      cssClass: 'my-custom-class',
+      duration: 1500,
+      spinner: "bubbles"
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.presentAlertServer();
+    }, 2000);
+  }
+
+
   async mostrarModal() {
     const modal = await this.modalCtrl.create({
-      component: ForgotPage
-    });
+      component: ForgotPage,
+    });    
     await modal.present();
   }
 
@@ -49,7 +81,9 @@ export class LoginPage implements OnInit {
     }
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+  }
 
   onRegister() {
     this.router.navigateByUrl('/register');

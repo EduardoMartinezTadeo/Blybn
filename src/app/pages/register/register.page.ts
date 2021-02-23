@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController, ToastController } from '@ionic/angular';
+import { AlertController, NavController, ToastController, LoadingController } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
 import { PickerController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +18,9 @@ export class RegisterPage implements OnInit {
     private navCtrl: NavController,
     private toastCtrl: ToastController,
     private servicio: DataService,
-    private pickerCtrl: PickerController) { }
+    private pickerCtrl: PickerController,
+    private alertController: AlertController,
+    private loading: LoadingController) { }
 
   data = [
     {
@@ -64,12 +65,41 @@ export class RegisterPage implements OnInit {
       } else {
         this.servicio.registrarUsuario(this.registro.nombreUsuario, this.registro.correoElectronico, this.registro.numTelefono, this.registro.dia, this.registro.mes, this.year, this.registro.sexo, this.registro.contrasena, this.registro.termino).subscribe(data => {
           this.responseData = data;
-          console.log(data);
+        }, (error) => {
+          this.presentLoadingServer();
         });
       }
     } else {
       this.presentToast("Se requiere ser mayor de edad...");
     }  
+  }
+
+  async presentAlertServer() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      message: '<strong>Ha ocurrido un error, verifique su conexión</strong>!!!',
+      buttons: [{
+        text: 'Reintentar',
+        handler: () => {
+          this.router.navigateByUrl('/register');
+        }
+      }
+      ]
+    });
+    await alert.present();
+  }
+
+  async presentLoadingServer() {
+    const loading = await this.loading.create({
+      cssClass: 'my-custom-class',
+      duration: 1500,
+      spinner: "bubbles"
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.presentAlertServer();
+    }, 2000);
   }
 
   cerrar() {

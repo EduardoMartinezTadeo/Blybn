@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AvisoService } from '../services/aviso.service';
 import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
+import { Network } from '@ionic-native/network/ngx';
+
 
 @Component({
   selector: 'app-splash',
@@ -11,11 +13,14 @@ import { NavController } from '@ionic/angular';
 })
 export class SplashPage implements OnInit {
   roleValue: any;
+
   constructor(
     public router: Router,
     private avisoService: AvisoService,
     private storage: Storage,
-    private navCtrl: NavController) {
+    private navCtrl: NavController,
+    private network: Network
+  ) {
     setTimeout(() => {
       this.avisoService.authenticationState.subscribe(state => {
         console.log('Estado', state);
@@ -31,11 +36,12 @@ export class SplashPage implements OnInit {
             }
           });
         } else {
-          this.router.navigate(['aviso']);
+          this.router.navigate(['/aviso']);
         }
       });
     }, 3000);
   }
+
 
   ngOnInit() {
   }

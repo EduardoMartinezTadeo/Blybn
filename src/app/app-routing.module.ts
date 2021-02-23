@@ -80,6 +80,14 @@ const routes: Routes = [
     path: 'detalle-perfil2',
     loadChildren: () => import('./pages/detalle-perfil2/detalle-perfil2.module').then( m => m.DetallePerfil2PageModule)
   },
+  {
+    path: 'offline',
+    loadChildren: () => import('./offline/offline.module').then( m => m.OfflinePageModule)
+  },
+  {
+    path: 'modal6',
+    loadChildren: () => import('./Modals/modal6/modal6.module').then( m => m.Modal6PageModule)
+  },
 ];
 
 @NgModule({

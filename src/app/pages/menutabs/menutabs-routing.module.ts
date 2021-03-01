@@ -29,7 +29,10 @@ const routes: Routes = [
         path: 'mensajes',
         loadChildren: () => import('../mensajes/mensajes.module').then( m => m.MensajesPageModule)
       },
-    
+      {
+        path: 'busqueda',
+        loadChildren: () => import('../busqueda/busqueda.module').then( m => m.BusquedaPageModule)
+      },
     ]
   }
 ];

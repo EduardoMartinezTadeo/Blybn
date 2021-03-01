@@ -117,7 +117,7 @@ export class Modal6Page implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
+          cssClass: 'secondary', 
           handler: (blah) => {
             console.log('Confirm Cancel: blah');
           }

@@ -16,6 +16,7 @@ export class DataService {
   result: any;
   responseData: any;
   toast: any;
+  rol = 'Blybn';
   constructor(
     public http: HttpClient,
     public toastController: ToastController,
@@ -45,7 +46,8 @@ export class DataService {
             toastData.present();
           });
         } else {
-          this.router.navigate(['/login']);
+          this.storage.set('storage_blybn', this.rol);
+          this.navCtrl.navigateRoot(['/dashboard2/menutabs/inicio-menu']);
           this.toast = this.toastController.create({
             message: 'Se ha registrado exitosamente',
             duration: 2000

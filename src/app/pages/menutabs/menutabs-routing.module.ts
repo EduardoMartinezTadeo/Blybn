@@ -26,10 +26,6 @@ const routes: Routes = [
         loadChildren: () => import('../favoritos/favoritos.module').then(m => m.FavoritosPageModule)
       },
       {
-        path: 'mensajes',
-        loadChildren: () => import('../mensajes/mensajes.module').then( m => m.MensajesPageModule)
-      },
-      {
         path: 'busqueda',
         loadChildren: () => import('../busqueda/busqueda.module').then( m => m.BusquedaPageModule)
       },

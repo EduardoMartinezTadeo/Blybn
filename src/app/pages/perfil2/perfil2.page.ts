@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { DetallePerfil2Page } from '../detalle-perfil2/detalle-perfil2.page';
-
-
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-perfil2',
   templateUrl: './perfil2.page.html',
@@ -11,7 +10,7 @@ import { DetallePerfil2Page } from '../detalle-perfil2/detalle-perfil2.page';
 })
 export class Perfil2Page implements OnInit {
 
-  constructor(private router: Router,  private modalCtrl: ModalController) { }
+  constructor(private router: Router,  private modalCtrl: ModalController, private storage: Storage) { }
 
   ngOnInit() {
   }
@@ -27,4 +26,19 @@ export class Perfil2Page implements OnInit {
     await modal.present();
   }
 
+  usuario: string;
+  correo: string;
+  rol = 'Blybn';
+  tipoRol: number;
+  id: string;
+  perfilData: any;
+  ionViewDidEnter(){
+    this.storage.get('perfil_data').then((res) => {
+      this.perfilData = res;
+      this.usuario = this.perfilData.bly_nombre,
+      this.correo = this.perfilData.bly_correoElectronico,
+      this.id = this.perfilData.bly_usuario,
+      this.tipoRol = this.perfilData.bly_rol
+    });
+  }
 }

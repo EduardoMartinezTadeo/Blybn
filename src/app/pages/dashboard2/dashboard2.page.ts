@@ -44,6 +44,12 @@ export class Dashboard2Page implements OnInit {
           open: false,
         },
         {
+          title: 'Mensajes',
+          url: '/dashboard/mensajes',
+          icon: 'chatbubble-ellipses-outline',
+          open: false,
+        },
+        {
           title: 'Términos y Condiciones',
           url: '/dashboard2/terminos2',
           icon: 'document-text-outline',
@@ -95,6 +101,7 @@ export class Dashboard2Page implements OnInit {
         }, {
           text: 'Aceptar',
           handler: () => {
+            this.storage.remove('perfil_data');
             this.storage.remove('storage_blybn');
             this.navCtrl.navigateRoot(['/login']);
             this.toast2 = this.toast.create({
@@ -114,6 +121,17 @@ export class Dashboard2Page implements OnInit {
 
   perfil(){
     this.router.navigateByUrl('/perfil2');
+  }
+
+  usuario: string;
+  correo: string;
+  perfildata: any;
+  ionViewDidEnter(){
+    this.storage.get('perfil_data').then((res) => {
+      this.perfildata = res;
+      this.usuario = this.perfildata.bly_nombre,
+      this.correo = this.perfildata.bly_correoElectronico
+    });
   }
 
 }

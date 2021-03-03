@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AlertController, ModalController, LoadingController } from '@ionic/angular';
 import { ForgotPage } from '../forgot/forgot.page';
 import { DataService } from '../../services/data.service';
+import { Storage } from '@ionic/storage';
+import { PerfilService } from '../../services/perfil.service';
 
 @Component({
   selector: 'app-login',
@@ -24,10 +26,24 @@ export class LoginPage implements OnInit {
     private modalCtrl: ModalController,
     private service: DataService,
     private alertController: AlertController,
-    private loading: LoadingController
+    private loading: LoadingController,
+    private provider: PerfilService,
+    private storage: Storage
     ) { }
 
   onLogin() {
+    let body = {
+      aksi: 'perfil',
+      bly_correoElectronico: this.usuario.correoElectronico,
+      bly_contrasena: this.usuario.contrasena
+    };
+    this.provider.postData(body, 'db_cargarPerfil.php').subscribe(async data => {
+      if(data.success) {
+        this.storage.set('perfil_data', data.result);
+      } else {
+        console.log(body);
+      }
+    });
     this.service.iniciarSesion(this.usuario.correoElectronico, this.usuario.contrasena).subscribe(
       data => {
         this.responseData = data;

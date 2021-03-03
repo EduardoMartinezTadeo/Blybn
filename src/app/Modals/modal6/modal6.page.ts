@@ -25,10 +25,11 @@ export class Modal6Page implements OnInit {
   confirmContrasena: string = "";
 
   datosPerfil: any;
+  user: string;
   ionViewDidEnter(){
-    this.datosPerfil = [];
-    this.storage.forEach((data)=> {
-      this.datosPerfil.push(data);
+    this.storage.get('perfil').then((res) => {
+      this.datosPerfil = res;
+      this.user = this.datosPerfil.bly_nombreUsuario;
     });
   }
   

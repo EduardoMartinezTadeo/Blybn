@@ -42,6 +42,10 @@ const routes: Routes = [
         loadChildren: () => import('../ajustes2/ajustes2.module').then(m => m.Ajustes2PageModule)
       },
       {
+        path: 'mensajes',
+        loadChildren: () => import('../mensajes/mensajes.module').then( m => m.MensajesPageModule)
+      },
+      {
         path: 'inicio-menu',
         loadChildren: () => import('../inicio-menu/inicio-menu.module').then(m => m.InicioMenuPageModule)
       },

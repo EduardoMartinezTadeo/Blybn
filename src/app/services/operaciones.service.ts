@@ -6,7 +6,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { Modal6Page } from '../Modals/modal6/modal6.page';
 import { Storage } from '@ionic/storage';
 
-const apiConsultarPerfilUrl = environment.apiConsultarPerfil;
+const apiConsultarPerfilUrl = environment.apiConsultarPerfilURL;
 
 export interface User {
   contrasena: string;

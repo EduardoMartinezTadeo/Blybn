@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 
-const apiRecuperarURL = environment.apiRecuperarURL;
+const apiCargarPerfil = environment.apiCargarPerfilURL;
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProviderService {
+export class PerfilService {
 
-  
   constructor(public http: HttpClient) { }
 
   postData(body, file) {
@@ -17,6 +16,6 @@ export class ProviderService {
       'Content-Type':"application/json; charset=UTF-8"
     })
   
-    return this.http.post<any>(apiRecuperarURL + file, body, {headers})
+    return this.http.post<any>(apiCargarPerfil + file, body, {headers})
   }
 }

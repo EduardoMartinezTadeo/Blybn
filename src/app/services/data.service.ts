@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { ToastController, LoadingController, NavController } from '@ionic/angular';
+import { ToastController, LoadingController, NavController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { environment } from '../../environments/environment.prod';
 
 const apiUrlRegistro = environment.apiRegistroURL;
 const apiUrlLogin = environment.apiLoginURL;
+const apiUrlFacturacion = environment.apiRegistroFacturacionURL;
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,8 @@ export class DataService {
     public loadingController: LoadingController,
     private router: Router,
     private storage: Storage,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private modalCtrl: ModalController
   ) { }
 
   registrarUsuario(nombreUsuario: string, correoElectronico: string, numTelefono: string, dia: any, mes: any, years: string, sexo: string, contrasena: string, termino: boolean) {
@@ -105,6 +107,38 @@ export class DataService {
           });
         }
       }
+    ));
+  }
+
+  registrarFacturacion(razonSocial: string, rfc: string, direccionFiscal: string, correoElectronico: string, id: string){
+    return this.http.get(`${apiUrlFacturacion}?razonSocial=${razonSocial}&rfc=${rfc}&direccionFiscal=${direccionFiscal}&correoElectronico=${correoElectronico}&id=${id}`).pipe(map (
+      results => {
+        this.result = results;
+        if(razonSocial == "" && rfc == "" && direccionFiscal == "" && correoElectronico == "" && id == "") {
+          this.toast = this.toastController.create({
+            message: '¡Debe completar todos los campos solicitados!',
+            duration: 2000
+          }).then((toastData) => {
+            toastData.present();
+          });
+        } else if(this.result == "Ya hay un registro de este RFC en otro usuario verifique la informacion"){
+          this.toast = this.toastController.create({
+            message: '¡Ya hay un registro de este RFC en otro usuario verifique la información!',
+            duration: 2000
+          }).then((toastData) => {
+            toastData.present();
+          });
+        } else {
+          this.storage.set('facturacion', this.result);
+          this.modalCtrl.dismiss();
+          this.toast = this.toastController.create({
+            message: 'Se ha registrado exitosamente la información',
+            duration: 2000
+          }).then((toastData) => {
+            toastData.present();
+          });
+        }
+      } 
     ));
   }
 }

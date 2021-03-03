@@ -45,6 +45,12 @@ export class DashboardPage implements OnInit {
           open: false,
         },
         {
+          title: 'Mensajes',
+          url: '/dashboard/mensajes',
+          icon: 'chatbubble-ellipses-outline',
+          open: false,
+        },
+        {
           title: 'Términos y Condiciones',
           url: '/dashboard/terminos',
           icon: 'document-text-outline',

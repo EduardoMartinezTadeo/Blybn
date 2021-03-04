@@ -35,28 +35,28 @@
   <app-according title="Facturación">
     <ion-list>
       <ion-item class="listFactura">
-        <ion-label>
+        <ion-label position="floating">
           Razón Social
         </ion-label>
-        <ion-input type="text" disabled></ion-input>
+        <ion-input type="text" [(ngModel)]="bly_razonSocial" disabled></ion-input>
       </ion-item>
       <ion-item class="listFactura">
-        <ion-label>
+        <ion-label position="floating">
           RFC
         </ion-label>
-        <ion-input type="text" disabled></ion-input>
+        <ion-input type="text" [(ngModel)]="bly_rfc" disabled></ion-input>
       </ion-item>
       <ion-item class="listFactura">
-        <ion-label>
+        <ion-label position="floating">
           Dirección fiscal
         </ion-label>
-        <ion-input type="text" disabled></ion-input>
+        <ion-input type="text" [(ngModel)]="bly_direccionFiscal" disabled></ion-input>
       </ion-item>
       <ion-item class="listFactura">
-        <ion-label>
+        <ion-label position="floating">
           Correo electrónico
         </ion-label>
-        <ion-input type="text" disabled></ion-input>
+        <ion-input type="text" [(ngModel)]="bly_correoElectronico" disabled></ion-input>
       </ion-item>
     </ion-list>
   </app-according>

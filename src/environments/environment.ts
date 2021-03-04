@@ -9,7 +9,8 @@ export const environment = {
   apiRecuperarURL: 'http://192.168.0.105/server_blybn/api/db_actualizarContrasena.php/',
   apiConsultarPerfilURL: 'http://192.168.0.105/server_blybn/api/db_consultarPerfil.php/',
   apiCargarPerfilURL: 'http://192.168.0.105/server_blybn/api/db_cargarPerfil.php/',
-  apiRegistroFacturacionURL: 'http://192.168.0.105/server_blybn/api/db_registrarFacturacion.php/'
+  apiRegistroFacturacionURL: 'http://192.168.0.105/server_blybn/api/db_registrarFacturacion.php/',
+  apiCargarDatosFacturacionURL: 'http://192.168.0.105/server_blybn/api/db_cargarFacturacion.php/'
 };
 
 /*

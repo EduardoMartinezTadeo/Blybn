@@ -48,6 +48,7 @@ export class DataService {
             toastData.present();
           });
         } else {
+          this.storage.set('perfil', this.responseData);
           this.storage.set('storage_blybn', this.rol);
           this.navCtrl.navigateRoot(['/dashboard2/menutabs/inicio-menu']);
           this.toast = this.toastController.create({
@@ -130,13 +131,13 @@ export class DataService {
           });
         } else {
           this.storage.set('facturacion', this.result);
-          this.modalCtrl.dismiss();
           this.toast = this.toastController.create({
             message: 'Se ha registrado exitosamente la información',
             duration: 2000
           }).then((toastData) => {
             toastData.present();
           });
+          this.modalCtrl.dismiss();
         }
       } 
     ));

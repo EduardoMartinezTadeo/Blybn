@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-
-
+import { OperacionesService } from '../../services/operaciones.service';
 @Component({
   selector: 'app-dashboard2',
   templateUrl: './dashboard2.page.html',
@@ -18,7 +17,8 @@ export class Dashboard2Page implements OnInit {
     private router: Router,
     private storage: Storage,
     private navCtrl: NavController,
-    private toast: ToastController) { 
+    private toast: ToastController,
+    private service: OperacionesService) { 
   }
 
   pages = [
@@ -101,8 +101,9 @@ export class Dashboard2Page implements OnInit {
         }, {
           text: 'Aceptar',
           handler: () => {
-            this.storage.remove('perfil_data');
+            this.storage.remove('perfil');
             this.storage.remove('storage_blybn');
+            this.storage.remove('facturacion');
             this.navCtrl.navigateRoot(['/login']);
             this.toast2 = this.toast.create({
               message: 'Se ha cerrado la sesión exitosamente',
@@ -122,15 +123,21 @@ export class Dashboard2Page implements OnInit {
   perfil(){
     this.router.navigateByUrl('/perfil2');
   }
-
+  responseData: any;
+  id_usuario: string;
   usuario: string;
   correo: string;
   perfildata: any;
   ionViewDidEnter(){
-    this.storage.get('perfil_data').then((res) => {
+    this.storage.get('perfil').then((res) => {
       this.perfildata = res;
       this.usuario = this.perfildata.bly_nombre,
-      this.correo = this.perfildata.bly_correoElectronico
+      this.correo = this.perfildata.bly_correoElectronico,
+      this.id_usuario = this.perfildata.bly_usuario,
+      console.log(this.id_usuario);
+      this.service.consultarDatosFacturacion(this.id_usuario).subscribe(data => {
+        this.responseData = data;
+      });
     });
   }
 

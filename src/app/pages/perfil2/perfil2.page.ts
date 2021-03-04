@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { DetallePerfil2Page } from '../detalle-perfil2/detalle-perfil2.page';
 import { Storage } from '@ionic/storage';
+import { OperacionesService } from '../../services/operaciones.service';
+import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 @Component({
   selector: 'app-perfil2',
   templateUrl: './perfil2.page.html',
@@ -10,7 +12,11 @@ import { Storage } from '@ionic/storage';
 })
 export class Perfil2Page implements OnInit {
 
-  constructor(private router: Router,  private modalCtrl: ModalController, private storage: Storage) { }
+  constructor(
+     private router: Router,
+     private modalCtrl: ModalController,
+     private storage: Storage, 
+     private service: OperacionesService ) { }
 
   ngOnInit() {
   }
@@ -32,13 +38,30 @@ export class Perfil2Page implements OnInit {
   tipoRol: number;
   id: string;
   perfilData: any;
+  facturacionData: any;
+  responseData: any;
+  bly_correoElectronico: string;
+  bly_direccionFiscal: string;
+  bly_razonSocial: string;
+  bly_rfc: string;
   ionViewDidEnter(){
-    this.storage.get('perfil_data').then((res) => {
+    this.storage.get('perfil').then((res) => {
       this.perfilData = res;
       this.usuario = this.perfilData.bly_nombre,
       this.correo = this.perfilData.bly_correoElectronico,
       this.id = this.perfilData.bly_usuario,
-      this.tipoRol = this.perfilData.bly_rol
+      this.tipoRol = this.perfilData.bly_rol,
+      console.log(this.id);
+      this.service.consultarDatosFacturacion(this.id).subscribe(data => {
+        this.responseData = data;
+      });
+    });
+    this.storage.get('facturacion').then((factura) =>{
+      this.facturacionData = factura;
+      this.bly_correoElectronico = this.facturacionData.bly_correoElectronico,
+      this.bly_direccionFiscal = this.facturacionData.bly_direccionFiscal,
+      this.bly_razonSocial = this.facturacionData.bly_razonSocial,
+      this.bly_rfc = this.facturacionData.bly_rfc
     });
   }
 }

@@ -38,7 +38,6 @@ export class Modal6Page implements OnInit {
     this.acRoute.params.subscribe((data: any) => {
       this.bly_correoElectronico = data.bly_correoElectronico;
       this.bly_contrasena = data.bly_contrasena;
-      console.log(data);
     });
   }
 

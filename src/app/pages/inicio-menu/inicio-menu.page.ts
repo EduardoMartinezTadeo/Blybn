@@ -24,14 +24,6 @@ export class InicioMenuPage implements OnInit {
   ngOnInit() {
   }
 
-  datastorage: any;
-  datos: string;
-  roleValue: any;
-  ionViewDidEnter(){
-    this.storage.get('storage_blybn').then((res) => {
-      console.log(res);
-    });
-  }
 
   onAviso() {
     this.presentAlertPrompt();

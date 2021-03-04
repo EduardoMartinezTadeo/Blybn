@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, AlertController, LoadingController } from '@ionic/angular';
+import { ModalController, AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { Modal4Page } from '../../Modals/modal4/modal4.page';
 import { Modal5Page } from '../../Modals/modal5/modal5.page';
 import { Storage } from '@ionic/storage';
 import { DataService } from '../../services/data.service';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-detalle-perfil2',
   templateUrl: './detalle-perfil2.page.html',
@@ -17,13 +16,14 @@ export class DetallePerfil2Page implements OnInit {
     private storage: Storage,
     private dataService: DataService,
     private alertController: AlertController,
-    private router: Router,
-    private loading: LoadingController) { }
+    private loading: LoadingController,
+    private toastCtrl: ToastController) { }
 
   showPassword = false;
   passwordToggleIcon = 'eye';
 
   ngOnInit() {
+    
   }
 
   salir() {
@@ -79,14 +79,22 @@ export class DetallePerfil2Page implements OnInit {
   contrasena: string;
   id: string
   perfilData: any;
-  ionViewDidEnter(){
-    this.storage.get('perfil_data').then((res)=>{
+  facturacionData: any;
+  ionViewWillEnter(){
+    this.storage.get('perfil').then((res)=>{
       this.perfilData = res;
       this.usuario = this.perfilData.bly_nombre,
       this.correo = this.perfilData.bly_correoElectronico,
       this.numeroTelefono = this.perfilData.bly_numTelefono,
       this.contrasena = this.perfilData.bly_contrasena
       this.id = this.perfilData.bly_usuario
+    });
+    this.storage.get('facturacion').then((factura) =>{
+      this.facturacionData = factura;
+      this.facturacion.correoElectronico = this.facturacionData.bly_correoElectronico,
+      this.facturacion.direccionFiscal = this.facturacionData.bly_direccionFiscal,
+      this.facturacion.razonSocial = this.facturacionData.bly_razonSocial,
+      this.facturacion.rfc = this.facturacionData.bly_rfc
     });   
   }
 
@@ -98,12 +106,41 @@ export class DetallePerfil2Page implements OnInit {
   }
   responseData: any;
   registrarFacturacion(){
-    console.log(this.id);
     this.dataService.registrarFacturacion(this.facturacion.razonSocial, this.facturacion.rfc, this.facturacion.direccionFiscal, this.facturacion.correoElectronico, this.id).subscribe(data => {
       this.responseData = data;
     }, (error) => {
       this.presentLoadingServer();
     });    
+  }
+
+  async registrarDataFacturacion(){
+    if(this.facturacion.razonSocial == ""){
+      const toast = await this.toastCtrl.create({
+        message: 'La razón social es requerida...',
+        duration: 2000
+        });
+        toast.present();
+    } else if (this.facturacion.rfc == ""){
+      const toast = await this.toastCtrl.create({
+        message: 'El RFC es requerido...',
+        duration: 2000
+        });
+        toast.present();
+    } else if (this.facturacion.direccionFiscal == ""){
+      const toast = await this.toastCtrl.create({
+        message: 'La dirección fiscal es requerida...',
+        duration: 2000
+        });
+        toast.present();
+    } else if (this.facturacion.correoElectronico == ""){
+      const toast = await this.toastCtrl.create({
+        message: 'El correo electrónico es requerido...',
+        duration: 2000
+        });
+        toast.present();
+    } else {
+      this.presentFacturacion();
+    } 
   }
 
   async presentAlertServer() {
@@ -136,6 +173,18 @@ export class DetallePerfil2Page implements OnInit {
     await loading.present();
     setTimeout(() => {
       this.presentAlertServer();
+    }, 2000);
+  }
+
+  async presentFacturacion() {
+    const loading = await this.loading.create({
+      cssClass: 'my-custom-class',
+      spinner: 'bubbles',
+      duration: 1500
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.registrarFacturacion();
     }, 2000);
   }
 }

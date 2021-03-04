@@ -60,28 +60,30 @@
         <ion-label position="floating">
           Razón Social
         </ion-label>
-        <ion-input type="text" [(ngModel)]="facturacion.razonSocial" required></ion-input>
+        <ion-input type="text" [(ngModel)]="facturacion.razonSocial" style="text-transform: capitalize;" required></ion-input>
       </ion-item>
       <ion-item class="listFactura">
         <ion-label position="floating">
           RFC
         </ion-label>
-        <ion-input type="text" [(ngModel)]="facturacion.rfc" required></ion-input>
+        <ion-input type="text" [(ngModel)]="facturacion.rfc" style="text-transform:uppercase;" required></ion-input>
       </ion-item>
       <ion-item class="listFactura">
         <ion-label position="floating">
           Dirección fiscal
         </ion-label>
-        <ion-input type="text" [(ngModel)]="facturacion.direccionFiscal" required></ion-input>
+        <ion-input type="text" [(ngModel)]="facturacion.direccionFiscal" style="text-transform: capitalize;" required></ion-input>
       </ion-item>
       <ion-item class="listFactura">
         <ion-label position="floating">
           Correo electrónico
         </ion-label>
-        <ion-input type="text" [(ngModel)]="facturacion.correoElectronico" required></ion-input>
+        <ion-input type="email" name="email"
+                  [(ngModel)]="facturacion.correoElectronico" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                  required></ion-input>
       </ion-item>
       <br>
-      <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;" (click)="registrarFacturacion()"> 
+      <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;" (click)="registrarDataFacturacion()"> 
         Guardar
       </ion-button>
     </ion-list>

@@ -4,7 +4,6 @@ import { ModalController } from '@ionic/angular';
 import { DetallePerfil2Page } from '../detalle-perfil2/detalle-perfil2.page';
 import { Storage } from '@ionic/storage';
 import { OperacionesService } from '../../services/operaciones.service';
-import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 @Component({
   selector: 'app-perfil2',
   templateUrl: './perfil2.page.html',
@@ -18,7 +17,15 @@ export class Perfil2Page implements OnInit {
      private storage: Storage, 
      private service: OperacionesService ) { }
 
-  ngOnInit() {
+     contentLoaded = false;
+     contentLoadedF = false;
+  ngOnInit() {   
+  }
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.contentLoaded = true; 
+      this.contentLoadedF = true;          
+    }, 4000);    
   }
 
   salir(){
@@ -44,6 +51,7 @@ export class Perfil2Page implements OnInit {
   bly_direccionFiscal: string;
   bly_razonSocial: string;
   bly_rfc: string;
+  bly_statusBtn: string;
   ionViewDidEnter(){
     this.storage.get('perfil').then((res) => {
       this.perfilData = res;
@@ -51,7 +59,6 @@ export class Perfil2Page implements OnInit {
       this.correo = this.perfilData.bly_correoElectronico,
       this.id = this.perfilData.bly_usuario,
       this.tipoRol = this.perfilData.bly_rol,
-      console.log(this.id);
       this.service.consultarDatosFacturacion(this.id).subscribe(data => {
         this.responseData = data;
       });

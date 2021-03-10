@@ -3,6 +3,7 @@ import { AlertController, NavController, ToastController } from '@ionic/angular'
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { OperacionesService } from '../../services/operaciones.service';
+import { PerfilService } from 'src/app/services/perfil.service';
 @Component({
   selector: 'app-dashboard2',
   templateUrl: './dashboard2.page.html',
@@ -18,7 +19,8 @@ export class Dashboard2Page implements OnInit {
     private storage: Storage,
     private navCtrl: NavController,
     private toast: ToastController,
-    private service: OperacionesService) { 
+    private service: OperacionesService,
+    private perfilService: PerfilService) { 
   }
 
   pages = [
@@ -81,8 +83,30 @@ export class Dashboard2Page implements OnInit {
       open: false,
     },
   ];
-
+  body: any;
   ngOnInit() {
+    this.storage.get('perfil').then((res) => {
+      this.perfildata = res;
+      this.id_usuario = this.perfildata.bly_usuario,  
+      this.body = {
+        bly_usuario: this.id_usuario
+      }
+      this.perfilService.postDataIS(this.body, 'db_registroSesionIniciada.php').subscribe(async data =>{
+        var alert = data.msg;
+        if(data.success){
+          const toast = await this.toast.create({
+            message: 'Bienvenido',
+            duration: 1000
+          });
+          toast.present();
+        } else {
+          const toast = await this.toast.create({
+            message: alert,
+            duration: 1000
+          });
+        }
+      });
+    });
   }
 
   async presentAlertConfirm() {
@@ -101,6 +125,24 @@ export class Dashboard2Page implements OnInit {
         }, {
           text: 'Aceptar',
           handler: () => {
+            let body = {
+              bly_usuario: this.id_usuario
+            }
+            this.perfilService.postDataCS(body, 'db_registroSesionFinalizada.php').subscribe(async data=> {
+              var alert = data.msg;
+              if(data.success){
+                const toast = await this.toast.create({
+                  message: 'Vuelve pronto',
+                  duration: 1000
+                });
+                toast.present();
+              } else {
+                const toast = await this.toast.create({
+                  message: alert,
+                  duration: 1000
+                });
+              }
+            });
             this.storage.remove('perfil');
             this.storage.remove('storage_blybn');
             this.storage.remove('facturacion');
@@ -134,7 +176,6 @@ export class Dashboard2Page implements OnInit {
       this.usuario = this.perfildata.bly_nombre,
       this.correo = this.perfildata.bly_correoElectronico,
       this.id_usuario = this.perfildata.bly_usuario,
-      console.log(this.id_usuario);
       this.service.consultarDatosFacturacion(this.id_usuario).subscribe(data => {
         this.responseData = data;
       });

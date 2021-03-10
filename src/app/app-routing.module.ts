@@ -88,6 +88,14 @@ const routes: Routes = [
     path: 'modal6',
     loadChildren: () => import('./Modals/modal6/modal6.module').then( m => m.Modal6PageModule)
   },
+  {
+    path: 'modal7',
+    loadChildren: () => import('./Modals/modal7/modal7.module').then( m => m.Modal7PageModule)
+  },
+  {
+    path: 'modal8',
+    loadChildren: () => import('./Modals/modal8/modal8.module').then( m => m.Modal8PageModule)
+  },
 ];
 
 @NgModule({

@@ -58,19 +58,21 @@ export class RegisterPage implements OnInit {
     var n1 = (this.fechaCorta);
     var n2 = (this.year);  
     this.edad = (n1 - n2);
-    if( this.edad > 18) {
-      console.log(this.edad);
+    if( this.edad > 80) {
+      this.presentToast("Ingrese una edad valida...");
+    } else if( this.edad < 18){
+      this.presentToast("Se requiere ser mayor de edad...");
+    } else {
       if(this.registro.contrasena != this.registro.contrasenaconfirm){
         this.presentToast("Las contraseñas no coinciden...");
       } else {
         this.servicio.registrarUsuario(this.registro.nombreUsuario, this.registro.correoElectronico, this.registro.numTelefono, this.registro.dia, this.registro.mes, this.year, this.registro.sexo, this.registro.contrasena, this.registro.termino).subscribe(data => {
           this.responseData = data;
+          console.log(this.responseData);
         }, (error) => {
           this.presentLoadingServer();
         });
       }
-    } else {
-      this.presentToast("Se requiere ser mayor de edad...");
     }  
   }
 

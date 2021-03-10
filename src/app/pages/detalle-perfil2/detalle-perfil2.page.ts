@@ -4,6 +4,11 @@ import { Modal4Page } from '../../Modals/modal4/modal4.page';
 import { Modal5Page } from '../../Modals/modal5/modal5.page';
 import { Storage } from '@ionic/storage';
 import { DataService } from '../../services/data.service';
+import { Modal7Page } from '../../Modals/modal7/modal7.page';
+import { ProviderService } from '../../services/provider.service';
+import { OperacionesService } from '../../services/operaciones.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-detalle-perfil2',
   templateUrl: './detalle-perfil2.page.html',
@@ -17,20 +22,66 @@ export class DetallePerfil2Page implements OnInit {
     private dataService: DataService,
     private alertController: AlertController,
     private loading: LoadingController,
-    private toastCtrl: ToastController) { }
+    private toastCtrl: ToastController,
+    private providerService: ProviderService,
+    private service: OperacionesService,
+    private router: Router) {}
 
   showPassword = false;
   passwordToggleIcon = 'eye';
 
-  ngOnInit() {
-    
+  ngOnInit() {   
   }
+  
+  public ocultar1: boolean = false;
+  public ocultar2: boolean = false;
 
   salir() {
     this.modalCtrl.dismiss();
   }
 
-  togglePassword(){
+  async presentLoadingCambio() {
+    const loading = await this.loading.create({
+      spinner: 'bubbles',
+      message: 'Espere un momento...',
+      duration: 1500
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.togglePassword();
+    }, 2000);
+  }
+
+  async presentCambiarContrasena() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Actualizar Contraseña',
+      message: '¿Está seguro que desea actualizar su contraseña?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.presentLoadingCambio();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async togglePassword(){
+    const modal = await this.modalCtrl.create({
+      component: Modal7Page
+    });
+    return await modal.present();
   }
 
   async openModal4() {
@@ -47,7 +98,6 @@ export class DetallePerfil2Page implements OnInit {
 
     presentModel.onWillDismiss().then((data)=>{
       console.log(data);
-      //custom code
     });
     
     return await presentModel.present();
@@ -80,6 +130,7 @@ export class DetallePerfil2Page implements OnInit {
   id: string
   perfilData: any;
   facturacionData: any;
+  statusBtn: string;
   ionViewWillEnter(){
     this.storage.get('perfil').then((res)=>{
       this.perfilData = res;
@@ -94,8 +145,16 @@ export class DetallePerfil2Page implements OnInit {
       this.facturacion.correoElectronico = this.facturacionData.bly_correoElectronico,
       this.facturacion.direccionFiscal = this.facturacionData.bly_direccionFiscal,
       this.facturacion.razonSocial = this.facturacionData.bly_razonSocial,
-      this.facturacion.rfc = this.facturacionData.bly_rfc
-    });   
+      this.facturacion.rfc = this.facturacionData.bly_rfc,
+      this.statusBtn = this.facturacionData.bly_statusBtn
+      if(this.statusBtn == 'true'){
+        this.ocultar1 = true;
+        this.ocultar2 = false;
+      } else {
+        this.ocultar1 = false;
+        this.ocultar2 = true;
+      }
+    });
   }
 
   facturacion = {
@@ -185,6 +244,106 @@ export class DetallePerfil2Page implements OnInit {
     await loading.present();
     setTimeout(() => {
       this.registrarFacturacion();
+     
     }, 2000);
+  }
+
+  async presentActualizarFacturacion() {
+    const loading = await this.loading.create({
+      cssClass: 'my-custom-class',
+      spinner: 'bubbles',
+      duration: 1500
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.actualizarFacturacion();
+     
+    }, 2000);
+  }
+
+  async actualizarDataFacturacion(){
+    if(this.facturacion.razonSocial == ""){
+      const toast = await this.toastCtrl.create({
+        message: 'La razón social es requerida...',
+        duration: 2000
+        });
+        toast.present();
+    } else if (this.facturacion.rfc == ""){
+      const toast = await this.toastCtrl.create({
+        message: 'El RFC es requerido...',
+        duration: 2000
+        });
+        toast.present();
+    } else if (this.facturacion.direccionFiscal == ""){
+      const toast = await this.toastCtrl.create({
+        message: 'La dirección fiscal es requerida...',
+        duration: 2000
+        });
+        toast.present();
+    } else if (this.facturacion.correoElectronico == ""){
+      const toast = await this.toastCtrl.create({
+        message: 'El correo electrónico es requerido...',
+        duration: 2000
+        });
+        toast.present();
+    } else {
+      this.presentActualizarFacturacion();
+    } 
+  }
+
+  actualizarFacturacion(){
+    let body = {
+      aksi: 'actualizar',
+      bly_razonSocial: this.facturacion.razonSocial,
+      bly_rfc: this.facturacion.rfc,
+      bly_direccionFiscal: this.facturacion.direccionFiscal,
+      bly_correoElectronico: this.facturacion.correoElectronico,
+      bly_usuario: this.id
+    }
+    this.providerService.postDataAF(body, 'db_actualizarFacturacion.php').subscribe(async data=> {
+      var alertpesan = data.msg;
+      if (data.success) {
+        const toast = await this.toastCtrl.create({
+          message: '¡Su información ha sido actualizada correctamente!',
+          duration: 2000
+        });
+        toast.present();
+        this.service.consultarDatosFacturacion(this.id).subscribe(data => {
+          this.responseData = data;
+        });
+        this.modalCtrl.dismiss();
+        this.router.navigateByUrl('/dashboard2/menutabs/inicio-menu');
+      } else {
+        const toast = await this.toastCtrl.create({
+          message: alertpesan,
+          duration: 2000
+        });
+      }
+    });
+  }
+
+  async presentAlertFacturacion() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Actualizar Información',
+      message: '¿Está seguro que desea actualizar sus datos de facturación?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.actualizarDataFacturacion();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

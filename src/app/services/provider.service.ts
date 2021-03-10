@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 const apiRecuperarURL = environment.apiRecuperarURL;
+const apiActualizarFacturacion = environment.apiActualizarFacturacionURL;
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,13 @@ export class ProviderService {
     })
   
     return this.http.post<any>(apiRecuperarURL + file, body, {headers})
+  }
+
+  postDataAF(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+  
+    return this.http.post<any>(apiActualizarFacturacion + file, body, {headers})
   }
 }

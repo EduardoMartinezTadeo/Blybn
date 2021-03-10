@@ -9,12 +9,10 @@ import {
 } from '@ionic/angular';
 import { Modal6Page } from '../Modals/modal6/modal6.page';
 import { Storage } from '@ionic/storage';
-import { Router } from '@angular/router';
 import { DetallePerfil2Page } from '../pages/detalle-perfil2/detalle-perfil2.page';
 
 const apiConsultarPerfilUrl = environment.apiConsultarPerfilURL;
 const apiConsultarDatosFacturacion = environment.apiCargarDatosFacturacionURL;
-
 export interface User {
   contrasena: string;
 }
@@ -32,9 +30,7 @@ export class OperacionesService {
     private toastController: ToastController,
     private modalCtrl: ModalController,
     private storage: Storage,
-    private alertCtrl: AlertController,
-    private router: Router
-  ) {}
+    private alertCtrl: AlertController) {}
 
   consultarPerfil(correoElectronico: string) {
     return this.http
@@ -82,6 +78,7 @@ export class OperacionesService {
     bly_direccionFiscal: 'La dirección fiscal es requerida...',
     bly_razonSocial: 'La razón social es requerida...',
     bly_rfc: 'El RFC es requerido...',
+    bly_statusBtn: 'true'
   }
   consultarDatosFacturacion(id_usuario: string) {
     return this.http

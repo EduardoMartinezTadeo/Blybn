@@ -7,12 +7,15 @@
 </base-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
-        <domain includeSubdomains="true">http://192.168.0.105/server_blybn/api/db_registroUsuario.php/</domain>
-        <domain includeSubdomains="true">http://192.168.0.105/server_blybn/api/db_iniciarSesion.php/</domain>
-        <domain includeSubdomains="true">http://192.168.0.150/server_blybn/api/db_actualizarContrasena.php/</domain>
-        <domain includeSubdomains="true">http://192.168.0.150/server_blybn/api/db_consultarPerfil.php/</domain>
-        <domain includeSubdomains="true">http://192.168.0.105/server_blybn/api/db_cargarPerfil.php/</domain>
-        <domain includeSubdomains="true">http://192.168.0.105/server_blybn/api/db_registrarFacturacion.php/</domain>
-        <domain includeSubdomains="true">http://192.168.0.105/server_blybn/api/db_cargarFacturacion.php/</domain>
+        <domain includeSubdomains="true">http://192.168.0.101/server_blybn/api/db_registroUsuario.php/</domain>
+        <domain includeSubdomains="true">http://192.168.0.101/server_blybn/api/db_iniciarSesion.php/</domain>
+        <domain includeSubdomains="true">http://192.168.0.101/server_blybn/api/db_actualizarContrasena.php/</domain>
+        <domain includeSubdomains="true">http://192.168.0.101/server_blybn/api/db_consultarPerfil.php/</domain>
+        <domain includeSubdomains="true">http://192.168.0.101/server_blybn/api/db_cargarPerfil.php/</domain>
+        <domain includeSubdomains="true">http://192.168.0.101/server_blybn/api/db_registrarFacturacion.php/</domain>
+        <domain includeSubdomains="true">http://192.168.0.101/server_blybn/api/db_cargarFacturacion.php/</domain>
+        <domain includeSubdomains="true">http://192.168.0.101/server_blybn/api/db_registroSesionIniciada.php/</domain>
+        <domain includeSubdomains="true">http://192.168.0.101/server_blybn/api/db_registroSesionFinalizada.php/</domain>
+        <domain includeSubdomains="true">http://192.168.0.101/server_blybn/api/db_actualizarFacturacion.php/</domain>
     </domain-config>
 </network-security-config>

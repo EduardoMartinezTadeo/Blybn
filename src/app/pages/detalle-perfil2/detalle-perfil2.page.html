@@ -43,11 +43,11 @@
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input [type]="showPassword ? 'text': 'password'" [(ngModel)]="contrasena">
           </ion-input>
-          <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()" color="primary"
+          <ion-icon slot="end" [name]="passwordToggleIcon" (click)="presentCambiarContrasena()" color="primary"
             position="floating"></ion-icon>
         </ion-item>
         <br>
-        <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;">
+        <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;" (click)="presentCambiarContrasena()">
           Actualizar
         </ion-button>
       </ion-list>
@@ -83,8 +83,11 @@
                   required></ion-input>
       </ion-item>
       <br>
-      <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;" (click)="registrarDataFacturacion()"> 
+      <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;" (click)="registrarDataFacturacion()" *ngIf="ocultar1"> 
         Guardar
+      </ion-button>
+      <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;" (click)="presentAlertFacturacion()" *ngIf="ocultar2"> 
+        Actualizar
       </ion-button>
     </ion-list>
   </app-according01>

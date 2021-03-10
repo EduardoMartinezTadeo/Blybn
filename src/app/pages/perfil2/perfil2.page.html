@@ -12,53 +12,112 @@
   <ion-row>
     <h1>Perfil</h1>
   </ion-row>
-  <ion-list>
-    <ion-item class="perfiles">
-      <ion-avatar>
-        <img src="/assets/imgs/avatar.svg" />
-      </ion-avatar>
-      <ion-label>
-        <h2>{{usuario}}</h2>
-        <h3>{{rol}}</h3>
-        <p></p>
-        <p>{{correo}}</p>
-      </ion-label>
-      <div slot="end">
-        <ion-button color="primary" expand="block" class="perfilbuton" (click)="mostrarModal()">
-          <ion-icon name="create-outline" slot="start"></ion-icon>
-          Editar
-        </ion-button>
-      </div>
-    </ion-item>
-  </ion-list>
-  <br>
-  <app-according title="Facturación">
+  <div *ngIf="contentLoaded">
     <ion-list>
-      <ion-item class="listFactura">
-        <ion-label position="floating">
-          Razón Social
+      <ion-item class="perfiles">
+        <ion-avatar>
+          <img src="/assets/imgs/avatar.svg" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{usuario}}</h2>
+          <h3>{{rol}}</h3>
+          <p></p>
+          <p>{{correo}}</p>
         </ion-label>
-        <ion-input type="text" [(ngModel)]="bly_razonSocial" disabled></ion-input>
-      </ion-item>
-      <ion-item class="listFactura">
-        <ion-label position="floating">
-          RFC
-        </ion-label>
-        <ion-input type="text" [(ngModel)]="bly_rfc" disabled></ion-input>
-      </ion-item>
-      <ion-item class="listFactura">
-        <ion-label position="floating">
-          Dirección fiscal
-        </ion-label>
-        <ion-input type="text" [(ngModel)]="bly_direccionFiscal" disabled></ion-input>
-      </ion-item>
-      <ion-item class="listFactura">
-        <ion-label position="floating">
-          Correo electrónico
-        </ion-label>
-        <ion-input type="text" [(ngModel)]="bly_correoElectronico" disabled></ion-input>
+        <div slot="end">
+          <ion-button color="primary" expand="block" class="perfilbuton" (click)="mostrarModal()">
+            <ion-icon name="create-outline" slot="start"></ion-icon>
+            Editar
+          </ion-button>
+        </div>
       </ion-item>
     </ion-list>
+  </div>
+  <div *ngIf="!contentLoaded">
+    <ion-list>
+      <ion-item class="perfiles">
+        <ion-avatar>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          <p></p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </ion-label>
+        <div slot="end">
+          <ion-button expand="full">
+            <ion-skeleton-text animated style="width: 40%;"></ion-skeleton-text>
+          </ion-button>          
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+  <app-according title="Facturación">
+    <div *ngIf="!contentLoadedF">
+      <ion-list>
+        <ion-item class="listFactura">
+          <ion-label position="floating">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-label>
+          <ion-input type="text"  disabled>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </ion-input>
+        </ion-item>
+        <ion-item class="listFactura">
+          <ion-label position="floating">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-label>
+          <ion-input type="text"  disabled>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </ion-input>
+        </ion-item>
+        <ion-item class="listFactura">
+          <ion-label position="floating">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-label>
+          <ion-input type="text"  disabled>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </ion-input>
+        </ion-item>
+        <ion-item class="listFactura">
+          <ion-label position="floating">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-label>
+          <ion-input type="text"  disabled>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div *ngIf="contentLoadedF">
+      <ion-list>
+        <ion-item class="listFactura">
+          <ion-label position="floating">
+            Razón Social
+          </ion-label>
+          <ion-input type="text" [(ngModel)]="bly_razonSocial" disabled></ion-input>
+        </ion-item>
+        <ion-item class="listFactura">
+          <ion-label position="floating">
+            RFC
+          </ion-label>
+          <ion-input type="text" [(ngModel)]="bly_rfc" disabled></ion-input>
+        </ion-item>
+        <ion-item class="listFactura">
+          <ion-label position="floating">
+            Dirección fiscal
+          </ion-label>
+          <ion-input type="text" [(ngModel)]="bly_direccionFiscal" disabled></ion-input>
+        </ion-item>
+        <ion-item class="listFactura">
+          <ion-label position="floating">
+            Correo electrónico
+          </ion-label>
+          <ion-input type="text" [(ngModel)]="bly_correoElectronico" disabled></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
   </app-according>
   <app-according title="Métodos de pago">
     <ion-list>

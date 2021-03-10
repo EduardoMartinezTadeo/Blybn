@@ -13,7 +13,8 @@ export const environment = {
   apiCargarDatosFacturacionURL: 'http://192.168.0.101/server_blybn/api/db_cargarFacturacion.php/',
   apiRegistroSesionIniciadaURL: 'http://192.168.0.101/server_blybn/api/db_registroSesionIniciada.php/',
   apiRegistroCierreSesionURL: 'http://192.168.0.101/server_blybn/api/db_registroSesionFinalizada.php/',
-  apiActualizarFacturacionURL: 'http://192.168.0.101/server_blybn/api/db_actualizarFacturacion.php/'
+  apiActualizarFacturacionURL: 'http://192.168.0.101/server_blybn/api/db_actualizarFacturacion.php/',
+  apiConsultarTerminosCondicionesURL: 'http://192.168.0.101/server_blybn/api/db_consultarTerminos.php/'
 };
 
 /*

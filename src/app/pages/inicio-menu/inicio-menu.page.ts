@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 import { TerminosCondicionesPage } from '../terminos-condiciones/terminos-condiciones.page';
-import { Storage } from '@ionic/storage';
 import { NativePageTransitions, NativeTransitionOptions} from '@ionic-native/native-page-transitions/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
@@ -17,7 +16,6 @@ export class InicioMenuPage implements OnInit {
     private actionSheetController: ActionSheetController, 
     private modalCtrl: ModalController, 
     private alertCtrl: AlertController,
-    private storage: Storage,
     private nativePageTransitions: NativePageTransitions,
     private iab: InAppBrowser) { }
 

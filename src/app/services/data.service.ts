@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment.prod';
 const apiUrlRegistro = environment.apiRegistroURL;
 const apiUrlLogin = environment.apiLoginURL;
 const apiUrlFacturacion = environment.apiRegistroFacturacionURL;
-
+const apiUrlTerminosCondiciones = environment.apiConsultarTerminosCondicionesURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -141,5 +141,10 @@ export class DataService {
         }
       } 
     ));
+  }
+
+ 
+  TerminosCondiciones(){
+    return this.http.get(apiUrlTerminosCondiciones);
   }
 }

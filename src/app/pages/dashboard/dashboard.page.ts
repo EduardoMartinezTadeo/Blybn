@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-
-
-
+import { PerfilService } from 'src/app/services/perfil.service';
+import { OperacionesService } from 'src/app/services/operaciones.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -19,13 +18,15 @@ export class DashboardPage implements OnInit {
     private router: Router,
     private storage: Storage,
     private navCtrl: NavController,
-    private toast: ToastController) { 
+    private toast: ToastController,
+    private perfilService: PerfilService,
+    private service: OperacionesService) { 
   }
   
   pages = [
     {
       title: 'Inicio',
-      url: '/dashboard/menutabs/inicio-menu',
+      url: '/dashboard/menutabs/inicio-menu2',
       icon: 'storefront-outline',
       open: false
     },
@@ -89,7 +90,30 @@ export class DashboardPage implements OnInit {
     },
   ];
 
+  body: any;
   ngOnInit() {
+    this.storage.get('perfil').then((res) => {
+      this.perfildata = res;
+      this.id_usuario = this.perfildata.bly_usuario,  
+      this.body = {
+        bly_usuario: this.id_usuario
+      }
+      this.perfilService.postDataIS(this.body, 'db_registroSesionIniciada.php').subscribe(async data =>{
+        var alert = data.msg;
+        if(data.success){
+          const toast = await this.toast.create({
+            message: 'Bienvenido',
+            duration: 1000
+          });
+          toast.present();
+        } else {
+          const toast = await this.toast.create({
+            message: alert,
+            duration: 1000
+          });
+        }
+      });
+    });
   }
 
   async presentAlertConfirm() {
@@ -108,7 +132,27 @@ export class DashboardPage implements OnInit {
         }, {
           text: 'Aceptar',
           handler: () => {
+            let body = {
+              bly_usuario: this.id_usuario
+            }
+            this.perfilService.postDataCS(body, 'db_registroSesionFinalizada.php').subscribe(async data=> {
+              var alert = data.msg;
+              if(data.success){
+                const toast = await this.toast.create({
+                  message: 'Vuelve pronto',
+                  duration: 1000
+                });
+                toast.present();
+              } else {
+                const toast = await this.toast.create({
+                  message: alert,
+                  duration: 1000
+                });
+              }
+            });
+            this.storage.remove('perfil');
             this.storage.remove('storage_blybn');
+            this.storage.remove('facturacion');
             this.navCtrl.navigateRoot(['/login']);
             this.toast2 = this.toast.create({
               message: 'Se ha cerrado la sesión exitosamente',
@@ -127,6 +171,23 @@ export class DashboardPage implements OnInit {
 
   perfil(){
     this.router.navigateByUrl('/perfil');
+  }
+
+  responseData: any;
+  id_usuario: string;
+  usuario: string;
+  correo: string;
+  perfildata: any;
+  ionViewDidEnter(){
+    this.storage.get('perfil').then((res) => {
+      this.perfildata = res;
+      this.usuario = this.perfildata.bly_nombre,
+      this.correo = this.perfildata.bly_correoElectronico,
+      this.id_usuario = this.perfildata.bly_usuario,
+      this.service.consultarDatosFacturacionAdmin(this.id_usuario).subscribe(data => {
+        this.responseData = data;
+      });
+    });
   }
 
 }

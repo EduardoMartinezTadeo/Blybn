@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Modal5Page } from '../../Modals/modal5/modal5.page';
 import { Modal4Page } from '../../Modals/modal4/modal4.page';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, ToastController, ActionSheetController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { OperacionesService } from '../../services/operaciones.service';
 import { DataService } from '../../services/data.service';
@@ -21,7 +21,8 @@ export class Ajustes2Page implements OnInit {
      private alertController: AlertController,
      private loading: LoadingController,
      private toastCtrl: ToastController,
-     private providerService: ProviderService) {}
+     private providerService: ProviderService,
+     private actionSheetController: ActionSheetController) {}
 
   contentLoaded = false;
   contentLoadedF = false;
@@ -41,7 +42,7 @@ export class Ajustes2Page implements OnInit {
 
 
   salir() {
-    this.router.navigateByUrl('/dashboard2/menutabs/inicio-menu');
+    this.router.navigateByUrl('/dashboard2/menutabs2/inicio-menu');
   }
 
   togglePassword(): void {
@@ -317,5 +318,36 @@ export class Ajustes2Page implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async presentActionCamera() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Opciones Cámara',
+      cssClass: 'match-item-action-sheet',
+      buttons: [{
+        text: 'Tomar Fotografía',
+        icon: 'camera',
+        cssClass: 'iconCamera',
+        handler: () => {
+          console.log('Share clicked');
+        }
+      }, {
+        text: 'Seleccionar Fotografía',
+        icon: 'images',
+        cssClass: 'iconGaleria',
+        handler: () => {
+          console.log('Play clicked');
+        }
+      }, {
+        text: 'Cancelar',
+        icon: 'close-circle-outline',
+        role: 'cancel',
+        cssClass: 'iconCerrar',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
   }
 }

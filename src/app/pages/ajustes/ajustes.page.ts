@@ -20,7 +20,7 @@ export class AjustesPage implements OnInit {
   }
 
   salir() {
-    this.router.navigateByUrl('/dashboard/menutabs/inicio-menu');
+    this.router.navigateByUrl('/dashboard/menutabs/inicio-menu2');
   }
 
   togglePassword():void {

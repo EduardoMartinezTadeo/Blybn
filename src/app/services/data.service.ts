@@ -50,7 +50,7 @@ export class DataService {
         } else {
           this.storage.set('perfil', this.responseData);
           this.storage.set('storage_blybn', this.rol);
-          this.navCtrl.navigateRoot(['/dashboard2/menutabs/inicio-menu']);
+          this.navCtrl.navigateRoot(['/dashboard2/menutabs2/inicio-menu']);
           this.toast = this.toastController.create({
             message: 'Se ha registrado exitosamente',
             duration: 2000
@@ -90,7 +90,7 @@ export class DataService {
             res.present();
             res.onDidDismiss().then((dis) => {
               this.storage.set('storage_blybn', this.result);
-              this.navCtrl.navigateRoot(['/dashboard2/menutabs/inicio-menu']);
+              this.navCtrl.navigateRoot(['/dashboard2/menutabs2/inicio-menu']);
             });
           });
         } else if (this.result == "Propietario Blybner") {
@@ -103,7 +103,7 @@ export class DataService {
             res.present();
             res.onDidDismiss().then((dis) => {
               this.storage.set('storage_blybn', this.result);
-              this.navCtrl.navigateRoot(['/dashboard/menutabs/inicio-menu']);
+              this.navCtrl.navigateRoot(['/dashboard/menutabs/inicio-menu2']);
             });
           });
         }

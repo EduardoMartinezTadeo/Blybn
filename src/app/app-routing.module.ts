@@ -96,6 +96,14 @@ const routes: Routes = [
     path: 'modal8',
     loadChildren: () => import('./Modals/modal8/modal8.module').then( m => m.Modal8PageModule)
   },
+  {
+    path: 'modal9',
+    loadChildren: () => import('./Modals/modal9/modal9.module').then( m => m.Modal9PageModule)
+  },
+  {
+    path: 'terminos-condiciones2',
+    loadChildren: () => import('./pages/terminos-condiciones2/terminos-condiciones2.module').then( m => m.TerminosCondiciones2PageModule)
+  },
 ];
 
 @NgModule({

@@ -244,7 +244,6 @@ export class DetallePerfil2Page implements OnInit {
     await loading.present();
     setTimeout(() => {
       this.registrarFacturacion();
-     
     }, 2000);
   }
 

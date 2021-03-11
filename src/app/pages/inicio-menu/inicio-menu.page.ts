@@ -1,16 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  ActionSheetController,
-  ModalController,
-  AlertController,
-  LoadingController,
-  ToastController,
-} from '@ionic/angular';
+import { ActionSheetController, ModalController, AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { TerminosCondicionesPage } from '../terminos-condiciones/terminos-condiciones.page';
-import {
-  NativePageTransitions,
-  NativeTransitionOptions,
-} from '@ionic-native/native-page-transitions/ngx';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../services/provider.service';
@@ -225,7 +216,7 @@ export class InicioMenuPage implements OnInit {
       buttons: [{
         text: 'Reintentar',
         handler: () => {
-          this.router.navigateByUrl('/dashboard2/menutabs/inicio-menu');
+          this.router.navigateByUrl('/dashboard2/menutabs2/inicio-menu');
         }
       }
       ]

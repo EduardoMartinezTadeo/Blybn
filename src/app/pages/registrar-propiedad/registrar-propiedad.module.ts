@@ -7,15 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { RegistrarPropiedadPageRoutingModule } from './registrar-propiedad-routing.module';
 
 import { RegistrarPropiedadPage } from './registrar-propiedad.page';
-import { ComponentsModule } from '../../components/components.module';
-
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     RegistrarPropiedadPageRoutingModule,
-    ComponentsModule
+    
   ],
   declarations: [RegistrarPropiedadPage]
 })

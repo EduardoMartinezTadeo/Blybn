@@ -6,7 +6,7 @@ import { DashboardPage } from './dashboard.page';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard/menutabs/inicio-menu',
+    redirectTo: '/dashboard/menutabs/inicio-menu2',
     pathMatch: 'full',
   },
   {
@@ -50,8 +50,8 @@ const routes: Routes = [
         loadChildren: () => import('../ajustes/ajustes.module').then( m => m.AjustesPageModule)
       },
       {
-        path: 'inicio-menu',
-        loadChildren: () => import('../inicio-menu/inicio-menu.module').then( m => m.InicioMenuPageModule)
+        path: 'inicio-menu2',
+        loadChildren: () => import('../inicio-menu2/inicio-menu2.module').then( m => m.InicioMenu2PageModule) 
       },
     ]
   }

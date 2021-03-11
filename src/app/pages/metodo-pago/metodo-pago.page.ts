@@ -18,7 +18,7 @@ export class MetodoPagoPage implements OnInit {
   }
 
   salir(){
-    this.router.navigateByUrl('/dashboard/menutabs/inicio-menu');
+    this.router.navigateByUrl('/dashboard/menutabs/inicio-menu2');
   }
 
   onClick() {

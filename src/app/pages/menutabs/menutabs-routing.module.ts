@@ -6,7 +6,7 @@ import { MenutabsPage } from './menutabs.page';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'menutabs/inicio-menu',
+    redirectTo: 'menutabs/inicio-menu2',
     pathMatch: 'full'
   },
   {
@@ -14,8 +14,8 @@ const routes: Routes = [
     component: MenutabsPage,
     children: [
       {
-        path: 'inicio-menu',
-        loadChildren: () => import('../inicio-menu/inicio-menu.module').then(m => m.InicioMenuPageModule)
+        path: 'inicio-menu2',
+        loadChildren: () => import('../inicio-menu2/inicio-menu2.module').then( m => m.InicioMenu2PageModule)
       },
       {
         path: 'promociones',

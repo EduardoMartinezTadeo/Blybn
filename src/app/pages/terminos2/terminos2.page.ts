@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -297,7 +296,7 @@ export class Terminos2Page implements OnInit {
   bly_parrafo140: string;
   bly_parrafo141: string;
   bly_parrafo142: string;
-  constructor(private router: Router, private storage: Storage) { }
+  constructor(private storage: Storage) { }
 
   ngOnInit() {
   }

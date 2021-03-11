@@ -30,9 +30,9 @@ export class SplashPage implements OnInit {
             if (res == null) {
               this.navCtrl.navigateRoot('/login');
             } else if (res == "Blybn") {
-              this.navCtrl.navigateRoot('/dashboard2/menutabs/inicio-menu');
+              this.navCtrl.navigateRoot('/dashboard2/menutabs2/inicio-menu');
             } else if (res == "Propietario Blybner") {
-              this.navCtrl.navigateRoot('/dashboard/menutabs/inicio-menu');
+              this.navCtrl.navigateRoot('/dashboard/menutabs/inicio-menu2');
             }
           });
         } else {

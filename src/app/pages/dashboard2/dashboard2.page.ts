@@ -26,7 +26,7 @@ export class Dashboard2Page implements OnInit {
   pages = [
     {
       title: 'Inicio',
-      url: '/dashboard2/menutabs/inicio-menu',
+      url: '/dashboard2/menutabs2/inicio-menu',
       icon: 'storefront-outline',
       open: false
     },
@@ -47,7 +47,7 @@ export class Dashboard2Page implements OnInit {
         },
         {
           title: 'Mensajes',
-          url: '/dashboard/mensajes',
+          url: '/dashboard2/mensajes',
           icon: 'chatbubble-ellipses-outline',
           open: false,
         },
@@ -165,6 +165,7 @@ export class Dashboard2Page implements OnInit {
   perfil(){
     this.router.navigateByUrl('/perfil2');
   }
+  
   responseData: any;
   id_usuario: string;
   usuario: string;

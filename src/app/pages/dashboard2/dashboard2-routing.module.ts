@@ -6,7 +6,7 @@ import { Dashboard2Page } from './dashboard2.page';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard2/menutabs/inicio-menu',
+    redirectTo: '/dashboard2/menutabs2/inicio-menu',
     pathMatch: 'full',
   },
   {
@@ -14,8 +14,8 @@ const routes: Routes = [
     component: Dashboard2Page,
     children: [
       {
-        path: 'menutabs',
-        loadChildren: () => import('../menutabs/menutabs.module').then(m => m.MenutabsPageModule)
+        path: 'menutabs2',
+        loadChildren: () => import('../menutabs2/menutabs2.module').then( m => m.Menutabs2PageModule)
       },
       {
         path: 'historial-renta2',
@@ -44,10 +44,10 @@ const routes: Routes = [
       {
         path: 'mensajes',
         loadChildren: () => import('../mensajes/mensajes.module').then( m => m.MensajesPageModule)
-      },
+      },   
       {
         path: 'inicio-menu',
-        loadChildren: () => import('../inicio-menu/inicio-menu.module').then(m => m.InicioMenuPageModule)
+        loadChildren: () => import('../inicio-menu/inicio-menu.module').then( m => m.InicioMenuPageModule)
       },
     ]
   }

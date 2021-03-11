@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { ModalController, AlertController, LoadingController, ToastController, ActionSheetController } from '@ionic/angular';
 import { Modal4Page } from '../../Modals/modal4/modal4.page';
 import { Modal5Page } from '../../Modals/modal5/modal5.page';
 import { Storage } from '@ionic/storage';
@@ -25,56 +25,61 @@ export class DetallePerfil2Page implements OnInit {
     private toastCtrl: ToastController,
     private providerService: ProviderService,
     private service: OperacionesService,
-    private router: Router) {}
+    private router: Router,
+    private actionSheetController: ActionSheetController) {}
 
   showPassword = false;
   passwordToggleIcon = 'eye';
-
-  ngOnInit() {   
-  }
-  
   public ocultar1: boolean = false;
   public ocultar2: boolean = false;
 
+  ngOnInit() {   
+  }
+
+  usuario: string;
+  correo: string;
+  numeroTelefono: string;
+  contrasena: string;
+  id: string
+  perfilData: any;
+  facturacionData: any;
+  statusBtn: string;
+  facturacion = {
+    razonSocial: '',
+    rfc: '',
+    direccionFiscal: '',
+    correoElectronico: ''
+  }
+  responseData: any;
+  ionViewWillEnter(){
+    this.storage.get('perfil').then((res)=>{
+      this.perfilData = res;
+      this.usuario = this.perfilData.bly_nombre,
+      this.correo = this.perfilData.bly_correoElectronico,
+      this.numeroTelefono = this.perfilData.bly_numTelefono,
+      this.contrasena = this.perfilData.bly_contrasena
+      this.id = this.perfilData.bly_usuario
+    });
+    this.storage.get('facturacion').then((factura) =>{
+      this.facturacionData = factura;
+      this.facturacion.correoElectronico = this.facturacionData.bly_correoElectronico,
+      this.facturacion.direccionFiscal = this.facturacionData.bly_direccionFiscal,
+      this.facturacion.razonSocial = this.facturacionData.bly_razonSocial,
+      this.facturacion.rfc = this.facturacionData.bly_rfc,
+      this.statusBtn = this.facturacionData.bly_statusBtn
+      if(this.statusBtn == 'true'){
+        this.ocultar1 = true;
+        this.ocultar2 = false;
+      } else {
+        this.ocultar1 = false;
+        this.ocultar2 = true;
+      }
+    });
+  }
+  
+
   salir() {
     this.modalCtrl.dismiss();
-  }
-
-  async presentLoadingCambio() {
-    const loading = await this.loading.create({
-      spinner: 'bubbles',
-      message: 'Espere un momento...',
-      duration: 1500
-    });
-    await loading.present();
-    setTimeout(() => {
-      this.togglePassword();
-    }, 2000);
-  }
-
-  async presentCambiarContrasena() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Actualizar Contraseña',
-      message: '¿Está seguro que desea actualizar su contraseña?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          }
-        }, {
-          text: 'Aceptar',
-          handler: () => {
-            this.presentLoadingCambio();
-          }
-        }
-      ]
-    });
-
-    await alert.present();
   }
 
   async togglePassword(){
@@ -123,47 +128,7 @@ export class DetallePerfil2Page implements OnInit {
     return await presentModel.present();
   }
 
-  usuario: string;
-  correo: string;
-  numeroTelefono: string;
-  contrasena: string;
-  id: string
-  perfilData: any;
-  facturacionData: any;
-  statusBtn: string;
-  ionViewWillEnter(){
-    this.storage.get('perfil').then((res)=>{
-      this.perfilData = res;
-      this.usuario = this.perfilData.bly_nombre,
-      this.correo = this.perfilData.bly_correoElectronico,
-      this.numeroTelefono = this.perfilData.bly_numTelefono,
-      this.contrasena = this.perfilData.bly_contrasena
-      this.id = this.perfilData.bly_usuario
-    });
-    this.storage.get('facturacion').then((factura) =>{
-      this.facturacionData = factura;
-      this.facturacion.correoElectronico = this.facturacionData.bly_correoElectronico,
-      this.facturacion.direccionFiscal = this.facturacionData.bly_direccionFiscal,
-      this.facturacion.razonSocial = this.facturacionData.bly_razonSocial,
-      this.facturacion.rfc = this.facturacionData.bly_rfc,
-      this.statusBtn = this.facturacionData.bly_statusBtn
-      if(this.statusBtn == 'true'){
-        this.ocultar1 = true;
-        this.ocultar2 = false;
-      } else {
-        this.ocultar1 = false;
-        this.ocultar2 = true;
-      }
-    });
-  }
-
-  facturacion = {
-    razonSocial: '',
-    rfc: '',
-    direccionFiscal: '',
-    correoElectronico: ''
-  }
-  responseData: any;
+ 
   registrarFacturacion(){
     this.dataService.registrarFacturacion(this.facturacion.razonSocial, this.facturacion.rfc, this.facturacion.direccionFiscal, this.facturacion.correoElectronico, this.id).subscribe(data => {
       this.responseData = data;
@@ -346,5 +311,73 @@ export class DetallePerfil2Page implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async presentLoadingCambio() {
+    const loading = await this.loading.create({
+      spinner: 'bubbles',
+      message: 'Espere un momento...',
+      duration: 1500
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.togglePassword();
+    }, 2000);
+  }
+
+  async presentCambiarContrasena() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Actualizar Contraseña',
+      message: '¿Está seguro que desea actualizar su contraseña?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.presentLoadingCambio();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async presentActionCamera() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Opciones Cámara',
+      cssClass: 'match-item-action-sheet',
+      buttons: [{
+        text: 'Tomar Fotografía',
+        icon: 'camera',
+        cssClass: 'iconCamera',
+        handler: () => {
+          console.log('Share clicked');
+        }
+      }, {
+        text: 'Seleccionar Fotografía',
+        icon: 'images',
+        cssClass: 'iconGaleria',
+        handler: () => {
+          console.log('Play clicked');
+        }
+      }, {
+        text: 'Cancelar',
+        icon: 'close-circle-outline',
+        role: 'cancel',
+        cssClass: 'iconCerrar',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
   }
 }

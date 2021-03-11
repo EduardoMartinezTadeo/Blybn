@@ -42,9 +42,9 @@
   
           <ion-item class="datosGenerales">
             <ion-label position="floating">Contraseña</ion-label>
-            <ion-input [type]="showPassword ? 'text': 'password'" [(ngModel)]="contrasena" required>
+            <ion-input [type]="showPassword ? 'password': 'password'" [(ngModel)]="contrasena" required>
             </ion-input>
-            <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()" color="primary"
+            <ion-icon slot="end" [name]="passwordToggleIcon" (click)="presentCambiarContrasena()" color="primary"
               position="floating"></ion-icon>
           </ion-item>
         </ion-list>

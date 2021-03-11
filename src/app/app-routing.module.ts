@@ -104,6 +104,18 @@ const routes: Routes = [
     path: 'terminos-condiciones2',
     loadChildren: () => import('./pages/terminos-condiciones2/terminos-condiciones2.module').then( m => m.TerminosCondiciones2PageModule)
   },
+  {
+    path: 'tipo-aventura',
+    loadChildren: () => import('./pages/tipo-aventura/tipo-aventura.module').then( m => m.TipoAventuraPageModule)
+  },
+  {
+    path: 'tipo-aventura2',
+    loadChildren: () => import('./pages/tipo-aventura2/tipo-aventura2.module').then( m => m.TipoAventura2PageModule)
+  },
+  {
+    path: 'modal10',
+    loadChildren: () => import('./Modals/modal10/modal10.module').then( m => m.Modal10PageModule)
+  },
 ];
 
 @NgModule({

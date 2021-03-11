@@ -90,6 +90,7 @@
                             placeholder="Contraseña" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}" required>
                           </ion-input>
                           <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()" color="primary"></ion-icon>
+                          <ion-icon name="information-circle-outline" color="warning" (click)="openModal9()"></ion-icon>
                           </ion-item>
                           <br>
                           <ion-item>
@@ -97,6 +98,7 @@
                             placeholder="Confirmar contraseña" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}" required>
                           </ion-input>
                           <ion-icon slot="end" [name]="passwordToggleIconcf" (click)="togglePasswordcf()" color="primary"></ion-icon>
+                          <ion-icon name="information-circle-outline" color="warning" (click)="openModal10()"></ion-icon>
                           </ion-item>
                           <br>
                           <ion-item *ngFor="let item of data" lines="none">

@@ -3,6 +3,8 @@ import { Storage } from '@ionic/storage';
 import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { ProviderService } from '../../services/provider.service';
 import { ActivatedRoute } from '@angular/router';
+import { Modal10Page } from '../modal10/modal10.page';
+import { Modal9Page } from '../modal9/modal9.page';
 
 @Component({
   selector: 'app-modal6',
@@ -131,5 +133,44 @@ export class Modal6Page implements OnInit {
     });
 
     await alert.present();
+  }
+
+
+  async openModal9() {
+    const presentModel = await this.modalCtrl.create({
+      component: Modal9Page,
+      componentProps: {
+        title: 'Billing Address',
+        type:'billing',
+      },
+      showBackdrop: true,
+      mode:	"ios",
+      cssClass: 'change-address-shipping-modal1'
+    });
+
+    presentModel.onWillDismiss().then((data)=>{
+      console.log(data);
+    });
+    
+    return await presentModel.present();
+  }
+
+  async openModal10() {
+    const presentModel = await this.modalCtrl.create({
+      component: Modal10Page,
+      componentProps: {
+        title: 'Billing Address',
+        type:'billing',
+      },
+      showBackdrop: true,
+      mode:	"ios",
+      cssClass: 'change-address-shipping-modal1'
+    });
+
+    presentModel.onWillDismiss().then((data)=>{
+      console.log(data);
+    });
+    
+    return await presentModel.present();
   }
 }

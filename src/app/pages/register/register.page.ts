@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, NavController, ToastController, LoadingController } from '@ionic/angular';
+import { AlertController, NavController, ToastController, LoadingController, ModalController } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
 import { PickerController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
+import { Modal10Page } from '../../Modals/modal10/modal10.page';
+import { Modal9Page } from '../../Modals/modal9/modal9.page';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +22,8 @@ export class RegisterPage implements OnInit {
     private servicio: DataService,
     private pickerCtrl: PickerController,
     private alertController: AlertController,
-    private loading: LoadingController) { }
+    private loading: LoadingController,
+    private modalCtrl: ModalController) { }
 
   data = [
     {
@@ -235,5 +238,43 @@ export class RegisterPage implements OnInit {
     } else {
       this.passwordToggleIconcf = 'eye';
     }
+  }
+
+  async openModal9() {
+    const presentModel = await this.modalCtrl.create({
+      component: Modal9Page,
+      componentProps: {
+        title: 'Billing Address',
+        type:'billing',
+      },
+      showBackdrop: true,
+      mode:	"ios",
+      cssClass: 'change-address-shipping-modal1'
+    });
+
+    presentModel.onWillDismiss().then((data)=>{
+      console.log(data);
+    });
+    
+    return await presentModel.present();
+  }
+
+  async openModal10() {
+    const presentModel = await this.modalCtrl.create({
+      component: Modal10Page,
+      componentProps: {
+        title: 'Billing Address',
+        type:'billing',
+      },
+      showBackdrop: true,
+      mode:	"ios",
+      cssClass: 'change-address-shipping-modal1'
+    });
+
+    presentModel.onWillDismiss().then((data)=>{
+      console.log(data);
+    });
+    
+    return await presentModel.present();
   }
 }

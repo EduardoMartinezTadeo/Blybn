@@ -11,8 +11,8 @@
       <div class="header-content" (click)="perfil()">
         <img src="/assets/imgs/avatar.svg" alt="">
         <ion-label>
-          <h2>Usuario Blybn</h2>
-          <p>blybncorreo@usuario.com</p>
+          <h2>{{usuario}}</h2>
+          <p>{{correo}}</p>
         </ion-label>
       </div>
       <div *ngFor="let p of pages">

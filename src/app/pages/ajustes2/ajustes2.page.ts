@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 import { OperacionesService } from '../../services/operaciones.service';
 import { DataService } from '../../services/data.service';
 import { ProviderService } from '../../services/provider.service';
+import { Modal7Page } from '../../Modals/modal7/modal7.page';
 @Component({
   selector: 'app-ajustes2',
   templateUrl: './ajustes2.page.html',
@@ -27,7 +28,7 @@ export class Ajustes2Page implements OnInit {
   contentLoaded = false;
   contentLoadedF = false;
   showPassword = false;
-  passwordToggleIcon = 'eye';
+  passwordToggleIcon = 'create';
 
   ngOnInit() {}
   public ocultar1: boolean = false;
@@ -45,13 +46,48 @@ export class Ajustes2Page implements OnInit {
     this.router.navigateByUrl('/dashboard2/menutabs2/inicio-menu');
   }
 
-  togglePassword(): void {
-    this.showPassword = !this.showPassword;
-    if (this.passwordToggleIcon == 'eye') {
-      this.passwordToggleIcon = 'eye-off';
-    } else {
-      this.passwordToggleIcon = 'eye';
-    }
+  async togglePassword() {
+    const modal = await this.modalCtrl.create({
+      component: Modal7Page
+    });
+    return await modal.present();
+  }
+
+  async presentLoadingCambio() {
+    const loading = await this.loading.create({
+      spinner: 'bubbles',
+      message: 'Espere un momento...',
+      duration: 1500
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.togglePassword();
+    }, 2000);
+  }
+
+  async presentCambiarContrasena() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Actualizar Contraseña',
+      message: '¿Está seguro que desea actualizar su contraseña?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.presentLoadingCambio();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async openModal4() {
@@ -283,7 +319,7 @@ export class Ajustes2Page implements OnInit {
         this.service.consultarDatosFacturacion(this.id).subscribe(data => {
           this.responseData = data;
         });
-        this.router.navigateByUrl('/dashboard2/menutabs/inicio-menu');
+        this.router.navigateByUrl('/dashboard2/menutabs2/inicio-menu');
       } else {
         const toast = await this.toastCtrl.create({
           message: alertpesan,

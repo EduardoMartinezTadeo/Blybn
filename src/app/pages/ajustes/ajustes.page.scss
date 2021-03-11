@@ -137,3 +137,11 @@ h1 {
         font-family: 'HelveticaMedium';
     }
 }
+
+::ng-deep .match-item-action-sheet .action-sheet-group.sc-ion-action-sheet-md {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    background: #f2f2f2;
+    font-family: "HelveticaBold";
+    font-size: 70px;
+}

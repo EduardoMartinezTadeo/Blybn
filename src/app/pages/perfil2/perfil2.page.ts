@@ -25,7 +25,7 @@ export class Perfil2Page implements OnInit {
     setTimeout(() => {
       this.contentLoaded = true; 
       this.contentLoadedF = true;          
-    }, 4000);    
+    }, 2500);    
   }
 
   salir(){

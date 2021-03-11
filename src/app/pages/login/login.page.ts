@@ -40,8 +40,6 @@ export class LoginPage implements OnInit {
     this.provider.postData(body, 'db_cargarPerfil.php').subscribe(async data => {
       if(data.success) {
         this.storage.set('perfil', data.result);
-      } else {
-        console.log(body);
       }
     });
     this.service.iniciarSesion(this.usuario.correoElectronico, this.usuario.contrasena).subscribe(

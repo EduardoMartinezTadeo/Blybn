@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 
 const apiRecuperarURL = environment.apiRecuperarURL;
 const apiActualizarFacturacion = environment.apiActualizarFacturacionURL;
-
+const apiRegistrarComentario = environment.apiRegistrarComentarioURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -28,4 +28,13 @@ export class ProviderService {
   
     return this.http.post<any>(apiActualizarFacturacion + file, body, {headers})
   }
+
+  postDataRC(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+  
+    return this.http.post<any>(apiRegistrarComentario + file, body, {headers})
+  }
+
 }

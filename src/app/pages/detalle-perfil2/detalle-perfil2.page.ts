@@ -312,13 +312,15 @@ export class DetallePerfil2Page implements OnInit {
           this.responseData = data;
         });
         this.modalCtrl.dismiss();
-        this.router.navigateByUrl('/dashboard2/menutabs/inicio-menu');
+        this.router.navigateByUrl('/dashboard2/ajustes2');
       } else {
         const toast = await this.toastCtrl.create({
           message: alertpesan,
           duration: 2000
         });
       }
+    }, (error) => {
+      this.presentLoadingServer();
     });
   }
 

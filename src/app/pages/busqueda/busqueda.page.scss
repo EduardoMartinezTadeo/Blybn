@@ -2,11 +2,6 @@ ion-content.background {
     --background: url("../../../assets/imgs/azul.svg") no-repeat center center / cover;
 }
 
-ion-toolbar {
-    --background: transparent;
-    --ion-color-base: transparent !important;
-}
-
 /* Show background if class is active */
 .show-background {
     border-style: none;

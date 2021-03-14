@@ -1,5 +1,5 @@
 <ion-header class="ion-no-border" translucent>
-  <ion-toolbar [class.show-background]="showToolbar">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button color="primary" class="menu">
         <ion-icon src="/assets/imgs/sidemenu.svg"></ion-icon>
@@ -8,14 +8,14 @@
       <ion-searchbar placeholder="¿A donde quieres ir?" [debounce]="250" animated> </ion-searchbar>
   </ion-toolbar>
 </ion-header>
-<ion-content (ionScroll)="onScroll($event)" [scrollEvents]="true">  
+<ion-content>  
   <ion-segment value="Mas buscados">
     <ion-segment-button value="Mas buscados">
-      <ion-label>Mas buscados</ion-label>
+      <ion-label>Más buscados</ion-label>
     </ion-segment-button>
     <ion-segment-button value="Favoritos">
       <ion-label>Favoritos</ion-label>
     </ion-segment-button>
   </ion-segment>
-
+ 
 </ion-content>

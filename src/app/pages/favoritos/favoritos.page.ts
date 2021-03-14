@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ScrollDetail } from '@ionic/core';
 
 @Component({
   selector: 'app-favoritos',
@@ -8,19 +7,21 @@ import { ScrollDetail } from '@ionic/core';
 })
 export class FavoritosPage implements OnInit {
 
+  contentLoaded = false;
   constructor() { }
 
   ngOnInit() {
   }
 
-  showToolbar = false;
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.contentLoaded = true;        
+    }, 5000);    
+  }
+
+
 
   @Input() titulo: string = '';
-  onScroll($event: CustomEvent<ScrollDetail>) {
-    if ($event && $event.detail && $event.detail.scrollTop) {
-      const scrollTop = $event.detail.scrollTop;
-      this.showToolbar = scrollTop >= 225;
-    }
-  }  
+
 
 }

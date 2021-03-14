@@ -1,14 +1,10 @@
 <ion-header class="ion-no-border" translucent>
   <ion-toolbar [class.show-background]="showToolbar">
     <ion-buttons slot="start">
-      <ion-menu-button color="primary" class="menu">
+      <ion-menu-button color="primary">
         <ion-icon src="/assets/imgs/sidemenu.svg"></ion-icon>
       </ion-menu-button>
     </ion-buttons>
-    <ion-searchbar placeholder="¿A donde quieres ir?" [debounce]="250" animated> </ion-searchbar>
+    <ion-searchbar placeholder="¿A donde quieres ir?" [debounce]="250" animated class="buscarPromociones"> </ion-searchbar>
   </ion-toolbar>
 </ion-header>
-
-<ion-content (ionScroll)="onScroll($event)" [scrollEvents]="true">
-
-</ion-content>

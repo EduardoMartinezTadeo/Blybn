@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ScrollDetail } from '@ionic/core';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -9,7 +8,6 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./terminos-condiciones.page.scss'],
 })
 export class TerminosCondicionesPage {
-  showToolbar = false;
   data = {
     bly_numTerminosCondiciones: '',
     bly_titulo: '',
@@ -303,13 +301,6 @@ export class TerminosCondicionesPage {
 
   cerrar() {
     this.modalCtrl.dismiss();
-  }
-
-  onScroll($event: CustomEvent<ScrollDetail>) {
-    if ($event && $event.detail && $event.detail.scrollTop) {
-      const scrollTop = $event.detail.scrollTop;
-      this.showToolbar = scrollTop >= 225;
-    }
   }
 
   ionViewWillEnter() {

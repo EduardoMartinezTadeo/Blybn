@@ -15,7 +15,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { OperacionesService } from './services/operaciones.service';
 import { ProviderService } from './services/provider.service';
-import { Camera } from '@ionic-native/camera/ngx';
+import { Camera } from '@ionic-native/Camera/ngx';
+import { File } from '@ionic-native/file/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +35,7 @@ import { Camera } from '@ionic-native/camera/ngx';
     InAppBrowser,
     Network,
     Camera,
+    File,
     ProviderService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

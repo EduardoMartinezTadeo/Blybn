@@ -1,0 +1,82 @@
+<app-header></app-header>
+<ion-content class="ion-no-padding card-background-page">
+  <ion-row>
+    <h1>Descubre</h1>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-card (click)="tipoaventura()">
+        <ion-card-content>
+          <ion-img src="/assets/templates/1.jpg"></ion-img>
+          <div class="card-title">CIUDAD</div>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-card (click)="tipoaventura()">
+        <ion-card-content>
+          <ion-img src="/assets/templates/2.jpg"></ion-img>
+          <div class="card-title">PLAYA</div>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-card>
+        <ion-card-content>
+          <ion-img src="/assets/templates/3.jpg"></ion-img>
+          <div class="imgsCards">
+            <ion-img src="/assets/imgs/logo.svg"></ion-img>
+          </div>
+          <div class="card-title2">¿Quieres registrar tu propiedad?</div>
+          <div class="card-subtitle">Agrega la información de tu inmueble.</div>
+          <div class="buttonCard">
+            <ion-button color="primary" fill="solid" size="medium" style="width: 35%;"
+              style=" text-transform: capitalize;">
+              Registrar
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-list>
+    <ion-row>
+      <ion-item (click)="presentActionSheet()">
+        <ion-thumbnail slot="start">
+          <ion-img src="/assets/icons/icon-1.png"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>Síguenos en redes sociales</h2>
+          <p>Entérate de las ultimas promociones,</p>
+          <p>lugares para visitar y más.</p>
+        </ion-label>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item (click)="mostrarModal()">
+        <ion-thumbnail slot="start">
+          <ion-img src="/assets/icons/icon-2.png"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>Consulta nuestro aviso de privacidad</h2>
+          <p>Examinar con cuidado los siguientes Términos de Servicio, de manera que es...</p>
+        </ion-label>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item (click)="presentAlertPrompt()">
+        <ion-thumbnail slot="start">
+          <ion-img src="/assets/icons/icon-3.png"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>Contáctanos</h2>
+          <p> ¿Tienes dudas o comentarios?</p>
+        </ion-label>
+      </ion-item>
+    </ion-row>
+  </ion-list>
+</ion-content>

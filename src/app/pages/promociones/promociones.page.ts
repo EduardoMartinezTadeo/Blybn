@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ScrollDetail } from '@ionic/core';
 
 @Component({
   selector: 'app-promociones',
@@ -8,20 +7,22 @@ import { ScrollDetail } from '@ionic/core';
 })
 export class PromocionesPage implements OnInit {
 
+  contentLoaded = false;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.contentLoaded = true;        
+    }, 5000);    
   }
 
 
   showToolbar = false;
 
 
-  onScroll($event: CustomEvent<ScrollDetail>) {
-    if ($event && $event.detail && $event.detail.scrollTop) {
-      const scrollTop = $event.detail.scrollTop;
-      this.showToolbar = scrollTop >= 225;
-    }
-  }
+
 
 }

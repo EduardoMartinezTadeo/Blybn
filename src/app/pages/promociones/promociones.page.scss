@@ -3,7 +3,7 @@ ion-content.background {
 }
 
 ion-toolbar {
-    --background: transparent;
+    --background: transparent !important;
     --ion-color-base: transparent !important;
 }
 
@@ -23,7 +23,7 @@ ion-toolbar {
     --border-width: 0;
 }
 
-.buscarPromociones{
+.buscarPromociones {
     --background: transparent;
     --ion-color-base: transparent !important;
     color: white;
@@ -36,4 +36,16 @@ h1 {
     margin-top: 10%;
     margin-bottom: 0%;
     color: white;
+}
+
+ion-card {
+    font-family: "Helvetica";
+    font-weight: bold;
+    font-size: 16px;
+}
+
+ion-card-title {
+    font-family: "HelveticaBold";
+    font-weight: bold;
+    font-size: 16px;
 }

@@ -19,7 +19,7 @@ const routes: Routes = [
   },  
   {
     path: 'dashboard',
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+    loadChildren: () => import('./pages/dashboard-admin/dashboard/dashboard.module').then( m => m.DashboardPageModule)
   },
   {
     path: 'detalle-mensaje',
@@ -39,7 +39,7 @@ const routes: Routes = [
   },
   {
     path: 'perfil',
-    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+    loadChildren: () => import('./pages/dashboard-admin/perfil/perfil.module').then( m => m.PerfilPageModule)
   },  
   {
     path: 'register',
@@ -70,11 +70,11 @@ const routes: Routes = [
     loadChildren: () => import('./Modals/modal5/modal5.module').then( m => m.Modal5PageModule)
   },   {
     path: 'dashboard2',
-    loadChildren: () => import('./pages/dashboard2/dashboard2.module').then( m => m.Dashboard2PageModule)
+    loadChildren: () => import('./pages/dashboard-blybn/dashboard2/dashboard2.module').then( m => m.Dashboard2PageModule)
   },
   {
     path: 'perfil2',
-    loadChildren: () => import('./pages/perfil2/perfil2.module').then( m => m.Perfil2PageModule)
+    loadChildren: () => import('./pages/dashboard-blybn/perfil2/perfil2.module').then( m => m.Perfil2PageModule)
   },
   {
     path: 'detalle-perfil2',
@@ -106,11 +106,11 @@ const routes: Routes = [
   },
   {
     path: 'tipo-aventura',
-    loadChildren: () => import('./pages/tipo-aventura/tipo-aventura.module').then( m => m.TipoAventuraPageModule)
+    loadChildren: () => import('./pages/dashboard-blybn/tipo-aventura/tipo-aventura.module').then( m => m.TipoAventuraPageModule)
   },
   {
     path: 'tipo-aventura2',
-    loadChildren: () => import('./pages/tipo-aventura2/tipo-aventura2.module').then( m => m.TipoAventura2PageModule)
+    loadChildren: () => import('./pages/dashboard-admin/tipo-aventura2/tipo-aventura2.module').then( m => m.TipoAventura2PageModule)
   },
   {
     path: 'modal10',

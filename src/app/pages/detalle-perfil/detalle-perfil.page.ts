@@ -36,7 +36,7 @@ export class DetallePerfilPage implements OnInit {
 
   showPassword = false;
   passwordToggleIcon = 'eye';
-  
+
   public ocultar2: boolean = false;
   public ocultar1: boolean = false;
   public ocultar3: boolean = false;

@@ -7,6 +7,127 @@
         </ion-buttons>
     </ion-toolbar>
   </ion-header>
-<ion-content>
+  <ion-content class="ion-padding">
+    <ion-label class="ion-label1">
+        ¿Qué tal lo
+    </ion-label>
+    <br />
+    <ion-label class="ion-label2">
+        hacemos?
+    </ion-label>
+    <br>
+    <p>
+        Nos esforzamos constantemente por mejorar la experiencia de Blybn, así que nos encantaría saber qué funciones te
+        gustan y en que podemos mejorar.
+    </p>
+    <p class="parrafo">
+        Sin embargo, ten en cuenta que no puedes ponerte en conctacto directo con nosotros por esta vía.
+    </p>
+    <p>No podemos responder a comentarios o errores individuales en el uso de nuestra plataforma.</p>
+    <br>
+    <br>
+    <p class="parrafo">¿Qué quieres hacer?</p>
+    <ion-list>
+        <ion-row class="ion-align-items-center ion-no-padding">
+            <ion-card class="listCards" (click)="onClick()" *ngFor="let item of [1]">
+                <ion-card-content>
+                    <ion-item class="detailCards">
+                        <ion-avatar slot="start">
+                            <ion-img src="/assets/imgs/c-avanzado.svg"></ion-img>
+                        </ion-avatar>
+                        <ion-label>
+                            <h3>
+                                Comentar sobre un
+                            </h3>
+                            <h3>
+                                servicio
+                            </h3>
+                        </ion-label>
+                        <ion-button slot="end" fill="clear">
+                            <ion-icon [name]=" favorito ? 'leaf': 'leaf-outline'" slot="icon-only" color="blybn">
+                            </ion-icon>
+                        </ion-button>
+                    </ion-item>
+                </ion-card-content>
+            </ion-card>
+        </ion-row>
 
+        <ion-row class="ion-align-items-center ion-no-padding">
+            <ion-card class="listCards" (click)="onClick2()" *ngFor="let item of [1]">
+                <ion-card-content>
+                    <ion-item class="detailCards">
+                        <ion-avatar slot="start">
+                            <ion-img src="/assets/imgs/c-avanzado.svg"></ion-img>
+                        </ion-avatar>
+                        <ion-label>
+                            <h3>
+                                Informar sobre un
+                            </h3>
+                            <h3>
+                                error
+                            </h3>
+                        </ion-label>
+                        <ion-button slot="end" fill="clear">
+                            <ion-icon [name]=" favorito2 ? 'skull': 'skull-outline'" slot="icon-only" color="danger">
+                            </ion-icon>
+                        </ion-button>
+                    </ion-item>
+                </ion-card-content>
+            </ion-card>
+        </ion-row>
+    </ion-list>
+    <br>
+    <p class="parrafo" *ngIf="dato1">Utilizo blybn para:</p>
+    <ion-item *ngIf="dato2">
+        <ion-label style="font-family: Helvetica; font-size: 13px; color: black; font-weight: bold;">
+            Selecciona</ion-label>
+        <ion-select name="utilizacion" [(ngModel)]="utilizacion" [interfaceOptions]='{ backdropDismiss: false }'
+            cancelText="Cancelar" okText="Hecho" required (ionChange)="ionChange($event)">
+            <ion-select-option value="1">Viajar</ion-select-option>
+            <ion-select-option value="2">Hospedar</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <br>
+    <p class="parrafo" *ngIf="dato3">Cuéntanos de qué se trata tu comentario. Revisamos todos los comentarios, pero no
+        podemos responder de forma individual:</p>
+    <ion-item *ngIf="dato4">
+        <ion-label style="font-family: Helvetica; font-size: 13px; color: black; font-weight: bold;">
+            Selecciona</ion-label>
+        <ion-select name="motivo" [(ngModel)]="motivo" [interfaceOptions]='{ backdropDismiss: false }'
+            cancelText="Cancelar" okText="Hecho" required (ionChange)="ionChange1($event)">
+            <ion-select-option value="Buscar alojamiento">Buscar alojamiento</ion-select-option>
+            <ion-select-option value="Pagar mi viaje">Pagar mi viaje</ion-select-option>
+            <ion-select-option value="Reservar un viaje">Reservar un viaje</ion-select-option>
+            <ion-select-option value="Precios">Precios</ion-select-option>
+            <ion-select-option value="Evaluaciones">Evaluaciones</ion-select-option>
+            <ion-select-option value="Mi cuenta o perfil">Mi cuenta o perfil</ion-select-option>
+            <ion-select-option value="Comentarios">Comentarios</ion-select-option>
+            <ion-select-option value="Mensajes">Mensajes</ion-select-option>
+            <ion-select-option value="Otros">Otros</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item *ngIf="dato5">
+        <ion-label style="font-family: Helvetica; font-size: 13px; color: black; font-weight: bold;">
+            Selecciona</ion-label>
+        <ion-select name="motivo" [(ngModel)]="motivo" [interfaceOptions]='{ backdropDismiss: false }'
+            cancelText="Cancelar" okText="Hecho" required (ionChange)="ionChange2($event)">
+            <ion-select-option value="Definir precios">Definir precios</ion-select-option>
+            <ion-select-option value="Mensajes">Mensajes</ion-select-option>
+            <ion-select-option value="Registro propiedad">Registro propiedad</ion-select-option>
+            <ion-select-option value="Recibir pagos">Recibir pagos</ion-select-option>
+            <ion-select-option value="Mi cuenta o perfil">Mi cuenta o perfil</ion-select-option>
+            <ion-select-option value="Gestionar mi calendario">Gestionar mi calendario</ion-select-option>
+            <ion-select-option value="Evaluaciones">Evaluaciones</ion-select-option>
+            <ion-select-option value="Otros">Otros</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <br>
+    <p class="parrafo" *ngIf="dato6">Cuéntanos un poco más...</p>
+    <ion-item *ngIf="dato7">
+        <ion-textarea rows="6" cols="20" placeholder="¿Qué pasó? Los pasos necesarios para reproducir el problema detectado puede sernos de utilidad." name="comentario" [(ngModel)]="comentario"></ion-textarea>
+    </ion-item>
+    <br>
+    <div class="ion-text-center" *ngIf="dato7">
+        <ion-button shape="round" fill="outline" color="primary" style="text-transform: capitalize;" class="ion-text-center" (click)="presentCargaComentario()">Enviar Comentarios</ion-button>
+    </div>
 </ion-content>

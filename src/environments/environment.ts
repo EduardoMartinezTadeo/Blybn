@@ -15,7 +15,8 @@ export const environment = {
   apiRegistroCierreSesionURL: 'http://192.168.0.101/server_blybn/api/db_registroSesionFinalizada.php/',
   apiActualizarFacturacionURL: 'http://192.168.0.101/server_blybn/api/db_actualizarFacturacion.php/',
   apiConsultarTerminosCondicionesURL: 'http://192.168.0.101/server_blybn/api/db_consultarTerminos.php/',
-  apiRegistrarComentarioURL: 'http://192.168.0.101/server_blybn/api/db_registrarComentario.php/'
+  apiRegistrarComentarioURL: 'http://192.168.0.101/server_blybn/api/db_registrarComentario.php/',
+  apiReigstrarComentarioAvanzadoURL: 'http://192.168.0.101/server_blybn/api/db_registrarComentarioAvanzado.php/'
 };
 
 /*

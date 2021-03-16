@@ -22,7 +22,9 @@ import { File } from '@ionic-native/file/ngx';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, 
-    IonicModule.forRoot(), 
+    IonicModule.forRoot({
+      hardwareBackButton: false
+    }), 
     AppRoutingModule, 
     IonicStorageModule.forRoot(),
     HttpClientModule

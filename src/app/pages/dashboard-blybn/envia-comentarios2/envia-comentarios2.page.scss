@@ -1,0 +1,87 @@
+h1 {
+    padding: 25px;
+    font-family: "HelveticaBold";
+    font-size: 35px;
+    margin-top: 2%;
+    margin-bottom: 0%;
+}
+
+.ion-label1 {
+    margin-top: 10%;
+    margin-left: 10%;
+    font-family: "HelveticaBold";
+    font-size: 35px;
+    color: Black;
+    display: inline-block;
+}
+.ion-label2 {
+    margin-left: 10%;
+    font-family: "HelveticaBold";
+    font-size: 35px;
+    color: Black;
+    display: inline-block;
+}
+
+p {
+    font-family: 'Helvetica';
+    font-size: 13px;
+    text-align: justify;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.parrafo {
+    font-family: 'HelveticaBold';
+    font-size: 13px;
+    text-align: justify;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.listCards {
+    width: 85%;
+    height: 8%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px 20px 20px 20px;
+}
+
+.detailCards {
+    h3 {
+        text-align: left;
+        font-family: "HelveticaLight";
+        font-size: 13px;
+        font-weight: bold;
+        color: black;
+    }
+
+    p {
+        text-align: left;
+        font-weight: bold;
+        font-size: 15px;
+        font-family: "HelveticaMedium";
+    }
+}
+ion-select {
+    border-radius: 20px 20px 20px 20px;
+    font-family: "Helvetica";
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+ion-item {
+    border-radius: 20px 20px 20px 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+ion-textarea{
+    display: inline-block;
+    border-radius: 20px 20px 20px 20px;
+    font-family: 'Helvetica';
+    font-size: 13px;
+    text-align: justify;
+    margin-left: 10%;
+    margin-right: 10%;
+}

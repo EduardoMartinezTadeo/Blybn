@@ -25,21 +25,21 @@
         <ion-list>
           <ion-item class="datosGenerales">
             <ion-label position="floating">Nombre
-            </ion-label>  
+            </ion-label>
             <ion-input [(ngModel)]="usuario" disabled></ion-input>
           </ion-item>
-  
+
           <ion-item class="datosGenerales">
             <ion-label position="floating">Correo electrónico
             </ion-label>
             <ion-input [(ngModel)]="correo" disabled></ion-input>
           </ion-item>
-  
+
           <ion-item class="datosGenerales">
             <ion-label position="floating">Teléfono</ion-label>
             <ion-input [(ngModel)]="telefono" disabled></ion-input>
           </ion-item>
-  
+
           <ion-item class="datosGenerales">
             <ion-label position="floating">Contraseña</ion-label>
             <ion-input [type]="showPassword ? 'text': 'password'" [(ngModel)]="contrasena" required>
@@ -54,7 +54,9 @@
   <div *ngIf="!contentLoaded">
     <ion-card>
       <div class="img-wrapper">
-        <ion-avatar>  <ion-skeleton-text animated></ion-skeleton-text></ion-avatar>
+        <ion-avatar>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
         <ion-button color="light">
           <ion-icon>
             <ion-skeleton-text animated></ion-skeleton-text>
@@ -66,33 +68,37 @@
           <ion-item class="datosGenerales">
             <ion-label position="floating">
               <ion-skeleton-text animated style="width: 35%"></ion-skeleton-text>
-            </ion-label>  
+            </ion-label>
             <ion-input>
-              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-input>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-input>
           </ion-item>
-  
+
           <ion-item class="datosGenerales">
             <ion-label position="floating">
               <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
-            </ion-label>  
+            </ion-label>
             <ion-input>
-              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-input>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-input>
           </ion-item>
-  
+
           <ion-item class="datosGenerales">
             <ion-label position="floating">
               <ion-skeleton-text animated style="width: 35%"></ion-skeleton-text>
-            </ion-label>  
+            </ion-label>
             <ion-input>
-              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-input>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-input>
           </ion-item>
-  
+
           <ion-item class="datosGenerales">
             <ion-label position="floating">
               <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
-            </ion-label>  
+            </ion-label>
             <ion-input>
-              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-input>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-input>
           </ion-item>
         </ion-list>
       </ion-card-content>
@@ -106,69 +112,87 @@
           <ion-label position="floating">
             Razón Social
           </ion-label>
-          <ion-input type="text" [(ngModel)]="facturacion.razonSocial" style="text-transform: capitalize;" required></ion-input>
+          <ion-input type="text" [(ngModel)]="facturacion.razonSocial" style="text-transform: capitalize;" required *ngIf="dato1">
+          </ion-input>
+          <ion-input type="text" [(ngModel)]="facturacion.razonSocial" style="text-transform: capitalize;" required disabled *ngIf="dato5">
+          </ion-input>
         </ion-item>
         <ion-item class="listFactura">
           <ion-label position="floating">
             RFC
           </ion-label>
-          <ion-input type="text" [(ngModel)]="facturacion.rfc" style="text-transform:uppercase;" required></ion-input>
+          <ion-input type="text" [(ngModel)]="facturacion.rfc" style="text-transform:uppercase;" required *ngIf="dato2"></ion-input>
+          <ion-input type="text" [(ngModel)]="facturacion.rfc" style="text-transform:uppercase;" required disabled *ngIf="dato6"></ion-input>
         </ion-item>
         <ion-item class="listFactura">
           <ion-label position="floating">
             Dirección fiscal
           </ion-label>
-          <ion-input type="text" [(ngModel)]="facturacion.direccionFiscal" style="text-transform: capitalize;" required></ion-input>
+          <ion-input type="text" [(ngModel)]="facturacion.direccionFiscal" style="text-transform: capitalize;" required *ngIf="dato3">
+          </ion-input>
+          <ion-input type="text" [(ngModel)]="facturacion.direccionFiscal" style="text-transform: capitalize;" required disabled *ngIf="dato7">
+          </ion-input>
         </ion-item>
         <ion-item class="listFactura">
           <ion-label position="floating">
             Correo electrónico
           </ion-label>
-          <ion-input type="email" name="email"
-                    [(ngModel)]="facturacion.correoElectronico" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
-                    required></ion-input>
+          <ion-input type="email" name="email" [(ngModel)]="facturacion.correoElectronico"
+            pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required *ngIf="dato4"></ion-input>
+          <ion-input type="email" name="email" [(ngModel)]="facturacion.correoElectronico"
+            pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required disabled *ngIf="dato8"></ion-input>
         </ion-item>
         <br>
-        <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;" (click)="registrarDataFacturacion()" *ngIf="ocultar1"> 
+        <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;"
+          (click)="registrarDataFacturacion()" *ngIf="ocultar1">
           Guardar
         </ion-button>
-        <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;" (click)="presentAlertFacturacion()" *ngIf="ocultar2"> 
+        <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;"
+          (click)="presentAlertFacturacion()" *ngIf="ocultar2">
           Actualizar
+        </ion-button>
+        <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;"
+          (click)="activarComponentes()" *ngIf="ocultar3">
+          Editar
         </ion-button>
       </ion-list>
     </div>
-     <div *ngIf="!contentLoadedF">
+    <div *ngIf="!contentLoadedF">
       <ion-list>
         <ion-item class="listFactura">
           <ion-label position="floating">
             <ion-skeleton-text animated style="width: 35%"></ion-skeleton-text>
-          </ion-label>  
+          </ion-label>
           <ion-input>
-            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-input>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </ion-input>
         </ion-item>
         <ion-item class="listFactura">
           <ion-label position="floating">
             <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
-          </ion-label>  
+          </ion-label>
           <ion-input>
-            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-input>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </ion-input>
         </ion-item>
         <ion-item class="listFactura">
           <ion-label position="floating">
             <ion-skeleton-text animated style="width: 35%"></ion-skeleton-text>
-          </ion-label>  
+          </ion-label>
           <ion-input>
-            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-input>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </ion-input>
         </ion-item>
         <ion-item class="listFactura">
           <ion-label position="floating">
             <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
-          </ion-label>  
+          </ion-label>
           <ion-input>
-            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-input>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </ion-input>
         </ion-item>
-        <br>      
-          <ion-skeleton-text animated style="width: 100%; height: 40%;"></ion-skeleton-text>
+        <br>
+        <ion-skeleton-text animated style="width: 100%; height: 40%;"></ion-skeleton-text>
       </ion-list>
     </div>
   </app-according01>

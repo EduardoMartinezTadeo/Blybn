@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 const apiRecuperarURL = environment.apiRecuperarURL;
 const apiActualizarFacturacion = environment.apiActualizarFacturacionURL;
 const apiRegistrarComentario = environment.apiRegistrarComentarioURL;
+const apiRegistrarComentarioAvanzado = environment.apiReigstrarComentarioAvanzadoURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -35,6 +36,14 @@ export class ProviderService {
     })
   
     return this.http.post<any>(apiRegistrarComentario + file, body, {headers})
+  }
+
+  postDataRCA(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+  
+    return this.http.post<any>(apiRegistrarComentarioAvanzado + file, body, {headers})
   }
 
 }

@@ -36,8 +36,20 @@ export class Ajustes2Page implements OnInit {
   passwordToggleIcon = 'create';
 
   ngOnInit() {}
-  public ocultar1: boolean = false;
+
   public ocultar2: boolean = false;
+  public ocultar1: boolean = false;
+  public ocultar3: boolean = false;
+
+  public dato1: boolean = false;
+  public dato2: boolean = false;
+  public dato3: boolean = false;
+  public dato4: boolean = false;
+
+  public dato5: boolean = false;
+  public dato6: boolean = false;
+  public dato7: boolean = false;
+  public dato8: boolean = false;
 
   ionViewWillEnter() {
     setTimeout(() => {
@@ -168,13 +180,40 @@ export class Ajustes2Page implements OnInit {
       this.facturacion.rfc = this.facturacionData.bly_rfc,
       this.statusBtn = this.facturacionData.bly_statusBtn
       if(this.statusBtn == 'true'){
+        this.dato1 = true;
+        this.dato2 = true;
+        this.dato3 = true;
+        this.dato4 = true;
         this.ocultar1 = true;
         this.ocultar2 = false;
+        this.ocultar3 = false;
       } else {
+        this.dato1 = false;
+        this.dato2 = false;
+        this.dato3 = false;
+        this.dato4 = false;
         this.ocultar1 = false;
-        this.ocultar2 = true;
+        this.dato5 = true;
+        this.dato6 = true;
+        this.dato7 = true;
+        this.dato8 = true;
+        this.ocultar2 = false;
+        this.ocultar3 = true;
       }
     });
+  }
+
+  activarComponentes() {
+    this.dato5 = false;
+    this.dato6 = false;
+    this.dato7 = false;
+    this.dato8 = false;
+    this.ocultar3 = false;
+    this.dato1 = true;
+    this.dato2 = true;
+    this.dato3 = true;
+    this.dato4 = true;
+    this.ocultar2 = true;
   }
 
   facturacion = {
@@ -347,7 +386,17 @@ export class Ajustes2Page implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            this.dato1 = false;
+            this.dato2 = false;
+            this.dato3 = false;
+            this.dato4 = false;
+            this.ocultar1 = false;
+            this.dato5 = true;
+            this.dato6 = true;
+            this.dato7 = true;
+            this.dato8 = true;
+            this.ocultar2 = false;
+            this.ocultar3 = true;
           }
         }, {
           text: 'Aceptar',

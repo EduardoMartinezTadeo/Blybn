@@ -39,7 +39,7 @@ export class SplashPage implements OnInit {
           this.router.navigate(['/aviso']);
         }
       });
-    }, 3000);
+    }, 4500);
   }
 
 

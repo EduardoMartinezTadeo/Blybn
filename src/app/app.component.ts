@@ -56,7 +56,7 @@ export class AppComponent {
  
     this.network.onConnect().subscribe(() => {
       if (this.status.getValue() === ConnectionStatus.Offline) {
-        this.router.navigated[('/splash')];
+        this.navCtrl.navigateRoot('/splash');
         this.updateNetworkStatus(ConnectionStatus.Online);
       }
     });

@@ -1,0 +1,80 @@
+ion-content {
+    --background: #1d1e1e;
+}
+
+.form {
+    margin-top: 32%;
+    --background: #1d1e1e;
+    padding: 30px;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+h2 {
+    color: #ffffff;
+    font-family: "HelveticaBold";
+    text-align: left;
+    font-size: 28px;
+}
+ion-input {
+    --placeholder-opacity: 1;
+    --background: #1d1e1e;
+    font-family: "Helvetica";
+    font-weight: bold;
+    font-size: 13px;
+    .input {
+        text-align: right;
+        /* IF YOU ALSO WANT TO PUSH PLACHEHOLDER TO THE RIGHT USE THE FOLLOWING, IF NOT JUST DELETE THE ::-webkit-input-placeholder*/
+        ::-webkit-input-placeholder {
+            text-align: right;
+        }
+    }
+}
+
+ion-item {
+    --background: #1d1e1e;
+    --border-color: var(--ion-color-form, #ffffff);
+    color: #ffffff;
+}
+
+ion-select {
+    font-family: "Helvetica";
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.time {
+    font-family: "Helvetica";
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.fechaTitulo {
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: capitalize;
+    margin-top: 4%;
+}
+
+.fechaTituloLabel {
+    font-family: "HelveticaBold";
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: bold;
+    align-items: center;
+    text-align: center;
+    text-transform: capitalize;
+    margin-top: 4%;
+}
+
+.alinearButton {
+    text-align: center;
+    align-items: center;
+}

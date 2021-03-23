@@ -1,0 +1,87 @@
+ion-content {
+    --background: #1d1e1e;
+}
+
+.ion-label1 {
+    margin-top: 10%;
+    margin-left: 10%;
+    font-family: "HelveticaBold";
+    font-size: 25px;
+    color: white;
+    display: inline-block;
+}
+.ion-label2 {
+    margin-left: 10%;
+    font-family: "HelveticaBold";
+    font-size: 25px;
+    color: white;
+    display: inline-block;
+}
+
+.parrafo {
+    font-family: "HelveticaBold";
+    font-size: 13px;
+    text-align: justify;
+    margin-left: 10%;
+    margin-right: 10%;
+    color: white;
+}
+
+.parrafo2 {
+    font-family: "HelveticaBold";
+    font-size: 15px;
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    color: white;
+}
+
+ion-textarea {
+    margin-left: 5%;
+    margin-right: 5%;
+
+}
+
+ion-list {
+    font-family: "Helvetica";
+    font-size: 13px;
+    border-radius: 0 i !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    --background: transparent !important;
+    --ion-color-base: transparent !important;
+    ion-item{
+        --background: transparent !important;
+        --ion-color-base: transparent !important;
+    }
+}
+
+
+
+ion-card{
+    --background: #1d1e1e;
+    --border-color: var(--ion-color-form, #ffffff);
+    color: #ffffff;
+    ion-item{
+        --background: #1d1e1e;
+        --border-color: var(--ion-color-form, #ffffff);
+        color: #ffffff;
+        ion-label{
+            font-family: "HelveticaBold";
+            font-size: 14px;
+            color: white;
+        }
+    
+        ion-input{
+            font-family: "Helvetica";
+            font-size: 13px;
+            color: white;
+        }
+    }
+
+    ion-textarea{
+        font-family: "Helvetica";
+        font-size: 13px;
+        color: white;  
+    }
+}
+

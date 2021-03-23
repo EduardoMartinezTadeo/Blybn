@@ -1,12 +1,29 @@
-<ion-header class="ion-no-border" translucent>
-    <ion-toolbar>
-        <ion-buttons slot="start">
+<ion-header>
+    <ion-toolbar color="titulos" class="ion-no-border" translucent>
+        <ion-buttons slot="end">
             <ion-button (click)="salir()">
-                <ion-icon slot="icon-only" color="primary" name="chevron-back-outline"></ion-icon>
+                <ion-icon slot="icon-only" name="close-outline" color="primary"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
   </ion-header>
-<ion-content>
-
-</ion-content>
+  <ion-content class="ion-padding">
+    <form #formulario="ngForm" class="form ion-padding">
+        <ion-grid style="background-color: transparent !important;">
+            <ion-row>
+                <ion-col>
+                    <h2>Es momento de preparar tu anuncio</h2>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <div padding>
+                        <ion-list style="background-color: transparent !important;">
+                          
+                        </ion-list>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+  </ion-content>

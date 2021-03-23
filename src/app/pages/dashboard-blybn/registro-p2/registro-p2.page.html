@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="end">
+      <ion-button style="text-transform: capitalize;">
+        Guardar y salir
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-label class="ion-label1">
+    ¿Dónde se encuentra
+  </ion-label>
+  <br>
+  <ion-label class="ion-label2">
+    tu lugar?
+  </ion-label>
+  <br>
+  <br>
+  <p class="parrafo">
+    Solo los huéspedes confirmados podrán ver tu dirección exacta después de reservar. Los demás solo verán una
+    ubicación aproximada.
+  </p>
+  <br>
+    <ion-searchbar [(ngModel)]="autocomplete.input" placeholder="Buscar dirección..."
+      (ionChange)="UpdateSearchResults()" animated></ion-searchbar>
+    <ion-list [hidden]="autocompleteItems.length == 0">
+      <ion-item *ngFor="let item of autocompleteItems" tappable (click)="SelectSearchResult(item)">
+        {{ item.description }}
+      </ion-item>
+    </ion-list>  
+  <div>
+    <ion-card>
+      <p class="parrafo2">Dirección de la propiedad</p>
+      <ion-item>
+        <ion-label>
+          País/Región:
+        </ion-label>
+        <ion-input [(ngModel)]="Dataubicacion.pais" required>          
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Calle:
+        </ion-label>
+        <ion-input [(ngModel)]="Dataubicacion.calle" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Ciudad:
+        </ion-label>
+        <ion-input [(ngModel)]="Dataubicacion.ciudad" required>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Estado:
+        </ion-label>
+        <ion-input [(ngModel)]="Dataubicacion.estado" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Dirección general, Número de departamento, puerta, etc:
+        </ion-label><br>
+      </ion-item>
+      <ion-textarea rows="4" cols="20" [(ngModel)]="Dataubicacion.direccion" required></ion-textarea>
+      <ion-item>
+        <ion-label>
+          Código postal:
+        </ion-label>
+        <ion-input [(ngModel)]="Dataubicacion.codigo" required></ion-input>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

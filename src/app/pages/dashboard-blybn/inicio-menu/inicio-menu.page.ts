@@ -227,4 +227,8 @@ export class InicioMenuPage implements OnInit {
   tipoaventura(){
     this.router.navigateByUrl('/tipo-aventura');
   }
+
+  registrar(){
+    this.router.navigateByUrl('/dashboard2/registrar-propiedad2');
+  }
 }

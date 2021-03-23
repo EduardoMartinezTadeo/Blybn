@@ -1,0 +1,92 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { PickerController } from '@ionic/angular';
+import { PickerOptions } from '@ionic/core';
+
+@Component({
+  selector: 'app-registro-p2r11',
+  templateUrl: './registro-p2r11.page.html',
+  styleUrls: ['./registro-p2r11.page.scss'],
+})
+export class RegistroP2r11Page implements OnInit {
+  constructor(
+    private router: Router,
+    private pickerCtrl: PickerController
+  ) {}
+
+  ngOnInit() {}
+
+  cancelar() {
+    this.router.navigate(['/registro-p11']);
+  }
+
+  guardarInformacion(){
+    this.router.navigate(['/dashboard2/registrar-propiedad2']);
+  }
+
+  cantidadBanos = '';
+
+  async showBasicPicker() {
+    let opts: PickerOptions = {
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Aceptar'
+        }
+      ],
+      columns: [
+        {
+          name: 'Baños',
+          options: [
+            { text: '0 baños', value: '0' },
+            { text: '0.5 baños', value: '0.5' },
+            { text: '1 baño', value: '1' },
+            { text: '1.5 baños', value: '1.5' },
+            { text: '2 baños', value: '2' },
+            { text: '2.5 baños', value: '2.5' },
+            { text: '3 baños', value: '3' },
+            { text: '3.5 baños', value: '3.5' },
+            { text: '4 baños', value: '4' },
+            { text: '4.5 baños', value: '4.5' },
+            { text: '5 baños', value: '5' },
+            { text: '5.5 baños', value: '5.5' },
+            { text: '6 baños', value: '6' },
+            { text: '6.5 baños', value: '6.5' },
+            { text: '7 baños', value: '7' },
+            { text: '7.5 baños', value: '7.5' },
+            { text: '8 baños más', value: '8' }
+          ]
+        }
+      ]
+    };
+    let picker = await this.pickerCtrl.create(opts);
+    picker.present();
+    picker.onDidDismiss().then(async data => {
+      let col = await picker.getColumn('Baños');
+      this.cantidadBanos = col.options[col.selectedIndex].text;
+      let body = {
+        ngModel: this.cantidadBanos
+      }
+      let final = body;
+      console.log(final);
+    });
+  }
+
+  data = [
+    {
+      name: 'Baño privado',
+      selected: false
+    },
+    {
+      name: 'Baño compartido',
+      selected: false
+    }
+  ];
+
+  onClick( item: any ) {
+    console.log(item);
+  }
+}

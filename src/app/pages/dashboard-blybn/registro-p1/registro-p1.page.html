@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="end">
+      <ion-button style="text-transform: capitalize;">
+        Guardar y salir
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>   
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <ion-label class="ion-label1">
+    ¿Cuál de estos suena
+</ion-label>
+<br />
+<ion-label class="ion-label2">
+    como tu espacio?
+</ion-label>
+<br>
+<br>
+<br>
+<p class="parrafo">
+  Definamos el tipo de propiedad que tienes
+</p>
+<ion-item>
+  <ion-label class="parrafo">
+    Eligue un tipo de propiedad
+  </ion-label>
+  <ion-select placeholder="Seleccionar" (ionChange)="ionChange($event)">
+    <ion-select-option value="{{propiedad.bly_tipoPropiedad}}" *ngFor="let propiedad of propiedades">{{propiedad.bly_propiedadTipo}}</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item class="ion-no-border" lines="none">
+  <p>
+    {{informacion}}
+  </p>
+</ion-item>
+<p class="parrafo">
+  Ahora, definamos el tipo de alojamiento que tienes
+</p>
+<ion-item>
+  <ion-label class="parrafo">
+    Eligue un tipo de alojamiento
+  </ion-label>
+  <ion-select placeholder="Seleccionar" (ionChange)="ionChangeA($event)">
+    <ion-select-option value="{{alojamiento.bly_tipoAlojamiento}}" *ngFor="let alojamiento of alojamientos">{{alojamiento.bly_alojamientoPropiedad}}</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item class="ion-no-border" lines="none">
+  <p>
+    {{informacionAlojamiento}}
+  </p>
+</ion-item>
+<p class="parrafo">
+  ¿Se trata de un espacio exclusivo para los huéspedes?
+</p>
+<ion-item class="ion-no-border" lines="none" *ngFor="let exclusivo of exclusividad" (click)="onClick( exclusivo )">
+  <ion-label class="ion-label-check">{{exclusivo.bly_tipoExclusividad}}</ion-label>
+  <ion-checkbox [(ngModel)]="exclusivo.bly_selected" slot="end" required></ion-checkbox>
+</ion-item>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar> 
+</ion-footer>

@@ -1,13 +1,73 @@
-<ion-header class="ion-no-border" translucent>
-    <ion-toolbar>
-        <ion-buttons slot="start">
+<ion-header>
+    <ion-toolbar color="titulos" class="ion-no-border" translucent>
+        <ion-buttons slot="end">
             <ion-button (click)="salir()">
-                <ion-icon slot="icon-only" color="primary" name="chevron-back-outline"></ion-icon>
+                <ion-icon slot="icon-only" name="close-outline" color="primary"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
   </ion-header>
-
-<ion-content>
-
-</ion-content>
+  
+  <ion-content class="ion-padding">
+    <form #formulario="ngForm" class="form ion-padding">
+        <ion-grid style="background-color: transparent !important;">
+            <ion-row>
+                <ion-col>
+                    <h2>Es momento de preparar tu anuncio</h2>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <div padding>
+                        <ion-list style="background-color: transparent !important;">
+                            <ion-item (click)="registrop1()">
+                                <ion-label class="ion-label-registro">La propiedad y alojamiento</ion-label>                                
+                                <ion-icon [name]="registro1 ? 'business': 'business-outline'" slot="end" color="primary"></ion-icon>
+                              </ion-item>
+                              <ion-item (click)="registrop10()">
+                                <ion-label class="ion-label-registro">Huespedes</ion-label>
+                                <ion-icon [name]="registro10 ? 'people-circle':'people-circle-outline'" slot="end" color="primary"></ion-icon>
+                              </ion-item> 
+                              <ion-item (click)="registrop11()">
+                                <ion-label class="ion-label-registro">Interiores</ion-label>
+                                <ion-icon [name]="registro11 ? 'bed': 'bed-outline'" slot="end" color="primary"></ion-icon>
+                              </ion-item>
+                              <ion-item (click)="registrop2()">
+                                <ion-label class="ion-label-registro">Ubicación</ion-label>                                
+                                  <ion-icon [name]="registro2 ? 'pin': 'pin-outline'" color="primary" slot="end"></ion-icon>    
+                              </ion-item>
+                              <ion-item (click)="registrop3()">
+                                <ion-label class="ion-label-registro">Servicios</ion-label>                                
+                                  <ion-icon [name]="registro3 ? 'cafe': 'cafe-outline'" color="primary" slot="end"></ion-icon>    
+                              </ion-item>
+                              <ion-item (click)="registrop4()">
+                                <ion-label class="ion-label-registro">Fotos</ion-label>                                
+                                  <ion-icon [name]="registro4 ? 'images': 'images-outline'" color="primary" slot="end"></ion-icon>    
+                              </ion-item>
+                              <ion-item (click)="registrop5()">
+                                <ion-label class="ion-label-registro">Título</ion-label>                                
+                                  <ion-icon [name]="registro5 ? 'pencil': 'pencil-outline'" color="primary" slot="end"></ion-icon>    
+                              </ion-item>
+                              <ion-item (click)="registrop6()">
+                                <ion-label class="ion-label-registro">Configuración de las reservaciones</ion-label>                                
+                                  <ion-icon [name]="registro6 ? 'options': 'options-outline'" color="primary" slot="end"></ion-icon>    
+                              </ion-item>
+                              <ion-item (click)="registrop7()">
+                                <ion-label class="ion-label-registro">Disponibilidad</ion-label>                                
+                                  <ion-icon [name]="registro7 ? 'today': 'today-outline'" color="primary" slot="end"></ion-icon>    
+                              </ion-item>
+                              <ion-item (click)="registrop8()">
+                                <ion-label class="ion-label-registro">Precios</ion-label>                                
+                                  <ion-icon [name]="registro8 ? 'cash': 'cash-outline'" color="primary" slot="end"></ion-icon>    
+                              </ion-item>
+                              <ion-item (click)="registrop9()">
+                                <ion-label class="ion-label-registro">Evaluar</ion-label>                                
+                                  <ion-icon [name]="registro9 ? 'id-card': 'id-card-outline'" color="primary" slot="end"></ion-icon>    
+                              </ion-item>
+                        </ion-list>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+  </ion-content>

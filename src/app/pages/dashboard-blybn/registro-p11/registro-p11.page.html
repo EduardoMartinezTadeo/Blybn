@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="end">
+      <ion-button style="text-transform: capitalize;">
+        Guardar y salir
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-label class="ion-label1">
+    ¿Cómo son las camas?
+  </ion-label>
+  <p>
+    Ayuda a los huéspedes a entender dónde pueden dormir indicando de manera general el tipo de camas que hay en la propiedad.
+  </p>
+  <br>  
+  
+    <ion-row *ngFor="let mueble of muebles">
+      <ion-col class="ion-no-border" lines="none">
+        <ion-label>{{mueble.bly_tipoMueble}}</ion-label>
+        <ion-checkbox [(ngModel)]="mueble.bly_selected" slot="start" required></ion-checkbox>
+      </ion-col>
+      <ion-col size="7" class="ion-text-right">
+        <ion-col size="2">
+          <ion-button fill="clear" (click)="disminuir(mueble)">
+            <ion-icon name="remove-circle-outline" color="primary"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="3">
+          {{ (mueble.bly_cantidadMuebles) ? mueble.bly_cantidadMuebles: 0}}
+        </ion-col>
+        <ion-col size="2">
+          <ion-button fill="clear" (click)="incrementar(mueble)">
+            <ion-icon name="add-circle-outline" color="primary"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-col>
+    </ion-row>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

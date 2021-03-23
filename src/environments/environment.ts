@@ -16,7 +16,13 @@ export const environment = {
   apiActualizarFacturacionURL: 'http://192.168.0.101/server_blybn/api/db_actualizarFacturacion.php/',
   apiConsultarTerminosCondicionesURL: 'http://192.168.0.101/server_blybn/api/db_consultarTerminos.php/',
   apiRegistrarComentarioURL: 'http://192.168.0.101/server_blybn/api/db_registrarComentario.php/',
-  apiReigstrarComentarioAvanzadoURL: 'http://192.168.0.101/server_blybn/api/db_registrarComentarioAvanzado.php/'
+  apiReigstrarComentarioAvanzadoURL: 'http://192.168.0.101/server_blybn/api/db_registrarComentarioAvanzado.php/',
+  apiConsultarTipoPropiedadesURL: 'http://192.168.0.101/server_blybn/api/db_cargarTipoPropiedades.php/',
+  apiConsultarDescripcionPropiedadURL: 'http://192.168.0.101/server_blybn/api/db_cargarDescripcionPropiedad.php/',
+  apiConsultarTipoAlojamientoURL: 'http://192.168.0.101/server_blybn/api/db_cargarTipoAlojamiento.php/',
+  apiConsultarDescripcionAlojamientoURL: 'http://192.168.0.101/server_blybn/api/db_cargarDescripcionAlojamiento.php/',
+  apiConsultarExclusividadURL: 'http://192.168.0.101/server_blybn/api/db_cargarExclusividadPropiedad.php/',
+  apiConsultarMueblesURL: 'http://192.168.0.101/server_blybn/api/db_cargarMuebles.php/'
 };
 
 /*

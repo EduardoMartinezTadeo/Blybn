@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="end">
+      <ion-button style="text-transform: capitalize;">
+        Guardar y salir
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-label class="ion-label1">
+    ¿Cuantos baños hay?
+  </ion-label>
+  <p>
+    Los baños que no tienen regadera o bañera cuentan como medio baño.
+  </p>
+  <br>
+  <ion-item lines="none">
+    <ion-button slot="start" fill="clear" (click)="showBasicPicker()" color="primary">Cantidad baños</ion-button>
+    <ion-label style="color:white; font-family:Helvetica; font-size:12px">{{ cantidadBanos }}</ion-label>
+</ion-item>
+<br>
+<ion-item *ngFor="let item of data"
+              (click)="onClick( item )">
+      <ion-label style="font-family: Helvetica; font-size: 12px">{{ item.name }}</ion-label>
+      <ion-checkbox [(ngModel)]="item.selected"
+                    slot="end" required></ion-checkbox>
+    </ion-item>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

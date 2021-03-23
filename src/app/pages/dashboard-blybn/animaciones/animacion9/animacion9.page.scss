@@ -1,0 +1,8 @@
+ion-content {
+    --background: #000000;
+}
+
+.container {
+    -webkit-animation:slide-in-fwd-tl 1s cubic-bezier(.25,.46,.45,.94) both;animation:slide-in-fwd-tl 1s cubic-bezier(.25,.46,.45,.94) both;
+    @-webkit-keyframes slide-in-fwd-tl{0%{-webkit-transform:translateZ(-1400px) translateY(-800px) translateX(-1000px);transform:translateZ(-1400px) translateY(-800px) translateX(-1000px);opacity:0}100%{-webkit-transform:translateZ(0) translateY(0) translateX(0);transform:translateZ(0) translateY(0) translateX(0);opacity:1}}@keyframes slide-in-fwd-tl{0%{-webkit-transform:translateZ(-1400px) translateY(-800px) translateX(-1000px);transform:translateZ(-1400px) translateY(-800px) translateX(-1000px);opacity:0}100%{-webkit-transform:translateZ(0) translateY(0) translateX(0);transform:translateZ(0) translateY(0) translateX(0);opacity:1}}
+}

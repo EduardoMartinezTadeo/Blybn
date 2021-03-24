@@ -91,4 +91,8 @@ export class RegistroP11Page implements OnInit {
     }
   }
 
+  onChange(){
+    
+  }
+
 }

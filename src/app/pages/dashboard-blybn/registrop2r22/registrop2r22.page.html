@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="end">
+      <ion-button style="text-transform: capitalize;">
+        Guardar y salir
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-label class="ion-label1">
+    ¿Está el marcador en 
+  </ion-label>
+  <br />
+  <ion-label class="ion-label2">
+    el lugar correcto?
+  </ion-label>
+  <br>
+  <br>
+  <br>
+  <div class="map-wrapper" style="height: 100%;">      
+    <div id="map_center">
+      <ion-img src="/assets/icons/market.png"></ion-img>   
+    </div>
+    <div #map id="map"  style="height: 100%;"></div>
+  </div> 
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

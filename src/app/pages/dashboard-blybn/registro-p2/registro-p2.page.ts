@@ -145,6 +145,6 @@ export class RegistroP2Page {
   }
 
   guardarInformacion() {
-    this.router.navigate(['/dashboard2/registrar-propiedad2']);
+    this.router.navigate(['/registrop2r22']);
   }
 }

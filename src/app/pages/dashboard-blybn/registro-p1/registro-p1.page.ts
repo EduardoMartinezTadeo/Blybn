@@ -21,6 +21,7 @@ export class RegistroP1Page implements OnInit {
     this.cargarPropiedades();
     this.cargarAlojamiento();
     this.cargarExclusividad();
+    this.cargarAventuras();
   }
 
   exclusividad: any = [];
@@ -47,6 +48,21 @@ export class RegistroP1Page implements OnInit {
       this.provider.postDataTA(body, 'db_cargarTipoAlojamiento.php').subscribe((data) => {
         for (let alojamiento of data.result){
           this.alojamientos.push(alojamiento);
+        }
+        resolve(true);
+      });
+    });
+  }
+
+  aventuras: any = [];
+  cargarAventuras(){
+    return new Promise((resolve) => {
+      let body = {
+        aksi: 'aventura'
+      };
+      this.provider.postDataAv(body, 'db_cargarTipoAventura.php').subscribe((data) => {
+        for (let aventura of data.result){
+          this.aventuras.push(aventura);
         }
         resolve(true);
       });
@@ -134,6 +150,8 @@ export class RegistroP1Page implements OnInit {
       this.informacionAlojamiento = this.descripcionAlojamiento.bly_descripcionAlojamiento;
     });
   }
+
+  
 
   guardarInformacion(){
     this.router.navigate(['/dashboard2/registrar-propiedad2']);

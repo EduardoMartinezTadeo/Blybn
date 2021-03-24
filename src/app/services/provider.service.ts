@@ -12,6 +12,11 @@ const apiConsultarTipoAlojamiento = environment.apiConsultarTipoAlojamientoURL;
 const apiConsultarDescripcionAlojamiento = environment.apiConsultarDescripcionAlojamientoURL;
 const apiConsultarExclusividad = environment.apiConsultarExclusividadURL;
 const apiConsultarMuebles = environment.apiConsultarMueblesURL;
+const apiConsultarAmenidades = environment.apiConsultarAmenidadesURL;
+const apiConsultarEspacios = environment.apiConsultarEspaciosURL;
+const apiConsultarSeguridad = environment.apiConsultarSeguridadURL;
+const apiConsultarAventura = environment.apiConsultarAventuraURL;
+const apiConsultarMoneda = environment.apiConsultarTipoMonedaURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -100,4 +105,43 @@ export class ProviderService {
     return this.http.post<any>(apiConsultarMuebles + file, body, {headers})
   }
 
+  postDataA(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarAmenidades + file, body, {headers})
+  }
+
+  postDataE(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarEspacios + file, body, {headers})
+  }
+
+  postDataS(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarSeguridad + file, body, {headers})
+  }
+
+  postDataAv(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarAventura + file, body, {headers})
+  }
+
+  postDataMn(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarMoneda + file, body, {headers})
+  }
 }

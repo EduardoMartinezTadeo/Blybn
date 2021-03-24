@@ -1,0 +1,91 @@
+ion-content {
+    --background: #1d1e1e;
+}
+.ion-label1 {
+    margin-top: 10%;
+    margin-left: 10%;
+    font-family: "HelveticaBold";
+    font-size: 25px;
+    color: white;
+    display: inline-block;
+}
+
+.ion-label2 {
+    margin-left: 10%;
+    font-family: "HelveticaBold";
+    font-size: 25px;
+    color: white;
+    display: inline-block;
+}
+p {
+    margin-left: 10%;
+    margin-right: 10%;
+    font-family: "Helvetica";
+    font-size: 12px;
+    color: white;
+    text-align: justify;
+}
+
+ion-card{
+    --background: #1d1e1e;
+    --border-color: var(--ion-color-form, #ffffff);
+    color: #ffffff;
+    ion-textarea{
+        font-family: "Helvetica";
+        font-size: 13px;
+        color: white;  
+    }
+}
+
+.bottomSheet{
+    position: fixed;
+    width: auto;
+    height: 350px;
+    bottom: 0;
+    border-radius: 20px 20px 0 0;
+    z-index: 60;
+    background-color: var(--ion-color-titulos);
+    transition: 0.3s;
+    transform: translate3d(0,0,0);
+
+    .content{
+        h1 {
+            margin-left: 10%;
+            font-family: "HelveticaBold";
+            font-size: 25px;
+            color: white;
+            display: inline-block;
+           
+        }
+        p{
+            font-family: "Helvetica";
+            font-size: 13px;
+            color: white;
+            text-align: justify;
+        }
+    }
+
+    .swipe-handler::after {
+        content: '';
+        width: 50px;
+        height: 6px;
+        position: absolute;
+        left:50%;
+        top:5%;
+        margin-left: -18px;
+        margin-top: -3px;
+        border-radius: 3px;
+        background: rgb(124, 123, 123);
+    }
+}
+
+.bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    z-index: 10;
+    transition: 0.3s;
+}

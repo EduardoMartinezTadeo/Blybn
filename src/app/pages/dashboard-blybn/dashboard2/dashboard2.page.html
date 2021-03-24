@@ -35,7 +35,7 @@
             <ion-item class="sub-item" *ngFor="let sub of p.children" [routerLink]="sub.url" routerDirection="root"
               routerLinkActive="active">
               <ion-icon [name]="sub.icon" slot="start" color="#ffffff"></ion-icon>
-              <ion-label>
+              <ion-label class="label">
                 {{sub.title}}
               </ion-label>
             </ion-item>

@@ -64,6 +64,17 @@
   <ion-label class="ion-label-check">{{exclusivo.bly_tipoExclusividad}}</ion-label>
   <ion-checkbox [(ngModel)]="exclusivo.bly_selected" slot="end" required></ion-checkbox>
 </ion-item>
+<p class="parrafo">
+  Ahora, definamos el tipo de aventura
+</p>
+<ion-item>
+  <ion-label class="parrafo">
+    Eligue un tipo de aventura
+  </ion-label>
+  <ion-select placeholder="Seleccionar">
+    <ion-select-option value="{{aventura.bly_tipoAventura}}" *ngFor="let aventura of aventuras">{{aventura.bly_aventura}}</ion-select-option>
+  </ion-select>
+</ion-item>
 </ion-content>
 
 <ion-footer>

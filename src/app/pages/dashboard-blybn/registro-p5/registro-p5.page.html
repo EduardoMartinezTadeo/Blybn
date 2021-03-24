@@ -1,9 +1,67 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>registro-p5</ion-title>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="end">
+      <ion-button style="text-transform: capitalize;">
+        Guardar y salir
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-label class="ion-label1">
+    Ponle nombre a tu
+  </ion-label>
+  <br />
+  <ion-label class="ion-label2">
+    espacio
+  </ion-label>
+  <br>
+  <p>
+    Atrae a los huéspedes con un título que resalte lo que hace que tu espacio sea especial.
+    <ion-button fill="clear" (click)="open()" shape="round" slot="end">
+      <ion-icon name="alert-circle-outline" color="warning"></ion-icon>
+    </ion-button>
+  </p>
+ 
+  <ion-card>
+    <ion-card-content>
+      <ion-textarea placeholder="Escribe un titulo llamativo..." rows="6" cols="20">
 
+      </ion-textarea>
+    </ion-card-content>
+  </ion-card>
+
+
+  <div class="bg" (click)="close()"></div>
+
+  <div class="bottomSheet" (touchmove)="touchMove($event)" (touchend)="touchEnd()">
+    <div class="swipe-handler"></div>
+    <div class="content ion-padding">
+      <h1>Busca un título que sea descriptivo</h1>
+      <p>Los viajeros que buscan un alojamiento en Blybn leen los títulos de los espacios sin detenerse en ellos.</p>
+
+      <p>Te recomendamos que des con uno breve que destaque algo realmente especial: cualquier cosa interesante que haya
+        en la zona, si es espacioso o acogedor, etc.</p>
+
+      <p>También es importante explicar qué tipo de espacio es: si es luminoso, perfecto para ir en familia o si tiene
+        un encanto especial.</p>
+    </div>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

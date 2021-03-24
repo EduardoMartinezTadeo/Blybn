@@ -22,7 +22,14 @@ export const environment = {
   apiConsultarTipoAlojamientoURL: 'http://192.168.0.101/server_blybn/api/db_cargarTipoAlojamiento.php/',
   apiConsultarDescripcionAlojamientoURL: 'http://192.168.0.101/server_blybn/api/db_cargarDescripcionAlojamiento.php/',
   apiConsultarExclusividadURL: 'http://192.168.0.101/server_blybn/api/db_cargarExclusividadPropiedad.php/',
-  apiConsultarMueblesURL: 'http://192.168.0.101/server_blybn/api/db_cargarMuebles.php/'
+  apiConsultarMueblesURL: 'http://192.168.0.101/server_blybn/api/db_cargarMuebles.php/',
+  apiConsultarAmenidadesURL: 'http://192.168.0.101/server_blybn/api/db_cargarServicios.php/',
+  apiConsultarEspaciosURL: 'http://192.168.0.101/server_blybn/api/db_cargarEspacios.php/',
+  apiConsultarSeguridadURL: 'http://192.168.0.101/server_blybn/api/db_cargarSeguridad.php/',
+  apiConsultarDescripcionSeguridadURL: 'http://192.168.0.101/server_blybn/api/db_cargarDescripcionSeguridad.php/',
+  apiConsultarRestriccionesURL: 'http://192.168.0.101/server_blybn/api/db_cargarRestricciones.php/',
+  apiConsultarAventuraURL: 'http://192.168.0.101/server_blybn/api/db_cargarTipoAventura.php/',
+  apiConsultarTipoMonedaURL: 'http://192.168.0.101/server_blybn/api/db_cargarMonedaNacional.php/'
 };
 
 /*

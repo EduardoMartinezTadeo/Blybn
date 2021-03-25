@@ -15,34 +15,70 @@
 
 
 <ion-content class="ion-padding">
-  <ion-label class="ion-label1">
-    Consulta los requisitos
-  </ion-label>
-  <br />
-  <ion-label class="ion-label2">
-    de Blybn para los
-  </ion-label>
-  <br>
-  <ion-label class="ion-label2">
-    huéspedes
-  </ion-label>
-  <br>
-  <p>
-    Blybn establece una serie de requisitos que todos los huéspedes deben completar antes de hacer una reservación, sin
-    embargo tu puedes seleccionar que requisitos necesitas para rentar tu propiedad a los huéspedes:
-  </p>
-  <br>
-  <br>
-  <ion-grid>
-    <ion-row *ngFor="let requisito of requisitos" mode="ios">
-      <ion-col class="ion-no-border" lines="none" size="7">
-        <ion-label>{{requisito.bly_tipo_requisitoRenta}}</ion-label>
-      </ion-col>
-      <ion-col size="5" class="ion-text-right">
-        <ion-checkbox [(ngModel)]="requisito.bly_selected" required ></ion-checkbox>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div *ngIf="contentLoaded">
+    <ion-label class="ion-label1">
+      Consulta los requisitos
+    </ion-label>
+    <br />
+    <ion-label class="ion-label2">
+      de Blybn para los
+    </ion-label>
+    <br>
+    <ion-label class="ion-label2">
+      huéspedes
+    </ion-label>
+    <br>
+    <p>
+      Blybn establece una serie de requisitos que todos los huéspedes deben completar antes de hacer una reservación, sin
+      embargo tu puedes seleccionar que requisitos necesitas para rentar tu propiedad a los huéspedes:
+    </p>
+    <br>
+    <br>
+    <ion-grid>
+      <ion-row *ngFor="let requisito of requisitos" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label>{{requisito.bly_tipo_requisitoRenta}}</ion-label>
+        </ion-col>
+        <ion-col size="5" class="ion-text-right">
+          <ion-checkbox [(ngModel)]="requisito.bly_selected" required ></ion-checkbox>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngIf="!contentLoaded">
+    <ion-label class="ion-label1">
+      <ion-skeleton-text animated style="width: 320px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br />
+    <ion-label class="ion-label2">
+      <ion-skeleton-text animated style="width: 280px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <ion-label class="ion-label2">
+      <ion-skeleton-text animated style="width: 180px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <p>
+      <ion-skeleton-text animated style="width: 320px; height: 9px" slot="start"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 280px; height: 9px" slot="start"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 280px; height: 9px" slot="start"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 150px; height: 9px" slot="start"></ion-skeleton-text>
+    </p>
+    <br>
+    <br>
+    <ion-grid>
+      <ion-row *ngFor="let requisito of requisitos" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label><ion-skeleton-text animated style="width: 190px; height: 9px" slot="start"></ion-skeleton-text></ion-label>
+        </ion-col>
+        <ion-col size="5" class="ion-text-right">
+          <ion-skeleton-text animated style="width: 15px; height: 15px" slot="end"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+ 
 </ion-content>
 
 <ion-footer>

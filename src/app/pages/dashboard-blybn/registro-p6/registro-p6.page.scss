@@ -46,3 +46,8 @@ ion-col {
     font-size: 13px;
     color: white;
 }
+
+ion-skeleton-text {
+    --background: green;
+    --background-rgb: 254, 254, 254;
+  }

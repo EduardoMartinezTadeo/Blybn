@@ -19,8 +19,21 @@ export class RegistroP6Page implements OnInit {
   ngOnInit() {
   }
 
-  ionViewWillEnter() {
+  contentLoaded = false;
+  ionViewWillLeave(){
     this.cargarRequisitos();
+    this.requisitos = [];
+    setTimeout(() => {
+      this.contentLoaded = false;
+    }, 1500); 
+  }
+
+  ionViewWillEnter() {
+    this.requisitos = [];
+    this.cargarRequisitos();
+    setTimeout(() => {
+      this.contentLoaded = true;      
+    }, 2500); 
   }
 
   async cancelar() {
@@ -28,6 +41,7 @@ export class RegistroP6Page implements OnInit {
       cssClass: 'my-custom-class',
       header: 'Cancelar operación',
       message: '¿Esta seguro que desea cancelar el registro de la propiedad?',
+      mode: 'ios',
       buttons: [
         {
           text: 'Cancelar',

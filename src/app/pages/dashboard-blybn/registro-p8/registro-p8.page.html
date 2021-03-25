@@ -15,41 +15,86 @@
 
 
 <ion-content class="ion-padding">
-  <ion-label class="ion-label1">
-    Ponle precio a tu
-  </ion-label>
-  <br>
-  <ion-label class="ion-label2">
-    espacio
-  </ion-label>
-  <br>
-  <ion-label class="ion-label3">
-    Configura tu precio base
-  </ion-label>
-  <br>
-  <br>
-  <p class="parrafo">
-    Ahora, definamos el precio base
-  </p>
-  <p>
-    Este será el precio predeterminado de tu propiedad.
-  </p>
-  <ion-input placeholder="Escribe el precio..." type="number" required></ion-input>
-  <br>
-  <p class="parrafo">
-    Ahora, definamos el tipo de moneda
-  </p>
-  <p>
-    Este será el tipo de moneda en el que se realizaran los pagos.
-  </p>
-  <ion-item>
-    <ion-label class="parrafo">
-      Moneda
+  <div *ngIf="contentLoaded">
+    <ion-label class="ion-label1">
+      Ponle precio a tu
     </ion-label>
-    <ion-select placeholder="Seleccionar">
-      <ion-select-option value="{{moneda.bly_tipoMoneda}}" *ngFor="let moneda of monedas">{{moneda.bly_moneda}}</ion-select-option>
-    </ion-select>
-  </ion-item>
+    <br>
+    <ion-label class="ion-label2">
+      espacio
+    </ion-label>
+    <br>
+    <ion-label class="ion-label3">
+      Configura tu precio base
+    </ion-label>
+    <br>
+    <br>
+    <p class="parrafo">
+      Ahora, definamos el precio base
+    </p>
+    <p>
+      Este será el precio predeterminado de tu propiedad.
+    </p>
+    <ion-input placeholder="Escribe el precio..." type="number" required></ion-input>
+    <br>
+    <p class="parrafo">
+      Ahora, definamos el costo de limpieza.
+    </p>
+    <ion-input placeholder="Escribe el precio..." type="number" required></ion-input>
+    <br>
+    <p class="parrafo">
+      Ahora, definamos el tipo de moneda
+    </p>
+    <p>
+      Este será el tipo de moneda en el que se realizaran los pagos.
+    </p>
+    <ion-item>
+      <ion-label class="parrafo">
+        Moneda
+      </ion-label>
+      <ion-select placeholder="Seleccionar" mode="ios" cancelText="Cancelar" okText="Aceptar">
+        <ion-select-option value="{{moneda.bly_tipoMoneda}}" *ngFor="let moneda of monedas">{{moneda.bly_moneda}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+
+  <div *ngIf="!contentLoaded">
+    <ion-label class="ion-label1">
+      <ion-skeleton-text animated style="width: 320px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <ion-label class="ion-label2">
+      <ion-skeleton-text animated style="width: 270px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <ion-label class="ion-label3">
+      <ion-skeleton-text animated style="width: 180px; height: 13px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <br>
+    <p class="parrafo">
+      <ion-skeleton-text animated style="width: 320px; height: 12px" slot="start"></ion-skeleton-text>
+    </p>
+    <p>
+      <ion-skeleton-text animated style="width: 320px; height: 10px" slot="start"></ion-skeleton-text>
+    </p>
+    <ion-skeleton-text animated style="width: 320px; height: 9px" slot="start"></ion-skeleton-text>
+    <br>
+    <p class="parrafo">
+      <ion-skeleton-text animated style="width: 320px; height: 12px" slot="start"></ion-skeleton-text>
+    </p>
+    <ion-skeleton-text animated style="width: 320px; height: 9px" slot="start"></ion-skeleton-text>
+    <br>
+    <p class="parrafo">
+      <ion-skeleton-text animated style="width: 320px; height: 12px" slot="start"></ion-skeleton-text>
+    </p>
+    <p>
+      <ion-skeleton-text animated style="width: 320px; height: 10px" slot="start"></ion-skeleton-text>
+    </p> 
+    <ion-skeleton-text animated style="width: 380px; height: 20px" slot="start"></ion-skeleton-text>
+  </div>
+
 </ion-content>
 
 <ion-footer>

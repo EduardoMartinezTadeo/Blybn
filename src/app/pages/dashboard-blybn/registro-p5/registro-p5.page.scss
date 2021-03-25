@@ -89,3 +89,8 @@ ion-card{
     z-index: 10;
     transition: 0.3s;
 }
+
+ion-skeleton-text {
+    --background: green;
+    --background-rgb: 254, 254, 254;
+  }

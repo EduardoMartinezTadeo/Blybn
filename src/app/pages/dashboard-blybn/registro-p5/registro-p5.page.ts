@@ -14,6 +14,20 @@ export class RegistroP5Page implements OnInit {
   minimumThreshold;
   startPosition;
 
+
+  contentLoaded = false;
+  ionViewWillLeave(){
+    setTimeout(() => {
+      this.contentLoaded = false;
+    }, 1500); 
+  }
+
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.contentLoaded = true;      
+    }, 2500); 
+  }
+  
   constructor(
     private router: Router,
     private alertController: AlertController

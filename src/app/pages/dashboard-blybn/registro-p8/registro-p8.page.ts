@@ -19,14 +19,28 @@ export class RegistroP8Page implements OnInit {
   ngOnInit() {
   }
 
+  contentLoaded = false;
+  ionViewWillLeave(){
+    this.cargarMoneda();
+    this.monedas = [];
+    setTimeout(() => {
+      this.contentLoaded = false;
+    }, 1500); 
+  }
+
 
   ionViewWillEnter() {
     this.cargarMoneda();
+    this.monedas = [];
+    setTimeout(() => {
+      this.contentLoaded = true;      
+    }, 2500); 
   }
   async cancelar() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Cancelar operación',
+      mode: 'ios',
       message: '¿Esta seguro que desea cancelar el registro de la propiedad?',
       buttons: [
         {

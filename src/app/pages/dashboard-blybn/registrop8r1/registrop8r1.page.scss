@@ -55,3 +55,8 @@ ion-input {
     margin-left: 10%;
     margin-right: 10%;
 }
+
+ion-skeleton-text {
+    --background: green;
+    --background-rgb: 254, 254, 254;
+  }

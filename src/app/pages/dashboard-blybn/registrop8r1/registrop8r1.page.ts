@@ -15,6 +15,18 @@ export class Registrop8r1Page implements OnInit {
   ngOnInit() {
   }
 
+  contentLoaded = false;
+  ionViewWillLeave(){
+    setTimeout(() => {
+      this.contentLoaded = false;
+    }, 1500); 
+  }
+
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.contentLoaded = true;      
+    }, 2500); 
+  }
   cancelar(){
     this.router.navigate(['/registro-p8']);
   }

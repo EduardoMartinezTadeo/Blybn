@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrop8r1',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Registrop8r1Page implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router:Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  cancelar(){
+    this.router.navigate(['/registro-p8']);
+  }
+
+  guardarInformacion(){
+    this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
   }
 
 }

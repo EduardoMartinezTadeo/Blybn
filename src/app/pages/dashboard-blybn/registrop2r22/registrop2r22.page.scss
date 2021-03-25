@@ -51,3 +51,8 @@ ion-content {
       margin-top: -41px;
     }
   }
+
+  ion-skeleton-text {
+    --background: green;
+    --background-rgb: 254, 254, 254;
+  }

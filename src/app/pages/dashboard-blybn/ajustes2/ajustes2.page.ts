@@ -74,7 +74,8 @@ export class Ajustes2Page implements OnInit {
     const loading = await this.loading.create({
       spinner: 'bubbles',
       message: 'Espere un momento...',
-      duration: 1500
+      duration: 1500,
+      mode:'ios'
     });
     await loading.present();
     setTimeout(() => {
@@ -86,6 +87,7 @@ export class Ajustes2Page implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Actualizar Contraseña',
+      mode:'ios',
       message: '¿Está seguro que desea actualizar su contraseña?',
       buttons: [
         {
@@ -235,25 +237,29 @@ export class Ajustes2Page implements OnInit {
     if(this.facturacion.razonSocial == ""){
       const toast = await this.toastCtrl.create({
         message: 'La razón social es requerida...',
-        duration: 2000
+        duration: 2000,
+        mode:'ios'
         });
         toast.present();
     } else if (this.facturacion.rfc == ""){
       const toast = await this.toastCtrl.create({
         message: 'El RFC es requerido...',
-        duration: 2000
+        duration: 2000,
+        mode:'ios'
         });
         toast.present();
     } else if (this.facturacion.direccionFiscal == ""){
       const toast = await this.toastCtrl.create({
         message: 'La dirección fiscal es requerida...',
-        duration: 2000
+        duration: 2000,
+        mode:'ios'
         });
         toast.present();
     } else if (this.facturacion.correoElectronico == ""){
       const toast = await this.toastCtrl.create({
         message: 'El correo electrónico es requerido...',
-        duration: 2000
+        duration: 2000,
+        mode:'ios'
         });
         toast.present();
     } else {
@@ -264,6 +270,7 @@ export class Ajustes2Page implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Error',
+      mode:'ios',
       message: 'Ha ocurrido un error, verifique su conexión!!!',
       buttons: [{
         text: 'Reintentar',
@@ -279,7 +286,8 @@ export class Ajustes2Page implements OnInit {
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
       duration: 1500,
-      spinner: "bubbles"
+      spinner: "bubbles",
+      mode:'ios'
     });
     await loading.present();
     setTimeout(() => {
@@ -291,7 +299,8 @@ export class Ajustes2Page implements OnInit {
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
       spinner: 'bubbles',
-      duration: 1500
+      duration: 1500,
+      mode:'ios'
     });
     await loading.present();
     setTimeout(() => {
@@ -304,7 +313,8 @@ export class Ajustes2Page implements OnInit {
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
       spinner: 'bubbles',
-      duration: 1500
+      duration: 1500,
+      mode:'ios'
     });
     await loading.present();
     setTimeout(() => {
@@ -317,25 +327,29 @@ export class Ajustes2Page implements OnInit {
     if(this.facturacion.razonSocial == ""){
       const toast = await this.toastCtrl.create({
         message: 'La razón social es requerida...',
-        duration: 2000
+        duration: 2000,
+        mode:'ios'
         });
         toast.present();
     } else if (this.facturacion.rfc == ""){
       const toast = await this.toastCtrl.create({
         message: 'El RFC es requerido...',
-        duration: 2000
+        duration: 2000,
+        mode:'ios'
         });
         toast.present();
     } else if (this.facturacion.direccionFiscal == ""){
       const toast = await this.toastCtrl.create({
         message: 'La dirección fiscal es requerida...',
-        duration: 2000
+        duration: 2000,
+        mode:'ios'
         });
         toast.present();
     } else if (this.facturacion.correoElectronico == ""){
       const toast = await this.toastCtrl.create({
         message: 'El correo electrónico es requerido...',
-        duration: 2000
+        duration: 2000,
+        mode:'ios'
         });
         toast.present();
     } else {
@@ -357,7 +371,8 @@ export class Ajustes2Page implements OnInit {
       if (data.success) {
         const toast = await this.toastCtrl.create({
           message: '¡Su información ha sido actualizada correctamente!',
-          duration: 2000
+          duration: 2000,
+          mode:'ios'
         });
         toast.present();
         this.service.consultarDatosFacturacion(this.id).subscribe(data => {
@@ -367,7 +382,8 @@ export class Ajustes2Page implements OnInit {
       } else {
         const toast = await this.toastCtrl.create({
           message: alertpesan,
-          duration: 2000
+          duration: 2000,
+          mode:'ios'
         });
       }
     }, (error) => {
@@ -379,6 +395,7 @@ export class Ajustes2Page implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Actualizar Información',
+      mode:'ios',
       message: '¿Está seguro que desea actualizar sus datos de facturación?',
       buttons: [
         {
@@ -413,6 +430,7 @@ export class Ajustes2Page implements OnInit {
   async presentActionCamera() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Opciones Cámara',
+      mode:'ios',
       cssClass: 'match-item-action-sheet',
       buttons: [{
         text: 'Tomar Fotografía',

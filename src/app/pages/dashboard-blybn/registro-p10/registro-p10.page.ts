@@ -17,6 +17,19 @@ export class RegistroP10Page implements OnInit {
   ngOnInit() {
   }
 
+  contentLoaded = false;
+  ionViewWillLeave(){
+    setTimeout(() => {
+      this.contentLoaded = false;
+    }, 1500); 
+  }
+
+  ionViewWillEnter() {    
+    setTimeout(() => {
+      this.contentLoaded = true;
+    }, 2500); 
+  }
+ 
 
   huespedes = 1;
   huesped = "16+";
@@ -27,6 +40,7 @@ export class RegistroP10Page implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Cancelar operación',
+      mode: 'ios',
       message: '¿Esta seguro que desea cancelar el registro de la propiedad?',
       buttons: [
         {
@@ -40,7 +54,7 @@ export class RegistroP10Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigate(['/dashboard2/registrar-propiedad2']);
+            this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
           },
         },
       ],
@@ -50,7 +64,7 @@ export class RegistroP10Page implements OnInit {
   }
 
   guardarInformacion(){
-    this.router.navigate(['/dashboard2/registrar-propiedad2']);
+    this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
   }
 
   incrementarHuespedes(){

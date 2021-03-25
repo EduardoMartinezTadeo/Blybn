@@ -17,11 +17,21 @@ export class RegistroP1Page implements OnInit {
 
   ngOnInit() {}
 
-  ionViewWillEnter() {
+  ionViewWillLeave(){
+    setTimeout(() => {
+      this.contentLoaded = false;
+    }, 1500); 
+  }
+
+  contentLoaded = false;
+  ionViewWillEnter() {    
     this.cargarPropiedades();
     this.cargarAlojamiento();
     this.cargarExclusividad();
     this.cargarAventuras();
+    setTimeout(() => {
+      this.contentLoaded = true;
+    }, 2500); 
   }
 
   exclusividad: any = [];
@@ -97,6 +107,7 @@ export class RegistroP1Page implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Cancelar operación',
+      mode: 'ios',
       message: '¿Esta seguro que desea cancelar el registro de la propiedad?',
       buttons: [
         {
@@ -110,7 +121,8 @@ export class RegistroP1Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigate(['/dashboard2/registrar-propiedad2']);
+            this.exclusividad = [];
+            this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
           },
         },
       ],
@@ -154,7 +166,8 @@ export class RegistroP1Page implements OnInit {
   
 
   guardarInformacion(){
-    this.router.navigate(['/dashboard2/registrar-propiedad2']);
+    this.exclusividad = [];
+    this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
     console.log(this.valores);
   }
 

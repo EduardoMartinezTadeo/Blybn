@@ -1,3 +1,14 @@
+<app-header>
+</app-header>
+<ion-toolbar >
+  <ion-buttons slot="start">
+    <ion-button color="primary" (click)="regresar()">
+      <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
+      Regresar
+    </ion-button>
+  </ion-buttons>
+ 
+</ion-toolbar>
 <ion-content class="ion-no-padding card-background-page">
  
   <ion-row>
@@ -59,18 +70,5 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar color="titulos">
-    <ion-buttons slot="start">
-      <ion-button color="primary" (click)="regresar()">
-        <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
-        Regresar
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button color="primary" (click)="buscar()">
-        Buscar
-        <ion-icon slot="end" name="search-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+
 </ion-footer>

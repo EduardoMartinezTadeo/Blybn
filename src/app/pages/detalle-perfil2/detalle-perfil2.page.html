@@ -46,7 +46,7 @@
         </ion-item>
         <br>
         <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;"
-          (click)="presentCambiarContrasena()">
+          (click)="presentCambiarContrasena()" mode="md">
           Actualizar
         </ion-button>
       </ion-list>
@@ -92,15 +92,15 @@
       </ion-item>
       <br>
       <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;"
-        (click)="registrarDataFacturacion()" *ngIf="ocultar1">
+        (click)="registrarDataFacturacion()" *ngIf="ocultar1" mode="md">
         Guardar
       </ion-button>
       <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;"
-        (click)="presentAlertFacturacion()" *ngIf="ocultar2">
+        (click)="presentAlertFacturacion()" *ngIf="ocultar2" mode="md">
         Actualizar
       </ion-button>
       <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;"
-      (click)="activarComponentes()" *ngIf="ocultar3">
+      (click)="activarComponentes()" *ngIf="ocultar3" mode="md">
       Editar
     </ion-button>
     </ion-list>
@@ -161,7 +161,7 @@
           </ion-col>
         </ion-row>
         <br>
-        <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;">
+        <ion-button expand="full" color="primary" shape="block" style="text-transform: capitalize;" mode="md">
           Agregar
         </ion-button>
         <br>

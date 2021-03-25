@@ -21,8 +21,19 @@ export class RegistroP11Page implements OnInit {
   ngOnInit() {
   }
 
+  contentLoaded = false;
+  ionViewWillLeave(){
+    this.cargarMuebles();
+    setTimeout(() => {
+      this.contentLoaded = false;
+    }, 1500); 
+  }
+
   ionViewWillEnter() {
     this.cargarMuebles();
+    setTimeout(() => {
+      this.contentLoaded = true;      
+    }, 2500); 
   }
 
   muebles: any = [];
@@ -47,6 +58,7 @@ export class RegistroP11Page implements OnInit {
       cssClass: 'my-custom-class',
       header: 'Cancelar operación',
       message: '¿Esta seguro que desea cancelar el registro de la propiedad?',
+      mode:'ios',
       buttons: [
         {
           text: 'Cancelar',
@@ -59,7 +71,7 @@ export class RegistroP11Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigate(['/dashboard2/registrar-propiedad2']);
+            this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
             this.muebles = [];
           },
         },
@@ -91,8 +103,5 @@ export class RegistroP11Page implements OnInit {
     }
   }
 
-  onChange(){
-    
-  }
 
 }

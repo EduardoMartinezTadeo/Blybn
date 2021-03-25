@@ -105,10 +105,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/terminos-condiciones2/terminos-condiciones2.module').then( m => m.TerminosCondiciones2PageModule)
   },
   {
-    path: 'tipo-aventura',
-    loadChildren: () => import('./pages/dashboard-blybn/tipo-aventura/tipo-aventura.module').then( m => m.TipoAventuraPageModule)
-  },
-  {
     path: 'tipo-aventura2',
     loadChildren: () => import('./pages/dashboard-admin/tipo-aventura2/tipo-aventura2.module').then( m => m.TipoAventura2PageModule)
   },
@@ -259,6 +255,10 @@ const routes: Routes = [
   {
     path: 'registrop8r1',
     loadChildren: () => import('./pages/dashboard-blybn/registrop8r1/registrop8r1.module').then( m => m.Registrop8r1PageModule)
+  },
+  {
+    path: 'registrop6r11',
+    loadChildren: () => import('./pages/dashboard-blybn/registrop6r11/registrop6r11.module').then( m => m.Registrop6r11PageModule)
   }
 ];
 

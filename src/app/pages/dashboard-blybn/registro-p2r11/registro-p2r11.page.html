@@ -14,24 +14,51 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-label class="ion-label1">
-    ¿Cuantos baños hay?
-  </ion-label>
-  <p>
-    Los baños que no tienen regadera o bañera cuentan como medio baño.
-  </p>
-  <br>
-  <ion-item lines="none">
-    <ion-button slot="start" fill="clear" (click)="showBasicPicker()" color="primary">Cantidad baños</ion-button>
-    <ion-label style="color:white; font-family:Helvetica; font-size:12px">{{ cantidadBanos }}</ion-label>
-</ion-item>
-<br>
-<ion-item *ngFor="let item of data"
-              (click)="onClick( item )">
-      <ion-label style="font-family: Helvetica; font-size: 12px">{{ item.name }}</ion-label>
-      <ion-checkbox [(ngModel)]="item.selected"
-                    slot="end" required></ion-checkbox>
+  <div *ngIf="contentLoaded">
+    <ion-label class="ion-label1">
+      ¿Cuantos baños hay?
+    </ion-label>
+    <p>
+      Los baños que no tienen regadera o bañera cuentan como medio baño.
+    </p>
+    <br>
+    <ion-item lines="none">
+      <ion-button slot="start" fill="clear" (click)="showBasicPicker()" color="primary">Cantidad baños</ion-button>
+      <ion-label style="color:white; font-family:Helvetica; font-size:12px">{{ cantidadBanos }}</ion-label>
     </ion-item>
+    <br>
+    <ion-item *ngFor="let item of data" (click)="onClick( item )">
+      <ion-label style="font-family: Helvetica; font-size: 12px">{{ item.name }}</ion-label>
+      <ion-checkbox [(ngModel)]="item.selected" slot="end" required mode="ios"></ion-checkbox>
+    </ion-item>
+  </div>
+
+  <div *ngIf="!contentLoaded">
+    <ion-label class="ion-label1">
+      <ion-skeleton-text animated style="width: 320px; height: 13px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <p>
+      <ion-skeleton-text animated style="width: 252px; height: 8px" slot="start"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 52px; height: 8px" slot="start"></ion-skeleton-text>
+    </p>
+    <br>
+    <ion-item lines="none">
+      <ion-button slot="start" fill="clear" color="primary">
+        <ion-skeleton-text animated style="width: 55px; height: 15px" slot="start"></ion-skeleton-text>
+      </ion-button>
+      <ion-label style="color:white; font-family:Helvetica; font-size:12px">
+        <ion-skeleton-text animated style="width: 120px; height: 10px" slot="end"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <br>
+    <ion-item *ngFor="let item of data" (click)="onClick( item )">
+      <ion-label style="font-family: Helvetica; font-size: 12px">
+        <ion-skeleton-text animated style="width: 120px; height: 10px" slot="end"></ion-skeleton-text>
+      </ion-label>
+      <ion-skeleton-text animated style="width: 10px; height: 10px" slot="end"></ion-skeleton-text>
+    </ion-item>
+  </div>
+
 </ion-content>
 
 <ion-footer>

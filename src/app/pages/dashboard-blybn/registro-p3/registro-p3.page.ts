@@ -9,26 +9,36 @@ import { ProviderService } from '../../../services/provider.service';
   styleUrls: ['./registro-p3.page.scss'],
 })
 export class RegistroP3Page implements OnInit {
-
   constructor(
     private alertController: AlertController,
     private router: Router,
     private provider: ProviderService
-  ) { }
+  ) {}
 
   ngOnInit() {
+  }
+
+  contentLoaded = false;
+  ionViewWillLeave() { 
+    setTimeout(() => {
+      this.contentLoaded = false;
+    }, 1500);
   }
 
   ionViewWillEnter() {
     this.cargarAmenidades();
     this.cargarEspacios();
     this.cargarSeguridad();
+    setTimeout(() => {
+      this.contentLoaded = true;
+    }, 2500);
   }
 
   async cancelar() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Cancelar operación',
+      mode: 'ios',
       message: '¿Esta seguro que desea cancelar el registro de la propiedad?',
       buttons: [
         {
@@ -42,7 +52,9 @@ export class RegistroP3Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigate(['/dashboard2/registrar-propiedad2']);
+            this.router.navigate([
+              '/dashboard2/menutabs2/registrar-propiedad2',
+            ]);
           },
         },
       ],
@@ -51,15 +63,15 @@ export class RegistroP3Page implements OnInit {
     await alert.present();
   }
 
-  guardarInformacion(){
-    this.router.navigate(['/dashboard2/registrar-propiedad2']);
+  guardarInformacion() {
+    this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
   }
 
   amenidades: any = [];
   cargarAmenidades() {
     return new Promise((resolve) => {
       let body = {
-        aksi: 'amenidades'
+        aksi: 'amenidades',
       };
       this.provider
         .postDataA(body, 'db_cargarServicios.php')
@@ -76,7 +88,7 @@ export class RegistroP3Page implements OnInit {
   cargarEspacios() {
     return new Promise((resolve) => {
       let body = {
-        aksi: 'espacios'
+        aksi: 'espacios',
       };
       this.provider
         .postDataE(body, 'db_cargarEspacios.php')
@@ -93,7 +105,7 @@ export class RegistroP3Page implements OnInit {
   cargarSeguridad() {
     return new Promise((resolve) => {
       let body = {
-        aksi: 'seguridad'
+        aksi: 'seguridad',
       };
       this.provider
         .postDataS(body, 'db_cargarSeguridad.php')

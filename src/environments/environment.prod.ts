@@ -25,5 +25,6 @@ export const environment = {
   apiConsultarDescripcionSeguridadURL: 'http://192.168.0.101/server_blybn/api/db_cargarDescripcionSeguridad.php/',
   apiConsultarRestriccionesURL: 'http://192.168.0.101/server_blybn/api/db_cargarRestricciones.php/',
   apiConsultarAventuraURL: 'http://192.168.0.101/server_blybn/api/db_cargarTipoAventura.php/',
-  apiConsultarTipoMonedaURL: 'http://192.168.0.101/server_blybn/api/db_cargarMonedaNacional.php/'
+  apiConsultarTipoMonedaURL: 'http://192.168.0.101/server_blybn/api/db_cargarMonedaNacional.php/',
+  apiConsultarRequisitosRentaURL: 'http://192.168.0.101/server_blybn/api/db_cargarRequisitos.php/'
 };

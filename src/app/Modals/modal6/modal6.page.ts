@@ -85,16 +85,17 @@ export class Modal6Page implements OnInit {
         var alert = data.msg;
         if(data.success){
           this.modalCtrl.dismiss();
-          this.storage.remove('perfil');
           const toast = await this.toastCtrl.create({
-            message: 'Se ha restablecido tu contraseña correctamente',
-            duration: 2000
+            message: 'Se ha restablecido tu contraseña correctamente, se cerrará su sesión para terminar el procedimiento...',
+            duration: 2000,
+            mode: 'ios'
           });
           toast.present();
         } else {
           const toast = await this.toastCtrl.create({
             message: alert,
-            duration: 2000
+            duration: 2000,
+            mode: 'ios'
           });
         }
       });
@@ -105,7 +106,8 @@ export class Modal6Page implements OnInit {
     const toast = await this.toastCtrl.create({
       message: a,
       duration: 2000,
-      cssClass: 'toast-scheme'
+      cssClass: 'toast-scheme',
+      mode: 'ios'
     });
     toast.present();
   }
@@ -114,6 +116,7 @@ export class Modal6Page implements OnInit {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Cancelar Operación',
+      mode: 'ios',
       message: '¿Está seguro de abortar esta operación?',
       buttons: [
         {

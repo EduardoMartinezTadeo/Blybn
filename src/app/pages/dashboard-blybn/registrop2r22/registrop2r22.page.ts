@@ -24,9 +24,23 @@ export class Registrop2r22Page implements OnInit {
   ) {}
 
   ngOnInit() {
-     this.loadMap();
+    
   }
 
+  contentLoaded = false;
+  ionViewWillLeave(){
+    this.loadMap();
+    setTimeout(() => {
+      this.contentLoaded = false;
+    }, 1500); 
+  }
+
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.contentLoaded = true;     
+      this.loadMap(); 
+    }, 2500); 
+  }
 
   loadMap() {
     
@@ -79,7 +93,7 @@ export class Registrop2r22Page implements OnInit {
   }
 
   ShowCords(){
-    alert('lat' +this.lat+', long'+this.long )
+    console.log('lat' +this.lat+', long'+this.long );
   }
 
   cancelar() {
@@ -88,6 +102,6 @@ export class Registrop2r22Page implements OnInit {
 
   guardarInformacion() {
     this.ShowCords();
-    this.router.navigate(['/dashboard2/registrar-propiedad2']);
+    this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
   }
 }

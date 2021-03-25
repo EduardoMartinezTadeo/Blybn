@@ -24,7 +24,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
   entryComponents: [],
   imports: [BrowserModule, 
     IonicModule.forRoot({
-      hardwareBackButton: false
+      hardwareBackButton: false,
+      mode: 'md'
     }), 
     AppRoutingModule, 
     IonicStorageModule.forRoot(),

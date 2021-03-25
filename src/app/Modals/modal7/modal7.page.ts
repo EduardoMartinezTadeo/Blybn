@@ -49,6 +49,7 @@ export class Modal7Page implements OnInit {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Cancelar Operación',
+      mode: 'ios',
       message: '¿Está seguro de abortar esta operación?',
       buttons: [
         {
@@ -151,13 +152,15 @@ export class Modal7Page implements OnInit {
         if(data.success){
           this.modalCtrl.dismiss();
           const toast = await this.toastCtrl.create({
-            message: 'Se ha restablecido tu contraseña correctamente',
-            duration: 2000
+            message: 'La próxima ocasión que inicie sesión en otro dispositivo solicitara esta última contraseña...',
+            duration: 3500,
+            mode: 'ios'
           });
           toast.present();
         } else {
           const toast = await this.toastCtrl.create({
             message: alert,
+            mode: 'ios',
             duration: 2000
           });
         }
@@ -169,7 +172,8 @@ export class Modal7Page implements OnInit {
     const toast = await this.toastCtrl.create({
       message: a,
       duration: 2000,
-      cssClass: 'toast-scheme'
+      cssClass: 'toast-scheme',
+      mode: 'ios'
     });
     toast.present();
   }

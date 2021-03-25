@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { ProviderService } from '../../../services/provider.service';
 
 @Component({
-  selector: 'app-registro-p5',
-  templateUrl: './registro-p5.page.html',
-  styleUrls: ['./registro-p5.page.scss'],
+  selector: 'app-registrop6r11',
+  templateUrl: './registrop6r11.page.html',
+  styleUrls: ['./registrop6r11.page.scss'],
 })
-export class RegistroP5Page implements OnInit {
-
+export class Registrop6r11Page implements OnInit {
   currentPosition;
   height;
   minimumThreshold;
@@ -16,45 +15,26 @@ export class RegistroP5Page implements OnInit {
 
   constructor(
     private router: Router,
-    private alertController: AlertController
-  ) { }
+    private provider: ProviderService) { }
 
   ngOnInit() {
     this.close();
   }
 
+  ionViewWillEnter() {
+    this.cargarRestricciones();
+  }
+  
+  cancelar(){
+    this.router.navigate(['/registro-p6']);
+    this.restriciones = [];
+  }
+
   guardarInformacion(){
-    this.router.navigate(['/dashboard2/registrar-propiedad2']);
+    this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+    this.restriciones = [];
   }
 
-  async cancelar() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Cancelar operación',
-      mode: 'ios',
-      message: '¿Esta seguro que desea cancelar el registro de la propiedad?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
-        },
-        {
-          text: 'Aceptar',
-          handler: () => {
-            this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
-          },
-        },
-      ],
-    });
-
-    await alert.present();
-  }
-
- 
   open(){
     (<HTMLStyleElement>document.querySelector(".bottomSheet")).style.bottom = "0px";
     (<HTMLStyleElement>document.querySelector(".bg")).style.display = "block";
@@ -94,4 +74,21 @@ export class RegistroP5Page implements OnInit {
       this.close();
     }
   }
+
+
+  restriciones: any = [];
+  cargarRestricciones(){
+    return new Promise((resolve) => {
+      let body = {
+        aksi: 'restriccion'
+      };
+      this.provider.postDataCRP(body, 'db_cargarRestricciones.php').subscribe((data) => {
+        for (let restriccion of data.result){
+          this.restriciones.push(restriccion);
+        }
+        resolve(true);
+      });
+    });
+  }
+
 }

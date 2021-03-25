@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'menutabs2/inicio-menu',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: '',
@@ -15,26 +15,55 @@ const routes: Routes = [
     children: [
       {
         path: 'inicio-menu',
-        loadChildren: () => import('../inicio-menu/inicio-menu.module').then(m => m.InicioMenuPageModule)
+        loadChildren: () =>
+          import('../inicio-menu/inicio-menu.module').then(
+            (m) => m.InicioMenuPageModule
+          ),
       },
       {
         path: 'promociones',
-        loadChildren: () => import('../../promociones/promociones.module').then(m => m.PromocionesPageModule)
+        loadChildren: () =>
+          import('../../promociones/promociones.module').then(
+            (m) => m.PromocionesPageModule
+          ),
       },
       {
         path: 'favoritos',
-        loadChildren: () => import('../../favoritos/favoritos.module').then(m => m.FavoritosPageModule)
+        loadChildren: () =>
+          import('../../favoritos/favoritos.module').then(
+            (m) => m.FavoritosPageModule
+          ),
       },
       {
         path: 'busqueda',
-        loadChildren: () => import('../../busqueda/busqueda.module').then( m => m.BusquedaPageModule)
+        loadChildren: () =>
+          import('../../busqueda/busqueda.module').then(
+            (m) => m.BusquedaPageModule
+          ),
       },
       {
         path: 'mensajes-tab2',
-        loadChildren: () => import('../mensajes-tab2/mensajes-tab2.module').then( m => m.MensajesTab2PageModule)
-      }
-    ]
-  }
+        loadChildren: () =>
+          import('../mensajes-tab2/mensajes-tab2.module').then(
+            (m) => m.MensajesTab2PageModule
+          ),
+      },
+      {
+        path: 'tipo-aventura',
+        loadChildren: () =>
+          import('../tipo-aventura/tipo-aventura.module').then(
+            (m) => m.TipoAventuraPageModule
+          ),
+      },
+      {
+        path: 'registrar-propiedad2',
+        loadChildren: () =>
+          import('../registrar-propiedad2/registrar-propiedad2.module').then(
+            (m) => m.RegistrarPropiedad2PageModule
+          ),
+      },
+    ],
+  },
 ];
 
 @NgModule({

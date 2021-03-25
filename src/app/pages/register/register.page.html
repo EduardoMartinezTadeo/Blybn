@@ -79,7 +79,7 @@
                                   Genero</ion-label>
                               <ion-select name="sexo" [(ngModel)]="registro.sexo"
                                   [interfaceOptions]='{ backdropDismiss: false }' cancelText="Cancelar" okText="Hecho"
-                                  required>
+                                  mode="ios" required>
                                   <ion-select-option value="f">Femenino</ion-select-option>
                                   <ion-select-option value="m">Masculino</ion-select-option>
                               </ion-select>
@@ -105,7 +105,7 @@
                               <ion-label class="ion-text-wrap"
                                   style="font-family: Helvetica; font-size: 13px; color: #ffffff; font-weight: bold;">
                                   {{ item.name }}</ion-label>
-                              <ion-checkbox color="primary" slot="start" name="termino" ([ngModel])="registro.termino" required>
+                              <ion-checkbox color="primary" slot="start" name="termino" ([ngModel])="registro.termino" required mode="ios">
                               </ion-checkbox>
                           </ion-item>
                           <br>

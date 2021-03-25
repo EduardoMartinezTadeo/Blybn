@@ -1,9 +1,64 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>registro-p8</ion-title>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="end">
+      <ion-button style="text-transform: capitalize;">
+        Guardar y salir
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
+<ion-content class="ion-padding">
+  <ion-label class="ion-label1">
+    Ponle precio a tu
+  </ion-label>
+  <br>
+  <ion-label class="ion-label2">
+    espacio
+  </ion-label>
+  <br>
+  <ion-label class="ion-label3">
+    Configura tu precio base
+  </ion-label>
+  <br>
+  <br>
+  <p class="parrafo">
+    Ahora, definamos el precio base
+  </p>
+  <p>
+    Este será el precio predeterminado de tu propiedad.
+  </p>
+  <ion-input placeholder="Escribe el precio..." type="number" required></ion-input>
+  <br>
+  <p class="parrafo">
+    Ahora, definamos el tipo de moneda
+  </p>
+  <p>
+    Este será el tipo de moneda en el que se realizaran los pagos.
+  </p>
+  <ion-item>
+    <ion-label class="parrafo">
+      Moneda
+    </ion-label>
+    <ion-select placeholder="Seleccionar">
+      <ion-select-option value="{{moneda.bly_tipoMoneda}}" *ngFor="let moneda of monedas">{{moneda.bly_moneda}}</ion-select-option>
+    </ion-select>
+  </ion-item>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

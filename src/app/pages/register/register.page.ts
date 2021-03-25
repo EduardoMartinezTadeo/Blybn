@@ -84,6 +84,7 @@ export class RegisterPage implements OnInit {
       cssClass: 'my-custom-class',
       header: 'Error',
       message: 'Ha ocurrido un error, verifique su conexión!!!',
+      mode: 'ios',
       buttons: [{
         text: 'Reintentar',
         handler: () => {
@@ -99,7 +100,8 @@ export class RegisterPage implements OnInit {
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
       duration: 1500,
-      spinner: "bubbles"
+      spinner: "bubbles",
+      mode: 'ios',
     });
     await loading.present();
     setTimeout(() => {
@@ -116,6 +118,7 @@ export class RegisterPage implements OnInit {
 
   async showPickerDia() {
     let opts: PickerOptions = {
+      mode: 'ios',
       buttons: [
         {
           text: 'Cancelar',
@@ -176,6 +179,7 @@ export class RegisterPage implements OnInit {
 
   async showPickerMes() {
     let opts: PickerOptions = {
+      mode: 'ios',
       buttons: [
         {
           text: 'Cancelar',

@@ -36,14 +36,16 @@ export class DataService {
         if (correoElectronico == "" && contrasena == "" && nombreUsuario == "" && numTelefono == "" && dia == "" && mes == "" && years == "" && sexo == "" && contrasena == "") {
           this.toast = this.toastController.create({
             message: '¡Debe completar todos los campos solicitados!',
-            duration: 2000
+            duration: 2000,
+            mode: 'ios',
           }).then((toastData) => {
             toastData.present();
           });
         } else if (this.responseData == "Ya hay un registro de este usuario") {
           this.toast = this.toastController.create({
             message: 'Ya hay un registro de este usuario',
-            duration: 2000
+            duration: 2000,
+            mode: 'ios',
           }).then((toastData) => {
             toastData.present();
           });
@@ -69,14 +71,16 @@ export class DataService {
         if (correoElectronico == "" && contrasena == "") {
           this.toast = this.toastController.create({
             message: '¡Debe completar todos los campos solicitados!',
-            duration: 2000
+            duration: 2000,
+            mode: 'ios',
           }).then((toastData) => {
             toastData.present();
           });
         } else if (this.result == "¡Correo electronico o contrasena incorrectos!") {
           this.toast = this.toastController.create({
             message: '¡Correo electronico o contrasena incorrectos!',
-            duration: 2000
+            duration: 2000,
+            mode: 'ios',
           }).then((toastData) => {
             toastData.present();
           });
@@ -85,7 +89,8 @@ export class DataService {
             message: "Espere un momento…",
             spinner: "bubbles",
             translucent: true,
-            duration: 2000
+            duration: 2000,
+            mode: 'ios',
           }).then((res) => {
             res.present();
             res.onDidDismiss().then((dis) => {
@@ -98,7 +103,8 @@ export class DataService {
             message: "Espere un momento…",
             spinner: "bubbles",
             translucent: true,
-            duration: 2000
+            duration: 2000,
+            mode: 'ios',
           }).then((res) => {
             res.present();
             res.onDidDismiss().then((dis) => {
@@ -118,14 +124,16 @@ export class DataService {
         if(razonSocial == "" && rfc == "" && direccionFiscal == "" && correoElectronico == "" && id == "") {
           this.toast = this.toastController.create({
             message: '¡Debe completar todos los campos solicitados!',
-            duration: 2000
+            duration: 2000,
+            mode: 'ios',
           }).then((toastData) => {
             toastData.present();
           });
         } else if(this.result == "Ya hay un registro de este RFC en otro usuario verifique la informacion"){
           this.toast = this.toastController.create({
             message: '¡Ya hay un registro de este RFC en otro usuario verifique la información!',
-            duration: 2000
+            duration: 2000,
+            mode: 'ios',
           }).then((toastData) => {
             toastData.present();
           });
@@ -133,7 +141,8 @@ export class DataService {
           this.storage.set('facturacion', this.result);
           this.toast = this.toastController.create({
             message: 'Se ha registrado exitosamente la información',
-            duration: 2000
+            duration: 2000,
+            mode: 'ios',
           }).then((toastData) => {
             toastData.present();
           });

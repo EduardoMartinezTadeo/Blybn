@@ -57,3 +57,8 @@ p {
     font-size: 12px;
     color:white;
 }
+
+ion-skeleton-text {
+    --background: green;
+    --background-rgb: 254, 254, 254;
+  }

@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { TipoAventuraPageRoutingModule } from './tipo-aventura-routing.module';
 
 import { TipoAventuraPage } from './tipo-aventura.page';
+import { ComponentsModule } from '../../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TipoAventuraPageRoutingModule
+    TipoAventuraPageRoutingModule,
+    ComponentsModule,
   ],
   declarations: [TipoAventuraPage]
 })

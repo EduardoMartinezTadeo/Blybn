@@ -16,12 +16,26 @@ export class RegistroP2r11Page implements OnInit {
 
   ngOnInit() {}
 
+  contentLoaded = false;
+  ionViewWillLeave(){
+    setTimeout(() => {
+      this.contentLoaded = false;
+    }, 1500); 
+  }
+
+  
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.contentLoaded = true;      
+    }, 2500); 
+  }
+
   cancelar() {
     this.router.navigate(['/registro-p11']);
   }
 
   guardarInformacion(){
-    this.router.navigate(['/dashboard2/registrar-propiedad2']);
+    this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
   }
 
   cantidadBanos = '';

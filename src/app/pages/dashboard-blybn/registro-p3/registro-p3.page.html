@@ -15,68 +15,146 @@
 
 
 <ion-content class="ion-padding">
-  <ion-label class="ion-label1">
-    ¿Qué amenidades
-  </ion-label>
-  <br />
-  <ion-label class="ion-label2">
-    ofreceras?
-  </ion-label>
-  <br>
-  <p>
-    Podrás agregar más amenidades después de que hayas publicado tu propiedad.
-  </p>
-  <br>
-  <ion-label class="ion-label3">
-    Amenidades
-  </ion-label>
-  <br>
-  <br>
-  <ion-grid>
-    <ion-row *ngFor="let amenidad of amenidades" mode="ios">
-      <ion-col class="ion-no-border" lines="none" size="7">
-        <ion-label>{{amenidad.bly_tipoAmenidad}}</ion-label>
-      </ion-col>
-      <ion-col size="5" class="ion-text-right">
-        <ion-checkbox [(ngModel)]="amenidad.bly_selected" required ></ion-checkbox>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <br>
-  <br>
-  <ion-label class="ion-label3">
-    Espacios o Áreas comunes
-  </ion-label>
-  <br>
-  <br>
-  <ion-grid>
-    <ion-row *ngFor="let espacio of espacios" mode="ios">
-      <ion-col class="ion-no-border" lines="none" size="7">
-        <ion-label>{{espacio.bly_descripcionEspacios}}</ion-label>
-      </ion-col>
-      <ion-col size="5" class="ion-text-right">
-        <ion-checkbox [(ngModel)]="espacio.bly_selected" required ></ion-checkbox>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <br>
-  <br>
-  <ion-label class="ion-label3">
-    Servicios de seguridad
-  </ion-label>
-  <br>
-  <br>
-  <ion-grid>
-    <ion-row *ngFor="let seguridad of seguridades" mode="ios">
-      <ion-col class="ion-no-border" lines="none" size="7">
-        <ion-label>{{seguridad.bly_tipoSeguridad}}</ion-label>
-        <p>{{seguridad.bly_descripcionSeguridad}}</p>
-      </ion-col>
-      <ion-col size="5" class="ion-text-right">
-        <ion-checkbox [(ngModel)]="seguridad.bly_selected" required ></ion-checkbox>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div *ngIf="contentLoaded">
+    <ion-label class="ion-label1">
+      ¿Qué amenidades
+    </ion-label>
+    <br />
+    <ion-label class="ion-label2">
+      ofreceras?
+    </ion-label>
+    <br>
+    <p>
+      Podrás agregar más amenidades después de que hayas publicado tu propiedad.
+    </p>
+    <br>
+    <ion-label class="ion-label3">
+      Amenidades
+    </ion-label>
+    <br>
+    <br>
+    <ion-grid>
+      <ion-row *ngFor="let amenidad of amenidades" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label>{{amenidad.bly_tipoAmenidad}}</ion-label>
+        </ion-col>
+        <ion-col size="5" class="ion-text-right">
+          <ion-checkbox [(ngModel)]="amenidad.bly_selected" required></ion-checkbox>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+    <br>
+    <ion-label class="ion-label3">
+      Espacios o Áreas comunes
+    </ion-label>
+    <br>
+    <br>
+    <ion-grid>
+      <ion-row *ngFor="let espacio of espacios" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label>{{espacio.bly_descripcionEspacios}}</ion-label>
+        </ion-col>
+        <ion-col size="5" class="ion-text-right">
+          <ion-checkbox [(ngModel)]="espacio.bly_selected" required></ion-checkbox>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+    <br>
+    <ion-label class="ion-label3">
+      Servicios de seguridad
+    </ion-label>
+    <br>
+    <br>
+    <ion-grid>
+      <ion-row *ngFor="let seguridad of seguridades" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label>{{seguridad.bly_tipoSeguridad}}</ion-label>
+          <p>{{seguridad.bly_descripcionSeguridad}}</p>
+        </ion-col>
+        <ion-col size="5" class="ion-text-right">
+          <ion-checkbox [(ngModel)]="seguridad.bly_selected" required></ion-checkbox>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngIf="!contentLoaded">
+    <ion-label class="ion-label1">
+      <ion-skeleton-text animated style="width: 320px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br />
+    <ion-label class="ion-label2">
+      <ion-skeleton-text animated style="width: 150px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <p>
+      <ion-skeleton-text animated style="width: 320px; height: 10px" slot="start"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 126px; height: 10px" slot="start"></ion-skeleton-text>
+    </p>
+    <br>
+    <ion-label class="ion-label3">
+      <ion-skeleton-text animated style="width: 150px; height: 13px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <br>
+    <ion-grid>
+      <ion-row *ngFor="let amenidad of amenidades" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label>
+            <ion-skeleton-text animated style="width: 95px; height: 12px" slot="start"></ion-skeleton-text>
+          </ion-label>
+        </ion-col>
+        <ion-col size="5" class="ion-text-right">
+          <ion-skeleton-text animated style="width: 15px; height: 15px"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+    <br>
+    <ion-label class="ion-label3">
+      <ion-skeleton-text animated style="width: 150px; height: 13px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <br>
+    <ion-grid>
+      <ion-row *ngFor="let espacio of espacios" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label>
+            <ion-skeleton-text animated style="width: 95px; height: 12px" slot="start"></ion-skeleton-text>
+          </ion-label>
+        </ion-col>
+        <ion-col size="5" class="ion-text-right">
+          <ion-skeleton-text animated style="width: 15px; height: 15px"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+    <br>
+    <ion-label class="ion-label3">
+      <ion-skeleton-text animated style="width: 150px; height: 13px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <br>
+    <ion-grid>
+      <ion-row *ngFor="let seguridad of seguridades" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label>
+            <ion-skeleton-text animated style="width: 95px; height: 12px" slot="start"></ion-skeleton-text>
+          </ion-label>
+          <p> 
+            <ion-skeleton-text animated style="width: 95px; height: 10px" slot="start"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 95px; height: 10px" slot="start"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 95px; height: 10px" slot="start"></ion-skeleton-text></p>
+        </ion-col>
+        <ion-col size="5" class="ion-text-right">
+          <ion-skeleton-text animated style="width: 15px; height: 15px"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
 </ion-content>
 
 <ion-footer>

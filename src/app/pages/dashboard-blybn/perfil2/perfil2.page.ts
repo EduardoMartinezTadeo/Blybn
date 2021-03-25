@@ -29,12 +29,13 @@ export class Perfil2Page implements OnInit {
   }
 
   salir(){
-    this.router.navigateByUrl('/dashboard2/menutabs2/inicio-menu');
+    this.router.navigate(['/dashboard2/menutabs2/inicio-menu']);
   }
 
   async mostrarModal(){
     const modal = await this.modalCtrl.create({
-      component: DetallePerfil2Page
+      component: DetallePerfil2Page,
+      mode: 'ios',
     });
     await modal.present();
   }

@@ -54,6 +54,7 @@ export class LoginPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Error',
+      mode: 'ios',
       message: 'Ha ocurrido un error, verifique su conexión!!!',
       buttons: [{
         text: 'Reintentar',
@@ -70,7 +71,8 @@ export class LoginPage implements OnInit {
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
       duration: 1500,
-      spinner: "bubbles"
+      spinner: "bubbles",
+      mode: 'ios'
     });
     await loading.present();
     setTimeout(() => {

@@ -44,6 +44,7 @@ export class OperacionesService {
               .create({
                 message: '¡Debe completar todos los campos solicitados!',
                 duration: 2000,
+                mode: 'ios',
               })
               .then((toastData) => {
                 toastData.present();
@@ -55,6 +56,7 @@ export class OperacionesService {
               .create({
                 message: '¡No existe un registro previo de este usuario!',
                 duration: 2000,
+                mode: 'ios',
               })
               .then((toastData) => {
                 toastData.present();
@@ -92,6 +94,7 @@ export class OperacionesService {
               .create({
                 message: '¡Debe completar todos los campos solicitados!',
                 duration: 2000,
+                mode: 'ios',
               })
               .then((toastData) => {
                 toastData.present();
@@ -102,6 +105,7 @@ export class OperacionesService {
             this.alert = this.alertCtrl
               .create({
                 cssClass: 'my-custom-class',
+                mode: 'ios',
                 message:
                   '¡No tiene aun información respecto a facturación de pagos te invitamos a registrar dicha información!',
                 buttons: [
@@ -140,6 +144,7 @@ export class OperacionesService {
               .create({
                 message: '¡Debe completar todos los campos solicitados!',
                 duration: 2000,
+                mode: 'ios',
               })
               .then((toastData) => {
                 toastData.present();
@@ -149,6 +154,7 @@ export class OperacionesService {
           ) {
             this.alert = this.alertCtrl
               .create({
+                mode: 'ios',
                 cssClass: 'my-custom-class',
                 message:
                   '¡No tiene aun información respecto a facturación de pagos te invitamos a registrar dicha información!',

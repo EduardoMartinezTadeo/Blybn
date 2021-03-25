@@ -17,6 +17,8 @@ const apiConsultarEspacios = environment.apiConsultarEspaciosURL;
 const apiConsultarSeguridad = environment.apiConsultarSeguridadURL;
 const apiConsultarAventura = environment.apiConsultarAventuraURL;
 const apiConsultarMoneda = environment.apiConsultarTipoMonedaURL;
+const apiConsultarRequisitosRenta = environment.apiConsultarRequisitosRentaURL;
+const apiConsultarRestricciones = environment.apiConsultarRestriccionesURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -143,5 +145,21 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiConsultarMoneda + file, body, {headers})
+  }
+
+  postDataRRP(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarRequisitosRenta + file, body, {headers})
+  }
+
+  postDataCRP(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarRestricciones + file, body, {headers})
   }
 }

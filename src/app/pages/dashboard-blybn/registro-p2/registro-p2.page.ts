@@ -29,6 +29,19 @@ export class RegistroP2Page {
   types: any;
   GoogleAutocomplete: any;
 
+  contentLoaded = false;
+  ionViewWillLeave(){
+    setTimeout(() => {
+      this.contentLoaded = false;
+    }, 1500); 
+  }
+
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.contentLoaded = true;      
+    }, 2500); 
+  }
+
   constructor(
     public zone: NgZone,
     private alertController: AlertController,
@@ -121,6 +134,7 @@ export class RegistroP2Page {
   async cancelar() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
+      mode:'ios',
       header: 'Cancelar operación',
       message: '¿Esta seguro que desea cancelar el registro de la propiedad?',
       buttons: [
@@ -135,7 +149,7 @@ export class RegistroP2Page {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigate(['/dashboard2/registrar-propiedad2']);
+            this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
           },
         },
       ],

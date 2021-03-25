@@ -14,72 +14,150 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-label class="ion-label1">
-    ¿Dónde se encuentra
-  </ion-label>
-  <br>
-  <ion-label class="ion-label2">
-    tu lugar?
-  </ion-label>
-  <br>
-  <br>
-  <p class="parrafo">
-    Solo los huéspedes confirmados podrán ver tu dirección exacta después de reservar. Los demás solo verán una
-    ubicación aproximada.
-  </p>
-  <br>
-  <div>
-    <ion-searchbar [(ngModel)]="autocomplete.input" placeholder="Buscar dirección..."
-      (ionChange)="UpdateSearchResults()" animated mode="md"></ion-searchbar>
-    <ion-list [hidden]="autocompleteItems.length == 0">
-      <ion-item *ngFor="let item of autocompleteItems" tappable (click)="SelectSearchResult(item)">
-        {{ item.description }}
-      </ion-item>
-    </ion-list>
-  </div>
+  <div *ngIf="contentLoaded">
+    <ion-label class="ion-label1">
+      ¿Dónde se encuentra
+    </ion-label>
+    <br>
+    <ion-label class="ion-label2">
+      tu lugar?
+    </ion-label>
+    <br>
+    <br>
+    <p class="parrafo">
+      Solo los huéspedes confirmados podrán ver tu dirección exacta después de reservar. Los demás solo verán una
+      ubicación aproximada.
+    </p>
+    <br>
+    <div>
+      <ion-searchbar [(ngModel)]="autocomplete.input" placeholder="Buscar dirección..."
+        (ionChange)="UpdateSearchResults()" animated mode="md"></ion-searchbar>
+      <ion-list [hidden]="autocompleteItems.length == 0">
+        <ion-item *ngFor="let item of autocompleteItems" tappable (click)="SelectSearchResult(item)">
+          {{ item.description }}
+        </ion-item>
+      </ion-list>
+    </div>
 
-<div>
-  <ion-card>
-    <p class="parrafo2">Dirección de la propiedad</p>
-    <ion-item>
-      <ion-label>
-        País/Región:
-      </ion-label>
-      <ion-input [(ngModel)]="Dataubicacion.pais" required>
-      </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        Calle:
-      </ion-label>
-      <ion-input [(ngModel)]="Dataubicacion.calle" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        Ciudad:
-      </ion-label>
-      <ion-input [(ngModel)]="Dataubicacion.ciudad" required>
-      </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        Estado:
-      </ion-label>
-      <ion-input [(ngModel)]="Dataubicacion.estado" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        Dirección general, Número de departamento, puerta, etc:
-      </ion-label><br>
-    </ion-item>
-    <ion-textarea rows="4" cols="20" [(ngModel)]="Dataubicacion.direccion" required></ion-textarea>
-    <ion-item>
-      <ion-label>
-        Código postal:
-      </ion-label>
-      <ion-input [(ngModel)]="Dataubicacion.codigo" required></ion-input>
-    </ion-item>
-  </ion-card>
+    <div>
+      <ion-card>
+        <p class="parrafo2">Dirección de la propiedad</p>
+        <ion-item>
+          <ion-label>
+            País/Región:
+          </ion-label>
+          <ion-input [(ngModel)]="Dataubicacion.pais" required>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Calle:
+          </ion-label>
+          <ion-input [(ngModel)]="Dataubicacion.calle" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Ciudad:
+          </ion-label>
+          <ion-input [(ngModel)]="Dataubicacion.ciudad" required>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Estado:
+          </ion-label>
+          <ion-input [(ngModel)]="Dataubicacion.estado" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Dirección general, Número de departamento, puerta, etc:
+          </ion-label><br>
+        </ion-item>
+        <ion-textarea rows="4" cols="20" [(ngModel)]="Dataubicacion.direccion" required></ion-textarea>
+        <ion-item>
+          <ion-label>
+            Código postal:
+          </ion-label>
+          <ion-input [(ngModel)]="Dataubicacion.codigo" required></ion-input>
+        </ion-item>
+      </ion-card>
+    </div>
+  </div>
+  <div *ngIf="!contentLoaded">
+    <ion-label class="ion-label1">
+      <ion-skeleton-text animated style="width: 320px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <ion-label class="ion-label2">
+      <ion-skeleton-text animated style="width: 280px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <br>
+    <p class="parrafo">
+      <ion-skeleton-text animated style="width: 320px; height: 10px" slot="start"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 280px; height: 13px" slot="start"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 180px; height: 13px" slot="start"></ion-skeleton-text>
+    </p>
+    <br>
+    <div>
+      <ion-skeleton-text animated style="width: 380px; height: 35px" slot="start"></ion-skeleton-text>
+    </div>
+
+    <div>
+      <ion-card>
+        <p class="parrafo2">
+          <ion-skeleton-text animated style="width: 180px; height: 13px" slot="start"></ion-skeleton-text>
+        </p>
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 120px; height: 10px" slot="start"></ion-skeleton-text>
+          </ion-label>
+          <ion-input required>
+            <ion-skeleton-text animated style="width: 350px; height: 15px" slot="end"></ion-skeleton-text>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 120px; height: 10px" slot="start"></ion-skeleton-text>
+          </ion-label>
+          <ion-input required>
+            <ion-skeleton-text animated style="width: 350px; height: 15px" slot="end"></ion-skeleton-text>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 120px; height: 10px" slot="start"></ion-skeleton-text>
+          </ion-label>
+          <ion-input required>
+            <ion-skeleton-text animated style="width: 350px; height: 15px" slot="end"></ion-skeleton-text>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 120px; height: 10px" slot="start"></ion-skeleton-text>
+          </ion-label>
+          <ion-input required>
+            <ion-skeleton-text animated style="width: 350px; height: 15px" slot="end"></ion-skeleton-text>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 120px; height: 10px" slot="start"></ion-skeleton-text>
+          </ion-label><br>
+        </ion-item>
+        <ion-textarea rows="4" cols="20" required>
+          <ion-skeleton-text animated style="width: 350px; height: 85px" slot="end"></ion-skeleton-text>
+        </ion-textarea>
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 120px; height: 10px" slot="start"></ion-skeleton-text>
+          </ion-label>
+          <ion-input required>
+            <ion-skeleton-text animated style="width: 120px; height: 10px" slot="start"></ion-skeleton-text>
+          </ion-input>
+        </ion-item>
+      </ion-card>
+    </div>
   </div>
 </ion-content>
 

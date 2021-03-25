@@ -41,7 +41,7 @@ export class Dashboard2Page implements OnInit {
       children: [
         {
           title: 'Registrar Propiedad',
-          url: '/dashboard2/registrar-propiedad2',
+          url: '/dashboard2/menutabs2/registrar-propiedad2',
           icon: 'create-outline',
           open: false,
         },
@@ -114,6 +114,7 @@ export class Dashboard2Page implements OnInit {
       cssClass: 'my-custom-class',
       header: 'Cerrar sesión',
       message: '¿Está seguro de cerrar sesión?',
+      mode: 'ios',
       buttons: [
         {
           text: 'Cancelar',
@@ -163,7 +164,7 @@ export class Dashboard2Page implements OnInit {
  
 
   perfil(){
-    this.router.navigateByUrl('/perfil2');
+    this.router.navigate(['/perfil2']);
   }
   
   responseData: any;

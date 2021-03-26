@@ -12,8 +12,97 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-
+<ion-content class="ion-padding">
+  <div *ngIf="contentLoaded">
+    <ion-label class="ion-label1">
+      Empecemos con la
+    </ion-label>
+    <br>
+    <ion-label class="ion-label2">
+      configuración
+    </ion-label>
+    <br>
+    <p class="parrafo">
+      ¿Has rentado alguna vez tu espacio?
+    </p>
+    <ion-grid>
+      <ion-row *ngFor="let historial of historiales" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label>{{historial.bly_tipoHistorial}}</ion-label>
+        </ion-col>
+        <ion-col size="5" class="ion-text-right">
+          <ion-checkbox [(ngModel)]="historial.bly_selected" required ></ion-checkbox>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+    <p class="parrafo">
+      ¿Con qué frecuencia quieres recibir a huéspedes?
+    </p>
+    <ion-grid>
+      <ion-row *ngFor="let frecuencia of frecuenciaR" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label>{{frecuencia.bly_categoriaFrecuencia}}</ion-label>
+        </ion-col>
+        <ion-col size="5" class="ion-text-right">
+          <ion-checkbox [(ngModel)]="frecuencia.bly_selected" required ></ion-checkbox>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <p class="parrafo">
+      Para que alguien pueda rentar tu propiedad, la solicitud necesita ser:
+    </p>
+    <ion-grid>
+      <ion-row *ngFor="let aprobacion of preAprobacion" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label>{{aprobacion.bly_descripcionStatus}}</ion-label>
+        </ion-col>
+        <ion-col size="5" class="ion-text-right">
+          <ion-checkbox [(ngModel)]="aprobacion.bly_selected" required ></ion-checkbox>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div *ngIf="!contentLoaded">
+    <ion-label class="ion-label1">
+      <ion-skeleton-text animated style="width: 320px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <ion-label class="ion-label2">
+      <ion-skeleton-text animated style="width: 290px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <p class="parrafo">
+      <ion-skeleton-text animated style="width: 250px; height: 12px" slot="start"></ion-skeleton-text>
+    </p>
+    <ion-grid>
+      <ion-row *ngFor="let historial of historiales" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label><ion-skeleton-text animated style="width: 180px; height: 10px" slot="start"></ion-skeleton-text></ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <p class="parrafo">
+      <ion-skeleton-text animated style="width: 250px; height: 12px" slot="start"></ion-skeleton-text>
+    </p>
+    <ion-grid>
+      <ion-row *ngFor="let frecuencia of frecuenciaR" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label><ion-skeleton-text animated style="width: 180px; height: 10px" slot="start"></ion-skeleton-text></ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <p class="parrafo">
+      <ion-skeleton-text animated style="width: 250px; height: 12px" slot="start"></ion-skeleton-text>
+    </p>
+    <ion-grid>
+      <ion-row *ngFor="let aprobacion of preAprobacion" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label><ion-skeleton-text animated style="width: 180px; height: 10px" slot="start"></ion-skeleton-text></ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
 
 <ion-footer>

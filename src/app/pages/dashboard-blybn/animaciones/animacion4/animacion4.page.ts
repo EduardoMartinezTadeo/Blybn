@@ -10,7 +10,7 @@ export class Animacion4Page implements OnInit {
 
   constructor(public router: Router) {
     setTimeout(()=>{
-      this.router.navigateByUrl('/registro-p4');
+      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
     }, 3000);
    }
 

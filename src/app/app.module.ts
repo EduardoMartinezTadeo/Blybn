@@ -19,6 +19,8 @@ import { Camera } from '@ionic-native/Camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -43,6 +45,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
     ProviderService,
     Geolocation,    
     NativeGeocoder,
+    ImagePicker,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

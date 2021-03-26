@@ -26,5 +26,12 @@ export const environment = {
   apiConsultarRestriccionesURL: 'http://192.168.0.101/server_blybn/api/db_cargarRestricciones.php/',
   apiConsultarAventuraURL: 'http://192.168.0.101/server_blybn/api/db_cargarTipoAventura.php/',
   apiConsultarTipoMonedaURL: 'http://192.168.0.101/server_blybn/api/db_cargarMonedaNacional.php/',
-  apiConsultarRequisitosRentaURL: 'http://192.168.0.101/server_blybn/api/db_cargarRequisitos.php/'
+  apiConsultarRequisitosRentaURL: 'http://192.168.0.101/server_blybn/api/db_cargarRequisitos.php/',
+  apiConsultarRentaPreviaPropiedadURL: 'http://192.168.0.101/server_blybn/api/db_cargarHistorialPrevioRenta.php/',
+  apiConsultarFrecuenciaRentaURL: 'http://192.168.0.101/server_blybn/api/db_cargarFrecuenciaRenta.php/',
+  apiConsultarPreaprobacionRentaURL: 'http://192.168.0.101/server_blybn/api/db_statusAprobacionRenta.php/',
+  apiCatalogoPreavisoURL: 'http://192.168.0.101/server_blybn/api/db_catalogoPreaviso.php/',
+  apiCatalogoHorasURL: 'http://192.168.0.101/server_blybn/api/db_catalogoHoras.php/',
+  apiCatalogoDisponibilidadURL: 'http://192.168.0.101/server_blybn/api/db_catalogoVentaDisponibilidad.php/',
+  apiCatalogoLlegadaURL: 'http://192.168.0.101/server_blybn/api/db_catalogoLlegadas.php/'
 };

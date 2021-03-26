@@ -10,6 +10,8 @@ import { ProviderService } from '../../../services/provider.service';
 import { Modal7Page } from '../../../Modals/modal7/modal7.page';
 import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
+
 @Component({
   selector: 'app-ajustes2',
   templateUrl: './ajustes2.page.html',
@@ -27,7 +29,8 @@ export class Ajustes2Page implements OnInit {
      private providerService: ProviderService,
      private actionSheetController: ActionSheetController,
      private camera: Camera,
-     private file: File
+     private file: File,
+     private imagePicker: ImagePicker
 ) {}
 
   contentLoaded = false;
@@ -50,6 +53,8 @@ export class Ajustes2Page implements OnInit {
   public dato6: boolean = false;
   public dato7: boolean = false;
   public dato8: boolean = false;
+  public myImgUrl : any = "/assets/imgs/avatar.svg";
+
 
   ionViewWillEnter() {
     setTimeout(() => {
@@ -57,7 +62,6 @@ export class Ajustes2Page implements OnInit {
       this.contentLoadedF = true;          
     }, 2500);    
   }
-
 
   salir() {
     this.router.navigateByUrl('/dashboard2/menutabs2/inicio-menu');
@@ -437,14 +441,14 @@ export class Ajustes2Page implements OnInit {
         icon: 'camera',
         cssClass: 'iconCamera',
         handler: () => {
-          console.log('Share clicked');
+          this.openCamera();
         }
       }, {
         text: 'Seleccionar Fotografía',
         icon: 'images',
         cssClass: 'iconGaleria',
         handler: () => {
-          console.log('Play clicked');
+          this.openGallery();
         }
       }, {
         text: 'Cancelar',
@@ -457,5 +461,40 @@ export class Ajustes2Page implements OnInit {
       }]
     });
     await actionSheet.present();
+  }
+
+  cameraData: string;
+  image: string;
+  openCamera(){
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+    this.cameraData = imageData;
+    this.base64Image = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+     // Handle error
+    });
+  }
+
+  openGallery(){
+    const options: CameraOptions = {
+      quality: 100,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+      this.cameraData = imageData;
+      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+     // Handle error
+    });
   }
 }

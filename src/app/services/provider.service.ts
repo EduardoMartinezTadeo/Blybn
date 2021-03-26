@@ -19,6 +19,13 @@ const apiConsultarAventura = environment.apiConsultarAventuraURL;
 const apiConsultarMoneda = environment.apiConsultarTipoMonedaURL;
 const apiConsultarRequisitosRenta = environment.apiConsultarRequisitosRentaURL;
 const apiConsultarRestricciones = environment.apiConsultarRestriccionesURL;
+const apiConsultarHistorialPrevio = environment.apiConsultarRentaPreviaPropiedadURL;
+const apiConsultarFrecuenciaRenta = environment.apiConsultarFrecuenciaRentaURL;
+const apiConsultarPreaprobacionRenta = environment.apiConsultarPreaprobacionRentaURL;
+const apiConsultarCatalogo1 = environment.apiCatalogoPreavisoURL;
+const apiConsultarCatalogo2 = environment.apiCatalogoHorasURL;
+const apiConsultarCatalogo3 = environment.apiCatalogoDisponibilidadURL;
+const apiConsultarCatalogo4 = environment.apiCatalogoLlegadaURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -161,5 +168,61 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiConsultarRestricciones + file, body, {headers})
+  }
+
+  postDataHPR(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarHistorialPrevio + file, body, {headers})
+  }
+
+  postDataFRP(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarFrecuenciaRenta + file, body, {headers})
+  }
+
+  postDataAPR(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarPreaprobacionRenta + file, body, {headers})
+  }
+
+  postDataC1PA(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarCatalogo1 + file, body, {headers})
+  }
+
+  postDataC2H(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarCatalogo2 + file, body, {headers})
+  }
+
+  postDataC3VD(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarCatalogo3 + file, body, {headers})
+  }
+
+  postDataC4L(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiConsultarCatalogo4 + file, body, {headers})
   }
 }

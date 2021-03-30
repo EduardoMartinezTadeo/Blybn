@@ -9,9 +9,6 @@ import { DataService } from '../../../services/data.service';
 import { ProviderService } from '../../../services/provider.service';
 import { Modal7Page } from '../../../Modals/modal7/modal7.page';
 import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
-import { File } from '@ionic-native/file/ngx';
-import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
-
 @Component({
   selector: 'app-ajustes2',
   templateUrl: './ajustes2.page.html',
@@ -29,9 +26,10 @@ export class Ajustes2Page implements OnInit {
      private providerService: ProviderService,
      private actionSheetController: ActionSheetController,
      private camera: Camera,
-     private file: File,
-     private imagePicker: ImagePicker
-) {}
+     private provider: ProviderService) {
+      this.server = this.provider.server;
+    }
+
 
   contentLoaded = false;
   contentLoadedF = false;
@@ -59,7 +57,8 @@ export class Ajustes2Page implements OnInit {
   ionViewWillEnter() {
     setTimeout(() => {
       this.contentLoaded = true; 
-      this.contentLoadedF = true;          
+      this.contentLoadedF = true;  
+      this.cargarFotoPerfil();        
     }, 2500);    
   }
 
@@ -153,6 +152,8 @@ export class Ajustes2Page implements OnInit {
     return await presentModel.present();
   }
 
+  server: string;
+  foto: string;
   usuario: string;
   correo: string;
   telefono: string;
@@ -464,37 +465,82 @@ export class Ajustes2Page implements OnInit {
   }
 
   cameraData: string;
-  image: string;
-  openCamera(){
+  base64Image: string;
+  openCamera() {
     const options: CameraOptions = {
       quality: 100,
+      targetWidth: 800,
+      targetHeight: 600,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
-    
-    this.camera.getPicture(options).then((imageData) => {
-    this.cameraData = imageData;
-    this.base64Image = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-     // Handle error
-    });
+      mediaType: this.camera.MediaType.PICTURE,
+    };
+
+    this.camera.getPicture(options).then(
+      (imageData) => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64 (DATA_URL):
+        this.cameraData = imageData;
+        this.foto = 'data:image/jpeg;base64,' + imageData;
+        this.actualizarFoto();
+      },
+      (err) => {
+        // Handle error
+      }
+    );
   }
 
-  openGallery(){
+  openGallery() {
     const options: CameraOptions = {
       quality: 100,
+      targetWidth: 800,
+      targetHeight: 600,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
-    
-    this.camera.getPicture(options).then((imageData) => {
-      this.cameraData = imageData;
-      this.base64Image = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-     // Handle error
-    });
+      mediaType: this.camera.MediaType.PICTURE,
+    };
+
+    this.camera.getPicture(options).then(
+      (imageData) => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64 (DATA_URL):
+        this.cameraData = imageData;
+        this.foto = 'data:image/jpeg;base64,' + imageData;
+        this.actualizarFoto();
+      },
+      (err) => {
+        // Handle error
+      }
+    );
+  }
+
+  fotoPerfil : any = [];
+  actualizarFoto() {
+    let body = {
+      aksi: 'actualizarImage',
+      bly_usuario: this.id,
+      bly_foto: this.cameraData,
+    };
+    this.providerService
+      .postDataAFP(body, 'db_controlFotoPerfil.php')
+      .subscribe((data) => {
+        console.log(data.result);
+        this.cargarFotoPerfil();
+      }); 
+  }
+
+  cargarFotoPerfil(){
+    return new Promise(resolve => {
+      let body = {
+        aksi: 'perfilFoto',
+        bly_usuario: this.id
+      }
+      this.provider.postDataCFPA(body, 'db_cargarFotoPerfilAct.php').subscribe(data => {
+        this.fotoPerfil = data;
+        this.foto = this.fotoPerfil.bly_fotografia;
+        resolve(true);
+      });
+    });      
   }
 }

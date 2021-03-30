@@ -1,30 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { DetallePerfil2Page } from '../../detalle-perfil2/detalle-perfil2.page';
 import { Storage } from '@ionic/storage';
 import { OperacionesService } from '../../../services/operaciones.service';
+import { ProviderService } from '../../../services/provider.service';
 @Component({
   selector: 'app-perfil2',
   templateUrl: './perfil2.page.html',
   styleUrls: ['./perfil2.page.scss'],
 })
-export class Perfil2Page implements OnInit {
+export class Perfil2Page {
 
   constructor(
      private router: Router,
      private modalCtrl: ModalController,
      private storage: Storage, 
-     private service: OperacionesService ) { }
+     private service: OperacionesService,
+     private provider: ProviderService) {
+      this.server = this.provider.server;
+    }
 
      contentLoaded = false;
      contentLoadedF = false;
-  ngOnInit() {   
-  }
+
   ionViewWillEnter() {
     setTimeout(() => {
       this.contentLoaded = true; 
-      this.contentLoadedF = true;          
+      this.contentLoadedF = true; 
+      this.cargarFotoPerfil();         
     }, 2500);    
   }
 
@@ -40,6 +44,8 @@ export class Perfil2Page implements OnInit {
     await modal.present();
   }
 
+  server: string;
+  foto: string;
   usuario: string;
   correo: string;
   rol = 'Blybn';
@@ -71,5 +77,20 @@ export class Perfil2Page implements OnInit {
       this.bly_razonSocial = this.facturacionData.bly_razonSocial,
       this.bly_rfc = this.facturacionData.bly_rfc
     });
+  }
+
+  fotoPerfil : any = [];
+  cargarFotoPerfil(){
+    return new Promise(resolve => {
+      let body = {
+        aksi: 'perfilFoto',
+        bly_usuario: this.id
+      }
+      this.provider.postDataCFPA(body, 'db_cargarFotoPerfilAct.php').subscribe(data => {
+        this.fotoPerfil = data;
+        this.foto = this.fotoPerfil.bly_fotografia;
+        resolve(true);
+      });
+    });      
   }
 }

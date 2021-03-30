@@ -33,5 +33,8 @@ export const environment = {
   apiCatalogoPreavisoURL: 'http://192.168.0.101/server_blybn/api/db_catalogoPreaviso.php/',
   apiCatalogoHorasURL: 'http://192.168.0.101/server_blybn/api/db_catalogoHoras.php/',
   apiCatalogoDisponibilidadURL: 'http://192.168.0.101/server_blybn/api/db_catalogoVentaDisponibilidad.php/',
-  apiCatalogoLlegadaURL: 'http://192.168.0.101/server_blybn/api/db_catalogoLlegadas.php/'
+  apiCatalogoLlegadaURL: 'http://192.168.0.101/server_blybn/api/db_catalogoLlegadas.php/',
+  apiCargarImagenesAventuraURL: 'http://192.168.0.101/server_blybn/api/db_cargarImagenesAventura.php/',
+  apiActualizarFotoPerfilURL: 'http://192.168.0.101/server_blybn/api/db_controlFotoPerfil.php/',
+  apiCargarFotoActualizadaURL: 'http://192.168.0.101/server_blybn/api/db_cargarFotoPerfilAct.php/'
 };

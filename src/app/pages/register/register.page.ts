@@ -125,7 +125,7 @@ export class RegisterPage implements OnInit {
           role: 'cancel'
         },
         {
-          text: 'Hecho'
+          text: 'Aceptar'
         }
       ],
       columns: [
@@ -186,7 +186,7 @@ export class RegisterPage implements OnInit {
           role: 'cancel'
         },
         {
-          text: 'Hecho'
+          text: 'Aceptar'
         }
       ],
       columns: [

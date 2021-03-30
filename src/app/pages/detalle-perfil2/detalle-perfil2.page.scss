@@ -12,7 +12,8 @@ ion-card {
         top: -30px;
         transform: translateX(-50%);
         img {
-            border-radius: 10px;
+            overflow: hidden;
+            border-radius: 100% !important;
             width: 90px;
             height: 90px;
         }

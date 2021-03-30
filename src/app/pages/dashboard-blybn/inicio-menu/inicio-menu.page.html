@@ -3,31 +3,34 @@
   <ion-row>
     <h1>Descubre</h1>
   </ion-row>
+  <div *ngIf="contentLoaded">
+    <ion-row>
+      <ion-col size="12" *ngFor="let aventura of aventurasImg">
+        <ion-card (click)="tipoaventura()" mode="md" class="listCards">
+          <ion-card-content>
+            <ion-img src="{{server + aventura.bly_nombreImagen}}"></ion-img>
+            <div class="card-title">{{aventura.bly_aventura}}</div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div *ngIf="!contentLoaded">
+    <ion-row>
+      <ion-col size="12" *ngFor="let aventura of aventurasImg">
+        <ion-card mode="md" class="listCards">
+          <ion-card-content>
+            <ion-skeleton-text animated style="width: 380px; height: 220px" slot="start"></ion-skeleton-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
   <ion-row>
-    <ion-col size="12">
-      <ion-card (click)="tipoaventura()" mode="md" >
-        <ion-card-content style="border-radius: 20px;">
-          <ion-img src="/assets/templates/1.jpg"></ion-img>
-          <div class="card-title">CIUDAD</div>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col size="12">
-      <ion-card (click)="tipoaventura()" mode="md">
-        <ion-card-content>
-          <ion-img src="/assets/templates/2.jpg"></ion-img>
-          <div class="card-title">PLAYA</div>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-  <ion-row >
     <ion-col size="12">
       <ion-card mode="md">
         <ion-card-content>
-          <ion-img src="/assets/templates/3.jpg"></ion-img>
+          <ion-img src="/assets/templates/3.jpg" class="imgInfo"></ion-img>
           <div class="imgsCards">
             <ion-img src="/assets/imgs/logo.svg"></ion-img>
           </div>

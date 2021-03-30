@@ -26,11 +26,14 @@ const apiConsultarCatalogo1 = environment.apiCatalogoPreavisoURL;
 const apiConsultarCatalogo2 = environment.apiCatalogoHorasURL;
 const apiConsultarCatalogo3 = environment.apiCatalogoDisponibilidadURL;
 const apiConsultarCatalogo4 = environment.apiCatalogoLlegadaURL;
+const apiCargarImagenesAventura = environment.apiCargarImagenesAventuraURL;
+const apiActualizarFotoPerfil = environment.apiActualizarFotoPerfilURL;
+const apiFotoPerfilActualizada = environment.apiCargarFotoActualizadaURL;
 @Injectable({
   providedIn: 'root'
 })
 export class ProviderService {
-
+  server: string = 'http://192.168.0.101/server_blybn/api/';
   
   constructor(public http: HttpClient) { }
 
@@ -224,5 +227,29 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiConsultarCatalogo4 + file, body, {headers})
+  }
+
+  postDataCIAV(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarImagenesAventura + file, body, {headers})
+  }
+
+  postDataAFP(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiActualizarFotoPerfil + file, body, {headers})
+  }
+
+  postDataCFPA(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiFotoPerfilActualizada + file, body, {headers})
   }
 }

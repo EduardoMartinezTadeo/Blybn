@@ -9,7 +9,9 @@
     <ion-content>
       <div class="menu-header-bg" autoHide="false" routerDirection="root" routerLinkActive="active"></div>
       <div class="header-content" (click)="perfil()" autoHide="false" routerDirection="root" routerLinkActive="active">
-        <img src="/assets/imgs/avatar.svg" alt="">
+        <ion-avatar>
+          <ion-img src="{{server + foto}}"></ion-img>
+        </ion-avatar>
         <ion-label>
           <h2>{{usuario}}</h2>
           <p>{{correo}}</p>

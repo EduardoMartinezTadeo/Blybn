@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActionSheetController, ModalController, AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { TerminosCondicionesPage } from '../../terminos-condiciones/terminos-condiciones.page';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './inicio-menu.page.html',
   styleUrls: ['./inicio-menu.page.scss'],
 })
-export class InicioMenuPage implements OnInit {
+export class InicioMenuPage {
   constructor(
     private actionSheetController: ActionSheetController,
     private modalCtrl: ModalController,
@@ -23,14 +23,41 @@ export class InicioMenuPage implements OnInit {
     private loadingController: LoadingController,
     private toastController: ToastController,
     private router: Router
-  ) {}
+  ) {
+    this.server = this.providerService.server;
+  }
+  contentLoaded = false;
+  aventurasImg: any = [];
+  server: string;
   toast: any;
   dataPerfil: any;
   bly_usuario: string;
-  ngOnInit() {
+
+  
+  ionViewWillEnter() {
+    this.aventurasImg = [];
+    this.cargarImagenesAventura();
     this.storage.get('perfil').then((res) => {
       this.dataPerfil = res;
       this.bly_usuario = this.dataPerfil.bly_usuario;
+    });
+    setTimeout(() => {
+      this.contentLoaded = true;
+    }, 1500); 
+  }
+
+
+  cargarImagenesAventura(){
+    return new Promise(resolve => {
+      let body = {
+        aksi: 'img-aventura'
+      };
+      this.providerService.postDataCIAV(body, 'db_cargarImagenesAventura.php').subscribe(data => {
+        for (let imagenes of data.result){
+          this.aventurasImg.push(imagenes);
+        }
+        resolve(true);
+      });
     });
   }
 

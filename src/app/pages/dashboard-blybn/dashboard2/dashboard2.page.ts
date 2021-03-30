@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { OperacionesService } from '../../../services/operaciones.service';
 import { PerfilService } from 'src/app/services/perfil.service';
+import { ProviderService } from '../../../services/provider.service';
 @Component({
   selector: 'app-dashboard2',
   templateUrl: './dashboard2.page.html',
   styleUrls: ['./dashboard2.page.scss'],
 })
-export class Dashboard2Page implements OnInit {
+export class Dashboard2Page {
 
   toast2: any;
 
@@ -20,8 +21,10 @@ export class Dashboard2Page implements OnInit {
     private navCtrl: NavController,
     private toast: ToastController,
     private service: OperacionesService,
-    private perfilService: PerfilService) { 
-  }
+    private perfilService: PerfilService,
+    private provider: ProviderService) {
+      this.server = this.provider.server;
+    }
 
   pages = [
     {
@@ -84,7 +87,7 @@ export class Dashboard2Page implements OnInit {
     },
   ];
   body: any;
-  ngOnInit() {
+  ionViewDidEnter() {
     this.storage.get('perfil').then((res) => {
       this.perfildata = res;
       this.id_usuario = this.perfildata.bly_usuario,  
@@ -94,6 +97,7 @@ export class Dashboard2Page implements OnInit {
       this.perfilService.postDataIS(this.body, 'db_registroSesionIniciada.php').subscribe(async data =>{
         var alert = data.msg;
         if(data.success){
+          this.cargarFotoPerfil();
           const toast = await this.toast.create({
             message: 'Bienvenido',
             duration: 1000
@@ -172,7 +176,9 @@ export class Dashboard2Page implements OnInit {
   usuario: string;
   correo: string;
   perfildata: any;
-  ionViewDidEnter(){
+  server: string;
+  foto: string;
+  ionViewWillEnter(){
     this.storage.get('perfil').then((res) => {
       this.perfildata = res;
       this.usuario = this.perfildata.bly_nombre,
@@ -180,8 +186,23 @@ export class Dashboard2Page implements OnInit {
       this.id_usuario = this.perfildata.bly_usuario,
       this.service.consultarDatosFacturacion(this.id_usuario).subscribe(data => {
         this.responseData = data;
+        this.cargarFotoPerfil();
       });
     });
   }
 
+  fotoPerfil : any = [];
+  cargarFotoPerfil(){
+    return new Promise(resolve => {
+      let body = {
+        aksi: 'perfilFoto',
+        bly_usuario: this.id_usuario
+      }
+      this.provider.postDataCFPA(body, 'db_cargarFotoPerfilAct.php').subscribe(data => {
+        this.fotoPerfil = data;
+        this.foto = this.fotoPerfil.bly_fotografia;
+        resolve(true);
+      });
+    });      
+  }
 }

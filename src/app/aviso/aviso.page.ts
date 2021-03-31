@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AvisoService } from '../services/aviso.service';
-import { DataService } from '../services/data.service';
 import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-aviso',
@@ -297,23 +296,95 @@ export class AvisoPage implements OnInit {
   bly_parrafo140: string;
   bly_parrafo141: string;
   bly_parrafo142: string;
+  informacionR1: any;
+  informacionR2: any;
+  informacionR3: any;
+  informacionR4: any;
+  informacionR5: any;
+  informacionR6: any;
+  informacionR7: any;
+  informacionR8: any;
+  informacionR9: any;
+  informacionR10: any;  
+  informacionR11: any;
+  
   constructor(
     private aviso: AvisoService,
-    private dataService: DataService,
     private storage: Storage
-  ) {}
+  ) {
+    this.informacionR1 = {
+      registro1: false
+    }
+    this.informacionR2 = {
+      registro2: false
+    }
+    this.informacionR3 = {
+      registro3: false
+    }
+    this.informacionR4 = {
+      registro4: false
+    }
+    this.informacionR5 = {
+      registro5: false
+    }
+    this.informacionR6 = {
+      registro6: false
+    }
+    this.informacionR7 = {
+      registro7: false
+    }
+    this.informacionR8 = {
+      registro8: false
+    }
+    this.informacionR9 = {
+      registro9: false
+    }
+    this.informacionR10 = {
+      registro10: false
+    }
+    this.informacionR11 = {
+      registro11: false
+    }
+  }
 
   ionViewWillEnter() {
-    this.dataService.TerminosCondiciones().subscribe((response) => {
-      this.storage.set('licencia', response);
-      this.storage.get('licencia').then((res) => {
-        this.data = res;
-        this.Descripcion = this.data.bly_descripcion;
-      });
+    this.storage.get('licencia').then((res) => {
+      this.data = res;
+      this.Descripcion = this.data.bly_descripcion;
     });
   }
 
-  ngOnInit() {    
+  ngOnInit() {   
+    this.storage.set('registroP1', this.informacionR1).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP2', this.informacionR2).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP3', this.informacionR3).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP4', this.informacionR4).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP5', this.informacionR5).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP6', this.informacionR6).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP7', this.informacionR7).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP9', this.informacionR9).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP10', this.informacionR10).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP11', this.informacionR11).then((res) => {
+      console.log(res);
+    }); 
   }
 
   onlogin() {

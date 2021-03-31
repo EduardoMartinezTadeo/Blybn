@@ -4,7 +4,7 @@ import { AvisoService } from '../services/aviso.service';
 import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
-
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-splash',
@@ -19,7 +19,8 @@ export class SplashPage implements OnInit {
     private avisoService: AvisoService,
     private storage: Storage,
     private navCtrl: NavController,
-    private network: Network
+    private network: Network,
+    private dataService: DataService
   ) {
     setTimeout(() => {
       this.avisoService.authenticationState.subscribe(state => {
@@ -44,5 +45,8 @@ export class SplashPage implements OnInit {
 
 
   ngOnInit() {
+    this.dataService.TerminosCondiciones().subscribe((response) => {
+      this.storage.set('licencia', response);
+    });
   }
 }

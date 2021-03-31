@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class RegistroP3Page implements OnInit {
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private provider: ProviderService
+    private provider: ProviderService,
+    private storage: Storage
   ) {}
 
   ngOnInit() {
@@ -61,10 +63,6 @@ export class RegistroP3Page implements OnInit {
     });
 
     await alert.present();
-  }
-
-  guardarInformacion() {
-    this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
   }
 
   amenidades: any = [];
@@ -116,5 +114,32 @@ export class RegistroP3Page implements OnInit {
           resolve(true);
         });
     });
+  }
+
+  informacionAmenidad = [];
+  onClickA(amenidad: any) {
+    this.informacionAmenidad.push(amenidad);
+  }
+
+  informacionAreas = [];
+  onClickAC(espacio: any){
+    this.informacionAreas.push(espacio);
+  }
+
+  informacionSeguridad = [];
+  onClickS(seguridad: any){
+    this.informacionSeguridad.push(seguridad);
+  }
+  informacionR3: any;
+  guardarInformacion() {
+    this.informacionR3 = {
+      amenidades: this.informacionAmenidad,
+      areasComunes: this.informacionAreas,
+      seguridad: this.informacionSeguridad,
+      registro3: true
+    }
+    this.storage.set('registroP3', this.informacionR3).then((res) => {
+       this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+    });  
   }
 }

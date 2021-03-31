@@ -83,7 +83,7 @@
         <ion-label style="font-family: Helvetica; font-size: 13px; color: black; font-weight: bold;">
             Selecciona</ion-label>
         <ion-select name="utilizacion" [(ngModel)]="utilizacion" [interfaceOptions]='{ backdropDismiss: false }'
-            cancelText="Cancelar" okText="Hecho" required (ionChange)="ionChange()">
+            cancelText="Cancelar" okText="Hecho" required (ionChange)="ionChange()" mode="ios">
             <ion-select-option value="1">Viajar</ion-select-option>
             <ion-select-option value="2">Hospedar</ion-select-option>
         </ion-select>
@@ -95,7 +95,7 @@
         <ion-label style="font-family: Helvetica; font-size: 13px; color: black; font-weight: bold;">
             Selecciona</ion-label>
         <ion-select name="motivo" [(ngModel)]="motivo" [interfaceOptions]='{ backdropDismiss: false }'
-            cancelText="Cancelar" okText="Hecho" required (ionChange)="ionChange1()">
+            cancelText="Cancelar" okText="Hecho" required (ionChange)="ionChange1()" mode="ios">
             <ion-select-option value="Buscar alojamiento">Buscar alojamiento</ion-select-option>
             <ion-select-option value="Pagar mi viaje">Pagar mi viaje</ion-select-option>
             <ion-select-option value="Reservar un viaje">Reservar un viaje</ion-select-option>
@@ -111,7 +111,7 @@
         <ion-label style="font-family: Helvetica; font-size: 13px; color: black; font-weight: bold;">
             Selecciona</ion-label>
         <ion-select name="motivo" [(ngModel)]="motivo" [interfaceOptions]='{ backdropDismiss: false }'
-            cancelText="Cancelar" okText="Hecho" required (ionChange)="ionChange2()">
+            cancelText="Cancelar" okText="Hecho" required (ionChange)="ionChange2()" mode="ios">
             <ion-select-option value="Definir precios">Definir precios</ion-select-option>
             <ion-select-option value="Mensajes">Mensajes</ion-select-option>
             <ion-select-option value="Registro propiedad">Registro propiedad</ion-select-option>

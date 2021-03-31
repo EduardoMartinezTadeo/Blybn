@@ -117,72 +117,36 @@ const routes: Routes = [
     loadChildren: () => import('./pages/dashboard-blybn/registro-p1/registro-p1.module').then( m => m.RegistroP1PageModule)
   },
   {
-    path: 'leer-p1',
-    loadChildren: () => import('./pages/dashboard-blybn/leer-p1/leer-p1.module').then( m => m.LeerP1PageModule)
-  },
-  {
     path: 'registro-p2',
     loadChildren: () => import('./pages/dashboard-blybn/registro-p2/registro-p2.module').then( m => m.RegistroP2PageModule)
-  },
-  {
-    path: 'leer-p2',
-    loadChildren: () => import('./pages/dashboard-blybn/leer-p2/leer-p2.module').then( m => m.LeerP2PageModule)
   },
   {
     path: 'registro-p3',
     loadChildren: () => import('./pages/dashboard-blybn/registro-p3/registro-p3.module').then( m => m.RegistroP3PageModule)
   },
   {
-    path: 'leer-p3',
-    loadChildren: () => import('./pages/dashboard-blybn/leer-p3/leer-p3.module').then( m => m.LeerP3PageModule)
-  },
-  {
     path: 'registro-p4',
     loadChildren: () => import('./pages/dashboard-blybn/registro-p4/registro-p4.module').then( m => m.RegistroP4PageModule)
-  },
-  {
-    path: 'leer-p4',
-    loadChildren: () => import('./pages/dashboard-blybn/leer-p4/leer-p4.module').then( m => m.LeerP4PageModule)
   },
   {
     path: 'registro-p5',
     loadChildren: () => import('./pages/dashboard-blybn/registro-p5/registro-p5.module').then( m => m.RegistroP5PageModule)
   },
   {
-    path: 'leer-p5',
-    loadChildren: () => import('./pages/dashboard-blybn/leer-p5/leer-p5.module').then( m => m.LeerP5PageModule)
-  },
-  {
     path: 'registro-p6',
     loadChildren: () => import('./pages/dashboard-blybn/registro-p6/registro-p6.module').then( m => m.RegistroP6PageModule)
-  },
-  {
-    path: 'leer-p6',
-    loadChildren: () => import('./pages/dashboard-blybn/leer-p6/leer-p6.module').then( m => m.LeerP6PageModule)
   },
   {
     path: 'registro-p7',
     loadChildren: () => import('./pages/dashboard-blybn/registro-p7/registro-p7.module').then( m => m.RegistroP7PageModule)
   },
   {
-    path: 'leer-p7',
-    loadChildren: () => import('./pages/dashboard-blybn/leer-p7/leer-p7.module').then( m => m.LeerP7PageModule)
-  },
-  {
     path: 'registro-p8',
     loadChildren: () => import('./pages/dashboard-blybn/registro-p8/registro-p8.module').then( m => m.RegistroP8PageModule)
   },
   {
-    path: 'leer-p8',
-    loadChildren: () => import('./pages/dashboard-blybn/leer-p8/leer-p8.module').then( m => m.LeerP8PageModule)
-  },
-  {
     path: 'registro-p9',
     loadChildren: () => import('./pages/dashboard-blybn/registro-p9/registro-p9.module').then( m => m.RegistroP9PageModule)
-  },
-  {
-    path: 'leer-p9',
-    loadChildren: () => import('./pages/dashboard-blybn/leer-p9/leer-p9.module').then( m => m.LeerP9PageModule)
   },
   {
     path: 'animacion1',
@@ -235,14 +199,6 @@ const routes: Routes = [
   {
     path: 'animacion11',
     loadChildren: () => import('./pages/dashboard-blybn/animaciones/animacion11/animacion11.module').then( m => m.Animacion11PageModule)
-  },
-  {
-    path: 'leer-p10',
-    loadChildren: () => import('./pages/dashboard-blybn/leer-p10/leer-p10.module').then( m => m.LeerP10PageModule)
-  },
-  {
-    path: 'leer-p11',
-    loadChildren: () => import('./pages/dashboard-blybn/leer-p11/leer-p11.module').then( m => m.LeerP11PageModule)
   },
   {
     path: 'registro-p2r11',

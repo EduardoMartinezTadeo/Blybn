@@ -32,7 +32,6 @@ export class InicioMenuPage {
   toast: any;
   dataPerfil: any;
   bly_usuario: string;
-
   
   ionViewWillEnter() {
     this.aventurasImg = [];

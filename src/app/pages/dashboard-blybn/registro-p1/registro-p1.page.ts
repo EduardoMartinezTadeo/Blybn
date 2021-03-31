@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class RegistroP1Page implements OnInit {
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private provider: ProviderService
+    private provider: ProviderService,
+    private storage: Storage
   ) {}
 
   ngOnInit() {}
@@ -22,9 +24,18 @@ export class RegistroP1Page implements OnInit {
       this.contentLoaded = false;
     }, 1500); 
   }
+  
+  tipoPropiedad: string;
+  tipoAlojamiento: string;
+  tipoExclusividad: string;
+  tipoAventura: string;
 
   contentLoaded = false;
   ionViewWillEnter() {    
+    this.alojamientos = [];
+    this.aventuras = [];
+    this.propiedades = [];
+    this.exclusividad = [];
     this.cargarPropiedades();
     this.cargarAlojamiento();
     this.cargarExclusividad();
@@ -79,9 +90,7 @@ export class RegistroP1Page implements OnInit {
     });
   }
 
-  tipoPropiedad: number;
-  tipoAlojamiento: number;
-  tipoExclusividad: number;
+ 
   propiedades: any = [];
   limit: number = 10;
   start: number = 0;
@@ -131,6 +140,7 @@ export class RegistroP1Page implements OnInit {
     await alert.present();
   }
 
+  
   descripcion: any;
   informacion: string;
   ionChange(event) {
@@ -152,7 +162,7 @@ export class RegistroP1Page implements OnInit {
   descripcionAlojamiento: any;
   informacionAlojamiento: string;
   ionChangeA(event) {
-    this.tipoAlojamiento = event.detail.value;
+    this.tipoAlojamiento = event.detail.value;  
     let body = {
       aksi: 'Desc_alojamiento',
       bly_tipoAlojamiento: this.tipoAlojamiento
@@ -163,20 +173,29 @@ export class RegistroP1Page implements OnInit {
     });
   }
 
-  
-
-  guardarInformacion(){
-    this.exclusividad = [];
-    this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
-    console.log(this.valores);
+  ionChangeT(event){
+    this.tipoAventura = event.detail.value;
   }
 
   valores: any;
   onClick( exclusivo: any ) {
-    console.log(exclusivo.bly_exclusividadHospedaje);
-    console.log(exclusivo.bly_tipoExclusividad);
-    console.log(exclusivo.bly_selected);
     this.valores = exclusivo.bly_exclusividadHospedaje;
-    console.log(this.valores);
   }
+
+
+  informacionR1: any;
+  guardarInformacion(){
+   this.informacionR1 = {
+      propiedad: this.tipoPropiedad,
+      alojamiento: this.tipoAlojamiento,
+      exclusividad: this.valores,
+      aventura: this.tipoAventura,
+      registro1: true
+    }
+    this.storage.set('registroP1', this.informacionR1).then((res) => {
+      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+    });
+  }
+
+ 
 }

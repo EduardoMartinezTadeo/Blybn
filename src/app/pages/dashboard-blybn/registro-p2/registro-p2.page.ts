@@ -1,14 +1,11 @@
 import {
   Component,
-  NgZone,
-  OnInit
+  NgZone
 } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  NativeGeocoder
-} from '@ionic-native/native-geocoder/ngx';
-import { AlertController } from '@ionic/angular';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { AlertController, ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+
 
 declare var google;
 
@@ -45,7 +42,9 @@ export class RegistroP2Page {
   constructor(
     public zone: NgZone,
     private alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private toastController: ToastController,
+    private storage: Storage
   ) {
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
@@ -158,7 +157,63 @@ export class RegistroP2Page {
     await alert.present();
   }
 
-  guardarInformacion() {
-    this.router.navigate(['/registrop2r22']);
+  informacionMapa: any;
+  async guardarInformacion() {
+    if(this.Dataubicacion.pais == ""){
+      const toast = await this.toastController.create({
+        message: 'El país es requerido...',
+        duration: 2000,
+        mode: 'ios'
+      });
+      toast.present();
+    } else if(this.Dataubicacion.calle == ""){
+      const toast = await this.toastController.create({
+        message: 'La calle es requerida...',
+        duration: 2000,
+        mode: 'ios'
+      });
+      toast.present();
+    } else if(this.Dataubicacion.ciudad == ""){
+      const toast = await this.toastController.create({
+        message: 'La ciudad es requerida...',
+        duration: 2000,
+        mode: 'ios'
+      });
+      toast.present();
+    } else if(this.Dataubicacion.estado == ""){
+      const toast = await this.toastController.create({
+        message: 'El estado es requerido...',
+        duration: 2000,
+        mode: 'ios'
+      });
+      toast.present();
+    } else if(this.Dataubicacion.direccion == ""){
+      const toast = await this.toastController.create({
+        message: 'La dirección es requerida...',
+        duration: 2000,
+        mode: 'ios'
+      });
+      toast.present();
+    } else if (this.Dataubicacion.codigo == ""){
+      const toast = await this.toastController.create({
+        message: 'El código postal es requerido...',
+        duration: 2000,
+        mode: 'ios'
+      });
+      toast.present();
+    }
+    else {
+      this.informacionMapa = {
+        pais: this.Dataubicacion.pais,
+        calle: this.Dataubicacion.calle,
+        ciudad: this.Dataubicacion.ciudad,
+        estado: this.Dataubicacion.estado,
+        direccion: this.Dataubicacion.direccion,
+        codigoPostal: this.Dataubicacion.codigo
+      }
+      this.storage.set('mapaInformacion', this.informacionMapa).then((res) => {
+        this.router.navigate(['/registrop2r22']);
+      });
+    }
   }
 }

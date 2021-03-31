@@ -64,7 +64,7 @@ export class DetallePerfil2Page implements OnInit {
   contrasena: string;
   id: string;
   perfilData: any;
-  foto: string;
+ 
   facturacionData: any;
   statusBtn: string;
   facturacion = {
@@ -487,13 +487,14 @@ export class DetallePerfil2Page implements OnInit {
     await actionSheet.present();
   }
 
+  foto: string;
   cameraData: string;
   base64Image: string;
   openCamera() {
     const options: CameraOptions = {
       quality: 100,
-      targetWidth: 800,
-      targetHeight: 600,
+      targetWidth: 90,
+      targetHeight: 90,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -516,8 +517,8 @@ export class DetallePerfil2Page implements OnInit {
   openGallery() {
     const options: CameraOptions = {
       quality: 100,
-      targetWidth: 800,
-      targetHeight: 600,
+      targetWidth: 90,
+      targetHeight: 90,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,

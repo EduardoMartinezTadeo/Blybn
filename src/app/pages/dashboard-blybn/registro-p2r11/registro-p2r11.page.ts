@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PickerController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-registro-p2r11',
@@ -11,7 +12,8 @@ import { PickerOptions } from '@ionic/core';
 export class RegistroP2r11Page implements OnInit {
   constructor(
     private router: Router,
-    private pickerCtrl: PickerController
+    private pickerCtrl: PickerController,
+    private storage: Storage
   ) {}
 
   ngOnInit() {}
@@ -34,9 +36,7 @@ export class RegistroP2r11Page implements OnInit {
     this.router.navigate(['/registro-p11']);
   }
 
-  guardarInformacion(){
-    this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
-  }
+  
 
   cantidadBanos = '';
 
@@ -100,7 +100,24 @@ export class RegistroP2r11Page implements OnInit {
     }
   ];
 
+  tipobano: any;
+  nombretipoBano: string;
   onClick( item: any ) {
-    console.log(item);
+    this.tipobano = item;
+    this.nombretipoBano = this.tipobano.name;
   }
+
+  informacionR11: any;
+
+  guardarInformacion(){
+    this.informacionR11 = {
+      cantidadBano: this.cantidadBanos,
+      tipoBano: this.nombretipoBano,
+      registro11: true
+    }
+    this.storage.set('registroP11', this.informacionR11).then((res) => {
+      this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+    });
+  }
+
 }

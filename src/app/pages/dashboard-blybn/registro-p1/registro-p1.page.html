@@ -76,7 +76,7 @@
       <ion-label class="parrafo">
         Eligue un tipo de aventura
       </ion-label>
-      <ion-select placeholder="Seleccionar" ok-text="Aceptar" cancelText="Cancelar" mode="ios">
+      <ion-select placeholder="Seleccionar" (ionChange)="ionChangeT($event)" ok-text="Aceptar" cancelText="Cancelar" mode="ios">
         <ion-select-option value="{{aventura.bly_tipoAventura}}" *ngFor="let aventura of aventuras">
           {{aventura.bly_aventura}}</ion-select-option>
       </ion-select>

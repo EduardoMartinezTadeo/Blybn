@@ -39,7 +39,7 @@
           <ion-label>{{amenidad.bly_tipoAmenidad}}</ion-label>
         </ion-col>
         <ion-col size="5" class="ion-text-right">
-          <ion-checkbox [(ngModel)]="amenidad.bly_selected" required></ion-checkbox>
+          <ion-checkbox [(ngModel)]="amenidad.bly_selected" required (click)="onClickA( amenidad )"></ion-checkbox>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -56,7 +56,7 @@
           <ion-label>{{espacio.bly_descripcionEspacios}}</ion-label>
         </ion-col>
         <ion-col size="5" class="ion-text-right">
-          <ion-checkbox [(ngModel)]="espacio.bly_selected" required></ion-checkbox>
+          <ion-checkbox [(ngModel)]="espacio.bly_selected" required (click)="onClickAC( espacio )"></ion-checkbox>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -74,7 +74,7 @@
           <p>{{seguridad.bly_descripcionSeguridad}}</p>
         </ion-col>
         <ion-col size="5" class="ion-text-right">
-          <ion-checkbox [(ngModel)]="seguridad.bly_selected" required></ion-checkbox>
+          <ion-checkbox [(ngModel)]="seguridad.bly_selected" required (click)="onClickS( seguridad )"></ion-checkbox>
         </ion-col>
       </ion-row>
     </ion-grid>

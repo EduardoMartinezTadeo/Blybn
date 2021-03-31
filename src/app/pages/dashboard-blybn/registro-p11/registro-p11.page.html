@@ -25,7 +25,7 @@
     
       <ion-row *ngFor="let mueble of muebles" mode="ios">
         <ion-col class="ion-text-right">
-          <ion-checkbox [(ngModel)]="mueble.bly_selected" required></ion-checkbox>
+          <ion-checkbox [(ngModel)]="mueble.bly_selected" required (click)="onClick( mueble )"></ion-checkbox>
         </ion-col>
         <ion-col class="ion-no-border" lines="none">
           <ion-label>{{mueble.bly_tipoMueble}}</ion-label>

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController, ToastController } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  ToastController,
+} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
@@ -37,7 +41,8 @@ export class EnviaComentarios2Page implements OnInit {
     private loadingController: LoadingController,
     private toastController: ToastController,
     private provider: ProviderService,
-    private alertCtrl: AlertController) {}
+    private alertCtrl: AlertController
+  ) {}
 
   ngOnInit() {}
 
@@ -117,13 +122,12 @@ export class EnviaComentarios2Page implements OnInit {
     this.dato8 = true;
   }
 
-  
-
   async presentCargaComentario() {
     const loading = await this.loadingController.create({
       message: 'Espere un momento...',
       duration: 1500,
       spinner: 'bubbles',
+      mode: 'ios',
     });
     await loading.present();
     setTimeout(() => {
@@ -132,42 +136,67 @@ export class EnviaComentarios2Page implements OnInit {
   }
 
   toast: any;
-  async registrarComentarioAvanzado(){
-    let body = {  
+  async registrarComentarioAvanzado() {
+    let body = {
       bly_comentario: this.comentario,
       bly_motivoComentario: this.motivo,
       bly_usuario: this.usuario,
       bly_tipoComentario: this.tipoComentario,
-      bly_tipoUtilizacion: this.utilizacion
-    }   
-    if(this.comentario == undefined){
-      this.toast = this.toastController.create({
-        message: 'El comentario es requerido...',
-        duration: 2000
-      }).then((toastData) => {
-        toastData.present();
-      });
-    }else{
-      this.provider.postDataRCA(body, 'db_registrarComentarioAvanzado.php').subscribe(async data => {
-        if (data.error) {
-          this.toast = this.toastController.create({
-            message: 'Ha ocurrido un error, inténtelo más tarde...',
-            duration: 2000
-          }).then((toastData) => {
-            toastData.present();
-          });
-        } else {
-          this.toast = this.toastController.create({
-            message: 'Gracias por enviar tus comentarios...',
-            duration: 2000
-          }).then((toastData) => {
-            toastData.present();
-          });
-          this.router.navigateByUrl('/dashboard2/menutabs2/inicio-menu');
-        }
-      },(error) => {
-        this.presentLoadingServer();
-      });
+      bly_tipoUtilizacion: this.utilizacion,
+    };
+    if (this.comentario == undefined) {
+      this.toast = this.toastController
+        .create({
+          message: 'El comentario es requerido...',
+          duration: 2000,
+          mode: 'ios',
+        })
+        .then((toastData) => {
+          toastData.present();
+        });
+    } else {
+      this.provider
+        .postDataRCA(body, 'db_registrarComentarioAvanzado.php')
+        .subscribe(
+          async (data) => {
+            if (data.error) {
+              this.toast = this.toastController
+                .create({
+                  message: 'Ha ocurrido un error, inténtelo más tarde...',
+                  duration: 2000,
+                  mode: 'ios',
+                })
+                .then((toastData) => {
+                  toastData.present();
+                });
+            } else {
+              this.toast = this.toastController
+                .create({
+                  message: 'Gracias por enviar tus comentarios...',
+                  duration: 2000,
+                  mode: 'ios',
+                })
+                .then((toastData) => {
+                  toastData.present();
+                });
+              this.favorito = false;
+              this.favorito2 = false;
+              this.dato1 = false;
+              this.dato2 = false;
+              this.dato3 = false;
+              this.dato4 = false;
+              this.dato5 = false;
+              this.dato6 = false;
+              this.dato7 = false;
+              this.dato8 = false;
+              this.comentario = "";
+              this.router.navigateByUrl('/dashboard2/menutabs2/inicio-menu');
+            }
+          },
+          (error) => {
+            this.presentLoadingServer();
+          }
+        );
     }
   }
 
@@ -175,7 +204,8 @@ export class EnviaComentarios2Page implements OnInit {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       duration: 1500,
-      spinner: "bubbles"
+      spinner: 'bubbles',
+      mode: 'ios',
     });
     await loading.present();
     setTimeout(() => {
@@ -186,15 +216,17 @@ export class EnviaComentarios2Page implements OnInit {
   async presentAlertServer() {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
+      mode: 'ios',
       header: 'Error',
       message: 'Ha ocurrido un error, verifique su conexión!!!',
-      buttons: [{
-        text: 'Reintentar',
-        handler: () => {
-          this.router.navigateByUrl('/dashboard2/envia-comentarios2');
-        }
-      }
-      ]
+      buttons: [
+        {
+          text: 'Reintentar',
+          handler: () => {
+            this.router.navigateByUrl('/dashboard2/envia-comentarios2');
+          },
+        },
+      ],
     });
     await alert.present();
   }

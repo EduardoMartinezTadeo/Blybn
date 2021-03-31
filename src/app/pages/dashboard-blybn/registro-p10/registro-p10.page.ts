@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-registro-p10',
   templateUrl: './registro-p10.page.html',
@@ -11,7 +11,8 @@ export class RegistroP10Page implements OnInit {
 
   constructor(
     private alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private storage: Storage
   ) { }
 
   ngOnInit() {
@@ -54,7 +55,7 @@ export class RegistroP10Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
           },
         },
       ],
@@ -63,8 +64,17 @@ export class RegistroP10Page implements OnInit {
     await alert.present();
   }
 
+  informacionR10: any;
   guardarInformacion(){
-    this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+    this.informacionR10 = {
+      huespedes: this.huespedes,
+      habitaciones: this.habitaciones,
+      camas: this.camas,
+      registro10: true
+    }
+    this.storage.set('registroP10', this.informacionR10).then((res) => {
+      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+    });
   }
 
   incrementarHuespedes(){

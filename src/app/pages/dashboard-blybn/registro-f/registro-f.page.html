@@ -1,0 +1,273 @@
+<ion-header>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-label class="ion-label1">
+    Para terminar, verifiquemos la información
+  </ion-label>
+  <br>
+  <br>
+  <ion-card>
+    <ion-card-title>Información General</ion-card-title>
+    <ion-card-subtitle>Verifique que la información es correcta o sino haga los cambios pertinentes...</ion-card-subtitle>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating" color="primary">Nombre Propiedad:</ion-label>
+        <ion-input [(ngModel)]="bly_tituloPropiedad"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">País donde se encuentra ubicada la propiedad:</ion-label>
+        <ion-input [(ngModel)]="bly_pais"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Estado donde se encuentra ubicada la propiedad:</ion-label>
+        <ion-input [(ngModel)]="bly_estado"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Ciudad donde se encuentra ubicada la propiedad</ion-label>
+        <ion-input [(ngModel)]="bly_ciudad"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Calle donde se encuentra ubicada la propiedad:</ion-label>
+        <ion-input [(ngModel)]="bly_calle"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Código postal de la propiedad:</ion-label>
+        <ion-input [(ngModel)]="bly_codigoPostal"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Dirección general de la propiedad:</ion-label>
+        <ion-input [(ngModel)]="bly_direccionGeneral"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-title>Información de la propiedad</ion-card-title>
+    <ion-card-subtitle>Verifique que la información es correcta o sino haga los cambios pertinentes...</ion-card-subtitle>
+    <ion-card-content>
+      <ion-item *ngFor="let propiedad of tipoPropiedad">
+        <ion-label position="floating" color="primary">Tipo de propiedad:</ion-label>
+        <ion-input [(ngModel)]="propiedad.bly_propiedadTipo"></ion-input>
+      </ion-item>
+      <ion-item *ngFor="let alojamiento of tipoAlojamiento">
+        <ion-label position="floating" color="primary">Tipo de alojamiento:</ion-label>
+        <ion-input [(ngModel)]="alojamiento.bly_alojamientoPropiedad"></ion-input>
+      </ion-item>
+      <ion-item *ngFor="let exclusiva of tipoExclusividad">
+        <ion-label position="floating" color="primary">Tipo de exclusividad de alojamiento:</ion-label>
+        <ion-input [(ngModel)]="exclusiva.bly_tipoExclusividad"></ion-input>
+      </ion-item>
+      <ion-item *ngFor="let aventura of tipoAventura">
+        <ion-label position="floating" color="primary">Tipo de aventura:</ion-label>
+        <ion-input [(ngModel)]="aventura.bly_aventura"></ion-input>
+      </ion-item>
+      <ion-item *ngFor="let frecuencia of informacionFrecuenciaRecepcion">
+        <ion-label position="floating" color="primary">Frecuencia con la que se rentara la propiedad:</ion-label>
+        <ion-input [(ngModel)]="frecuencia.bly_categoriaFrecuencia"></ion-input>
+      </ion-item>
+      <ion-item *ngFor="let historial of informacionHistorialPrevio">
+        <ion-label position="floating" color="primary">Historial previo de renta de la propiedad:</ion-label>
+        <ion-input [(ngModel)]="historial.bly_tipoHistorial"></ion-input>
+      </ion-item>
+      <ion-item *ngFor="let aprobacion of informacionTipoAprobacion">
+        <ion-label position="floating" color="primary">Tipo de aprobación para rentar la propiedad:</ion-label>
+        <ion-input [(ngModel)]="aprobacion.bly_descripcionStatus"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-title>Información costos de renta</ion-card-title>
+    <ion-card-subtitle>Verifique que la información es correcta o sino haga los cambios pertinentes...</ion-card-subtitle>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating" color="primary">Costo de renta:</ion-label>
+        <ion-input [(ngModel)]="bly_precioBase"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Costo de limpieza:</ion-label>
+        <ion-input [(ngModel)]="bly_cargoLimpieza"></ion-input>
+      </ion-item>
+      <ion-item *ngFor="let moneda of tipoMoneda">
+        <ion-label position="floating" color="primary">Tipo de moneda de pago:</ion-label>
+        <ion-input [(ngModel)]="moneda.bly_moneda"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Porcentaje de descuento por una semana:</ion-label>
+        <ion-input [(ngModel)]="bly_descuentoSemana"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Porcentaje de descuento por un mes:</ion-label>
+        <ion-input [(ngModel)]="bly_descuentoMes"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-title>Información de interiores de propiedad</ion-card-title>
+    <ion-card-subtitle>Verifique que la información es correcta o sino haga los cambios pertinentes...</ion-card-subtitle>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating" color="primary">Cantidad de huéspedes permitida en su propiedad:</ion-label>
+        <ion-input [(ngModel)]="bly_numHuespedes"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Cantidad de habitaciones con las que cuenta tu propiedad:</ion-label>
+        <ion-input [(ngModel)]="bly_numHabitaciones"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Cantidad de camas que tiene tu propiedad:</ion-label>
+        <ion-input [(ngModel)]="bly_numCamas"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Cantidad de baños que tiene la propiedad:</ion-label>
+        <ion-input [(ngModel)]="bly_numBanos"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Tipo de baño que tiene la propiedad:</ion-label>
+        <ion-input [(ngModel)]="bly_tipoBano"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-title>Muebles propiedad</ion-card-title>
+    <ion-card-subtitle>Si los muebles mostrados son correctos presione el check para guardar la información...</ion-card-subtitle>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let infoMueble of informacionMuebles; let i = index">
+          <ion-col size="5">
+            <ion-item>
+              <ion-label position="floating" color="primary">Tipo de mueble:</ion-label>
+              <ion-input [(ngModel)]="infoMueble.bly_tipoMueble"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="5">
+            <ion-item>
+              <ion-label position="floating" color="primary">Cantidad de muebles de este tipo en la propiedad:</ion-label>
+              <ion-input value={{infoMueble.bly_cantidadMuebles}}></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button size="small" (click)="obtenerCantidadMueble(infoMueble.bly_cantidadMuebles)" (click)="obtenerTipoMueble(infoMueble.bly_numMuebles)" (click)="registrarMueble()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-title>Amenidades propiedad</ion-card-title>
+    <ion-card-subtitle>Si las amenidades mostrados son correctos presione el check para guardar la información...</ion-card-subtitle>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let amenidad of informacionAmenidades">
+          <ion-col size="10">
+            <ion-item >
+              <ion-label position="floating" color="primary">Tipo de amenidad:</ion-label>
+              <ion-input [(ngModel)]="amenidad.bly_tipoAmenidad"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <br>
+            <ion-button size="small" (click)="obtenerAmenidad(amenidad.bly_amenidades)"  (click)="registrarAmenidad()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>      
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-title>Áreas comunes de la propiedad</ion-card-title>
+    <ion-card-subtitle>Si las áreas comunes o espacios mostrados son correctos presione el check para guardar la información...</ion-card-subtitle>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let area of informacionAreasComunes">
+          <ion-col size="10">
+            <ion-item >
+              <ion-label position="floating" color="primary">Tipo de espacios:</ion-label>
+              <ion-input [(ngModel)]="area.bly_descripcionEspacios"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <br>
+            <ion-button size="small" (click)="obtenerAreas(area.bly_espacios)"  (click)="registrarEspacio()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid> 
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-title>Medidas de seguridad de la propiedad</ion-card-title>
+    <ion-card-subtitle>Si las medidas de seguridad mostrados son correctas presione el check para guardar la información...</ion-card-subtitle>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let seguridad of informacionSeguridad">
+          <ion-col size="10">
+            <ion-item >
+              <ion-label position="floating" color="primary">Tipo de seguridad:</ion-label>
+              <ion-input [(ngModel)]="seguridad.bly_tipoSeguridad"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <br>
+            <ion-button size="small" (click)="obtenerSeguridad(seguridad.bly_seguridad)"  (click)="registrarSeguridad()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid> 
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-title>Restricciones de la propiedad</ion-card-title>
+    <ion-card-subtitle>Si las restricciones mostradas son correctas presione el check para guardar la información...</ion-card-subtitle>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let restriccion of informacionRestricciones">
+          <ion-col size="10">
+            <ion-item >
+              <ion-label position="floating" color="primary">Tipo de restriccion:</ion-label>
+              <ion-input [(ngModel)]="restriccion.bly_tipoRestriccion"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <br>
+            <ion-button size="small" (click)="obtenerRestriccion(restriccion.bly_numRestriccion)"  (click)="registrarRestriccion()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid> 
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-title>Requisitos para rentar</ion-card-title>
+    <ion-card-subtitle>Si los requisitos mostrados son correctos presione el check para guardar la información...</ion-card-subtitle>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let requisito of informacionRequisitos">
+          <ion-col size="10">
+            <ion-item >
+              <ion-label position="floating" color="primary">Tipo de requisito:</ion-label>
+              <ion-input [(ngModel)]="requisito.bly_tipo_requisitoRenta"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <br>
+            <ion-button size="small" (click)="obtenerRequisito(requisito.bly_requisitosRenta)"  (click)="registrarRequisito()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid> 
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="publicar()">
+        Publicar
+        <ion-icon slot="end" name="earth" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

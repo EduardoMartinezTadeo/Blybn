@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class RegistroP8Page implements OnInit {
   constructor(
     private router: Router,
     private alertController: AlertController,
-    private provider: ProviderService
+    private provider: ProviderService,
+    private storage: Storage
   ) { }
 
   ngOnInit() {
@@ -54,17 +56,13 @@ export class RegistroP8Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
           },
         },
       ],
     });
 
     await alert.present();
-  }
-
-  guardarInformacion(){
-    this.router.navigate(['/registrop8r1']);
   }
 
   monedas: any = [];
@@ -79,6 +77,26 @@ export class RegistroP8Page implements OnInit {
         }
         resolve(true);
       });
+    });
+  }
+
+  precioBase: number;
+  costoLimpieza: number;
+
+  tipoMoneda: string;
+  ionChange(event) {
+    this.tipoMoneda = event.detail.value;
+  }
+
+  costosPropiedad: any;
+  guardarInformacion(){
+    this.costosPropiedad = {
+      precioBase: this.precioBase,
+      precioLimpieza: this.costoLimpieza,
+      tipoMoneda: this.tipoMoneda
+    }
+    this.storage.set('costosPropiedad', this.costosPropiedad).then((res) => {
+      this.router.navigate(['/registrop8r1']);
     });
   }
 }

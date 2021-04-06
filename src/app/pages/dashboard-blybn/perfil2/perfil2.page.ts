@@ -24,11 +24,10 @@ export class Perfil2Page {
      contentLoaded = false;
      contentLoadedF = false;
 
-  ionViewWillEnter() {
+  ionViewWillEnter() {    
     setTimeout(() => {
       this.contentLoaded = true; 
-      this.contentLoadedF = true; 
-      this.cargarFotoPerfil();         
+      this.contentLoadedF = true;    
     }, 2500);    
   }
 
@@ -68,6 +67,7 @@ export class Perfil2Page {
       this.tipoRol = this.perfilData.bly_rol,
       this.service.consultarDatosFacturacion(this.id).subscribe(data => {
         this.responseData = data;
+        this.cargarFotoPerfil();  
       });
     });
     this.storage.get('facturacion').then((factura) =>{

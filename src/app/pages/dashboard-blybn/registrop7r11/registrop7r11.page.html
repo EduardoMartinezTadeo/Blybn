@@ -1,10 +1,5 @@
 <ion-header>
   <ion-toolbar color="titulos" class="ion-no-border" translucent>
-    <ion-buttons slot="end">
-      <ion-button style="text-transform: capitalize;">
-        Guardar y salir
-      </ion-button>
-    </ion-buttons>
     <ion-buttons slot="start">
       <ion-button (click)="cancelar()">
         <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
@@ -32,34 +27,31 @@
       </p>
     </ion-label>
     <ion-item lines="none" class="parrafo">    
-      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar">
+      <ion-select lect mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange($event)">
         <ion-select-option value="{{preaviso.bly_numPreaviso}}" *ngFor="let preaviso of catalogo1">{{preaviso.bly_preavisoDescripcion}}
         </ion-select-option>
       </ion-select>
     </ion-item>
-    <br>
     <ion-label class="parrafo">
       <p slot="start">
         ¿Cuánto tiempo necesitas para tener todo listo después de la salida de huéspedes?
       </p>
     </ion-label>
     <ion-item lines="none" class="parrafo">    
-      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar">
+      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange2($event)">
         <ion-select-option value="{{preaviso.bly_numPreaviso}}" *ngFor="let preaviso of catalogo1">{{preaviso.bly_preavisoDescripcion}}
         </ion-select-option>
       </ion-select>
     </ion-item>
-    <br>
     <ion-label class="parrafo">
       Hora límite para las reservaciones
     </ion-label>
     <ion-item lines="none" class="parrafo">
-      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar">
+      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange3($event)">
         <ion-select-option value="{{horas.bly_numHora}}" *ngFor="let horas of catalogo2">{{horas.bly_Horas}}
         </ion-select-option>
       </ion-select>
     </ion-item>
-    <br>
     <ion-label class="parrafo">
       Ventana de disponibilidad
       <p slot="start">
@@ -67,7 +59,7 @@
       </p>
     </ion-label>
     <ion-item lines="none" class="parrafo">
-      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar">
+      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange4($event)">
         <ion-select-option value="{{disposicion.bly_numventanaDisponibilidad}}" *ngFor="let disposicion of catalogo3">{{disposicion.bly_descripcionVentanaDisponibilidad}}
         </ion-select-option>
       </ion-select>
@@ -82,7 +74,7 @@
       Llegada después de las
     </ion-label>
     <ion-item lines="none" class="parrafo">
-      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar">
+      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange5($event)">
         <ion-select-option value="{{llegada.bly_numLllegadas}}" *ngFor="let llegada of catalogo4">{{llegada.bly_descripcionLlegadas}}
         </ion-select-option>
       </ion-select>
@@ -92,7 +84,7 @@
       Llegada antes de las
     </ion-label>
     <ion-item lines="none" class="parrafo">
-      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar">
+      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange6($event)">
         <ion-select-option value="{{llegada.bly_numLllegadas}}" *ngFor="let llegada of catalogo4">{{llegada.bly_descripcionLlegadas}}
         </ion-select-option>
       </ion-select>
@@ -102,10 +94,36 @@
       Salida antes de las
     </ion-label>
     <ion-item lines="none" class="parrafo">
-      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar">
+      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange7($event)">
         <ion-select-option value="{{llegada.bly_numLllegadas}}" *ngFor="let llegada of catalogo4">{{llegada.bly_descripcionLlegadas}}
         </ion-select-option>
       </ion-select>
+    </ion-item>
+    <ion-label class="ion-label3">
+      Fechas de disponibilidad 
+    </ion-label>
+    <br>
+    <br>
+    <ion-item class="fechas" lines="none">
+      <ion-label>Fecha inicial</ion-label>
+      <ion-datetime  doneText="Aceptar" cancelText="Cancelar" mode="ios" min="2021" max="2030"   monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" [(ngModel)]="fechainiciald"></ion-datetime>
+    </ion-item>
+    <ion-item class="fechas" lines="none">
+      <ion-label>Fecha final</ion-label>
+      <ion-datetime  doneText="Aceptar" cancelText="Cancelar" mode="ios" min="2021" max="2030"   monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" [(ngModel)]="fechafinald"></ion-datetime>
+    </ion-item>
+    <ion-label class="ion-label3">
+      Fechas no disponibilidad 
+    </ion-label>
+    <br>
+    <br>
+    <ion-item class="fechas" lines="none">
+      <ion-label>Fechas no disponibles inicial</ion-label>
+      <ion-datetime  doneText="Aceptar" cancelText="Cancelar" mode="ios" min="2021" max="2030"   monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" [(ngModel)]="fechainicialnd"></ion-datetime>
+    </ion-item>
+    <ion-item class="fechas" lines="none">
+      <ion-label>Fechas no disponibles final</ion-label>
+      <ion-datetime  doneText="Aceptar" cancelText="Cancelar" mode="ios" min="2021" max="2030"   monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" [(ngModel)]="fechafinalnd"></ion-datetime>
     </ion-item>
   </div>
   <div *ngIf="!contentLoaded">

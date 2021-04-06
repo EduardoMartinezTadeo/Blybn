@@ -36,7 +36,8 @@ export class Ajustes2Page implements OnInit {
   showPassword = false;
   passwordToggleIcon = 'create';
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   public ocultar2: boolean = false;
   public ocultar1: boolean = false;
@@ -56,9 +57,9 @@ export class Ajustes2Page implements OnInit {
 
   ionViewWillEnter() {
     setTimeout(() => {
+      this.cargarFotoPerfil(); 
       this.contentLoaded = true; 
-      this.contentLoadedF = true;  
-      this.cargarFotoPerfil();        
+      this.contentLoadedF = true;         
     }, 2500);    
   }
 
@@ -469,8 +470,8 @@ export class Ajustes2Page implements OnInit {
   openCamera() {
     const options: CameraOptions = {
       quality: 100,
-      targetWidth: 90,
-      targetHeight: 90,
+      targetWidth: 512,
+      targetHeight: 512,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -493,8 +494,8 @@ export class Ajustes2Page implements OnInit {
   openGallery() {
     const options: CameraOptions = {
       quality: 100,
-      targetWidth: 90,
-      targetHeight: 90,
+      targetWidth: 512,
+      targetHeight: 512,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
@@ -525,7 +526,6 @@ export class Ajustes2Page implements OnInit {
     this.providerService
       .postDataAFP(body, 'db_controlFotoPerfil.php')
       .subscribe((data) => {
-        console.log(data.result);
         this.cargarFotoPerfil();
       }); 
   }
@@ -542,5 +542,9 @@ export class Ajustes2Page implements OnInit {
         resolve(true);
       });
     });      
+  }
+
+  onError(img) {
+    img.src = '../../../../assets/imgs/avatar.svg';
   }
 }

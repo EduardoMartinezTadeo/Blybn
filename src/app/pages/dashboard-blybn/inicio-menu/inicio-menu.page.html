@@ -8,7 +8,7 @@
       <ion-col size="12" *ngFor="let aventura of aventurasImg">
         <ion-card (click)="tipoaventura()" mode="md" class="listCards">
           <ion-card-content>
-            <ion-img src="{{server + aventura.bly_nombreImagen}}"></ion-img>
+            <ion-img src="{{server + aventura.bly_nombreImagen}}" (ionError)="onError(img)" #img></ion-img>
             <div class="card-title">{{aventura.bly_aventura}}</div>
           </ion-card-content>
         </ion-card>

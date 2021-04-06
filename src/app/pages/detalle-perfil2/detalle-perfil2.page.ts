@@ -90,6 +90,7 @@ export class DetallePerfil2Page implements OnInit {
         (this.facturacion.razonSocial = this.facturacionData.bly_razonSocial),
         (this.facturacion.rfc = this.facturacionData.bly_rfc),
         (this.statusBtn = this.facturacionData.bly_statusBtn);
+        this.cargarFotoPerfil();  
       if (this.statusBtn == 'true') {
         this.dato1 = true;
         this.dato2 = true;
@@ -114,9 +115,7 @@ export class DetallePerfil2Page implements OnInit {
     });
   }
 
-  ionViewDidEnter() {
-    this.cargarFotoPerfil();
-  }
+ 
   activarComponentes() {
     this.dato5 = false;
     this.dato6 = false;
@@ -493,8 +492,8 @@ export class DetallePerfil2Page implements OnInit {
   openCamera() {
     const options: CameraOptions = {
       quality: 100,
-      targetWidth: 90,
-      targetHeight: 90,
+      targetWidth: 512,
+      targetHeight: 512,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -517,8 +516,8 @@ export class DetallePerfil2Page implements OnInit {
   openGallery() {
     const options: CameraOptions = {
       quality: 100,
-      targetWidth: 90,
-      targetHeight: 90,
+      targetWidth: 512,
+      targetHeight: 512,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
@@ -568,5 +567,9 @@ export class DetallePerfil2Page implements OnInit {
           resolve(true);
         });
     });
+  }
+
+  onError(img) {
+    img.src = '../../../../assets/imgs/avatar.svg';
   }
 }

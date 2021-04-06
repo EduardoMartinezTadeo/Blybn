@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
 @Component({
@@ -13,15 +14,18 @@ export class RegistroP6Page implements OnInit {
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private provider: ProviderService
+    private provider: ProviderService,
+    private storage: Storage
   ) { }
 
   ngOnInit() {
+    this.requisitosRenta = [];
   }
 
   contentLoaded = false;
   ionViewWillLeave(){
     this.cargarRequisitos();
+    this.requisitosRenta = [];
     this.requisitos = [];
     setTimeout(() => {
       this.contentLoaded = false;
@@ -30,6 +34,7 @@ export class RegistroP6Page implements OnInit {
 
   ionViewWillEnter() {
     this.requisitos = [];
+    this.requisitosRenta = [];
     this.cargarRequisitos();
     setTimeout(() => {
       this.contentLoaded = true;      
@@ -54,7 +59,7 @@ export class RegistroP6Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
             this.requisitos = [];
           },
         },
@@ -64,9 +69,20 @@ export class RegistroP6Page implements OnInit {
     await alert.present();
   }
 
+  requisitosRenta = [];
+  onClick(requisito: any) {
+    this.requisitosRenta.push(requisito);
+  }
+
+  informacionRequisitos: any;
   guardarInformacion(){
-    this.router.navigate(['/registrop6r11']);
-    this.requisitos = [];
+    this.informacionRequisitos = {
+      requisitos: this.requisitosRenta
+    }
+    this.storage.set('requisitosRenta', this.informacionRequisitos).then((res) => {
+      this.router.navigate(['/registrop6r11']);
+      this.requisitos = [];
+    });
   }
 
   requisitos: any = [];

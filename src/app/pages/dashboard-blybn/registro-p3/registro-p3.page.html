@@ -1,10 +1,5 @@
 <ion-header>
   <ion-toolbar color="titulos" class="ion-no-border" translucent>
-    <ion-buttons slot="end">
-      <ion-button style="text-transform: capitalize;">
-        Guardar y salir
-      </ion-button>
-    </ion-buttons>
     <ion-buttons slot="start">
       <ion-button (click)="cancelar()">
         <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
@@ -12,7 +7,6 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 
 <ion-content class="ion-padding">
   <div *ngIf="contentLoaded">

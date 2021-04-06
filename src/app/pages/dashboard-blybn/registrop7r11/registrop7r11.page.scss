@@ -50,3 +50,16 @@ ion-skeleton-text {
     --background: green;
     --background-rgb: 254, 254, 254;
 }
+
+.fechas {
+    margin-left: 10%;
+    margin-right: 10%;
+    ion-label {
+        font-family: "HelveticaBold";
+        font-size: 13px;
+    }
+    ion-datetime{
+        font-family: 'Helvetica';
+        font-size: 12px;
+    }
+}

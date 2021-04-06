@@ -131,7 +131,7 @@ export class RegistroP1Page implements OnInit {
           text: 'Aceptar',
           handler: () => {
             this.exclusividad = [];
-            this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
           },
         },
       ],

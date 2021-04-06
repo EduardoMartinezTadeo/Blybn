@@ -1,10 +1,5 @@
 <ion-header>
   <ion-toolbar color="titulos" class="ion-no-border" translucent>
-    <ion-buttons slot="end">
-      <ion-button style="text-transform: capitalize;">
-        Guardar y salir
-      </ion-button>
-    </ion-buttons>
     <ion-buttons slot="start">
       <ion-button (click)="cancelar()">
         <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
@@ -12,6 +7,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <ion-content class="ion-padding">
   <div *ngIf="contentLoaded">
     <ion-label class="ion-label1">
@@ -31,7 +27,7 @@
           <ion-label>{{historial.bly_tipoHistorial}}</ion-label>
         </ion-col>
         <ion-col size="5" class="ion-text-right">
-          <ion-checkbox [(ngModel)]="historial.bly_selected" required ></ion-checkbox>
+          <ion-checkbox [(ngModel)]="historial.bly_selected" required (click)="onClick( historial )"></ion-checkbox>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -45,7 +41,7 @@
           <ion-label>{{frecuencia.bly_categoriaFrecuencia}}</ion-label>
         </ion-col>
         <ion-col size="5" class="ion-text-right">
-          <ion-checkbox [(ngModel)]="frecuencia.bly_selected" required ></ion-checkbox>
+          <ion-checkbox [(ngModel)]="frecuencia.bly_selected" required (click)="onClick2( frecuencia )"></ion-checkbox>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -58,7 +54,7 @@
           <ion-label>{{aprobacion.bly_descripcionStatus}}</ion-label>
         </ion-col>
         <ion-col size="5" class="ion-text-right">
-          <ion-checkbox [(ngModel)]="aprobacion.bly_selected" required ></ion-checkbox>
+          <ion-checkbox [(ngModel)]="aprobacion.bly_selected" required (click)="onClick3( aprobacion )"></ion-checkbox>
         </ion-col>
       </ion-row>
     </ion-grid>

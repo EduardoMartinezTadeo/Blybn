@@ -108,6 +108,10 @@
                                 <ion-label class="ion-label-registro">Evaluar</ion-label>                                
                                   <ion-icon name='id-card' color="primary" slot="end"></ion-icon>    
                               </ion-item>
+                              <ion-item (click)="registroFinal()" *ngIf="dato23">
+                                <ion-label class="ion-label-registro">Publicar propiedad</ion-label>                                
+                                  <ion-icon name='save' color="primary" slot="end"></ion-icon>    
+                              </ion-item>
                         </ion-list>
                     </div>
                 </ion-col>

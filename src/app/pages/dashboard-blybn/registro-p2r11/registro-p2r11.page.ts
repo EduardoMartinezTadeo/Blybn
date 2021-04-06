@@ -42,6 +42,7 @@ export class RegistroP2r11Page implements OnInit {
 
   async showBasicPicker() {
     let opts: PickerOptions = {
+      mode: 'ios',
       buttons: [
         {
           text: 'Cancelar',
@@ -116,7 +117,7 @@ export class RegistroP2r11Page implements OnInit {
       registro11: true
     }
     this.storage.set('registroP11', this.informacionR11).then((res) => {
-      this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
     });
   }
 

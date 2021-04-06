@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
 @Component({
@@ -13,10 +14,18 @@ export class Registrop6r11Page implements OnInit {
   minimumThreshold;
   startPosition;
 
-  constructor(private router: Router, private provider: ProviderService) {}
+  constructor(
+    private router: Router, 
+    private provider: ProviderService,
+    private storage: Storage) {}
 
   ngOnInit() {
     this.close();
+  }
+
+  informacionRestriccion = [];
+  onClick(restriccion: any){ 
+    this.informacionRestriccion.push(restriccion);
   }
 
   contentLoaded = false;
@@ -41,9 +50,17 @@ export class Registrop6r11Page implements OnInit {
     this.restriciones = [];
   }
 
+
+  informacionR6: any;
   guardarInformacion() {
-    this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
-    this.restriciones = [];
+    this.informacionR6 = {
+      restriccion: this.informacionRestriccion,
+      registro6: true
+    }
+    this.storage.set('registroP6', this.informacionR6).then((res) => {
+      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+      this.restriciones = [];
+    });
   }
 
   open() {

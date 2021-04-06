@@ -32,6 +32,7 @@ export class RegistroP11Page implements OnInit {
     this.informacionMueble = [];
     setTimeout(() => {
       this.contentLoaded = true;
+      console.log(this.muebles);
     }, 2500);
   }
 
@@ -70,9 +71,7 @@ export class RegistroP11Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigate([
-              '/dashboard2/menutabs2/registrar-propiedad2',
-            ]);
+            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
             this.muebles = [];
             this.informacionMueble = [];
           },
@@ -84,9 +83,9 @@ export class RegistroP11Page implements OnInit {
   }
 
   guardarInformacion() {
-    this.muebles = [];
     this.storage.set('mueblesInformacion', this.informacionMueble).then((res) => {
       this.router.navigate(['/registro-p2r11']);
+      this.muebles = [];
     });
     
   }

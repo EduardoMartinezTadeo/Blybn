@@ -1,10 +1,5 @@
 <ion-header>
   <ion-toolbar color="titulos" class="ion-no-border" translucent>
-    <ion-buttons slot="end">
-      <ion-button style="text-transform: capitalize;">
-        Guardar y salir
-      </ion-button>
-    </ion-buttons>
     <ion-buttons slot="start">
       <ion-button (click)="cancelar()">
         <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
@@ -12,7 +7,6 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 
 <ion-content class="ion-padding">
   <div *ngIf="contentLoaded">
@@ -35,12 +29,12 @@
     <p>
       Este será el precio predeterminado de tu propiedad.
     </p>
-    <ion-input placeholder="Escribe el precio..." type="number" required></ion-input>
+    <ion-input [(ngModel)]="precioBase" placeholder="Escribe el precio..." inputmode="numeric" maxlength="8" required></ion-input>
     <br>
     <p class="parrafo">
       Ahora, definamos el costo de limpieza.
     </p>
-    <ion-input placeholder="Escribe el precio..." type="number" required></ion-input>
+    <ion-input [(ngModel)]="costoLimpieza" placeholder="Escribe el precio..." inputmode="numeric"  maxlength="8" required></ion-input>
     <br>
     <p class="parrafo">
       Ahora, definamos el tipo de moneda
@@ -52,7 +46,7 @@
       <ion-label class="parrafo">
         Moneda
       </ion-label>
-      <ion-select placeholder="Seleccionar" mode="ios" cancelText="Cancelar" okText="Aceptar">
+      <ion-select placeholder="Seleccionar" mode="ios" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange($event)">
         <ion-select-option value="{{moneda.bly_tipoMoneda}}" *ngFor="let moneda of monedas">{{moneda.bly_moneda}}
         </ion-select-option>
       </ion-select>

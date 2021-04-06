@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class RegistroP7Page implements OnInit {
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private provider: ProviderService
+    private provider: ProviderService,
+    private storage: Storage
   ) { }
 
   ngOnInit() {
@@ -108,7 +110,7 @@ export class RegistroP7Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
           },
         },
       ],
@@ -117,8 +119,34 @@ export class RegistroP7Page implements OnInit {
     await alert.present();
   }
 
+  historialPrevio = [];
+  onClick(historial: any) {
+    this.historialPrevio.push(historial);
+  }
+
+  frecuenciaRecepcion = [];
+  onClick2(frecuencia: any) {
+    this.frecuenciaRecepcion.push(frecuencia);
+  }
+
+  tipoAprobacion = [];
+  onClick3(aprobacion: any) {
+    this.tipoAprobacion.push(aprobacion);
+  }
+
+  configuracionesRenta: any;
   guardarInformacion(){
-    this.router.navigate(['/registrop7r11']);
+    this.configuracionesRenta = {
+      historialPrevio: this.historialPrevio,
+      frecuenciaRecepcion: this.frecuenciaRecepcion,
+      tipoAprobacion: this.tipoAprobacion
+    }
+    this.storage.set('requisitosDisponibilidad', this.configuracionesRenta).then((res) => {
+      this.router.navigate(['/registrop7r11']);
+    });
+    this.historialPrevio = [];
+    this.frecuenciaRecepcion = [];
+    this.tipoAprobacion = [];
   }
 
 }

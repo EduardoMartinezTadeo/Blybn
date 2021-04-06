@@ -54,9 +54,7 @@ export class RegistroP3Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigate([
-              '/dashboard2/menutabs2/registrar-propiedad2',
-            ]);
+            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
           },
         },
       ],
@@ -139,7 +137,7 @@ export class RegistroP3Page implements OnInit {
       registro3: true
     }
     this.storage.set('registroP3', this.informacionR3).then((res) => {
-       this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
     });  
   }
 }

@@ -1,10 +1,5 @@
 <ion-header>
   <ion-toolbar color="titulos" class="ion-no-border" translucent>
-    <ion-buttons slot="end">
-      <ion-button style="text-transform: capitalize;">
-        Guardar y salir
-      </ion-button>
-    </ion-buttons>
     <ion-buttons slot="start">
       <ion-button (click)="cancelar()">
         <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
@@ -35,13 +30,12 @@
     <p class="parrafo">
       Descuento por semana (7 días o más)
     </p>
-    <ion-input type="number" inputmode placeholder="%">    
-    </ion-input>
+    <ion-input type="number" inputmode placeholder="%" required [(ngModel)]="descuentoSemana"></ion-input>
     <br>
     <p class="parrafo">
       Descuento por mes (28 días o más)
     </p>
-    <ion-input type="number" inputmode placeholder="%"></ion-input>
+    <ion-input type="number" inputmode placeholder="%" required [(ngModel)]="descuentoMes"></ion-input>
   </div>
 
   <div *ngIf="!contentLoaded">

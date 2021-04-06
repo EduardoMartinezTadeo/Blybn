@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-registro-p5',
@@ -30,15 +31,24 @@ export class RegistroP5Page implements OnInit {
   
   constructor(
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private storage: Storage
   ) { }
 
   ngOnInit() {
     this.close();
   }
+  titulo: string;
 
+  informacionR5: any;
   guardarInformacion(){
-    this.router.navigate(['/dashboard2/registrar-propiedad2']);
+    this.informacionR5 = {
+      tituloPropiedad: this.titulo,
+      registro5: true
+    }
+    this.storage.set('registroP5', this.informacionR5).then((res) => {
+      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+    });
   }
 
   async cancelar() {
@@ -59,7 +69,7 @@ export class RegistroP5Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
           },
         },
       ],

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
 
@@ -11,9 +12,9 @@ import { ProviderService } from '../../../services/provider.service';
 })
 export class Registrop7r11Page implements OnInit {
   constructor(
-    private alertController: AlertController,
     private router: Router,
-    private provider: ProviderService
+    private provider: ProviderService,
+    private storage: Storage
   ) {}
 
   ngOnInit() {}
@@ -50,10 +51,6 @@ export class Registrop7r11Page implements OnInit {
 
   async cancelar() {
     this.router.navigate(['/registro-p7']);
-  }
-
-  guardarInformacion() {
-    this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
   }
 
   catalogo1: any = [];
@@ -113,6 +110,76 @@ export class Registrop7r11Page implements OnInit {
         }
         resolve(true);
       });
+    });
+  }
+
+
+  preaviso: string;
+  ionChange(event) {
+    this.preaviso = event.detail.value;
+    console.log(this.preaviso);
+  }
+
+  tiempoSalidaHuesped: string;
+  ionChange2(event) {
+    this.tiempoSalidaHuesped = event.detail.value;
+    console.log(this.tiempoSalidaHuesped);
+  }
+
+  limiteReservacion: string;
+  ionChange3(event) {
+    this.limiteReservacion = event.detail.value;
+    console.log(this.limiteReservacion);
+  }
+
+  ventanaDisponibilidad: string;
+  ionChange4(event) {
+    this.ventanaDisponibilidad = event.detail.value;
+    console.log(this.ventanaDisponibilidad);
+  }
+
+  llegadadespues: string;
+  ionChange5(event) {
+    this.llegadadespues = event.detail.value;
+    console.log(this.llegadadespues);
+  }
+  
+  llegadaantes: string;
+  ionChange6(event) {
+    this.llegadaantes = event.detail.value;
+    console.log(this.llegadaantes);
+  }
+  
+  salidaantes: string;
+  ionChange7(event) {
+    this.salidaantes = event.detail.value;
+    console.log(this.salidaantes);
+  }
+
+  fechainiciald: string;
+  fechafinald: string;
+
+  fechainicialnd: string;
+  fechafinalnd: string;
+
+  informacionR7: any;
+  guardarInformacion() {
+    this.informacionR7 = {
+      preaviso: this.preaviso,
+      tiempoSalidaHuesped: this.tiempoSalidaHuesped,
+      limiteReservacion: this.limiteReservacion,
+      ventanaDisponibilidad: this.ventanaDisponibilidad,
+      llegadaAntes: this.llegadaantes,
+      llegadaDespues: this.llegadadespues,
+      salidaAntes: this.salidaantes,
+      fechainicialD: this.fechainiciald,
+      fechafinalD: this.fechafinald,
+      fechainicialND: this.fechainicialnd,
+      fechafinalND: this.fechafinalnd,
+      registro7: true
+    }
+    this.storage.set('registroP7', this.informacionR7).then((res) => {
+      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
     });
   }
 }

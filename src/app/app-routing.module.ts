@@ -219,6 +219,14 @@ const routes: Routes = [
   {
     path: 'registrop7r11',
     loadChildren: () => import('./pages/dashboard-blybn/registrop7r11/registrop7r11.module').then( m => m.Registrop7r11PageModule)
+  },
+  {
+    path: 'registro-f',
+    loadChildren: () => import('./pages/dashboard-blybn/registro-f/registro-f.module').then( m => m.RegistroFPageModule)
+  },
+  {
+    path: 'animacion12',
+    loadChildren: () => import('./pages/dashboard-blybn/animaciones/animacion12/animacion12.module').then( m => m.Animacion12PageModule)
   }
 ];
 

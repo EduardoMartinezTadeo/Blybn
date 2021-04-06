@@ -42,7 +42,7 @@ export class InicioMenuPage {
     });
     setTimeout(() => {
       this.contentLoaded = true;
-    }, 1500); 
+    }, 2000); 
   }
 
 
@@ -266,5 +266,9 @@ export class InicioMenuPage {
 
   registrar(){
     this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+  }
+
+  onError(img) {
+    img.src = '../../../../assets/imgs/default-inicio.svg';
   }
 }

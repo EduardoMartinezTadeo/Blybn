@@ -29,21 +29,20 @@ export class Registrop2r22Page implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadMap();
+    
   }
 
   contentLoaded = false;
   ionViewWillLeave() {
-    this.loadMap();
     setTimeout(() => {
       this.contentLoaded = false;
     }, 1500);
   }
 
   ionViewWillEnter() {
-    this.loadMap();
     setTimeout(() => {
       this.contentLoaded = true;
+      this.loadMap();
     }, 2500);
   }
 
@@ -125,7 +124,7 @@ export class Registrop2r22Page implements OnInit {
       registro2: true,
     };
     this.storage.set('registroP2', this.informacionR2).then((res) => {
-      this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
     });
   }
 }

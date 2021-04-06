@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { delay } from 'rxjs/operators';
 
 const apiRecuperarURL = environment.apiRecuperarURL;
 const apiActualizarFacturacion = environment.apiActualizarFacturacionURL;
@@ -29,11 +30,16 @@ const apiConsultarCatalogo4 = environment.apiCatalogoLlegadaURL;
 const apiCargarImagenesAventura = environment.apiCargarImagenesAventuraURL;
 const apiActualizarFotoPerfil = environment.apiActualizarFotoPerfilURL;
 const apiFotoPerfilActualizada = environment.apiCargarFotoActualizadaURL;
+const apiCargarPropiedad = environment.apiCargarPropiedadURL;
+const apiCargarAlojamiento = environment.apiCargarAlojamientoURL;
+const apiCargarAventura = environment.apiCargarAventuraURL;
+const apiCargarExclusividad = environment.apiCargarExclusividadURL;
+const apiCargarMonedaPago = environment.apiCargarTipoMonedaPagoURL;
 @Injectable({
   providedIn: 'root'
 })
 export class ProviderService {
-  server: string = 'http://192.168.0.101/server_blybn/api/';
+  server: string = 'https://emtdeveloper.com/server_blybn/api/';
   
   constructor(public http: HttpClient) { }
 
@@ -251,5 +257,45 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiFotoPerfilActualizada + file, body, {headers})
+  }
+
+  postDataCPRF(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarPropiedad + file, body, {headers})
+  }
+
+  postDataCARF(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarAlojamiento + file, body, {headers})
+  }
+
+  postDataCAVRF(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarAventura + file, body, {headers})
+  }
+
+  postDataCEPRF(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarExclusividad + file, body, {headers})
+  }
+
+  postDataTMPRF(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarMonedaPago + file, body, {headers})
   }
 }

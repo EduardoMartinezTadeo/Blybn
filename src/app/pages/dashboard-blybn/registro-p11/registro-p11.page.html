@@ -1,10 +1,5 @@
 <ion-header>
   <ion-toolbar color="titulos" class="ion-no-border" translucent>
-    <ion-buttons slot="end">
-      <ion-button style="text-transform: capitalize;">
-        Guardar y salir
-      </ion-button>
-    </ion-buttons>
     <ion-buttons slot="start">
       <ion-button (click)="cancelar()">
         <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
@@ -21,6 +16,7 @@
     <p>
       Ayuda a los huéspedes a entender dónde pueden dormir indicando de manera general el tipo de camas que hay en la propiedad.
     </p>
+    <p>Se recomienda se seleccione la cantidad de muebles con la que cuenta y al final lo marque como listo.</p>
     <br>  
     
       <ion-row *ngFor="let mueble of muebles" mode="ios">

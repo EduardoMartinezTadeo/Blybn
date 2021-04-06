@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController, AlertController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-registro-p4',
   templateUrl: './registro-p4.page.html',
@@ -13,7 +14,8 @@ export class RegistroP4Page implements OnInit {
     private alertController: AlertController,
     private router: Router,
     private actionSheetController: ActionSheetController,
-    private camera: Camera
+    private camera: Camera,
+    private storage: Storage
   ) { }
 
   ngOnInit() {
@@ -37,7 +39,7 @@ export class RegistroP4Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigate(['/dashboard2/menutabs2/registrar-propiedad2']);
+            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
           },
         },
       ],
@@ -733,9 +735,22 @@ export class RegistroP4Page implements OnInit {
     );
   }
 
-
+  informacionR4: any;
   guardarInformacion(){
-
+      this.informacionR4 = {
+        foto1: this.cameraData1,
+        foto2: this.cameraData2,
+        foto3: this.cameraData3,
+        foto4: this.cameraData4,
+        foto5: this.cameraData5,
+        foto6: this.cameraData6,
+        foto7: this.cameraData7,
+        foto8: this.cameraData8,
+        registro4: true
+      }
+      this.storage.set('registroP4', this.informacionR4).then((res) => {
+        this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+      });
   }
 
   onError(img) {

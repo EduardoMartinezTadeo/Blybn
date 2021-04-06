@@ -376,6 +376,9 @@ export class AvisoPage implements OnInit {
     this.storage.set('registroP7', this.informacionR7).then((res) => {
       console.log(res);
     });
+    this.storage.set('registroP8', this.informacionR8).then((res) => {
+      console.log(res);
+    });
     this.storage.set('registroP9', this.informacionR9).then((res) => {
       console.log(res);
     });

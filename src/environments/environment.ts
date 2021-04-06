@@ -50,7 +50,8 @@ export const environment = {
   apiCargarHorasURL: 'http://192.168.0.104/server_blybn/api/db_cargarHoras.php/',
   apiCargarVentanaDisponibilidadURL:'http://192.168.0.104/server_blybn/api/db_cargarVentanaDisponibilidad.php/',
   apiRegistrarPropiedadURL: 'http://192.168.0.104/server_blybn/api/db_registrarPropiedad.php/',
-  apiRegistrarCostosPropiedadURL: 'http://192.168.0.104/server_blybn/api/db_registrarCostosPropiedad.php/'
+  apiRegistrarCostosPropiedadURL: 'http://192.168.0.104/server_blybn/api/db_registrarCostosPropiedad.php/',
+  apiRegistrarMueblesPropiedadURL: 'http://localhost/server_blybn/api/db_registrarMueblesPropiedad.php/'
 };
 
 /*

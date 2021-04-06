@@ -193,17 +193,19 @@
           <ion-col size="5">
             <ion-item>
               <ion-label position="floating" color="primary">Tipo de mueble:</ion-label>
-              <ion-input [(ngModel)]="infoMueble.bly_tipoMueble"></ion-input>
+              <ion-input [(ngModel)]="infoMueble.bly_tipoMueble" disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="5">
             <ion-item>
               <ion-label position="floating" color="primary">Cantidad de muebles de este tipo en la propiedad:</ion-label>
-              <ion-input value={{infoMueble.bly_cantidadMuebles}}></ion-input>
+              <ion-input value={{infoMueble.bly_cantidadMuebles}} disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="2">
-            <ion-button size="small" (click)="obtenerCantidadMueble(infoMueble.bly_cantidadMuebles)" (click)="obtenerTipoMueble(infoMueble.bly_numMuebles)" (click)="registrarMueble()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+            <br>
+            <ion-button size="small" *ngIf="dato11" (click)="obtenerCantidadMueble(infoMueble.bly_cantidadMuebles)" (click)="obtenerTipoMueble(infoMueble.bly_numMuebles)" (click)="cargaRegistroMueble()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+            <ion-button size="small" *ngIf="dato12" color="success" (click)="cargaRegistroPropiedad()"><ion-icon name="checkmark-done-circle" ></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -218,7 +220,7 @@
           <ion-col size="10">
             <ion-item >
               <ion-label position="floating" color="primary">Tipo de amenidad:</ion-label>
-              <ion-input [(ngModel)]="amenidad.bly_tipoAmenidad"></ion-input>
+              <ion-input [(ngModel)]="amenidad.bly_tipoAmenidad" disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="2">
@@ -238,7 +240,7 @@
           <ion-col size="10">
             <ion-item >
               <ion-label position="floating" color="primary">Tipo de espacios:</ion-label>
-              <ion-input [(ngModel)]="area.bly_descripcionEspacios"></ion-input>
+              <ion-input [(ngModel)]="area.bly_descripcionEspacios" disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="2">
@@ -258,7 +260,7 @@
           <ion-col size="10">
             <ion-item >
               <ion-label position="floating" color="primary">Tipo de seguridad:</ion-label>
-              <ion-input [(ngModel)]="seguridad.bly_tipoSeguridad"></ion-input>
+              <ion-input [(ngModel)]="seguridad.bly_tipoSeguridad" disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="2">
@@ -278,7 +280,7 @@
           <ion-col size="10">
             <ion-item >
               <ion-label position="floating" color="primary">Tipo de restriccion:</ion-label>
-              <ion-input [(ngModel)]="restriccion.bly_tipoRestriccion"></ion-input>
+              <ion-input [(ngModel)]="restriccion.bly_tipoRestriccion" disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="2">
@@ -298,7 +300,7 @@
           <ion-col size="10">
             <ion-item >
               <ion-label position="floating" color="primary">Tipo de requisito:</ion-label>
-              <ion-input [(ngModel)]="requisito.bly_tipo_requisitoRenta"></ion-input>
+              <ion-input [(ngModel)]="requisito.bly_tipo_requisitoRenta" disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="2">
@@ -315,47 +317,47 @@
     <ion-card-content>
       <ion-item *ngFor="let preaviso of tipoPreaviso">
         <ion-label position="floating" color="primary">Tiempo que se necesita para tener lista la propiedad:</ion-label>
-        <ion-input value={{preaviso.bly_preavisoDescripcion}}></ion-input>
+        <ion-input value={{preaviso.bly_preavisoDescripcion}} disabled></ion-input>
       </ion-item>
       <ion-item *ngFor="let salidaH of tipoSalidaH">
         <ion-label position="floating" color="primary">Tiempo que necesitas para tener lista la propiedad lista después de la salida de huéspedes:</ion-label>
-        <ion-input value={{salidaH.bly_preavisoDescripcion}}></ion-input>
+        <ion-input value={{salidaH.bly_preavisoDescripcion}} disabled></ion-input>
       </ion-item>
       <ion-item *ngFor="let horas of tipoHoras">
         <ion-label position="floating" color="primary">Hora límite para reservaciones:</ion-label>
-        <ion-input value={{horas.bly_Horas}}></ion-input>
+        <ion-input value={{horas.bly_Horas}} disabled></ion-input>
       </ion-item>
       <ion-item *ngFor="let ventanaD of tipoVentanaDisponibilidad">
         <ion-label position="floating" color="primary">Cuanto tiempo para reservar:</ion-label>
-        <ion-input value={{ventanaD.bly_descripcionVentanaDisponibilidad}}></ion-input>
+        <ion-input value={{ventanaD.bly_descripcionVentanaDisponibilidad}} disabled></ion-input>
       </ion-item>
       <ion-item *ngFor="let llegadaD of tipoHoraLlegada">
         <ion-label position="floating" color="primary">Llegada después de las:</ion-label>
-        <ion-input value={{llegadaD.bly_Horas}}></ion-input>
+        <ion-input value={{llegadaD.bly_Horas}} disabled></ion-input>
       </ion-item>
       <ion-item *ngFor="let llegadaA of tipoHoraLlegadaAntes">
         <ion-label position="floating" color="primary">Llegada antes de las:</ion-label>
-        <ion-input value={{llegadaA.bly_Horas}}></ion-input>
+        <ion-input value={{llegadaA.bly_Horas}} disabled></ion-input>
       </ion-item>
       <ion-item *ngFor="let salida of tipoSalida">
         <ion-label position="floating" color="primary">Salida antes de las:</ion-label>
-        <ion-input value={{salida.bly_Horas}}></ion-input>
+        <ion-input value={{salida.bly_Horas}} disabled></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating" color="primary">Fecha de inicio de disponibilidad:</ion-label>
-        <ion-input value={{bly_fechaInicio}}></ion-input>
+        <ion-input value={{bly_fechaInicio}} disabled></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating" color="primary">Fecha de finalización de disponibilidad:</ion-label>
-        <ion-input value={{bly_fechaFinal}}></ion-input>
+        <ion-input value={{bly_fechaFinal}} disabled></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating" color="primary">Fecha de inicio de no disponibilidad:</ion-label>
-        <ion-input value={{bly_fechaInicialND}}></ion-input>
+        <ion-input value={{bly_fechaInicialND}} disabled></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating" color="primary">Fecha de finalización de no disponibilidad:</ion-label>
-        <ion-input value={{bly_fechaFinalND}}></ion-input>
+        <ion-input value={{bly_fechaFinalND}} disabled></ion-input>
       </ion-item>
     </ion-card-content>
   </ion-card>

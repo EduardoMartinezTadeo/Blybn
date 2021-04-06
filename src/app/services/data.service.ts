@@ -14,6 +14,7 @@ const apiUrlFacturacion = environment.apiRegistroFacturacionURL;
 const apiUrlTerminosCondiciones = environment.apiConsultarTerminosCondicionesURL;
 const apiURLRegistrarPropiedad = environment.apiRegistrarPropiedadURL;
 const apiURLRegistrarCostos = environment.apiRegistrarCostosPropiedadURL;
+const apiURLRegistrarMuebles = environment.apiRegistrarMueblesPropiedadURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -190,5 +191,30 @@ export class DataService {
         });
       }
     ));
+  }
+
+  registrarMuebles(bly_cantidadMuebles: number, bly_mueble: number, bly_propiedad: number){
+    return this.http.get(`${apiURLRegistrarMuebles}?bly_cantidadMuebles=${bly_cantidadMuebles}&bly_mueble=${bly_mueble}&bly_propiedad=${bly_propiedad}`).pipe(map(
+      results => {
+        if(this.result == "Ya hay un mueble de este tipo registrado en esta propiedad"){
+          this.toast = this.toastController.create({
+            message: '¡Ya hay un mueble de este tipo registrado en esta propiedad!',
+            duration: 2000,
+            mode: 'ios',
+          }).then((toastData) => {
+            toastData.present();
+          });
+        } else{
+          this.result = results;
+          this.toast = this.toastController.create({
+            message: 'Se han registrado los muebles de propiedad',
+            duration: 2000,
+            mode: 'ios'
+          }).then((toastData) => {
+            toastData.present();
+          });
+        }
+      }
+    ))
   }
 }

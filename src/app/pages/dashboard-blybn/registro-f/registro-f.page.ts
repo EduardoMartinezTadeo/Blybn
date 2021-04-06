@@ -39,6 +39,9 @@ export class RegistroFPage implements OnInit {
   public dato9: boolean = true;
   public dato10: boolean = false;
 
+  public dato11: boolean = true;
+  public dato12: boolean = false;
+
   informacionPerfil: any;
   bly_usuario: number;
 
@@ -63,8 +66,8 @@ export class RegistroFPage implements OnInit {
   bly_numCamas: number;
 
   informacionMuebles: any = [];
-  bly_mueble: string;
-  bly_cantidad: string;
+  bly_mueble: number;
+  bly_cantidad: number;
 
   informacionP11: any;
   bly_numBanos: string;
@@ -563,6 +566,30 @@ export class RegistroFPage implements OnInit {
   responseDataC: any;
   registrarCostos(){
     this.servicio.registrarCostos(this.bly_tipoMoneda, this.bly_precioBase, this.bly_cargoLimpieza, this.bly_descuentoSemana, this.bly_descuentoMes, this.bly_propiedad).subscribe(data => {
+      this.responseData = data;
+    });
+  }
+
+  async cargaRegistroMueble() {
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+      console.log(this.bly_propiedad);
+    });
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+      this.registrarMuebles();
+    },1500);
+  }
+
+  responseDataM: any;
+  registrarMuebles(){
+    this.servicio.registrarMuebles(this.bly_cantidad, this.bly_mueble, this.bly_propiedad).subscribe(data => {
       this.responseData = data;
     });
   }

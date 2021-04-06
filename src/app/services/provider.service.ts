@@ -35,6 +35,9 @@ const apiCargarAlojamiento = environment.apiCargarAlojamientoURL;
 const apiCargarAventura = environment.apiCargarAventuraURL;
 const apiCargarExclusividad = environment.apiCargarExclusividadURL;
 const apiCargarMonedaPago = environment.apiCargarTipoMonedaPagoURL;
+const apiCargarPreaviso = environment.apiCargarPreavisoURL;
+const apiCargarHoras = environment.apiCargarHorasURL;
+const apiCargarVentanaDisponibilidad = environment.apiCargarVentanaDisponibilidadURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -297,5 +300,29 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiCargarMonedaPago + file, body, {headers})
+  }
+
+  postDataCPARF(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarPreaviso + file, body, {headers})
+  }
+
+  postDataCHRF(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarHoras + file, body, {headers})
+  }
+
+  postDataCVDRF(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarVentanaDisponibilidad + file, body, {headers})
   }
 }

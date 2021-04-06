@@ -41,5 +41,10 @@ export const environment = {
   apiCargarAlojamientoURL: 'http://192.168.0.104/server_blybn/api/db_cargarAlojamientoPropiedad.php/',
   apiCargarAventuraURL: 'http://192.168.0.104/server_blybn/api/db_cargarTipoAventuraPropiedad.php/',
   apiCargarExclusividadURL: 'http://192.168.0.104/server_blybn/api/db_cargarExclusividad.php/',
-  apiCargarTipoMonedaPagoURL: 'http://192.168.0.104/server_blybn/api/db_cargarMonedaPago.php/'
+  apiCargarTipoMonedaPagoURL: 'http://192.168.0.104/server_blybn/api/db_cargarMonedaPago.php/',
+  apiCargarPreavisoURL: 'http://192.168.0.104/server_blybn/api/db_cargarPreaviso.php/',
+  apiCargarHorasURL: 'http://192.168.0.104/server_blybn/api/db_cargarHoras.php/',
+  apiCargarVentanaDisponibilidadURL:'http://192.168.0.104/server_blybn/api/db_cargarVentanaDisponibilidad.php/',
+  apiRegistrarPropiedadURL: 'http://192.168.0.104/server_blybn/api/db_registrarPropiedad.php/',
+  apiRegistrarCostosPropiedadURL: 'http://192.168.0.104/server_blybn/api/db_registrarCostosPropiedad.php/'
 };

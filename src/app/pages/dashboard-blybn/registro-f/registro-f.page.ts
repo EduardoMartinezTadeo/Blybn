@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { ProviderService } from '../../../services/provider.service';
 import { Storage } from '@ionic/storage';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-registro-f',
@@ -16,13 +17,30 @@ export class RegistroFPage implements OnInit {
     private alertController: AlertController,
     private router: Router,
     private provider: ProviderService,
+    private servicio: DataService,
+    private loadingController: LoadingController
   ) { }
 
   ngOnInit() {
   }
 
+  public dato1: boolean = true;
+  public dato2: boolean = false;
+
+  public dato3: boolean = true;
+  public dato4: boolean = false;
+
+  public dato5: boolean = true;
+  public dato6: boolean = false;
+
+  public dato7: boolean = true;
+  public dato8: boolean = false;
+
+  public dato9: boolean = true;
+  public dato10: boolean = false;
+
   informacionPerfil: any;
-  bly_usuario: string;
+  bly_usuario: number;
 
   informacionP5: any;
   bly_tituloPropiedad: string;
@@ -40,9 +58,9 @@ export class RegistroFPage implements OnInit {
   bly_longitud: string;
 
   informacionP10: any;
-  bly_numHabitaciones: string;
-  bly_numHuespedes: string;
-  bly_numCamas: string;
+  bly_numHabitaciones: number;
+  bly_numHuespedes: number;
+  bly_numCamas: number;
 
   informacionMuebles: any = [];
   bly_mueble: string;
@@ -58,30 +76,37 @@ export class RegistroFPage implements OnInit {
   tipoAventura: any = [];
   tipoExclusividad: any = [];
   tipoMoneda: any = [];
+  tipoPreaviso: any = [];
+  tipoSalidaH: any = [];
+  tipoHoras: any = [];
+  tipoVentanaDisponibilidad: any = [];
+  tipoHoraLlegada: any = [];
+  tipoHoraLlegadaAntes: any = [];
+  tipoSalida: any = [];
 
-  bly_tipoPropiedad: string;
-  bly_tipoAlojamiento: string;
-  bly_tipoAventura: string;
-  bly_frecuenciaRenta: string;
-  bly_historialPrevioPropiedad: string;
-  bly_tipoAprobacionRenta: string;
+  bly_tipoPropiedad: number;
+  bly_tipoAlojamiento: number;
+  bly_tipoAventura: number;
+  bly_frecuenciaRenta: number;
+  bly_historialPrevioPropiedad: number;
+  bly_tipoAprobacionRenta: number;
   bly_exclusividad: string;
 
   informacionDisponibilidad: any;
-  informacionFrecuenciaRecepcion: any;
-  informacionHistorialPrevio: any;
-  informacionTipoAprobacion: any;
+  informacionFrecuenciaRecepcion: any = [];
+  informacionHistorialPrevio: any = [];
+  informacionTipoAprobacion: any = [];
 
   bly_statusAceptacionContrato = "true";
 
   informacionCostosPropiedad: any;
-  bly_precioBase: string;
-  bly_cargoLimpieza: string;
-  bly_tipoMoneda: string;
+  bly_precioBase: number;
+  bly_cargoLimpieza: number;
+  bly_tipoMoneda: number;
 
   informacionP8: any;
-  bly_descuentoSemana: string; 
-  bly_descuentoMes: string;
+  bly_descuentoSemana: number; 
+  bly_descuentoMes: number;
 
   informacionP3: any;
   informacionAmenidades: any;
@@ -101,6 +126,19 @@ export class RegistroFPage implements OnInit {
   informacionRequisitos: any;
 
   bly_tipoRequisito:number;
+  
+  informacionP7: any;
+  bly_preaviso: string;
+  bly_tiempoSalidadH: string;
+  bly_horaLimiteReservacion: string;
+  bly_tiempoAnticipacionReservacion: string;
+  bly_llegadaDespues: string;
+  bly_llegadaAntes: string;
+  bly_salidaAntes: string;
+  bly_fechaInicio: string;
+  bly_fechaFinal: string;
+  bly_fechaInicialND: string;
+  bly_fechaFinalND: string;
 
   ionViewWillEnter(){
     this.storage.get('perfil').then((res) => {
@@ -165,9 +203,6 @@ export class RegistroFPage implements OnInit {
       this.informacionFrecuenciaRecepcion = this.informacionDisponibilidad.frecuenciaRecepcion;
       this.informacionHistorialPrevio = this.informacionDisponibilidad.historialPrevio;
       this.informacionTipoAprobacion = this.informacionDisponibilidad.tipoAprobacion;
-      this.bly_frecuenciaRenta = this.informacionFrecuenciaRecepcion.bly_frecuenciaRenta;
-      this.bly_historialPrevioPropiedad = this.informacionHistorialPrevio.bly_historialPrevioPropiedad;
-      this.bly_tipoAprobacionRenta = this.informacionTipoAprobacion.bly_statusRenta;
     });
     this.storage.get('costosPropiedad').then((res) => {
       this.informacionCostosPropiedad = res;
@@ -190,12 +225,31 @@ export class RegistroFPage implements OnInit {
     this.storage.get('registroP6').then((res) => {
       this.informacionP6 = res;
       this.informacionRestricciones = this.informacionP6.restriccion;
-      console.log(this.informacionRestricciones);
     });
     this.storage.get('requisitosRenta').then((res)=>{
       this.informacionRequisitosRenta = res;
       this.informacionRequisitos = this.informacionRequisitosRenta.requisitos;
-      console.log(this.informacionRequisitos);
+    });
+    this.storage.get('registroP7').then((res) => {
+      this.informacionP7 = res;
+      this.bly_preaviso = this.informacionP7.preaviso;
+      this.bly_tiempoSalidadH = this.informacionP7.tiempoSalidaHuesped;
+      this.bly_horaLimiteReservacion = this.informacionP7.limiteReservacion;
+      this.bly_tiempoAnticipacionReservacion = this.informacionP7.ventanaDisponibilidad;
+      this.bly_llegadaDespues = this.informacionP7.llegadaDespues;
+      this.bly_llegadaAntes = this.informacionP7.llegadaAntes;
+      this.bly_salidaAntes = this.informacionP7.salidaAntes;
+      this.bly_fechaInicio = this.informacionP7.fechainicialD;
+      this.bly_fechaFinal = this.informacionP7.fechafinalD;
+      this.bly_fechaInicialND = this.informacionP7.fechainicialND;
+      this.bly_fechaFinalND = this.informacionP7.fechafinalND;
+      this.cargarPreaviso();
+      this.cargarSalidaHuesped();
+      this.cargarHorasReservacion();
+      this.cargarVentanaDisponibilidad();
+      this.cargarHoraLlegadaDespues();
+      this.cargarHoraLlegadaAntes();
+      this.cargarSalida();
     });
   }
 
@@ -255,6 +309,104 @@ export class RegistroFPage implements OnInit {
     });
   }
 
+  cargarPreaviso(){
+    return new Promise((resolve) => {
+      let body = {
+        aksi: 'preaviso',
+        bly_numPreaviso: this.bly_preaviso
+      };
+      this.provider.postDataCPARF(body, 'db_cargarPreaviso.php').subscribe((data) => {
+        for (let preaviso of data.result){
+          this.tipoPreaviso.push(preaviso);
+        }
+      });
+    });
+  }
+
+  cargarSalidaHuesped(){
+    return new Promise((resolve) => {
+      let body = {
+        aksi: 'preaviso',
+        bly_numPreaviso: this.bly_tiempoSalidadH
+      };
+      this.provider.postDataCPARF(body, 'db_cargarPreaviso.php').subscribe((data) => {
+        for (let salidaH of data.result){
+          this.tipoSalidaH.push(salidaH);
+        }
+      });
+    });
+  }
+
+  cargarHorasReservacion(){
+    return new Promise((resolve) => {
+      let body = {
+        aksi: 'horas',
+        bly_numHora: this.bly_horaLimiteReservacion
+      };
+      this.provider.postDataCHRF(body, 'db_cargarHoras.php').subscribe((data) => {
+        for (let horas of data.result){
+          this.tipoHoras.push(horas);
+        }
+      });
+    });
+  }
+
+  cargarVentanaDisponibilidad(){
+    return new Promise((resolve) => {
+      let body = {
+        aksi: 'ventanaDisponibilidad',
+        bly_numventanaDisponibilidad: this.bly_tiempoAnticipacionReservacion
+      };
+      this.provider.postDataCVDRF(body, 'db_cargarVentanaDisponibilidad.php').subscribe((data) => {
+        for (let ventanaDisponibilidad of data.result){
+          this.tipoVentanaDisponibilidad.push(ventanaDisponibilidad);
+        }
+      });
+    });
+  }
+
+  cargarHoraLlegadaDespues(){
+    return new Promise((resolve) => {
+      let body = {
+        aksi: 'horas',
+        bly_numHora: this.bly_llegadaDespues
+      };
+      this.provider.postDataCHRF(body, 'db_cargarHoras.php').subscribe((data) => {
+        for (let horas of data.result){
+          this.tipoHoraLlegada.push(horas);
+        }
+      });
+    });
+  }
+
+  cargarHoraLlegadaAntes(){
+    return new Promise((resolve) => {
+      let body = {
+        aksi: 'horas',
+        bly_numHora: this.bly_llegadaAntes
+      };
+      this.provider.postDataCHRF(body, 'db_cargarHoras.php').subscribe((data) => {
+        for (let horas of data.result){
+          this.tipoHoraLlegadaAntes.push(horas);
+        }
+      });
+    });
+  }
+
+  cargarSalida(){
+    return new Promise((resolve) => {
+      let body = {
+        aksi: 'horas',
+        bly_numHora: this.bly_salidaAntes
+      };
+      this.provider.postDataCHRF(body, 'db_cargarHoras.php').subscribe((data) => {
+        for (let horas of data.result){
+          this.tipoSalida.push(horas);
+        }
+      });
+    });
+  }
+
   obtenerCantidadMueble(value:any){
     this.bly_cantidad = value;
   }
@@ -281,6 +433,24 @@ export class RegistroFPage implements OnInit {
 
   obtenerRequisito(requisito:any){
     this.bly_tipoRequisito = requisito;
+  }
+
+  obtenerFrecuenciaRenta(rentas: any){
+    this.bly_frecuenciaRenta = rentas;
+    this.dato1 = false;
+    this.dato2 = true;
+  }
+
+  obtenerTipoHistorial(historial: any){
+    this.bly_historialPrevioPropiedad = historial;
+    this.dato3 = false;
+    this.dato4 = true;
+  }
+
+  obtenerTipoAprobacion(aprobacion: any){
+    this.bly_tipoAprobacionRenta  = aprobacion;
+    this.dato5 = false;
+    this.dato6 = true;
   }
 
   registrarRequisito(){
@@ -333,7 +503,67 @@ export class RegistroFPage implements OnInit {
     await alert.present();
   }
 
+  async informacionVerificada() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Validación',
+      mode: 'ios',
+      subHeader: 'Información verificada',
+      message: 'La información ha sido verificada.',
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
+  }
   publicar(){
     
+  }
+
+  async cargaRegistroPropiedad() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+      this.dato7 = false;
+      this.dato8 = true;
+      this.registrarInfoGeneral();
+    },1500);
+  }
+  responseData: any;
+  registrarInfoGeneral(){
+    this.servicio.registrarPropiedad(this.bly_tituloPropiedad, this.bly_pais, this.bly_calle, this.bly_ciudad, this.bly_estado, this.bly_codigoPostal, this.bly_direccionGeneral, this.bly_latitud, this.bly_longitud, this.bly_numHabitaciones, this.bly_numHuespedes, this.bly_numCamas, this.bly_numBanos, this.bly_tipoBano, this.bly_tipoPropiedad, this.bly_tipoAlojamiento, this.bly_tipoAventura, this.bly_frecuenciaRenta, this.bly_historialPrevioPropiedad, this.bly_tipoAprobacionRenta, this.bly_usuario, this.bly_statusAceptacionContrato).subscribe(data => {
+      this.responseData = data;
+    });
+  }
+
+  bly_propiedad: number;
+  informacionRegistroPropiedad: any;
+  async cargaRegistroCostos() {
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+      console.log(this.bly_propiedad);
+    });
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+      this.dato9 = false;
+      this.dato10 = true;
+      this.registrarCostos();
+    },1500);
+  }
+
+  responseDataC: any;
+  registrarCostos(){
+    this.servicio.registrarCostos(this.bly_tipoMoneda, this.bly_precioBase, this.bly_cargoLimpieza, this.bly_descuentoSemana, this.bly_descuentoMes, this.bly_propiedad).subscribe(data => {
+      this.responseData = data;
+    });
   }
 }

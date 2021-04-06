@@ -6,10 +6,14 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { environment } from '../../environments/environment.prod';
 
+
+
 const apiUrlRegistro = environment.apiRegistroURL;
 const apiUrlLogin = environment.apiLoginURL;
 const apiUrlFacturacion = environment.apiRegistroFacturacionURL;
 const apiUrlTerminosCondiciones = environment.apiConsultarTerminosCondicionesURL;
+const apiURLRegistrarPropiedad = environment.apiRegistrarPropiedadURL;
+const apiURLRegistrarCostos = environment.apiRegistrarCostosPropiedadURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -155,5 +159,36 @@ export class DataService {
  
   TerminosCondiciones(){
     return this.http.get(apiUrlTerminosCondiciones);
+  }
+
+  registrarPropiedad(bly_tituloPropiedad: string, bly_pais: string, bly_calle: string, bly_ciudad: string, bly_estado: string, bly_codigoPostal: string, bly_direccionGeneral: string, bly_latitud: string, bly_longitud: string, bly_numHabitaciones: number, bly_numHuespedes: number, bly_numCamas: number, bly_numBanos: string, bly_tipoBano: string, bly_tipoPropiedad: number, bly_tipoAlojamiento: number, bly_tipoAventura: number, bly_frecuenciaRenta: number, bly_historialPrevioPropiedad: number, bly_tipoAprobacionRenta: number, bly_usuario: number, bly_statusAceptacionContrato: string){
+    return this.http.get(`${apiURLRegistrarPropiedad}?bly_tituloPropiedad=${bly_tituloPropiedad}&bly_pais=${bly_pais}&bly_calle=${bly_calle}&bly_ciudad=${bly_ciudad}&bly_estado=${bly_estado}&bly_codigoPostal=${bly_codigoPostal}&bly_direccionGeneral=${bly_direccionGeneral}&bly_latitud=${bly_latitud}&bly_longitud=${bly_longitud}&bly_numHabitaciones=${bly_numHabitaciones}&bly_numHuespedes=${bly_numHuespedes}&bly_numCamas=${bly_numCamas}&bly_numBanos=${bly_numBanos}&bly_tipoBano=${bly_tipoBano}&bly_tipoPropiedad=${bly_tipoPropiedad}&bly_tipoAlojamiento=${bly_tipoAlojamiento}&bly_tipoAventura=${bly_tipoAventura}&bly_frecuenciaRenta=${bly_frecuenciaRenta}&bly_historialPrevioPropiedad=${bly_historialPrevioPropiedad}&bly_tipoAprobacionRenta=${bly_tipoAprobacionRenta}&bly_usuario=${bly_usuario}&bly_statusAceptacionContrato=${bly_statusAceptacionContrato}`).pipe(map(
+      results => {
+        this.result = results;
+        this.storage.set('historial-Registro',this.result);
+        this.toast = this.toastController.create({
+          message: 'Se ha registrado el apartado A',
+          duration: 2000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+        });
+      }
+    ));
+  }
+
+  registrarCostos(bly_tipoMoneda: number, bly_precioBase: number, bly_cargoLimpieza:number, bly_descuentoSemana: number, bly_descuentoMes: number, bly_propiedad: number){
+    return this.http.get(`${apiURLRegistrarCostos}?bly_tipoMoneda=${bly_tipoMoneda}&bly_precioBase=${bly_precioBase}&bly_cargoLimpieza=${bly_cargoLimpieza}&bly_descuentoSemana=${bly_descuentoSemana}&bly_descuentoMes=${bly_descuentoMes}&bly_propiedad=${bly_propiedad}`).pipe(map(
+      results => {
+        this.result = results;
+        this.toast = this.toastController.create({
+          message: 'Se han registrado los costos de propiedad',
+          duration: 2000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+        });
+      }
+    ));
   }
 }

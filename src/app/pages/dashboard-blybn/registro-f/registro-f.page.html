@@ -1,13 +1,3 @@
-<ion-header>
-  <ion-toolbar color="titulos" class="ion-no-border" translucent>
-    <ion-buttons slot="start">
-      <ion-button (click)="cancelar()">
-        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding">
   <ion-label class="ion-label1">
     Para terminar, verifiquemos la información
@@ -266,7 +256,7 @@
           </ion-col>
           <ion-col size="2">
             <br>
-            <ion-button size="small" (click)="obtenerSeguridad(seguridad.bly_seguridad)" ><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+            <ion-button size="small" (click)="obtenerSeguridad(seguridad.bly_seguridad)" (click)="cargaRegistroSeguridad()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-grid> 
@@ -286,7 +276,7 @@
           </ion-col>
           <ion-col size="2">
             <br>
-            <ion-button size="small" (click)="obtenerRestriccion(restriccion.bly_numRestriccion)"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+            <ion-button size="small" (click)="obtenerRestriccion(restriccion.bly_numRestriccion)" (click)="cargaRegistroRestricciones()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-grid> 
@@ -306,7 +296,7 @@
           </ion-col>
           <ion-col size="2">
             <br>
-            <ion-button size="small" (click)="obtenerRequisito(requisito.bly_requisitosRenta)" ><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+            <ion-button size="small" (click)="obtenerRequisito(requisito.bly_requisitosRenta)" (click)="cargaRegistroRequisitos()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-grid> 
@@ -367,9 +357,13 @@
 <ion-footer>
   <ion-toolbar color="titulos" class="ion-no-border" translucent>
     <ion-buttons slot="primary">
-      <ion-button (click)="publicar()">
+      <ion-button *ngIf="btnPublicar" disabled>
         Publicar
         <ion-icon slot="end" name="earth" color="primary"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="publicarbtn" (click)="publicar()">
+        Publicar
+        <ion-icon slot="end" name="earth" color="success"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

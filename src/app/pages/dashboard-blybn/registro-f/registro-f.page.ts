@@ -44,6 +44,9 @@ export class RegistroFPage implements OnInit {
   public dato11: boolean = true;
   public dato12: boolean = false;
 
+  public publicarbtn: boolean = false;
+  public btnPublicar: boolean = true;
+
   informacionPerfil: any;
   bly_usuario: number;
 
@@ -460,35 +463,6 @@ export class RegistroFPage implements OnInit {
     this.dato7 = true;
   }
 
-  
-
-  async cancelar(){
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Cancelar operación',
-      mode: 'ios',
-      message: '¿Esta seguro que desea cancelar la publicación de la propiedad?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
-        },
-        {
-          text: 'Aceptar',
-          handler: () => {
-            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
-          },
-        },
-      ],
-    });
-
-    await alert.present();
-  }
-
   async informacionVerificada() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -501,9 +475,7 @@ export class RegistroFPage implements OnInit {
 
     await alert.present();
   }
-  publicar(){
-    
-  }
+  
 
   async cargaRegistroPropiedad() {
     const loading = await this.loadingController.create({
@@ -623,4 +595,77 @@ export class RegistroFPage implements OnInit {
     });
   }
 
+  async cargaRegistroSeguridad() {
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+    });
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+    this.registrarSeguridadM();
+    },1500);
+  }
+
+  responseDataRS: any;
+  registrarSeguridadM(){
+    this.servicio.registrarSeguridadPropiedad(this.bly_seguridad, this.bly_propiedad).subscribe(data => {
+      this.responseDataRS = data;
+    });
+  }
+
+  async cargaRegistroRestricciones() {
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+    });
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+    this.registrarRestricciones();
+    },1500);
+  }
+
+  responseDataRP: any;
+  registrarRestricciones(){
+    this.servicio.registrarRestricciones(this.bly_restriccion, this.bly_propiedad).subscribe(data => {
+      this.responseDataRP = data;
+    });
+  }
+
+
+  async cargaRegistroRequisitos() {
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+    });
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+      this.registrarRequisitos();
+    },1500);
+  }
+
+  responseDataREP: any;
+  registrarRequisitos(){
+    this.servicio.registrarRequisitos(this.bly_tipoRequisito, this.bly_propiedad).subscribe(data => {
+      this.responseDataREP = data;
+    });
+  }
+
+  publicar(){
+    
+  }
 }

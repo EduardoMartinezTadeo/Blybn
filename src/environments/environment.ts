@@ -53,7 +53,11 @@ export const environment = {
   apiRegistrarCostosPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarCostosPropiedad.php/',
   apiRegistrarMueblesPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarMueblesPropiedad.php/',
   apiRegistrarAmenidadesPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarAmenidades.php/',
-  apiRegistrarAreaComunPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarAreasComunes.php/'
+  apiRegistrarAreaComunPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarAreasComunes.php/',
+  apiRegistrarSeguridadPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarSeguridadPropiedad.php/',
+  apiRegistrarRestriccionesPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarRestriccionesPropiedad.php/',
+  apiRegistarRequisitosPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarRequisitosPropiedad.php/',
+  apiRegistrarDisponibilidadPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarDisponibilidadPropiedad.php/'
 };
 
 /*

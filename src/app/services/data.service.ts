@@ -17,6 +17,10 @@ const apiURLRegistrarCostos = environment.apiRegistrarCostosPropiedadURL;
 const apiURLRegistrarMuebles = environment.apiRegistrarMueblesPropiedadURL;
 const apiURLRegistroAmenidades = environment.apiRegistrarAmenidadesPropiedadURL;
 const apiURLRegistrarEspacio = environment.apiRegistrarAreaComunPropiedadURL;
+const apiURLRegistroSeguridadPropiedad = environment.apiRegistrarSeguridadPropiedadURL;
+const apiURLRegistrarRestriccionesPropiedad = environment.apiRegistrarRestriccionesPropiedadURL;
+const apiURLRegistroRequisitosPropiedad = environment.apiRegistarRequisitosPropiedadURL;
+const apiURLRegistroDisponibilidadPropiedad = environment.apiRegistrarDisponibilidadPropiedadURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -198,6 +202,7 @@ export class DataService {
   registrarMuebles(bly_cantidadMuebles: number, bly_mueble: number, bly_propiedad: number){
     return this.http.get(`${apiURLRegistrarMuebles}?bly_cantidadMuebles=${bly_cantidadMuebles}&bly_mueble=${bly_mueble}&bly_propiedad=${bly_propiedad}`).pipe(map(
       results => {
+        this.result = results;
         if(this.result == "Ya hay un mueble de este tipo registrado en esta propiedad"){
           this.toast = this.toastController.create({
             message: '¡Ya hay un mueble de este tipo registrado en esta propiedad!',
@@ -223,6 +228,7 @@ export class DataService {
   registrarAmenidades(bly_tipoAmenidad: number, bly_propiedad: number){
     return this.http.get(`${apiURLRegistroAmenidades}?bly_tipoAmenidad=${bly_tipoAmenidad}&bly_propiedad=${bly_propiedad}`).pipe(map(
       results => {
+        this.result = results;
         if(this.result == "Ya hay una amenidad de este tipo registrado en esta propiedad"){
           this.toast = this.toastController.create({
             message: '¡Ya hay una amenidad de este tipo registrado en esta propiedad!',
@@ -248,6 +254,7 @@ export class DataService {
   registrarEspacio(bly_espacios: number, bly_propiedad: number){
     return this.http.get(`${apiURLRegistrarEspacio}?bly_espacios=${bly_espacios}&bly_propiedad=${bly_propiedad}`).pipe(map(
       results => {
+        this.result = results;
         if(this.result == "Ya hay un espacio de este tipo registrado en esta propiedad"){
           this.toast = this.toastController.create({
             message: '¡Ya hay un espacio de este tipo registrado en esta propiedad!',
@@ -269,4 +276,84 @@ export class DataService {
       }
     ));
   }
+
+  registrarSeguridadPropiedad(bly_seguridad: number, bly_propiedad: number){
+    return this.http.get(`${apiURLRegistroSeguridadPropiedad}?bly_seguridad=${bly_seguridad}&bly_propiedad=${bly_propiedad}`).pipe(map(
+      results => {
+        this.result = results;
+        if(this.result == "Ya hay una medida de seguridad de este tipo registrada en esta propiedad"){
+          this.toast = this.toastController.create({
+            message: '¡Ya hay una medida de seguridad de este tipo registrada en esta propiedad!',
+            duration: 2000,
+            mode: 'ios',
+          }).then((toastData) => {
+            toastData.present();
+          });
+        } else {
+          this.result = results;
+          this.toast = this.toastController.create({
+            message: 'Se han registrado las medidas de seguridad de la propiedad',
+            duration: 2000,
+            mode: 'ios'
+          }).then((toastData) => {
+            toastData.present();
+          });
+        }
+      }
+    ));
+  }
+
+  registrarRestricciones(bly_restriccion: number,bly_propiedad: number){
+    return this.http.get(`${apiURLRegistrarRestriccionesPropiedad}?bly_restriccion=${bly_restriccion}&bly_propiedad=${bly_propiedad}`).pipe(map(
+      results => {
+        this.result = results;
+        if(this.result == "Ya hay una restricción de este tipo registrada en esta propiedad"){
+          this.toast = this.toastController.create({
+            message: '¡Ya hay una restricción de este tipo registrada en esta propiedad!',
+            duration: 2000,
+            mode: 'ios',
+          }).then((toastData) => {
+            toastData.present();
+          });
+        } else {
+          this.result = results;
+          this.toast = this.toastController.create({
+            message: 'Se han registrado las restricciónes de la propiedad',
+            duration: 2000,
+            mode: 'ios'
+          }).then((toastData) => {
+            toastData.present();
+          });
+        }
+      }
+    ));
+  }
+
+  registrarRequisitos(bly_tipoRequisito: number, bly_propiedad: number){
+    return this.http.get(`${apiURLRegistroRequisitosPropiedad}?bly_tipoRequisito=${bly_tipoRequisito}&bly_propiedad=${bly_propiedad}`).pipe(map(
+      results => {
+        this.result = results;
+        if(this.result == "Ya hay un requisito de este tipo registrado en esta propiedad"){
+          this.toast = this.toastController.create({
+            message: '¡Ya hay un requisito de este tipo registrado en esta propiedad!',
+            duration: 2000,
+            mode: 'ios',
+          }).then((toastData) => {
+            toastData.present();
+          });
+        } else {
+          this.result = results;
+          this.toast = this.toastController.create({
+            message: 'Se han registrado los requisitos de la propiedad',
+            duration: 2000,
+            mode: 'ios'
+          }).then((toastData) => {
+            toastData.present();
+          });
+        }
+      }
+    ));
+  }
+
+  
 }

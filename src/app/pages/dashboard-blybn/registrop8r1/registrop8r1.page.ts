@@ -15,7 +15,11 @@ export class Registrop8r1Page implements OnInit {
     private router:Router,
     private storage: Storage,
     private toastController: ToastController
-  ) { }
+  ) {
+    this.informacionEspecial = {
+      finalActivar: true
+    } 
+   }
 
   ngOnInit() {
   }
@@ -36,6 +40,8 @@ export class Registrop8r1Page implements OnInit {
     this.router.navigate(['/registro-p8']);
   }
 
+  informacionEspecial: any;
+  
   descuentoSemana: number;
   descuentoMes: number;
   informacionR8: any;
@@ -62,6 +68,7 @@ export class Registrop8r1Page implements OnInit {
         descuentoMensual: this.descuentoMes,
         registro8: true
       }
+      this.storage.set('botonEspecial', this.informacionEspecial);
       this.storage.set('registroP8', this.informacionR8).then((res) => {
         this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
       });

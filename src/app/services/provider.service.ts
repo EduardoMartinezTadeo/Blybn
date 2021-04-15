@@ -38,6 +38,8 @@ const apiCargarMonedaPago = environment.apiCargarTipoMonedaPagoURL;
 const apiCargarPreaviso = environment.apiCargarPreavisoURL;
 const apiCargarHoras = environment.apiCargarHorasURL;
 const apiCargarVentanaDisponibilidad = environment.apiCargarVentanaDisponibilidadURL;
+const apiActualizarRolUsuario = environment.apiActualizarRolUsuarioURL;
+const apiCargarPerfilAdminBlybn = environment.apiCargarPerfilAdminURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -324,5 +326,21 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiCargarVentanaDisponibilidad + file, body, {headers})
+  }
+
+  postDataARUP(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiActualizarRolUsuario + file, body, {headers})
+  }
+
+  postDataCPADB(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarPerfilAdminBlybn + file, body, {headers})
   }
 }

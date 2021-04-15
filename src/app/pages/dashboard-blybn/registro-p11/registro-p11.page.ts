@@ -34,7 +34,6 @@ export class RegistroP11Page implements OnInit {
     this.informacionMueble = [];
     setTimeout(() => {
       this.contentLoaded = true;
-      console.log(this.muebles);
     }, 2500);
   }
 

@@ -119,43 +119,36 @@ export class Registrop7r11Page implements OnInit {
   preaviso: string;
   ionChange(event) {
     this.preaviso = event.detail.value;
-    console.log(this.preaviso);
   }
 
   tiempoSalidaHuesped: string;
   ionChange2(event) {
     this.tiempoSalidaHuesped = event.detail.value;
-    console.log(this.tiempoSalidaHuesped);
   }
 
   limiteReservacion: string;
   ionChange3(event) {
     this.limiteReservacion = event.detail.value;
-    console.log(this.limiteReservacion);
   }
 
   ventanaDisponibilidad: string;
   ionChange4(event) {
     this.ventanaDisponibilidad = event.detail.value;
-    console.log(this.ventanaDisponibilidad);
   }
 
   llegadadespues: string;
   ionChange5(event) {
     this.llegadadespues = event.detail.value;
-    console.log(this.llegadadespues);
   }
   
   llegadaantes: string;
   ionChange6(event) {
     this.llegadaantes = event.detail.value;
-    console.log(this.llegadaantes);
   }
   
   salidaantes: string;
   ionChange7(event) {
     this.salidaantes = event.detail.value;
-    console.log(this.salidaantes);
   }
 
   fechainiciald: string;

@@ -25,6 +25,9 @@ export class RegisterPage implements OnInit {
     private loading: LoadingController,
     private modalCtrl: ModalController) { }
 
+    public btn1: boolean = true;
+    public btn2: boolean = false;
+
   data = [
     {
       name: 'Acepto los términos y condiciones del uso de este servicio.',
@@ -32,6 +35,10 @@ export class RegisterPage implements OnInit {
     }
   ];
 
+  activar(){
+    this.btn1 = false;
+    this.btn2 = true;
+  }
   registro = {
     nombreUsuario: '',
     correoElectronico: '',

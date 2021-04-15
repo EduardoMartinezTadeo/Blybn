@@ -307,7 +307,7 @@ export class AvisoPage implements OnInit {
   informacionR9: any;
   informacionR10: any;  
   informacionR11: any;
-  
+  informacionEspecial: any;
   constructor(
     private aviso: AvisoService,
     private storage: Storage
@@ -345,8 +345,11 @@ export class AvisoPage implements OnInit {
     this.informacionR11 = {
       registro11: false
     }
+    this.informacionEspecial = {
+      finalActivar: false
+    } 
   }
-
+  public btnEspecial: boolean = false;
   ionViewWillEnter() {
     this.storage.get('licencia').then((res) => {
       this.data = res;
@@ -355,6 +358,9 @@ export class AvisoPage implements OnInit {
   }
 
   ngOnInit() {   
+    this.storage.set('botonEspecial', this.informacionEspecial).then((res) => {
+      this.btnEspecial = false;
+    });
     this.storage.set('registroP1', this.informacionR1).then((res) => {
       console.log(res);
     });

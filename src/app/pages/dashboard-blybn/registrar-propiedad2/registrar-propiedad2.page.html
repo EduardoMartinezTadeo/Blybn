@@ -219,7 +219,13 @@
               <ion-item (click)="registrop9()" *ngIf="dato17">
                 <ion-label class="ion-label-registro">Evaluar</ion-label>
                 <ion-button fill="clear" (click)="registrop9()">
-                  <ion-icon name='id-card-outline' color="primary" slot="icon-only"></ion-icon>
+                  <ion-icon name='id-card' color="danger" slot="icon-only"></ion-icon>
+                </ion-button>                
+              </ion-item>
+              <ion-item  *ngIf="btnEspecial">
+                <ion-label class="ion-label-registro">Evaluar</ion-label>
+                <ion-button fill="clear">
+                  <ion-icon name='id-card' color="success" slot="icon-only"></ion-icon>
                 </ion-button>                
               </ion-item>
 

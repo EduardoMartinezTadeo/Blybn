@@ -182,4 +182,40 @@ export class OperacionesService {
         })
       );
   }
+
+  resultP = "Propietario Blybner";
+  consultarPerfilActualizado(correoElectronico: string) {
+    return this.http
+      .get(`${apiConsultarPerfilUrl}?correoElectronico=${correoElectronico}`)
+      .pipe(
+        map((results) => {
+          this.result = results;
+          if ((correoElectronico = '')) {
+            this.toast = this.toastController
+              .create({
+                message: '¡Debe completar todos los campos solicitados!',
+                duration: 2000,
+                mode: 'ios',
+              })
+              .then((toastData) => {
+                toastData.present();
+              });
+          } else if (
+            this.result == '¡No existe un registro previo de este usuario!'
+          ) {
+            this.toast = this.toastController
+              .create({
+                message: '¡No existe un registro previo de este usuario!',
+                duration: 2000,
+                mode: 'ios',
+              })
+              .then((toastData) => {
+                toastData.present();
+              });
+          } else {
+            this.storage.set('storage_blybn', this.resultP);
+          }
+        })
+      );
+  }
 }

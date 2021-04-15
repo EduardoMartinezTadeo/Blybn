@@ -85,7 +85,6 @@ export class RegistroP2Page {
     this.main_text = item.structured_formatting.main_text;
     this.secondary_text = item.structured_formatting.secondary_text;
     this.types = item.types;
-    console.log(this.secondary_text);
     //Detectar Calle
     this.Dataubicacion.calle = this.secondary_text.split(',')[0];
     //Detectar Ciudad

@@ -88,7 +88,6 @@ export class RegistroP2r11Page implements OnInit {
         ngModel: this.cantidadBanos
       }
       let final = body;
-      console.log(final);
     });
   }
 

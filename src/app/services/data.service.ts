@@ -21,6 +21,7 @@ const apiURLRegistroSeguridadPropiedad = environment.apiRegistrarSeguridadPropie
 const apiURLRegistrarRestriccionesPropiedad = environment.apiRegistrarRestriccionesPropiedadURL;
 const apiURLRegistroRequisitosPropiedad = environment.apiRegistarRequisitosPropiedadURL;
 const apiURLRegistroDisponibilidadPropiedad = environment.apiRegistrarDisponibilidadPropiedadURL;
+const apiURLRegistroExclusividadPropiedad = environment.apiRegistrarExclusividadPropiedadURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -355,5 +356,28 @@ export class DataService {
     ));
   }
 
-  
+  registrarDisponibilidad(bly_fechaInicio: string, bly_fechaFinal: string, bly_fechaInicialND: string, bly_fechaFinalND: string, bly_preaviso: number, bly_tiempoSalidadH: number, bly_horaLimiteReservacion: number, bly_tiempoAnticipacionReservacion: number, bly_llegadaDespues: number, bly_llegadaAntes: number, bly_salidaAntes: number, bly_propiedad: number ){
+    return this.http.get(`${apiURLRegistroDisponibilidadPropiedad}?bly_fechaInicio=${bly_fechaInicio}&bly_fechaFinal=${bly_fechaFinal}&bly_fechaInicialND=${bly_fechaInicialND}&bly_fechaFinalND=${bly_fechaFinalND}&bly_preaviso=${bly_preaviso}&bly_tiempoSalidadH=${bly_tiempoSalidadH}&bly_horaLimiteReservacion=${bly_horaLimiteReservacion}&bly_tiempoAnticipacionReservacion=${bly_tiempoAnticipacionReservacion}&bly_llegadaDespues=${bly_llegadaDespues}&bly_llegadaAntes=${bly_llegadaAntes}&bly_salidaAntes=${bly_salidaAntes}&bly_propiedad=${bly_propiedad}`).pipe(map(
+      results => {
+        this.result = results;
+        this.toast = this.toastController.create({
+          message: 'Se ha registrado la disponibilidad de la propiedad',
+          duration: 2000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+        });
+      }
+    ));
+  }
+
+  registrarExclusividad(bly_exclusividad: number, bly_propiedad: number){
+    return this.http.get(`${apiURLRegistroExclusividadPropiedad}?bly_exclusividad=${bly_exclusividad}&bly_propiedad=${bly_propiedad}`).pipe(map(
+      results => {
+        this.result = results;
+        console.log('Se registro la exclusividad');
+      }
+    ));
+  }
+
 }

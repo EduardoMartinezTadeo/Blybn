@@ -23,6 +23,7 @@ export class RegistrarPropiedad2Page implements OnInit {
   informacionR9: any;
   informacionR10: any;
   informacionR11: any;
+
   toast: any;
   constructor(
     private router: Router,
@@ -94,6 +95,7 @@ export class RegistrarPropiedad2Page implements OnInit {
   public dato16: boolean = false;
 
   public dato17: boolean = true;
+  public btnEspecial: boolean = false;
 
   public dato19: boolean = true;
   public dato20: boolean = false;
@@ -323,9 +325,9 @@ export class RegistrarPropiedad2Page implements OnInit {
       this.resultadoVR8 = res;
       this.valor8 = this.resultadoVR8.registro8;
     });
-    this.storage.get('registroP9').then((res) => {
+    this.storage.get('botonEspecial').then((res) => {
       this.resultadoVR9 = res;
-      this.valor9 = this.resultadoVR9.registro9;
+      this.valor9 = this.resultadoVR9.finalActivar;
       console.log(this.valor9);
     });
     this.storage.get('registroP10').then((res) => {
@@ -426,7 +428,7 @@ export class RegistrarPropiedad2Page implements OnInit {
         .then((toastData) => {
           toastData.present();
         });
-    } else if (this.valor9 == true) {
+    } else if (this.valor9 == true){
       this.dator1 = false;
       this.dator2 = false;
       this.dator3 = false;
@@ -470,53 +472,7 @@ export class RegistrarPropiedad2Page implements OnInit {
       this.dato22 = true;
 
       this.dato23 = true;
-
-      this.router.navigate(['/registro-f']);
-    } else {
       this.router.navigate(['/animacion9']);
-      this.dator1 = false;
-      this.dator2 = false;
-      this.dator3 = false;
-      this.dator4 = false;
-      this.dator5 = false;
-      this.dator6 = false;
-      this.dator7 = false;
-      this.dator8 = false;
-      this.dator10 = false;
-      this.dator11 = false;
-      this.dato1 = false;
-      this.dato2 = true;
-
-      this.dato3 = false;
-      this.dato4 = true;
-
-      this.dato5 = false;
-      this.dato6 = true;
-
-      this.dato7 = false;
-      this.dato8 = true;
-
-      this.dato9 = false;
-      this.dato10 = true;
-
-      this.dato11 = false;
-      this.dato12 = true;
-
-      this.dato13 = false;
-      this.dato14 = true;
-
-      this.dato15 = false;
-      this.dato16 = true;
-
-      this.dato17 = false;
-
-      this.dato19 = false;
-      this.dato20 = true;
-
-      this.dato21 = false;
-      this.dato22 = true;
-
-      this.dato23 = true;
     }
   }
 
@@ -638,6 +594,7 @@ export class RegistrarPropiedad2Page implements OnInit {
     this.storage.remove('mueblesInformacion');
     this.storage.remove('requisitosDisponibilidad');
     this.storage.remove('requisitosRenta');
+    
     this.dato1 = true;
     this.dator1 = false;
 

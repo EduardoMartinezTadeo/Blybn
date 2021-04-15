@@ -105,13 +105,18 @@
                               <ion-label class="ion-text-wrap"
                                   style="font-family: Helvetica; font-size: 13px; color: #ffffff; font-weight: bold;">
                                   {{ item.name }}</ion-label>
-                              <ion-checkbox color="primary" slot="start" name="termino" ([ngModel])="registro.termino" required mode="ios">
+                              <ion-checkbox color="primary" slot="start" name="termino" ([ngModel])="registro.termino" required mode="ios" (click)="activar()">
                               </ion-checkbox>
                           </ion-item>
                           <br>
                           <ion-button [disabled]="formulario.invalid" type="submit" expand="full" color="primary"
                               shape="block" style="text-transform: capitalize; font-size: 14px;"
-                              (click)="onRegister()">
+                              disabled *ngIf="btn1">
+                              Registrarse
+                          </ion-button>
+                          <ion-button [disabled]="formulario.invalid" type="submit" expand="full" color="primary"
+                              shape="block" style="text-transform: capitalize; font-size: 14px;"
+                              (click)="onRegister()" *ngIf="btn2">
                               Registrarse
                           </ion-button>
                       </ion-list>

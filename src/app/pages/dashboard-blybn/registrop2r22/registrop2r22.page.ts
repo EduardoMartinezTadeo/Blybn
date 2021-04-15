@@ -107,17 +107,12 @@ export class Registrop2r22Page implements OnInit {
       });
   }
 
-  ShowCords() {
-    console.log('lat' + this.lat + ', long' + this.long);
-  }
-
   cancelar() {
     this.router.navigate(['/registro-p2']);
   }
 
   informacionR2: any;
   guardarInformacion() {
-    this.ShowCords();
     this.informacionR2 = {
       latitud: this.lat,
       longitud: this.long,

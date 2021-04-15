@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
@@ -15,9 +15,11 @@ export class RegistroP7Page implements OnInit {
     private alertController: AlertController,
     private router: Router,
     private provider: ProviderService,
-    private storage: Storage
+    private storage: Storage,
+    private toastController: ToastController
   ) { }
 
+  toast: any;
   ngOnInit() {
   }
 
@@ -136,17 +138,43 @@ export class RegistroP7Page implements OnInit {
 
   configuracionesRenta: any;
   guardarInformacion(){
-    this.configuracionesRenta = {
-      historialPrevio: this.historialPrevio,
-      frecuenciaRecepcion: this.frecuenciaRecepcion,
-      tipoAprobacion: this.tipoAprobacion
-    }
-    this.storage.set('requisitosDisponibilidad', this.configuracionesRenta).then((res) => {
-      this.router.navigate(['/registrop7r11']);
-    });
-    this.historialPrevio = [];
-    this.frecuenciaRecepcion = [];
-    this.tipoAprobacion = [];
+    if(this.historialPrevio.length == 0){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar un tipo de historial previo...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.frecuenciaRecepcion.length == 0){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar la frecuencia de renta...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.tipoAprobacion.length == 0){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar el tipo de aprobación de renta...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    }else {
+      this.configuracionesRenta = {
+        historialPrevio: this.historialPrevio,
+        frecuenciaRecepcion: this.frecuenciaRecepcion,
+        tipoAprobacion: this.tipoAprobacion
+      }
+      this.storage.set('requisitosDisponibilidad', this.configuracionesRenta).then((res) => {
+        this.router.navigate(['/registrop7r11']);
+      });
+      this.historialPrevio = [];
+      this.frecuenciaRecepcion = [];
+      this.tipoAprobacion = [];
+    }   
   }
 
 }

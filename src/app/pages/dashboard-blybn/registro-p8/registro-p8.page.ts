@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
@@ -11,11 +11,13 @@ import { ProviderService } from '../../../services/provider.service';
 })
 export class RegistroP8Page implements OnInit {
 
+  toast: any;
   constructor(
     private router: Router,
     private alertController: AlertController,
     private provider: ProviderService,
-    private storage: Storage
+    private storage: Storage,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -90,13 +92,39 @@ export class RegistroP8Page implements OnInit {
 
   costosPropiedad: any;
   guardarInformacion(){
-    this.costosPropiedad = {
-      precioBase: this.precioBase,
-      precioLimpieza: this.costoLimpieza,
-      tipoMoneda: this.tipoMoneda
-    }
-    this.storage.set('costosPropiedad', this.costosPropiedad).then((res) => {
-      this.router.navigate(['/registrop8r1']);
-    });
+    if(this.precioBase == 0 || this.precioBase == undefined){
+      this.toast = this.toastController.create({
+        message: 'Debe establecer un precio de renta...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    }else if(this.costoLimpieza == 0 || this.costoLimpieza == undefined){
+      this.toast = this.toastController.create({
+        message: 'Debe establecer un costo de limpieza superior a 0...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.tipoMoneda == "" || this.tipoMoneda == undefined) {
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar un tipo de moneda...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else {
+      this.costosPropiedad = {
+        precioBase: this.precioBase,
+        precioLimpieza: this.costoLimpieza,
+        tipoMoneda: this.tipoMoneda
+      }
+      this.storage.set('costosPropiedad', this.costosPropiedad).then((res) => {
+        this.router.navigate(['/registrop8r1']);
+      });
+    }  
   }
 }

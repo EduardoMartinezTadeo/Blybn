@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
@@ -17,7 +18,8 @@ export class Registrop6r11Page implements OnInit {
   constructor(
     private router: Router, 
     private provider: ProviderService,
-    private storage: Storage) {}
+    private storage: Storage, 
+    private toastController: ToastController) {}
 
   ngOnInit() {
     this.close();
@@ -50,17 +52,27 @@ export class Registrop6r11Page implements OnInit {
     this.restriciones = [];
   }
 
-
+  toast: any;
   informacionR6: any;
   guardarInformacion() {
-    this.informacionR6 = {
-      restriccion: this.informacionRestriccion,
-      registro6: true
-    }
-    this.storage.set('registroP6', this.informacionR6).then((res) => {
-      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
-      this.restriciones = [];
-    });
+    if(this.informacionRestriccion.length == 0){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar al menos una regla dentro de la propiedad...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else {
+      this.informacionR6 = {
+        restriccion: this.informacionRestriccion,
+        registro6: true
+      }
+      this.storage.set('registroP6', this.informacionR6).then((res) => {
+        this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+        this.restriciones = [];
+      });
+    }    
   }
 
   open() {

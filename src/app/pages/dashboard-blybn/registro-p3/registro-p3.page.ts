@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
@@ -14,9 +14,11 @@ export class RegistroP3Page implements OnInit {
     private alertController: AlertController,
     private router: Router,
     private provider: ProviderService,
-    private storage: Storage
+    private storage: Storage,
+    private toastController: ToastController
   ) {}
 
+  toast: any;
   ngOnInit() {
   }
 
@@ -130,14 +132,40 @@ export class RegistroP3Page implements OnInit {
   }
   informacionR3: any;
   guardarInformacion() {
-    this.informacionR3 = {
-      amenidades: this.informacionAmenidad,
-      areasComunes: this.informacionAreas,
-      seguridad: this.informacionSeguridad,
-      registro3: true
+    if(this.informacionAmenidad.length == 0){
+      this.toast = this.toastController.create({
+        message: 'Debes seleccionar al menos una amenidad..',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.informacionAreas.length == 0){
+      this.toast = this.toastController.create({
+        message: 'Debes seleccionar al menos un espacio o área común..',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.informacionSeguridad.length == 0){
+      this.toast = this.toastController.create({
+        message: 'Debes seleccionar al menos un tipo de seguridad..',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else {
+      this.informacionR3 = {
+        amenidades: this.informacionAmenidad,
+        areasComunes: this.informacionAreas,
+        seguridad: this.informacionSeguridad,
+        registro3: true
+      }
+      this.storage.set('registroP3', this.informacionR3).then((res) => {
+        this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+      });  
     }
-    this.storage.set('registroP3', this.informacionR3).then((res) => {
-      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
-    });  
   }
 }

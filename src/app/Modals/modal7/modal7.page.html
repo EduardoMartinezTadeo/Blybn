@@ -29,7 +29,7 @@
           <ion-item>
             <ion-input type="email" placeholder="Confirma Correo electrónico" name="email"
               [(ngModel)]="bly_correoElectronico" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
-              required>
+              mode="md" required>
             </ion-input>
           </ion-item>
         </ion-col>
@@ -39,7 +39,7 @@
           <ion-item>
             <ion-input [type]="showPassword ? 'text': 'password'" name="contrasena" [(ngModel)]="bly_contrasena"
               placeholder="Contraseña"
-              pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}" required>
+              pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}" mode="md" required>
             </ion-input>
             <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()" color="primary"></ion-icon>
             <ion-icon name="information-circle-outline" color="warning" (click)="openModal9()"></ion-icon>
@@ -51,7 +51,7 @@
           <ion-item>
             <ion-input [type]="showPasswordcf ? 'text': 'password'" name="confirmContrasena"
               [(ngModel)]="confirmContrasena" placeholder="Confirmar contraseña"
-              pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}" required>
+              pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}" mode="md" required>
             </ion-input>
             <ion-icon slot="end" [name]="passwordToggleIconcf" (click)="togglePasswordcf()" color="primary"></ion-icon>
             <ion-icon name="information-circle-outline" color="warning" (click)="openModal10()"></ion-icon>

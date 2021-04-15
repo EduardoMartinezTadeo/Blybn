@@ -7,6 +7,6 @@
     </base-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
-        <domain includeSubdomains="true">http://emtdeveloper.com/server_blybn/api/</domain>
+        <domain includeSubdomains="true">https://emtdeveloper.com/server_blybn/api/</domain>
     </domain-config>
 </network-security-config>

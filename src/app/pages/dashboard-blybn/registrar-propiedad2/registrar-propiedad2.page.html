@@ -1,121 +1,244 @@
 <ion-header>
-    <ion-toolbar color="titulos" class="ion-no-border" translucent>
-        <ion-buttons slot="end">
-            <ion-button (click)="salir()">
-                <ion-icon slot="icon-only" name="close-outline" color="primary"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content class="ion-padding">
-    <form #formulario="ngForm" class="form ion-padding">
-        <ion-grid style="background-color: transparent !important;">
-            <ion-row>
-                <ion-col>
-                    <h2>Es momento de preparar tu anuncio</h2>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <div padding>
-                        <ion-list style="background-color: transparent !important;">
-                            <ion-item (click)="registrop1()" *ngIf="dato1">
-                                <ion-label class="ion-label-registro">La propiedad y alojamiento</ion-label>                                
-                                <ion-icon name='business-outline' slot="end" color="primary"></ion-icon>
-                              </ion-item>
-                              <ion-item (click)="alertEspera()" *ngIf="dato2">
-                                <ion-label class="ion-label-registro">La propiedad y alojamiento</ion-label>                                
-                                <ion-icon name='business' slot="end" color="primary"></ion-icon>
-                              </ion-item>
-                              <ion-item (click)="registrop10()" *ngIf="dato19">
-                                <ion-label class="ion-label-registro">Huespedes</ion-label>
-                                <ion-icon name='people-circle-outline' slot="end" color="primary"></ion-icon>
-                              </ion-item> 
-                              <ion-item (click)="alertEspera()" *ngIf="dato20">
-                                <ion-label class="ion-label-registro">Huespedes</ion-label>
-                                <ion-icon name='people-circle' slot="end" color="primary"></ion-icon>
-                              </ion-item> 
-                              <ion-item (click)="registrop11()" *ngIf="dato21">
-                                <ion-label class="ion-label-registro">Interiores</ion-label>
-                                <ion-icon name='bed-outline' slot="end" color="primary"></ion-icon>
-                              </ion-item>
-                              <ion-item (click)="alertEspera()" *ngIf="dato22">
-                                <ion-label class="ion-label-registro">Interiores</ion-label>
-                                <ion-icon name='bed' slot="end" color="primary"></ion-icon>
-                              </ion-item>
-                              <ion-item (click)="registrop2()" *ngIf="dato3">
-                                <ion-label class="ion-label-registro">Ubicación</ion-label>                                
-                                  <ion-icon name='pin-outline' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="alertEspera()" *ngIf="dato4">
-                                <ion-label class="ion-label-registro">Ubicación</ion-label>                                
-                                  <ion-icon name='pin' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="registrop3()" *ngIf="dato5">
-                                <ion-label class="ion-label-registro">Servicios</ion-label>                                
-                                  <ion-icon name='cafe-outline' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="alertEspera()" *ngIf="dato6">
-                                <ion-label class="ion-label-registro">Servicios</ion-label>                                
-                                  <ion-icon name='cafe' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="registrop4()" *ngIf="dato7">
-                                <ion-label class="ion-label-registro">Fotos</ion-label>                                
-                                  <ion-icon name='images-outline' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="alertEspera()" *ngIf="dato8">
-                                <ion-label class="ion-label-registro">Fotos</ion-label>                                
-                                  <ion-icon name='images' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="registrop5()" *ngIf="dato9">
-                                <ion-label class="ion-label-registro">Título</ion-label>                                
-                                  <ion-icon name='pencil-outline' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="alertEspera()" *ngIf="dato10">
-                                <ion-label class="ion-label-registro">Título</ion-label>                                
-                                  <ion-icon name='pencil' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="registrop6()" *ngIf="dato11">
-                                <ion-label class="ion-label-registro">Configuración de las reservaciones</ion-label>                                
-                                  <ion-icon name='options-outline' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="alertEspera()" *ngIf="dato12">
-                                <ion-label class="ion-label-registro">Configuración de las reservaciones</ion-label>                                
-                                  <ion-icon name='options' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="registrop7()" *ngIf="dato13">
-                                <ion-label class="ion-label-registro">Disponibilidad</ion-label>                                
-                                  <ion-icon name='today-outline' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="alertEspera()" *ngIf="dato14">
-                                <ion-label class="ion-label-registro">Disponibilidad</ion-label>                                
-                                  <ion-icon name='today' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="registrop8()" *ngIf="dato15">
-                                <ion-label class="ion-label-registro">Precios</ion-label>                                
-                                  <ion-icon name='cash-outline' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="alertEspera()" *ngIf="dato16">
-                                <ion-label class="ion-label-registro">Precios</ion-label>                                
-                                  <ion-icon name='cash' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="registrop9()" *ngIf="dato17">
-                                <ion-label class="ion-label-registro">Evaluar</ion-label>                                
-                                  <ion-icon name='id-card-outline' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="alertEspera()" *ngIf="dato18">
-                                <ion-label class="ion-label-registro">Evaluar</ion-label>                                
-                                  <ion-icon name='id-card' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                              <ion-item (click)="registroFinal()" *ngIf="dato23">
-                                <ion-label class="ion-label-registro">Publicar propiedad</ion-label>                                
-                                  <ion-icon name='save' color="primary" slot="end"></ion-icon>    
-                              </ion-item>
-                        </ion-list>
-                    </div>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </form>
-  </ion-content>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="end">
+      <ion-button (click)="salir()">
+        <ion-icon slot="icon-only" name="close-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon name="help-circle-outline" slot="icon-only" color="warning"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form #formulario="ngForm" class="form ion-padding">
+    <ion-grid style="background-color: transparent !important;">
+      <ion-row>
+        <ion-col>
+          <h2>Es momento de preparar tu anuncio</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div padding>
+            <ion-list style="background-color: transparent !important;">
+
+              <ion-item *ngIf="dato1" (click)="registrop1()">
+                <ion-label class="ion-label-registro">La propiedad y alojamiento</ion-label>
+                <ion-button fill="clear" (click)="registrop1()">
+                  <ion-icon name='business-outline' slot="icon-only" color="primary"></ion-icon>
+                </ion-button>
+              </ion-item>
+              <ion-item *ngIf="dato2">
+                <ion-label class="ion-label-registro">La propiedad y alojamiento</ion-label>
+                <ion-button fill="clear" (click)="alertEspera()">
+                  <ion-icon name='business' slot="icon-only" color="success"></ion-icon>
+                </ion-button>
+              </ion-item>
+              <ion-item *ngIf="dator1">
+                <ion-label class="ion-label-registro">La propiedad y alojamiento</ion-label>
+                <ion-button fill="clear" (click)="reiniciarR1()">
+                  <ion-icon name="reload-sharp" color="warning" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+
+              <ion-item *ngIf="dato19" (click)="registrop10()">
+                <ion-label class="ion-label-registro">Huespedes</ion-label>
+                <ion-button fill="clear" (click)="registrop10()">
+                  <ion-icon name='people-circle-outline' slot="icon-only" color="primary"></ion-icon>
+                </ion-button>                
+              </ion-item>
+              <ion-item  *ngIf="dato20">
+                <ion-label class="ion-label-registro">Huespedes</ion-label>
+                <ion-button fill="clear" (click)="alertEspera()">
+                  <ion-icon name='people-circle' slot="icon-only" color="success"></ion-icon>
+                </ion-button>                
+              </ion-item>
+              <ion-item *ngIf="dator10">
+                <ion-label class="ion-label-registro">Huespedes</ion-label>
+                <ion-button fill="clear" (click)="reiniciarR2()">
+                  <ion-icon name="reload-sharp" color="warning" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+
+              <ion-item (click)="registrop11()" *ngIf="dato21">
+                <ion-label class="ion-label-registro">Interiores</ion-label>
+                <ion-button fill="clear">
+                  <ion-icon name='bed-outline' slot="icon-only" color="primary"></ion-icon>
+                </ion-button>
+              </ion-item>
+              <ion-item *ngIf="dato22">
+                <ion-label class="ion-label-registro">Interiores</ion-label>
+                <ion-button fill="clear" (click)="alertEspera()">
+                  <ion-icon name='bed' slot="icon-only" color="success"></ion-icon>
+                </ion-button>              
+              </ion-item>
+              <ion-item *ngIf="dator11">
+                <ion-label class="ion-label-registro">Interiores</ion-label>
+                <ion-button fill="clear" (click)="reiniciarR3()">
+                  <ion-icon name="reload-sharp" color="warning" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+
+              <ion-item (click)="registrop2()" *ngIf="dato3">
+                <ion-label class="ion-label-registro">Ubicación</ion-label>
+                <ion-button fill="clear" (click)="registrop2()">
+                  <ion-icon name='pin-outline' color="primary" slot="icon-only"></ion-icon>
+                </ion-button>               
+              </ion-item>
+              <ion-item *ngIf="dato4">
+                <ion-label class="ion-label-registro">Ubicación</ion-label>
+                <ion-button fill="clear" (click)="alertEspera()">
+                  <ion-icon name='pin' color="success" slot="icon-only"></ion-icon>
+                </ion-button>              
+              </ion-item>
+              <ion-item *ngIf="dator2">
+                <ion-label class="ion-label-registro">Ubicación</ion-label>
+                <ion-button fill="clear" (click)="reiniciarR4()">
+                  <ion-icon name="reload-sharp" color="warning" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+
+              <ion-item (click)="registrop3()" *ngIf="dato5">
+                <ion-label class="ion-label-registro">Servicios</ion-label>
+                <ion-button fill="clear" (click)="registrop3()">
+                  <ion-icon name='cafe-outline' color="primary" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+              <ion-item *ngIf="dato6">
+                <ion-label class="ion-label-registro">Servicios</ion-label>
+                <ion-button fill="clear" (click)="alertEspera()">
+                  <ion-icon name='cafe' color="success" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+              <ion-item *ngIf="dator3">   
+                <ion-label class="ion-label-registro">Servicios</ion-label>                       
+                <ion-button fill="clear" (click)="reiniciarR5()">
+                  <ion-icon name="reload-sharp" color="warning" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+
+              <ion-item (click)="registrop4()" *ngIf="dato7">
+                <ion-label class="ion-label-registro">Fotos</ion-label>
+                <ion-button fill="clear" (click)="registrop4()">
+                  <ion-icon name='images-outline' color="primary" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+              <ion-item *ngIf="dato8">
+                <ion-label class="ion-label-registro">Fotos</ion-label>
+                <ion-button fill="clear" (click)="alertEspera()">
+                  <ion-icon name='images' color="success" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+              <ion-item *ngIf="dator4">
+                <ion-label class="ion-label-registro">Fotos</ion-label>
+                <ion-button fill="clear" (click)="reiniciarR6()">
+                  <ion-icon name="reload-sharp" color="warning" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+
+              <ion-item (click)="registrop5()" *ngIf="dato9">
+                <ion-label class="ion-label-registro">Título</ion-label>
+                <ion-button fill="clear" (click)="registrop5()">
+                  <ion-icon name='pencil-outline' color="primary" slot="icon-only"></ion-icon>
+                </ion-button>                
+              </ion-item>
+              <ion-item *ngIf="dato10">
+                <ion-label class="ion-label-registro">Título</ion-label>
+                <ion-button fill="clear" (click)="alertEspera()" >
+                  <ion-icon name='pencil' color="success" slot="icon-only"></ion-icon>
+                </ion-button>               
+              </ion-item>
+              <ion-item *ngIf="dator5">
+                <ion-label class="ion-label-registro">Título</ion-label>
+                <ion-button fill="clear" (click)="reiniciarR7()">
+                  <ion-icon name="reload-sharp" color="warning" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+
+              <ion-item (click)="registrop6()" *ngIf="dato11">
+                <ion-label class="ion-label-registro">Configuración de las reservaciones</ion-label>
+                <ion-button fill="clear" (click)="registrop6()">
+                  <ion-icon name='options-outline' color="primary" slot="icon-only"></ion-icon>
+                </ion-button>             
+              </ion-item>
+              <ion-item *ngIf="dato12">
+                <ion-label class="ion-label-registro">Configuración de las reservaciones</ion-label>
+                <ion-button fill="clear" (click)="alertEspera()">
+                  <ion-icon name='options' color="success" slot="icon-only"></ion-icon>         
+                </ion-button>                       
+              </ion-item>
+              <ion-item *ngIf="dator6">
+                <ion-label class="ion-label-registro">Configuración de las reservaciones</ion-label>
+                <ion-button fill="clear" (click)="reiniciarR8()">
+                  <ion-icon name="reload-sharp" color="warning" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+
+              <ion-item (click)="registrop7()" *ngIf="dato13">
+                <ion-label class="ion-label-registro">Disponibilidad</ion-label>
+                <ion-button fill="clear" (click)="registrop7()">
+                  <ion-icon name='today-outline' color="primary" slot="icon-only"></ion-icon>
+                </ion-button>            
+              </ion-item>
+              <ion-item *ngIf="dato14">
+                <ion-label class="ion-label-registro">Disponibilidad</ion-label>
+                <ion-button fill="clear" (click)="alertEspera()">
+                  <ion-icon name='today' color="success" slot="icon-only"></ion-icon>      
+                </ion-button>                         
+              </ion-item>
+              <ion-item *ngIf="dator7">
+                <ion-label class="ion-label-registro">Disponibilidad</ion-label>
+                <ion-button fill="clear" (click)="reiniciarR9()">
+                  <ion-icon name="reload-sharp" color="warning" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+
+              <ion-item (click)="registrop8()" *ngIf="dato15">
+                <ion-label class="ion-label-registro">Precios</ion-label>
+                <ion-button fill="clear" (click)="registrop8()">
+                  <ion-icon name='cash-outline' color="primary" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+              <ion-item *ngIf="dato16">
+                <ion-label class="ion-label-registro">Precios</ion-label>
+                <ion-button fill="clear" (click)="alertEspera()">
+                  <ion-icon name='cash' color="success" slot="icon-only"></ion-icon>
+                </ion-button>             
+              </ion-item>
+              <ion-item *ngIf="dator8">
+                <ion-label class="ion-label-registro">Precios</ion-label>
+                <ion-button fill="clear" (click)="reiniciarR10()">
+                  <ion-icon name="reload-sharp" color="warning" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-item>
+
+              <ion-item (click)="registrop9()" *ngIf="dato17">
+                <ion-label class="ion-label-registro">Evaluar</ion-label>
+                <ion-button fill="clear" (click)="registrop9()">
+                  <ion-icon name='id-card-outline' color="primary" slot="icon-only"></ion-icon>
+                </ion-button>                
+              </ion-item>
+
+              <ion-item (click)="registroFinal()" *ngIf="dato23">
+                <ion-label class="ion-label-registro">Publicar propiedad</ion-label>
+                <ion-button fill="clear">
+                  <ion-icon name='save' color="success" slot="icon-only"></ion-icon>
+                </ion-button>                
+              </ion-item>
+              <ion-item (click)="cargaReinicio()">
+                <ion-label class="ion-label-registro">Reiniciar registro de propiedad</ion-label>
+                <ion-button fill="clear">
+                  <ion-icon name="trash-bin-outline" slot="icon-only" color="danger"></ion-icon>
+                </ion-button>                
+              </ion-item>             
+            </ion-list>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

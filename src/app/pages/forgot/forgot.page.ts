@@ -43,6 +43,7 @@ export class ForgotPage implements OnInit {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Contraseña',
+      mode: 'ios',
       subHeader: 'Restablecer contraseña',
       message: '<p style="color:#0000">¿Está a punto de restaurar su contraseña desea continuar?</p>',
       buttons: [{
@@ -70,6 +71,7 @@ export class ForgotPage implements OnInit {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Error',
+      mode: 'ios',
       message: 'Ha ocurrido un error, verifique su conexión!!!',
       buttons: [{
         text: 'Reintentar',
@@ -90,7 +92,8 @@ export class ForgotPage implements OnInit {
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
       duration: 1500,
-      spinner: "bubbles"
+      spinner: "bubbles",
+      mode: 'ios',
     });
     await loading.present();
     setTimeout(() => {
@@ -102,7 +105,8 @@ export class ForgotPage implements OnInit {
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
       duration: 1000,
-      spinner: "bubbles"
+      spinner: "bubbles",
+      mode: 'ios',
     });
     await loading.present();
     setTimeout(() => {
@@ -114,6 +118,7 @@ export class ForgotPage implements OnInit {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Cancelar Operación',
+      mode: 'ios',
       message: '¿Está seguro de abortar esta operación?',
       buttons: [
         {

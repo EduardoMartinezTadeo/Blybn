@@ -15,6 +15,8 @@ const apiUrlTerminosCondiciones = environment.apiConsultarTerminosCondicionesURL
 const apiURLRegistrarPropiedad = environment.apiRegistrarPropiedadURL;
 const apiURLRegistrarCostos = environment.apiRegistrarCostosPropiedadURL;
 const apiURLRegistrarMuebles = environment.apiRegistrarMueblesPropiedadURL;
+const apiURLRegistroAmenidades = environment.apiRegistrarAmenidadesPropiedadURL;
+const apiURLRegistrarEspacio = environment.apiRegistrarAreaComunPropiedadURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -215,6 +217,56 @@ export class DataService {
           });
         }
       }
-    ))
+    ));
+  }
+
+  registrarAmenidades(bly_tipoAmenidad: number, bly_propiedad: number){
+    return this.http.get(`${apiURLRegistroAmenidades}?bly_tipoAmenidad=${bly_tipoAmenidad}&bly_propiedad=${bly_propiedad}`).pipe(map(
+      results => {
+        if(this.result == "Ya hay una amenidad de este tipo registrado en esta propiedad"){
+          this.toast = this.toastController.create({
+            message: '¡Ya hay una amenidad de este tipo registrado en esta propiedad!',
+            duration: 2000,
+            mode: 'ios',
+          }).then((toastData) => {
+            toastData.present();
+          });
+        } else {
+          this.result = results;
+          this.toast = this.toastController.create({
+            message: 'Se han registrado las amenidades de la propiedad',
+            duration: 2000,
+            mode: 'ios'
+          }).then((toastData) => {
+            toastData.present();
+          });
+        }
+      }
+    ));
+  }
+
+  registrarEspacio(bly_espacios: number, bly_propiedad: number){
+    return this.http.get(`${apiURLRegistrarEspacio}?bly_espacios=${bly_espacios}&bly_propiedad=${bly_propiedad}`).pipe(map(
+      results => {
+        if(this.result == "Ya hay un espacio de este tipo registrado en esta propiedad"){
+          this.toast = this.toastController.create({
+            message: '¡Ya hay un espacio de este tipo registrado en esta propiedad!',
+            duration: 2000,
+            mode: 'ios',
+          }).then((toastData) => {
+            toastData.present();
+          });
+        } else {
+          this.result = results;
+          this.toast = this.toastController.create({
+            message: 'Se han registrado los espacios de la propiedad',
+            duration: 2000,
+            mode: 'ios'
+          }).then((toastData) => {
+            toastData.present();
+          });
+        }
+      }
+    ));
   }
 }

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  ToastController,
+} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-registrar-propiedad2',
@@ -8,11 +12,59 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./registrar-propiedad2.page.scss'],
 })
 export class RegistrarPropiedad2Page implements OnInit {
+  informacionR1: any;
+  informacionR2: any;
+  informacionR3: any;
+  informacionR4: any;
+  informacionR5: any;
+  informacionR6: any;
+  informacionR7: any;
+  informacionR8: any;
+  informacionR9: any;
+  informacionR10: any;
+  informacionR11: any;
+  toast: any;
   constructor(
     private router: Router,
     private storage: Storage,
-    private alertController: AlertController
-  ) {}
+    private alertController: AlertController,
+    private loadingController: LoadingController,
+    private toastController: ToastController
+  ) {
+    this.informacionR1 = {
+      registro1: false,
+    };
+    this.informacionR2 = {
+      registro2: false,
+    };
+    this.informacionR3 = {
+      registro3: false,
+    };
+    this.informacionR4 = {
+      registro4: false,
+    };
+    this.informacionR5 = {
+      registro5: false,
+    };
+    this.informacionR6 = {
+      registro6: false,
+    };
+    this.informacionR7 = {
+      registro7: false,
+    };
+    this.informacionR8 = {
+      registro8: false,
+    };
+    this.informacionR9 = {
+      registro9: false,
+    };
+    this.informacionR10 = {
+      registro10: false,
+    };
+    this.informacionR11 = {
+      registro11: false,
+    };
+  }
 
   id_usuario: string;
   dataPerfil: any;
@@ -42,7 +94,6 @@ export class RegistrarPropiedad2Page implements OnInit {
   public dato16: boolean = false;
 
   public dato17: boolean = true;
-  public dato18: boolean = false;
 
   public dato19: boolean = true;
   public dato20: boolean = false;
@@ -51,6 +102,17 @@ export class RegistrarPropiedad2Page implements OnInit {
   public dato22: boolean = false;
 
   public dato23: boolean = false;
+
+  public dator1: boolean = false;
+  public dator2: boolean = false;
+  public dator3: boolean = false;
+  public dator4: boolean = false;
+  public dator5: boolean = false;
+  public dator6: boolean = false;
+  public dator7: boolean = false;
+  public dator8: boolean = false;
+  public dator10: boolean = false;
+  public dator11: boolean = false;
 
   parteR1: any;
   salir() {
@@ -75,10 +137,10 @@ export class RegistrarPropiedad2Page implements OnInit {
     if (this.boton1 == false) {
       this.router.navigate(['/animacion1']);
       this.dato1 = false;
-      this.dato2 = true;
+      this.dator1 = true;
     } else if (this.boton1 == true) {
       this.dato1 = false;
-      this.dato2 = true;
+      this.dator1 = true;
     }
   }
 
@@ -92,10 +154,10 @@ export class RegistrarPropiedad2Page implements OnInit {
     if (this.boton2 == false) {
       this.router.navigate(['/animacion2']);
       this.dato3 = false;
-      this.dato4 = true;
+      this.dator2 = true;
     } else if (this.boton2 == true) {
       this.dato3 = false;
-      this.dato4 = true;
+      this.dator2 = true;
     }
   }
 
@@ -109,10 +171,10 @@ export class RegistrarPropiedad2Page implements OnInit {
     if (this.boton3 == false) {
       this.router.navigate(['/animacion3']);
       this.dato5 = false;
-      this.dato6 = true;
+      this.dator3 = true;
     } else if (this.boton3 == true) {
       this.dato5 = false;
-      this.dato6 = true;
+      this.dator3 = true;
     }
   }
 
@@ -126,10 +188,10 @@ export class RegistrarPropiedad2Page implements OnInit {
     if (this.boton4 == false) {
       this.router.navigate(['/animacion4']);
       this.dato7 = false;
-      this.dato8 = true;
+      this.dator4 = true;
     } else if (this.boton4 == true) {
       this.dato7 = false;
-      this.dato8 = true;
+      this.dator4 = true;
     }
   }
 
@@ -143,10 +205,10 @@ export class RegistrarPropiedad2Page implements OnInit {
     if (this.boton5 == false) {
       this.router.navigate(['/animacion5']);
       this.dato9 = false;
-      this.dato10 = true;
+      this.dator5 = true;
     } else if (this.boton5 == true) {
       this.dato9 = false;
-      this.dato10 = true;
+      this.dator5 = true;
     }
   }
 
@@ -160,10 +222,10 @@ export class RegistrarPropiedad2Page implements OnInit {
     if (this.boton6 == false) {
       this.router.navigate(['/animacion6']);
       this.dato11 = false;
-      this.dato12 = true;
+      this.dator6 = true;
     } else if (this.boton6 == true) {
       this.dato11 = false;
-      this.dato12 = true;
+      this.dator6 = true;
     }
   }
 
@@ -177,10 +239,10 @@ export class RegistrarPropiedad2Page implements OnInit {
     if (this.boton7 == false) {
       this.router.navigate(['/animacion7']);
       this.dato13 = false;
-      this.dato14 = true;
+      this.dator7 = true;
     } else if (this.boton7 == true) {
       this.dato13 = false;
-      this.dato14 = true;
+      this.dator7 = true;
     }
   }
 
@@ -194,27 +256,266 @@ export class RegistrarPropiedad2Page implements OnInit {
     if (this.boton8 == false) {
       this.router.navigate(['/animacion8']);
       this.dato15 = false;
-      this.dato16 = true;
+      this.dator8 = true;
+      this.dato17 = true;
     } else if (this.boton8 == true) {
       this.dato15 = false;
-      this.dato16 = true;
+      this.dator8 = true;
+      this.dato17 = true;
     }
   }
 
-  resultadoR9;
-  boton9: boolean;
+  resultadoVR1;
+  resultadoVR2;
+  resultadoVR3;
+  resultadoVR4;
+  resultadoVR5;
+  resultadoVR6;
+  resultadoVR7;
+  resultadoVR8;
+  resultadoVR9;
+  resultadoVR10;
+  resultadoVR11;
+  resultadoVR12;
+  valor1: boolean;
+  valor2: boolean;
+  valor3: boolean;
+  valor4: boolean;
+  valor5: boolean;
+  valor6: boolean;
+  valor7: boolean;
+  valor8: boolean;
+  valor9: boolean;
+  valor10: boolean;
+  valor11: boolean;
+  valor12: boolean;
+
   registrop9() {
-    this.storage.get('registroP9').then((res) => {
-      this.resultadoR9 = res;
-      this.boton9 = this.resultadoR9.registro9;
+    this.storage.get('registroP1').then((res) => {
+      this.resultadoVR1 = res;
+      this.valor1 = this.resultadoVR1.registro1;
     });
-    if (this.boton9 == false) {
+    this.storage.get('registroP2').then((res) => {
+      this.resultadoVR2 = res;
+      this.valor2 = this.resultadoVR2.registro2;
+    });
+    this.storage.get('registroP3').then((res) => {
+      this.resultadoVR3 = res;
+      this.valor3 = this.resultadoVR3.registro3;
+    });
+    this.storage.get('registroP4').then((res) => {
+      this.resultadoVR4 = res;
+      this.valor4 = this.resultadoVR4.registro4;
+    });
+    this.storage.get('registroP5').then((res) => {
+      this.resultadoVR5 = res;
+      this.valor5 = this.resultadoVR5.registro5;
+    });
+    this.storage.get('registroP6').then((res) => {
+      this.resultadoVR6 = res;
+      this.valor6 = this.resultadoVR6.registro6;
+    });
+    this.storage.get('registroP7').then((res) => {
+      this.resultadoVR7 = res;
+      this.valor7 = this.resultadoVR7.registro7;
+    });
+    this.storage.get('registroP8').then((res) => {
+      this.resultadoVR8 = res;
+      this.valor8 = this.resultadoVR8.registro8;
+    });
+    this.storage.get('registroP9').then((res) => {
+      this.resultadoVR9 = res;
+      this.valor9 = this.resultadoVR9.registro9;
+      console.log(this.valor9);
+    });
+    this.storage.get('registroP10').then((res) => {
+      this.resultadoVR10 = res;
+      this.valor10 = this.resultadoVR10.registro10;
+    });
+    this.storage.get('registroP11').then((res) => {
+      this.resultadoVR11 = res;
+      this.valor11 = this.resultadoVR11.registro11;
+    });
+    if (this.valor1 == false) {
+      this.toast = this.toastController
+        .create({
+          message: 'Debe completar el apartado propiedad y alojamiento...',
+          duration: 2000,
+          mode: 'ios',
+        })
+        .then((toastData) => {
+          toastData.present();
+        });
+    } else if (this.valor2 == false) {
+      this.toast = this.toastController
+        .create({
+          message: 'Debe completar el apartado de ubicación...',
+          duration: 2000,
+          mode: 'ios',
+        })
+        .then((toastData) => {
+          toastData.present();
+        });
+    } else if (this.valor3 == false) {
+      this.toast = this.toastController
+        .create({
+          message: 'Debe completar el apartado de servicios...',
+          duration: 2000,
+          mode: 'ios',
+        })
+        .then((toastData) => {
+          toastData.present();
+        });
+    } else if (this.valor5 == false) {
+      this.toast = this.toastController
+        .create({
+          message: 'Debe completar el apartado de titulo...',
+          duration: 2000,
+          mode: 'ios',
+        })
+        .then((toastData) => {
+          toastData.present();
+        });
+    } else if (this.valor6 == false) {
+      this.toast = this.toastController
+        .create({
+          message: 'Debe completar el apartado reservaciones...',
+          duration: 2000,
+          mode: 'ios',
+        })
+        .then((toastData) => {
+          toastData.present();
+        });
+    } else if (this.valor7 == false) {
+      this.toast = this.toastController
+        .create({
+          message: 'Debe completar el apartado de disponibilidad...',
+          duration: 2000,
+          mode: 'ios',
+        })
+        .then((toastData) => {
+          toastData.present();
+        });
+    } else if (this.valor8 == false) {
+      this.toast = this.toastController
+        .create({
+          message: 'Debe completar el apartado de precios...',
+          duration: 2000,
+          mode: 'ios',
+        })
+        .then((toastData) => {
+          toastData.present();
+        });
+    } else if (this.valor10 == false) {
+      this.toast = this.toastController
+        .create({
+          message: 'Debe completar el apartado de huespedes...',
+          duration: 2000,
+          mode: 'ios',
+        })
+        .then((toastData) => {
+          toastData.present();
+        });
+    } else if (this.valor11 == false) {
+      this.toast = this.toastController
+        .create({
+          message: 'Debe completar el apartado de interiores...',
+          duration: 2000,
+          mode: 'ios',
+        })
+        .then((toastData) => {
+          toastData.present();
+        });
+    } else if (this.valor9 == true) {
+      this.dator1 = false;
+      this.dator2 = false;
+      this.dator3 = false;
+      this.dator4 = false;
+      this.dator5 = false;
+      this.dator6 = false;
+      this.dator7 = false;
+      this.dator8 = false;
+      this.dator10 = false;
+      this.dator11 = false;
+      this.dato1 = false;
+      this.dato2 = true;
+
+      this.dato3 = false;
+      this.dato4 = true;
+
+      this.dato5 = false;
+      this.dato6 = true;
+
+      this.dato7 = false;
+      this.dato8 = true;
+
+      this.dato9 = false;
+      this.dato10 = true;
+
+      this.dato11 = false;
+      this.dato12 = true;
+
+      this.dato13 = false;
+      this.dato14 = true;
+
+      this.dato15 = false;
+      this.dato16 = true;
+
+      this.dato17 = false;
+
+      this.dato19 = false;
+      this.dato20 = true;
+
+      this.dato21 = false;
+      this.dato22 = true;
+
+      this.dato23 = true;
+
+      this.router.navigate(['/registro-f']);
+    } else {
       this.router.navigate(['/animacion9']);
+      this.dator1 = false;
+      this.dator2 = false;
+      this.dator3 = false;
+      this.dator4 = false;
+      this.dator5 = false;
+      this.dator6 = false;
+      this.dator7 = false;
+      this.dator8 = false;
+      this.dator10 = false;
+      this.dator11 = false;
+      this.dato1 = false;
+      this.dato2 = true;
+
+      this.dato3 = false;
+      this.dato4 = true;
+
+      this.dato5 = false;
+      this.dato6 = true;
+
+      this.dato7 = false;
+      this.dato8 = true;
+
+      this.dato9 = false;
+      this.dato10 = true;
+
+      this.dato11 = false;
+      this.dato12 = true;
+
+      this.dato13 = false;
+      this.dato14 = true;
+
+      this.dato15 = false;
+      this.dato16 = true;
+
       this.dato17 = false;
-      this.dato18 = true;
-    } else if (this.boton9 == true) {
-      this.dato17 = false;
-      this.dato18 = true;
+
+      this.dato19 = false;
+      this.dato20 = true;
+
+      this.dato21 = false;
+      this.dato22 = true;
+
       this.dato23 = true;
     }
   }
@@ -229,10 +530,10 @@ export class RegistrarPropiedad2Page implements OnInit {
     if (this.boton10 == false) {
       this.router.navigate(['/animacion10']);
       this.dato19 = false;
-      this.dato20 = true;
+      this.dator10 = true;
     } else if (this.boton10 == true) {
       this.dato19 = false;
-      this.dato20 = true;
+      this.dator10 = true;
     }
   }
 
@@ -246,14 +547,14 @@ export class RegistrarPropiedad2Page implements OnInit {
     if (this.boton11 == false) {
       this.router.navigate(['/animacion11']);
       this.dato21 = false;
-      this.dato22 = true;
+      this.dator11 = true;
     } else if (this.boton11 == true) {
       this.dato21 = false;
-      this.dato22 = true;
+      this.dator11 = true;
     }
   }
 
-  registroFinal(){
+  registroFinal() {
     this.router.navigate(['/animacion12']);
   }
 
@@ -266,6 +567,379 @@ export class RegistrarPropiedad2Page implements OnInit {
       message:
         'Para editar la información o registrar una propiedad nueva, termine el registro actual que se encuentra en proceso.',
       buttons: ['Aceptar'],
+    });
+
+    await alert.present();
+  }
+
+  async reiniciarFormulario() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      mode: 'ios',
+      header: 'Confirmación',
+      message:
+        '¿Desa reiniciar todos los formularios del registro de propiedad?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.reiniciar();
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+  reiniciar() {
+    this.storage.set('registroP1', this.informacionR1).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP2', this.informacionR2).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP3', this.informacionR3).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP4', this.informacionR4).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP5', this.informacionR5).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP6', this.informacionR6).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP7', this.informacionR7).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP8', this.informacionR8).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP9', this.informacionR9).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP10', this.informacionR10).then((res) => {
+      console.log(res);
+    });
+    this.storage.set('registroP11', this.informacionR11).then((res) => {
+      console.log(res);
+    });
+    this.storage.remove('costosPropiedad');
+    this.storage.remove('mapaInformacion');
+    this.storage.remove('mueblesInformacion');
+    this.storage.remove('requisitosDisponibilidad');
+    this.storage.remove('requisitosRenta');
+    this.dato1 = true;
+    this.dator1 = false;
+
+    this.dato3 = true;
+    this.dator2 = false;
+
+    this.dato5 = true;
+    this.dator3 = false;
+
+    this.dato7 = true;
+    this.dator4 = false;
+
+    this.dato9 = true;
+    this.dator5 = false;
+
+    this.dato11 = true;
+    this.dator6 = false;
+
+    this.dato13 = true;
+    this.dator7 = false;
+
+    this.dato15 = true;
+    this.dator8 = false;
+
+    this.dato17 = true;
+
+    this.dato19 = true;
+    this.dator10 = false;
+
+    this.dato21 = true;
+    this.dator11 = false;
+  }
+
+  async cargaReinicio() {
+    const loading = await this.loadingController.create({
+      mode: 'ios',
+      message: 'Espere un momento...',
+      duration: 2000,
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.reiniciar();
+    }, 1500);
+  }
+
+  async reiniciarR1() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      mode: 'ios',
+      header: 'Confirmación',
+      message: '¿Está seguro de reiniciar este apartado?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.router.navigate(['/animacion1']);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+  async reiniciarR2() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      mode: 'ios',
+      header: 'Confirmación',
+      message: '¿Está seguro de reiniciar este apartado?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.router.navigate(['/animacion10']);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+  async reiniciarR3() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      mode: 'ios',
+      header: 'Confirmación',
+      message: '¿Está seguro de reiniciar este apartado?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.router.navigate(['/animacion11']);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+  async reiniciarR4() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¿Está seguro de reiniciar este apartado?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.router.navigate(['/animacion2']);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+  async reiniciarR5() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¿Está seguro de reiniciar este apartado?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.router.navigate(['/animacion3']);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+  async reiniciarR6() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¿Está seguro de reiniciar este apartado?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.router.navigate(['/animacion4']);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+  async reiniciarR7() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¿Está seguro de reiniciar este apartado?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.router.navigate(['/animacion5']);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+  async reiniciarR8() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¿Está seguro de reiniciar este apartado?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.router.navigate(['/animacion6']);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+  async reiniciarR9() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¿Está seguro de reiniciar este apartado?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.router.navigate(['/animacion7']);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  async reiniciarR10() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¿Está seguro de reiniciar este apartado?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.router.navigate(['/animacion8']);
+          },
+        },
+      ],
     });
 
     await alert.present();

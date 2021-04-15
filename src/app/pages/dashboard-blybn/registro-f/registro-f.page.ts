@@ -33,10 +33,12 @@ export class RegistroFPage implements OnInit {
   public dato5: boolean = true;
   public dato6: boolean = false;
 
-  public dato7: boolean = true;
+  public dato7: boolean = false;
+  public dato7p: boolean = true;
   public dato8: boolean = false;
 
-  public dato9: boolean = true;
+  public dato9: boolean = false;
+  public dato9p: boolean = true;
   public dato10: boolean = false;
 
   public dato11: boolean = true;
@@ -454,31 +456,12 @@ export class RegistroFPage implements OnInit {
     this.bly_tipoAprobacionRenta  = aprobacion;
     this.dato5 = false;
     this.dato6 = true;
+    this.dato7p = false;
+    this.dato7 = true;
   }
 
-  registrarRequisito(){
-    console.log(this.bly_tipoRequisito);
-  }
+  
 
-  registrarAmenidad(){
-    console.log(this.bly_tipoAmenidad);
-  }
-
-  registrarEspacio(){
-    console.log(this.bly_espacios);
-  }
-
-  registrarSeguridad(){
-    console.log(this.bly_seguridad);
-  }
-
-  registrarRestriccion(){
-    console.log(this.bly_restriccion);
-  }
-
-  registrarMueble(){
-    
-  }
   async cancelar(){
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -533,6 +516,8 @@ export class RegistroFPage implements OnInit {
       this.dato7 = false;
       this.dato8 = true;
       this.registrarInfoGeneral();
+      this.dato9 = true;
+      this.dato9p = false;
     },1500);
   }
   responseData: any;
@@ -542,13 +527,35 @@ export class RegistroFPage implements OnInit {
     });
   }
 
+  async cargarRegistroAmenidades(){
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+    });
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+      this.registrarAmenidad();
+    },1500);
+  }
+
+  responseDataA: any;
+  registrarAmenidad(){
+    this.servicio.registrarAmenidades(this.bly_tipoAmenidad, this.bly_propiedad).subscribe(data => {
+      this.responseDataA = data;
+    });
+  }
+
   bly_propiedad: number;
   informacionRegistroPropiedad: any;
   async cargaRegistroCostos() {
     this.storage.get('historial-Registro').then((res) => {
       this.informacionRegistroPropiedad = res;
       this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
-      console.log(this.bly_propiedad);
     });
     const loading = await this.loadingController.create({
       message: 'Espere un momento...',
@@ -566,7 +573,7 @@ export class RegistroFPage implements OnInit {
   responseDataC: any;
   registrarCostos(){
     this.servicio.registrarCostos(this.bly_tipoMoneda, this.bly_precioBase, this.bly_cargoLimpieza, this.bly_descuentoSemana, this.bly_descuentoMes, this.bly_propiedad).subscribe(data => {
-      this.responseData = data;
+      this.responseDataC = data;
     });
   }
 
@@ -574,7 +581,6 @@ export class RegistroFPage implements OnInit {
     this.storage.get('historial-Registro').then((res) => {
       this.informacionRegistroPropiedad = res;
       this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
-      console.log(this.bly_propiedad);
     });
     const loading = await this.loadingController.create({
       message: 'Espere un momento...',
@@ -590,7 +596,31 @@ export class RegistroFPage implements OnInit {
   responseDataM: any;
   registrarMuebles(){
     this.servicio.registrarMuebles(this.bly_cantidad, this.bly_mueble, this.bly_propiedad).subscribe(data => {
-      this.responseData = data;
+      this.responseDataM = data;
     });
   }
+
+  async cargaRegistroEspacio() {
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+    });
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+    this.registrarEspacios();
+    },1500);
+  }
+
+  responseDataES: any;
+  registrarEspacios(){
+    this.servicio.registrarEspacio(this.bly_espacios, this.bly_propiedad).subscribe(data => {
+      this.responseDataES = data;
+    });
+  }
+
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
@@ -14,9 +14,11 @@ export class RegistroP1Page implements OnInit {
     private alertController: AlertController,
     private router: Router,
     private provider: ProviderService,
-    private storage: Storage
+    private storage: Storage,
+    private toastController: ToastController
   ) {}
 
+  toast: any;
   ngOnInit() {}
 
   ionViewWillLeave(){
@@ -112,6 +114,7 @@ export class RegistroP1Page implements OnInit {
     });
   }
 
+  informacionR1C: any;
   async cancelar() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -131,7 +134,12 @@ export class RegistroP1Page implements OnInit {
           text: 'Aceptar',
           handler: () => {
             this.exclusividad = [];
-            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+            this.informacionR1C = {
+              registro1: false
+            }
+            this.storage.set('registroP1', this.informacionR1C).then((res) => {
+              this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+            });
           },
         },
       ],
@@ -185,16 +193,51 @@ export class RegistroP1Page implements OnInit {
 
   informacionR1: any;
   guardarInformacion(){
-   this.informacionR1 = {
-      propiedad: this.tipoPropiedad,
-      alojamiento: this.tipoAlojamiento,
-      exclusividad: this.valores,
-      aventura: this.tipoAventura,
-      registro1: true
+    if(this.tipoPropiedad == undefined || null){
+      this.toast = this.toastController.create({
+        message: 'Debe contestar la información requerida...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.tipoAlojamiento == undefined || null){
+      this.toast = this.toastController.create({
+        message: 'Debe contestar la información requerida...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if(this.valores == undefined || null){
+      this.toast = this.toastController.create({
+        message: 'Debe contestar la información requerida...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if(this.tipoAventura == undefined || null){
+      this.toast = this.toastController.create({
+        message: 'Debe contestar la información requerida...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
     }
-    this.storage.set('registroP1', this.informacionR1).then((res) => {
-      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
-    });
+    else {
+      this.informacionR1 = {
+        propiedad: this.tipoPropiedad,
+        alojamiento: this.tipoAlojamiento,
+        exclusividad: this.valores,
+        aventura: this.tipoAventura,
+        registro1: true
+      }
+      this.storage.set('registroP1', this.informacionR1).then((res) => {
+        this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+      });
+    } 
   }
 
  

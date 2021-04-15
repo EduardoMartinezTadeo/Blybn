@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -29,10 +29,12 @@ export class RegistroP5Page implements OnInit {
     }, 2500); 
   }
   
+  toast: any;
   constructor(
     private router: Router,
     private alertController: AlertController,
-    private storage: Storage
+    private storage: Storage,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -40,15 +42,26 @@ export class RegistroP5Page implements OnInit {
   }
   titulo: string;
 
+  informacionR5C: any;
   informacionR5: any;
   guardarInformacion(){
-    this.informacionR5 = {
-      tituloPropiedad: this.titulo,
-      registro5: true
+    if(this.titulo == null || this.titulo == "" || this.titulo == undefined){
+      this.toast = this.toastController.create({
+        message: 'Debe escribir un título para su propiedad...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else {
+      this.informacionR5 = {
+        tituloPropiedad: this.titulo,
+        registro5: true
+      }
+      this.storage.set('registroP5', this.informacionR5).then((res) => {
+        this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+      });
     }
-    this.storage.set('registroP5', this.informacionR5).then((res) => {
-      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
-    });
   }
 
   async cancelar() {
@@ -69,12 +82,17 @@ export class RegistroP5Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
+            this.informacionR5C = {
+              registro5: false
+            }
+            this.storage.set('registroP5', this.informacionR5C).then((res) => {
+              console.log(res);
+            });
             this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
           },
         },
       ],
     });
-
     await alert.present();
   }
 

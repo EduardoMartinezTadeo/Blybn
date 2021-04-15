@@ -157,7 +157,7 @@ export class RegistroP9Page implements OnInit {
             this.storage.remove('mueblesInformacion');
             this.storage.remove('requisitosDisponibilidad');
             this.storage.remove('requisitosRenta');
-            this.router.navigateByUrl('/dashboard2/menutabs2/inicio-menu');
+            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
           },
         },
       ],

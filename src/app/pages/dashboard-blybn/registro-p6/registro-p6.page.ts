@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
@@ -11,11 +11,13 @@ import { ProviderService } from '../../../services/provider.service';
 })
 export class RegistroP6Page implements OnInit {
 
+  toast: any;
   constructor(
     private alertController: AlertController,
     private router: Router,
     private provider: ProviderService,
-    private storage: Storage
+    private storage: Storage,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -76,13 +78,23 @@ export class RegistroP6Page implements OnInit {
 
   informacionRequisitos: any;
   guardarInformacion(){
-    this.informacionRequisitos = {
-      requisitos: this.requisitosRenta
-    }
-    this.storage.set('requisitosRenta', this.informacionRequisitos).then((res) => {
-      this.router.navigate(['/registrop6r11']);
-      this.requisitos = [];
-    });
+    if(this.requisitosRenta.length == 0){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar un requisito...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else {
+      this.informacionRequisitos = {
+        requisitos: this.requisitosRenta
+      }
+      this.storage.set('requisitosRenta', this.informacionRequisitos).then((res) => {
+        this.router.navigate(['/registrop6r11']);
+        this.requisitos = [];
+      });
+    }   
   }
 
   requisitos: any = [];

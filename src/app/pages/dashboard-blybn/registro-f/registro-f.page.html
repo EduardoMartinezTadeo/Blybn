@@ -137,7 +137,7 @@
           <ion-col size="2">
             <br>
             <ion-button size="small" (click)="obtenerTipoAprobacion(aprobacion.bly_statusRenta)" *ngIf="dato5"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
-              <ion-button size="small" *ngIf="dato6" color="success" (click)="cargaRegistroPropiedad()"><ion-icon name="checkmark-done-circle" ></ion-icon></ion-button>
+              <ion-button size="small" *ngIf="dato6" color="success" (click)="informacionVerificada()"><ion-icon name="checkmark-done-circle" ></ion-icon></ion-button>
           </ion-col>
         </ion-row>      
       </ion-grid>      
@@ -145,6 +145,7 @@
   </ion-card>
   <ion-card>
     <ion-card-content>
+      <ion-button expand="full" (click)="cargaRegistroPropiedad()" *ngIf="dato7p" disabled>Guardar información apartado A</ion-button>
       <ion-button expand="full" (click)="cargaRegistroPropiedad()" *ngIf="dato7">Guardar información apartado A</ion-button>
       <ion-button expand="full" *ngIf="dato8" disabled color="success">Información Guardada</ion-button>
     </ion-card-content>
@@ -179,6 +180,7 @@
   </ion-card>
   <ion-card>
     <ion-card-content>
+      <ion-button expand="full" (click)="cargaRegistroCostos()" *ngIf="dato9p" disabled>Guardar información de costos</ion-button>
       <ion-button expand="full" (click)="cargaRegistroCostos()" *ngIf="dato9">Guardar información de costos</ion-button>
       <ion-button expand="full" *ngIf="dato10" disabled color="success">Información Guardada</ion-button>
     </ion-card-content>
@@ -205,7 +207,6 @@
           <ion-col size="2">
             <br>
             <ion-button size="small" *ngIf="dato11" (click)="obtenerCantidadMueble(infoMueble.bly_cantidadMuebles)" (click)="obtenerTipoMueble(infoMueble.bly_numMuebles)" (click)="cargaRegistroMueble()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
-            <ion-button size="small" *ngIf="dato12" color="success" (click)="cargaRegistroPropiedad()"><ion-icon name="checkmark-done-circle" ></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -225,7 +226,7 @@
           </ion-col>
           <ion-col size="2">
             <br>
-            <ion-button size="small" (click)="obtenerAmenidad(amenidad.bly_amenidades)"  (click)="registrarAmenidad()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+            <ion-button size="small" (click)="obtenerAmenidad(amenidad.bly_amenidades)" (click)="cargarRegistroAmenidades()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>      
@@ -245,7 +246,7 @@
           </ion-col>
           <ion-col size="2">
             <br>
-            <ion-button size="small" (click)="obtenerAreas(area.bly_espacios)"  (click)="registrarEspacio()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+            <ion-button size="small" (click)="obtenerAreas(area.bly_espacios)" (click)="cargaRegistroEspacio()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-grid> 
@@ -265,7 +266,7 @@
           </ion-col>
           <ion-col size="2">
             <br>
-            <ion-button size="small" (click)="obtenerSeguridad(seguridad.bly_seguridad)"  (click)="registrarSeguridad()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+            <ion-button size="small" (click)="obtenerSeguridad(seguridad.bly_seguridad)" ><ion-icon name="checkmark-circle"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-grid> 
@@ -285,7 +286,7 @@
           </ion-col>
           <ion-col size="2">
             <br>
-            <ion-button size="small" (click)="obtenerRestriccion(restriccion.bly_numRestriccion)"  (click)="registrarRestriccion()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+            <ion-button size="small" (click)="obtenerRestriccion(restriccion.bly_numRestriccion)"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-grid> 
@@ -305,7 +306,7 @@
           </ion-col>
           <ion-col size="2">
             <br>
-            <ion-button size="small" (click)="obtenerRequisito(requisito.bly_requisitosRenta)"  (click)="registrarRequisito()"><ion-icon name="checkmark-circle"></ion-icon></ion-button>
+            <ion-button size="small" (click)="obtenerRequisito(requisito.bly_requisitosRenta)" ><ion-icon name="checkmark-circle"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-grid> 

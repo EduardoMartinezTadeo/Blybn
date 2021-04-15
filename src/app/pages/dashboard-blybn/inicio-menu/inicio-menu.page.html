@@ -1,6 +1,6 @@
 <app-header></app-header>
 <ion-content class="ion-no-padding card-background-page">
-  <ion-row class="animate__animated animate__bounceInDown animate__slower	3s">
+  <ion-row>
     <h1>Descubre</h1>
   </ion-row>
   <div *ngIf="contentLoaded">
@@ -20,7 +20,7 @@
       <ion-col size="12" *ngFor="let aventura of aventurasImg">
         <ion-card mode="md" class="listCards">
           <ion-card-content>
-            <ion-skeleton-text animated style="width: 380px; height: 220px" slot="start"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%; height: 250px" slot="start"></ion-skeleton-text>
           </ion-card-content>
         </ion-card>
       </ion-col>

@@ -37,6 +37,7 @@ export class RegistroP10Page implements OnInit {
   habitaciones = 1;
   camas = 1;
 
+  informacionR10C: any;
   async cancelar() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -55,7 +56,12 @@ export class RegistroP10Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+            this.informacionR10C = {
+              registro10: false
+            }
+            this.storage.set('registroP10', this.informacionR10C).then((res) => {
+              this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+            });
           },
         },
       ],
@@ -72,11 +78,46 @@ export class RegistroP10Page implements OnInit {
       camas: this.camas,
       registro10: true
     }
-    this.storage.set('registroP10', this.informacionR10).then((res) => {
-      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
-    });
+    if(this.huespedes == 1){
+      this.confirmacionInformacion();
+    } else if (this.habitaciones == 1){
+      this.confirmacionInformacion();
+    } else if (this.camas == 1){
+      this.confirmacionInformacion();
+    } else {
+      this.storage.set('registroP10', this.informacionR10).then((res) => {
+        this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+      });
+    }   
   }
 
+  async confirmacionInformacion() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      mode: 'ios',
+      header: 'Confirmación',
+      message: 'Esta seguro que la información es correcta...',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.storage.set('registroP10', this.informacionR10).then((res) => {
+              this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+            });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
   incrementarHuespedes(){
     if(this.huespedes < 16) {
       this.huespedes ++;

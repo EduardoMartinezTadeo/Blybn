@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { ProviderService } from '../../../services/provider.service';
 import { Storage } from '@ionic/storage';
 @Component({
@@ -13,8 +13,10 @@ export class RegistroP11Page implements OnInit {
     private alertController: AlertController,
     private router: Router,
     private provider: ProviderService,
-    private storage: Storage
+    private storage: Storage,
+    private toastController: ToastController
   ) {}
+  toast: any;
 
   ngOnInit() {}
 
@@ -53,6 +55,7 @@ export class RegistroP11Page implements OnInit {
     });
   }
 
+  informacionR11C: any;
   async cancelar() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -71,9 +74,14 @@ export class RegistroP11Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
-            this.muebles = [];
-            this.informacionMueble = [];
+            this.informacionR11C = {
+              registro11: false
+            }
+            this.storage.set('registroP11', this.informacionR11C).then((res) => {
+              this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+              this.muebles = [];
+              this.informacionMueble = [];
+            });          
           },
         },
       ],
@@ -83,11 +91,20 @@ export class RegistroP11Page implements OnInit {
   }
 
   guardarInformacion() {
-    this.storage.set('mueblesInformacion', this.informacionMueble).then((res) => {
-      this.router.navigate(['/registro-p2r11']);
-      this.muebles = [];
-    });
-    
+    if(this.informacionMueble.length == 0){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar al menos un tipo de cama...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else {
+      this.storage.set('mueblesInformacion', this.informacionMueble).then((res) => {
+        this.router.navigate(['/registro-p2r11']);
+        this.muebles = [];
+      });
+    }
   }
 
   incrementar(mueble: any) {

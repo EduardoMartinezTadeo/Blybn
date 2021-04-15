@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
@@ -14,9 +14,11 @@ export class Registrop7r11Page implements OnInit {
   constructor(
     private router: Router,
     private provider: ProviderService,
-    private storage: Storage
+    private storage: Storage,
+    private toastController: ToastController
   ) {}
 
+  toast: any;
   ngOnInit() {}
 
   contentLoaded = false;
@@ -164,22 +166,113 @@ export class Registrop7r11Page implements OnInit {
 
   informacionR7: any;
   guardarInformacion() {
-    this.informacionR7 = {
-      preaviso: this.preaviso,
-      tiempoSalidaHuesped: this.tiempoSalidaHuesped,
-      limiteReservacion: this.limiteReservacion,
-      ventanaDisponibilidad: this.ventanaDisponibilidad,
-      llegadaAntes: this.llegadaantes,
-      llegadaDespues: this.llegadadespues,
-      salidaAntes: this.salidaantes,
-      fechainicialD: this.fechainiciald,
-      fechafinalD: this.fechafinald,
-      fechainicialND: this.fechainicialnd,
-      fechafinalND: this.fechafinalnd,
-      registro7: true
+    if(this.preaviso == null || this.preaviso == undefined || this.preaviso == ""){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar el tipo de preaviso...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.tiempoSalidaHuesped == null || this.tiempoSalidaHuesped == undefined || this.preaviso == ""){
+      this.toast = this.toastController.create({
+        message: 'Debe completar la información solicitada...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.limiteReservacion == null || this.limiteReservacion == undefined || this.limiteReservacion == ""){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar una hora para limitar la reservación...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.ventanaDisponibilidad == null || this.ventanaDisponibilidad == undefined || this.ventanaDisponibilidad == ""){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar una ventana de disponibilidad...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    }else if (this.llegadaantes == null || this.llegadaantes == undefined || this.llegadaantes == ""){
+      this.toast = this.toastController.create({
+        message: 'Debe configurar las horas de llegada...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    }else if (this.llegadadespues == null || this.llegadadespues == undefined || this.llegadadespues == ""){
+      this.toast = this.toastController.create({
+        message: 'Debe configurar las horas de llegada...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    }else if (this.salidaantes == null || this.salidaantes == undefined || this.salidaantes == ""){
+      this.toast = this.toastController.create({
+        message: 'Debe configurar las horas de salida...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    }else if (this.fechainiciald == null || this.fechainiciald == undefined || this.fechainiciald == ""){
+      this.toast = this.toastController.create({
+        message: 'Debe configurar las fechas de disponibilidad...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    }else if (this.fechainicialnd == null || this.fechainicialnd == undefined || this.fechainicialnd == ""){
+      this.toast = this.toastController.create({
+        message: 'Debe configurar las fechas de no disponibilidad...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.fechafinald == null || this.fechafinald == undefined || this.fechafinald == ""){
+      this.toast = this.toastController.create({
+        message: 'Debe configurar las fechas de disponibilidad...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
     }
-    this.storage.set('registroP7', this.informacionR7).then((res) => {
-      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
-    });
+    else if (this.fechafinalnd == null || this.fechafinalnd == undefined || this.fechafinalnd == ""){
+      this.toast = this.toastController.create({
+        message: 'Debe configurar las fechas de no disponibilidad...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else {
+      this.informacionR7 = {
+        preaviso: this.preaviso,
+        tiempoSalidaHuesped: this.tiempoSalidaHuesped,
+        limiteReservacion: this.limiteReservacion,
+        ventanaDisponibilidad: this.ventanaDisponibilidad,
+        llegadaAntes: this.llegadaantes,
+        llegadaDespues: this.llegadadespues,
+        salidaAntes: this.salidaantes,
+        fechainicialD: this.fechainiciald,
+        fechafinalD: this.fechafinald,
+        fechainicialND: this.fechainicialnd,
+        fechafinalND: this.fechafinalnd,
+        registro7: true
+      }
+      this.storage.set('registroP7', this.informacionR7).then((res) => {
+        this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+      });
+    }   
   }
 }

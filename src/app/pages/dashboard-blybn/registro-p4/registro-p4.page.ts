@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController, AlertController } from '@ionic/angular';
+import { ActionSheetController, AlertController, ToastController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
 import { Storage } from '@ionic/storage';
 @Component({
@@ -15,11 +15,13 @@ export class RegistroP4Page implements OnInit {
     private router: Router,
     private actionSheetController: ActionSheetController,
     private camera: Camera,
-    private storage: Storage
+    private storage: Storage,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
   }
+  toast: any;
 
   async cancelar() {
     const alert = await this.alertController.create({
@@ -737,6 +739,47 @@ export class RegistroP4Page implements OnInit {
 
   informacionR4: any;
   guardarInformacion(){
+    if(this.cameraData1 == undefined){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar al menos 5 fotografias...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.cameraData2 == undefined){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar al menos 5 fotografias...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.cameraData3 == undefined){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar al menos 5 fotografias...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.cameraData4 == undefined){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar al menos 5 fotografias...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.cameraData5 == undefined){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar al menos 5 fotografias...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else {
       this.informacionR4 = {
         foto1: this.cameraData1,
         foto2: this.cameraData2,
@@ -751,6 +794,7 @@ export class RegistroP4Page implements OnInit {
       this.storage.set('registroP4', this.informacionR4).then((res) => {
         this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
       });
+    }     
   }
 
   onError(img) {

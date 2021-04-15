@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PickerController } from '@ionic/angular';
+import { PickerController, ToastController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
 import { Storage } from '@ionic/storage';
 
@@ -13,9 +13,11 @@ export class RegistroP2r11Page implements OnInit {
   constructor(
     private router: Router,
     private pickerCtrl: PickerController,
-    private storage: Storage
+    private storage: Storage,
+    private toastController: ToastController
   ) {}
 
+  toast: any;
   ngOnInit() {}
 
   contentLoaded = false;
@@ -111,14 +113,32 @@ export class RegistroP2r11Page implements OnInit {
   informacionR11: any;
 
   guardarInformacion(){
-    this.informacionR11 = {
-      cantidadBano: this.cantidadBanos,
-      tipoBano: this.nombretipoBano,
-      registro11: true
+    if(this.cantidadBanos.length == 0){
+      this.toast = this.toastController.create({
+        message: 'Debe contestar la información requerida...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.tipobano == undefined || null){
+      this.toast = this.toastController.create({
+        message: 'Debe contestar la información requerida...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else {
+      this.informacionR11 = {
+        cantidadBano: this.cantidadBanos,
+        tipoBano: this.nombretipoBano,
+        registro11: true
+      }
+      this.storage.set('registroP11', this.informacionR11).then((res) => {
+        this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+      });
     }
-    this.storage.set('registroP11', this.informacionR11).then((res) => {
-      this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
-    });
   }
 
 }

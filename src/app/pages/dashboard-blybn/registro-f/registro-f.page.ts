@@ -837,7 +837,7 @@ export class RegistroFPage implements OnInit {
       var alert = data.msg;
         if(data.success){
           this.storage.set('perfil', data.result);
-            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
+            this.router.navigateByUrl('/dashboard/mis-propiedades');
         } else {
           this.toast = this.toastController.create({
             message: 'Ha ocurrido un error...',

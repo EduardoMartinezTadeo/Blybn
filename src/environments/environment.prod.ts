@@ -56,5 +56,6 @@ export const environment = {
   apiRegistrarDisponibilidadPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarDisponibilidadPropiedad.php/',
   apiActualizarRolUsuarioURL: 'https://emtdeveloper.com/server_blybn/api/db_actualizarRolUsuario.php/',
   apiCargarPerfilAdminURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarPerfilAdmin.php/',
-  apiRegistrarExclusividadPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarExclusividadPropiedad.php/'
+  apiRegistrarExclusividadPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarExclusividadPropiedad.php/',
+  apiCargarPropiedadesUsuarioURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarPropiedadesUsuario.php/'
 };

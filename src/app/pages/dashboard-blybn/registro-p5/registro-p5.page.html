@@ -9,6 +9,23 @@
 </ion-header>
 
 <ion-content>
+  
+  <div class="bgp5" (click)="close()"></div>
+
+  <div class="bottomSheetp5" (touchmove)="touchMove($event)" (touchend)="touchEnd()">
+    <div class="swipe-handler"></div>
+    <div class="content ion-padding">
+      <h1>Busca un título que sea descriptivo</h1>
+      <p>Los viajeros que buscan un alojamiento en Blybn leen los títulos de los espacios sin detenerse en ellos.</p>
+
+      <p>Te recomendamos que des con uno breve que destaque algo realmente especial: cualquier cosa interesante que haya
+        en la zona, si es espacioso o acogedor, etc.</p>
+
+      <p>También es importante explicar qué tipo de espacio es: si es luminoso, perfecto para ir en familia o si tiene
+        un encanto especial.</p>
+    </div>
+  </div>
+
   <div *ngIf="contentLoaded">
     <ion-label class="ion-label1">
       Ponle nombre a tu
@@ -56,22 +73,6 @@
         <ion-skeleton-text animated style="width: 100%; height: 320px" slot="start"></ion-skeleton-text>
       </ion-card-content>
     </ion-card>
-  </div>
-
-  <div class="bg" (click)="close()"></div>
-
-  <div class="bottomSheet" (touchmove)="touchMove($event)" (touchend)="touchEnd()">
-    <div class="swipe-handler"></div>
-    <div class="content ion-padding">
-      <h1>Busca un título que sea descriptivo</h1>
-      <p>Los viajeros que buscan un alojamiento en Blybn leen los títulos de los espacios sin detenerse en ellos.</p>
-
-      <p>Te recomendamos que des con uno breve que destaque algo realmente especial: cualquier cosa interesante que haya
-        en la zona, si es espacioso o acogedor, etc.</p>
-
-      <p>También es importante explicar qué tipo de espacio es: si es luminoso, perfecto para ir en familia o si tiene
-        un encanto especial.</p>
-    </div>
   </div>
 </ion-content>
 

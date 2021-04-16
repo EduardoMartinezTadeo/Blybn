@@ -15,9 +15,13 @@ export class RegistroP5Page implements OnInit {
   minimumThreshold;
   startPosition;
 
+  ngOnInit() {
+    this.close();
+  }
 
   contentLoaded = false;
   ionViewWillLeave(){
+    this.close();
     setTimeout(() => {
       this.contentLoaded = false;
     }, 1500); 
@@ -37,9 +41,7 @@ export class RegistroP5Page implements OnInit {
     private toastController: ToastController
   ) { }
 
-  ngOnInit() {
-    this.close();
-  }
+
   titulo: string;
 
   informacionR5C: any;
@@ -98,16 +100,16 @@ export class RegistroP5Page implements OnInit {
 
  
   open(){
-    (<HTMLStyleElement>document.querySelector(".bottomSheet")).style.bottom = "0px";
-    (<HTMLStyleElement>document.querySelector(".bg")).style.display = "block";
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.bottom = "0px";
+    (<HTMLStyleElement>document.querySelector(".bgp5")).style.display = "block";
   }
 
   close(){
     this.currentPosition = 0;
     this.startPosition = 0;
-    (<HTMLStyleElement>document.querySelector(".bottomSheet")).style.bottom = "-1000px";
-    (<HTMLStyleElement>document.querySelector(".bottomSheet")).style.transform = "translate3d(0px,0px,0px)";
-    (<HTMLStyleElement>document.querySelector(".bg")).style.display = "none";
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.bottom = "-1000px";
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.transform = "translate3d(0px,0px,0px)";
+    (<HTMLStyleElement>document.querySelector(".bgp5")).style.display = "none";
   }
 
   touchMove(evt: TouchEvent){
@@ -115,14 +117,14 @@ export class RegistroP5Page implements OnInit {
       this.startPosition = evt.touches[0].clientY;
     }
 
-    this.height = document.querySelector(".bottomSheet").clientHeight;
+    this.height = document.querySelector(".bottomSheetp5").clientHeight;
 
     var y = evt.touches[0].clientY;
 
     this.currentPosition = y - this.startPosition;
 
     if (this.currentPosition > 0 && this.startPosition > 0) {
-      (<HTMLStyleElement>document.querySelector(".bottomSheet")).style.transform = "translate3d(0px," + this.currentPosition + "px,0px)";
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.transform = "translate3d(0px," + this.currentPosition + "px,0px)";
     }
   }
 
@@ -130,7 +132,7 @@ export class RegistroP5Page implements OnInit {
     this.minimumThreshold = this.height - 150;
 
     if (this.currentPosition < this.minimumThreshold){
-      (<HTMLStyleElement>document.querySelector(".bottomSheet")).style.transform = "translate3d(0px,0px,0px)";
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.transform = "translate3d(0px,0px,0px)";
     }
     else {
       this.close();

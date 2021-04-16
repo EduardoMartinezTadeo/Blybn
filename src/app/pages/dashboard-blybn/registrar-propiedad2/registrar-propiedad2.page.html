@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" name="close-outline" color="primary"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" (click)="open()">
       <ion-button>
         <ion-icon name="help-circle-outline" slot="icon-only" color="warning"></ion-icon>
       </ion-button>
@@ -13,7 +13,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content>
   <form #formulario="ngForm" class="form ion-padding">
     <ion-grid style="background-color: transparent !important;">
       <ion-row>
@@ -25,7 +25,6 @@
         <ion-col>
           <div padding>
             <ion-list style="background-color: transparent !important;">
-
               <ion-item *ngIf="dato1" (click)="registrop1()">
                 <ion-label class="ion-label-registro">La propiedad y alojamiento</ion-label>
                 <ion-button fill="clear" (click)="registrop1()">
@@ -49,13 +48,13 @@
                 <ion-label class="ion-label-registro">Huespedes</ion-label>
                 <ion-button fill="clear" (click)="registrop10()">
                   <ion-icon name='people-circle-outline' slot="icon-only" color="primary"></ion-icon>
-                </ion-button>                
+                </ion-button>
               </ion-item>
-              <ion-item  *ngIf="dato20">
+              <ion-item *ngIf="dato20">
                 <ion-label class="ion-label-registro">Huespedes</ion-label>
                 <ion-button fill="clear" (click)="alertEspera()">
                   <ion-icon name='people-circle' slot="icon-only" color="success"></ion-icon>
-                </ion-button>                
+                </ion-button>
               </ion-item>
               <ion-item *ngIf="dator10">
                 <ion-label class="ion-label-registro">Huespedes</ion-label>
@@ -74,7 +73,7 @@
                 <ion-label class="ion-label-registro">Interiores</ion-label>
                 <ion-button fill="clear" (click)="alertEspera()">
                   <ion-icon name='bed' slot="icon-only" color="success"></ion-icon>
-                </ion-button>              
+                </ion-button>
               </ion-item>
               <ion-item *ngIf="dator11">
                 <ion-label class="ion-label-registro">Interiores</ion-label>
@@ -87,13 +86,13 @@
                 <ion-label class="ion-label-registro">Ubicación</ion-label>
                 <ion-button fill="clear" (click)="registrop2()">
                   <ion-icon name='pin-outline' color="primary" slot="icon-only"></ion-icon>
-                </ion-button>               
+                </ion-button>
               </ion-item>
               <ion-item *ngIf="dato4">
                 <ion-label class="ion-label-registro">Ubicación</ion-label>
                 <ion-button fill="clear" (click)="alertEspera()">
                   <ion-icon name='pin' color="success" slot="icon-only"></ion-icon>
-                </ion-button>              
+                </ion-button>
               </ion-item>
               <ion-item *ngIf="dator2">
                 <ion-label class="ion-label-registro">Ubicación</ion-label>
@@ -114,8 +113,8 @@
                   <ion-icon name='cafe' color="success" slot="icon-only"></ion-icon>
                 </ion-button>
               </ion-item>
-              <ion-item *ngIf="dator3">   
-                <ion-label class="ion-label-registro">Servicios</ion-label>                       
+              <ion-item *ngIf="dator3">
+                <ion-label class="ion-label-registro">Servicios</ion-label>
                 <ion-button fill="clear" (click)="reiniciarR5()">
                   <ion-icon name="reload-sharp" color="warning" slot="icon-only"></ion-icon>
                 </ion-button>
@@ -144,13 +143,13 @@
                 <ion-label class="ion-label-registro">Título</ion-label>
                 <ion-button fill="clear" (click)="registrop5()">
                   <ion-icon name='pencil-outline' color="primary" slot="icon-only"></ion-icon>
-                </ion-button>                
+                </ion-button>
               </ion-item>
               <ion-item *ngIf="dato10">
                 <ion-label class="ion-label-registro">Título</ion-label>
-                <ion-button fill="clear" (click)="alertEspera()" >
+                <ion-button fill="clear" (click)="alertEspera()">
                   <ion-icon name='pencil' color="success" slot="icon-only"></ion-icon>
-                </ion-button>               
+                </ion-button>
               </ion-item>
               <ion-item *ngIf="dator5">
                 <ion-label class="ion-label-registro">Título</ion-label>
@@ -163,13 +162,13 @@
                 <ion-label class="ion-label-registro">Configuración de las reservaciones</ion-label>
                 <ion-button fill="clear" (click)="registrop6()">
                   <ion-icon name='options-outline' color="primary" slot="icon-only"></ion-icon>
-                </ion-button>             
+                </ion-button>
               </ion-item>
               <ion-item *ngIf="dato12">
                 <ion-label class="ion-label-registro">Configuración de las reservaciones</ion-label>
                 <ion-button fill="clear" (click)="alertEspera()">
-                  <ion-icon name='options' color="success" slot="icon-only"></ion-icon>         
-                </ion-button>                       
+                  <ion-icon name='options' color="success" slot="icon-only"></ion-icon>
+                </ion-button>
               </ion-item>
               <ion-item *ngIf="dator6">
                 <ion-label class="ion-label-registro">Configuración de las reservaciones</ion-label>
@@ -182,13 +181,13 @@
                 <ion-label class="ion-label-registro">Disponibilidad</ion-label>
                 <ion-button fill="clear" (click)="registrop7()">
                   <ion-icon name='today-outline' color="primary" slot="icon-only"></ion-icon>
-                </ion-button>            
+                </ion-button>
               </ion-item>
               <ion-item *ngIf="dato14">
                 <ion-label class="ion-label-registro">Disponibilidad</ion-label>
                 <ion-button fill="clear" (click)="alertEspera()">
-                  <ion-icon name='today' color="success" slot="icon-only"></ion-icon>      
-                </ion-button>                         
+                  <ion-icon name='today' color="success" slot="icon-only"></ion-icon>
+                </ion-button>
               </ion-item>
               <ion-item *ngIf="dator7">
                 <ion-label class="ion-label-registro">Disponibilidad</ion-label>
@@ -207,7 +206,7 @@
                 <ion-label class="ion-label-registro">Precios</ion-label>
                 <ion-button fill="clear" (click)="alertEspera()">
                   <ion-icon name='cash' color="success" slot="icon-only"></ion-icon>
-                </ion-button>             
+                </ion-button>
               </ion-item>
               <ion-item *ngIf="dator8">
                 <ion-label class="ion-label-registro">Precios</ion-label>
@@ -217,34 +216,66 @@
               </ion-item>
 
               <ion-item (click)="registrop9()" *ngIf="dato17">
-                <ion-label class="ion-label-registro">Evaluar</ion-label>
+                <ion-label class="ion-label-registro">Publicar</ion-label>
                 <ion-button fill="clear" (click)="registrop9()">
                   <ion-icon name='id-card' color="danger" slot="icon-only"></ion-icon>
-                </ion-button>                
+                </ion-button>
               </ion-item>
-              <ion-item  *ngIf="btnEspecial">
-                <ion-label class="ion-label-registro">Evaluar</ion-label>
+              <ion-item *ngIf="btnEspecial">
+                <ion-label class="ion-label-registro">Publicar</ion-label>
                 <ion-button fill="clear">
                   <ion-icon name='id-card' color="success" slot="icon-only"></ion-icon>
-                </ion-button>                
+                </ion-button>
               </ion-item>
 
               <ion-item (click)="registroFinal()" *ngIf="dato23">
                 <ion-label class="ion-label-registro">Publicar propiedad</ion-label>
                 <ion-button fill="clear">
                   <ion-icon name='save' color="success" slot="icon-only"></ion-icon>
-                </ion-button>                
+                </ion-button>
               </ion-item>
               <ion-item (click)="cargaReinicio()">
                 <ion-label class="ion-label-registro">Reiniciar registro de propiedad</ion-label>
                 <ion-button fill="clear">
                   <ion-icon name="trash-bin-outline" slot="icon-only" color="danger"></ion-icon>
-                </ion-button>                
-              </ion-item>             
+                </ion-button>
+              </ion-item>
             </ion-list>
           </div>
         </ion-col>
       </ion-row>
     </ion-grid>
   </form>
+  <div class="bgs" (click)="closes()"></div>
+  <div class="bottomSheets" (touchmove)="touchMove($event)" (touchend)="touchEnd()">
+    <div class="swipe-handler"></div>
+    <div class="content ion-padding">
+      <h1>Como registrar una propiedad</h1>
+      <ion-grid>
+        <ion-col size="12">
+          <ion-row>
+            <ion-col size="7">
+              <p>Para registrar una propiedad tienes que completar todos los apartados solicitados que se muestran en esta
+                pantalla.</p>
+              <p>Cuando abres un apartado y lo cierras por error te aparecerá la opción de volver a reiniciar el apartado
+                puedes reiniciarlos las veces que consideres necesarias.</p>
+              <p>Para publicar una propiedad en automático la misma aplicación te avisara que estas listo para continuar a
+                la publicación.</p>
+            </ion-col>
+            <ion-col size="5">
+              <ion-img src="/assets/gifs/gif1.gif"></ion-img>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="4">
+              <ion-img src="/assets/gifs/gif3.gif"></ion-img>
+            </ion-col>
+            <ion-col size="4">
+              <ion-img src="/assets/gifs/gif4.gif"></ion-img>
+            </ion-col>
+          </ion-row> 
+        </ion-col>
+      </ion-grid>
+    </div>
+  </div>
 </ion-content>

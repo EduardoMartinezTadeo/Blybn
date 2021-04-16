@@ -41,6 +41,7 @@ export class TipoAventuraPage implements OnInit {
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       header: '¡Síguenos!',
+      mode: 'ios',
       backdropDismiss: false,
       cssClass: 'match-item-action-sheet',
       buttons: [
@@ -115,6 +116,7 @@ export class TipoAventuraPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Déjanos tus comentarios',
       cssClass: 'my-custom-class',
+      mode: 'ios',
       inputs: [
         {
           name: 'comentario',
@@ -151,6 +153,7 @@ export class TipoAventuraPage implements OnInit {
       message: 'Espere un momento...',
       duration: 1500,
       spinner: 'bubbles',
+      mode: 'ios'
     });
     await loading.present();
     setTimeout(() => {
@@ -163,12 +166,14 @@ export class TipoAventuraPage implements OnInit {
       const toast = await this.toastController.create({
         message: 'Debe enviar un comentario valido...',
         duration: 2000,
+        mode: 'ios'
       });
       toast.present();
     } else if (this.dataComentarios.bly_usuario == '') {
       const toast = await this.toastController.create({
         message: 'Debe enviar un comentario valido...',
         duration: 2000,
+        mode: 'ios'
       });
       toast.present();
     } else {
@@ -182,14 +187,16 @@ export class TipoAventuraPage implements OnInit {
           if (data.error) {
             this.toast = this.toastController.create({
               message: 'Ha ocurrido un error, inténtelo más tarde...',
-              duration: 2000
+              duration: 2000,
+              mode: 'ios'
             }).then((toastData) => {
               toastData.present();
             });
           } else {
             this.toast = this.toastController.create({
               message: 'Se ha enviado tu comentario exitosamente…',
-              duration: 2000
+              duration: 2000,
+              mode: 'ios'
             }).then((toastData) => {
               toastData.present();
             });
@@ -204,7 +211,8 @@ export class TipoAventuraPage implements OnInit {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       duration: 1500,
-      spinner: "bubbles"
+      spinner: "bubbles",
+      mode: 'ios'
     });
     await loading.present();
     setTimeout(() => {
@@ -215,6 +223,7 @@ export class TipoAventuraPage implements OnInit {
   async presentAlertServer() {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
+      mode: 'ios',
       header: 'Error',
       message: 'Ha ocurrido un error, verifique su conexión!!!',
       buttons: [{
@@ -240,5 +249,9 @@ export class TipoAventuraPage implements OnInit {
     setTimeout(() => {
       this.contentLoaded = true;        
     }, 5000);    
+  }
+
+  registrar(){
+    this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
   }
 }

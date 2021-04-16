@@ -12,6 +12,10 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./registrar-propiedad2.page.scss'],
 })
 export class RegistrarPropiedad2Page implements OnInit {
+  currentPosition;
+  height;
+  minimumThreshold;
+  startPosition;
   informacionR1: any;
   informacionR2: any;
   informacionR3: any;
@@ -23,7 +27,7 @@ export class RegistrarPropiedad2Page implements OnInit {
   informacionR9: any;
   informacionR10: any;
   informacionR11: any;
-
+  informacionEspecial: any;
   toast: any;
   constructor(
     private router: Router,
@@ -65,6 +69,9 @@ export class RegistrarPropiedad2Page implements OnInit {
     this.informacionR11 = {
       registro11: false,
     };
+    this.informacionEspecial = {
+      finalActivar: false
+    } 
   }
 
   id_usuario: string;
@@ -120,8 +127,11 @@ export class RegistrarPropiedad2Page implements OnInit {
   salir() {
     this.router.navigateByUrl('/dashboard2/menutabs2/inicio-menu');
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.closes();
+  }
   ionViewWillEnter() {
+    this.closes();
     this.storage.get('perfil').then((res) => {
       this.dataPerfil = res;
       this.id_usuario = this.dataPerfil.bly_usuario;
@@ -266,6 +276,7 @@ export class RegistrarPropiedad2Page implements OnInit {
       this.dato17 = true;
     }
   }
+
 
   resultadoVR1;
   resultadoVR2;
@@ -589,6 +600,9 @@ export class RegistrarPropiedad2Page implements OnInit {
     this.storage.set('registroP11', this.informacionR11).then((res) => {
       console.log(res);
     });
+    this.storage.set('botonEspecial', this.informacionEspecial).then((res) => {
+      this.btnEspecial = false;
+    });
     this.storage.remove('costosPropiedad');
     this.storage.remove('mapaInformacion');
     this.storage.remove('mueblesInformacion');
@@ -900,5 +914,45 @@ export class RegistrarPropiedad2Page implements OnInit {
     });
 
     await alert.present();
+  }
+
+  open(){
+    (<HTMLStyleElement>document.querySelector(".bottomSheets")).style.bottom = "0px";
+    (<HTMLStyleElement>document.querySelector(".bgs")).style.display = "block";
+  }
+
+  closes(){
+    this.currentPosition = 0;
+    this.startPosition = 0;
+    (<HTMLStyleElement>document.querySelector(".bottomSheets")).style.bottom = "-1000px";
+    (<HTMLStyleElement>document.querySelector(".bottomSheets")).style.transform = "translate3d(0px,0px,0px)";
+    (<HTMLStyleElement>document.querySelector(".bgs")).style.display = "none";
+  }
+
+  touchMove(evt: TouchEvent){
+    if (this.startPosition == 0){
+      this.startPosition = evt.touches[0].clientY;
+    }
+
+    this.height = document.querySelector(".bottomSheets").clientHeight;
+
+    var y = evt.touches[0].clientY;
+
+    this.currentPosition = y - this.startPosition;
+
+    if (this.currentPosition > 0 && this.startPosition > 0) {
+      (<HTMLStyleElement>document.querySelector(".bottomSheets")).style.transform = "translate3d(0px," + this.currentPosition + "px,0px)";
+    }
+  }
+
+  touchEnd(){
+    this.minimumThreshold = this.height - 150;
+
+    if (this.currentPosition < this.minimumThreshold){
+      (<HTMLStyleElement>document.querySelector(".bottomSheets")).style.transform = "translate3d(0px,0px,0px)";
+    }
+    else {
+      this.closes();
+    }
   }
 }

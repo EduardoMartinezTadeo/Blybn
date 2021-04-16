@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -24,7 +24,8 @@ export class RegistroP9Page implements OnInit {
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private storage: Storage
+    private storage: Storage,
+    private loadingController: LoadingController
   ) {
     this.informacionR1 = {
       registro1: false
@@ -91,6 +92,44 @@ export class RegistroP9Page implements OnInit {
   }
 
   
+  async confirmacionContrato() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¡Antes de continuar asegúrese que tiene el tiempo necesario para terminar el proceso de publicación ya que si deja inconclusa la verificación de información todos los apartados serán reiniciados y su avance de publicación será eliminado!',
+      buttons: [
+        {
+          text: 'En otro momento',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Continuar',
+          handler: () => {
+            this.cargandoInformacion();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async cargandoInformacion() {
+    const loading = await this.loadingController.create({
+      message: 'Cargando información...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+      this.aceptarContrato();
+    }, 1500);
+  }
+
   aceptarContrato() {
     this.informacionR9 = {
       registro9: true

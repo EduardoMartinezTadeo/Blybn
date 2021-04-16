@@ -7,6 +7,14 @@
         </ion-buttons>
     </ion-toolbar>
   </ion-header>
-<ion-content>
-
+<ion-content class="ion-padding">
+    <ion-label class="ion-label1">
+        Tus propiedades
+      </ion-label>
+    <ion-card *ngFor="let exclusivo of propiedades">
+        <ion-card-title>{{exclusivo.bly_tituloPropiedad}}</ion-card-title>
+        <ion-card-content>
+            {{exclusivo.bly_direccionGeneral}}
+        </ion-card-content>
+    </ion-card>
 </ion-content>

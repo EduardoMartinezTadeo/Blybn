@@ -15,7 +15,9 @@
   <div *ngIf="contentLoaded">
     <ion-card>
       <div class="img-wrapper">
-        <img src="/assets/imgs/avatar.svg" />
+        <ion-avatar>
+          <ion-img src="{{server + foto}}" (ionError)="onError(img)" #img></ion-img>
+        </ion-avatar>
         <ion-button color="light" (click)="presentActionCamera()">
           <ion-icon slot="icon-only" name="camera-outline" color="primary">
           </ion-icon>

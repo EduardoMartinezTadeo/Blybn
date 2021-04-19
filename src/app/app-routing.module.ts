@@ -227,6 +227,118 @@ const routes: Routes = [
   {
     path: 'animacion12',
     loadChildren: () => import('./pages/dashboard-blybn/animaciones/animacion12/animacion12.module').then( m => m.Animacion12PageModule)
+  },
+  {
+    path: 'animacionb01',
+    loadChildren: () => import('./pages/dashboard-admin/animaciones/animacionb01/animacionb01.module').then( m => m.Animacionb01PageModule)
+  },
+  {
+    path: 'animacionb02',
+    loadChildren: () => import('./pages/dashboard-admin/animaciones/animacionb02/animacionb02.module').then( m => m.Animacionb02PageModule)
+  },
+  {
+    path: 'animacionb03',
+    loadChildren: () => import('./pages/dashboard-admin/animaciones/animacionb03/animacionb03.module').then( m => m.Animacionb03PageModule)
+  },
+  {
+    path: 'animacionb04',
+    loadChildren: () => import('./pages/dashboard-admin/animaciones/animacionb04/animacionb04.module').then( m => m.Animacionb04PageModule)
+  },
+  {
+    path: 'animacionb05',
+    loadChildren: () => import('./pages/dashboard-admin/animaciones/animacionb05/animacionb05.module').then( m => m.Animacionb05PageModule)
+  },
+  {
+    path: 'animacionb06',
+    loadChildren: () => import('./pages/dashboard-admin/animaciones/animacionb06/animacionb06.module').then( m => m.Animacionb06PageModule)
+  },
+  {
+    path: 'animacionb07',
+    loadChildren: () => import('./pages/dashboard-admin/animaciones/animacionb07/animacionb07.module').then( m => m.Animacionb07PageModule)
+  },
+  {
+    path: 'animacionb08',
+    loadChildren: () => import('./pages/dashboard-admin/animaciones/animacionb08/animacionb08.module').then( m => m.Animacionb08PageModule)
+  },
+  {
+    path: 'animacionb09',
+    loadChildren: () => import('./pages/dashboard-admin/animaciones/animacionb09/animacionb09.module').then( m => m.Animacionb09PageModule)
+  },
+  {
+    path: 'animacionb10',
+    loadChildren: () => import('./pages/dashboard-admin/animaciones/animacionb10/animacionb10.module').then( m => m.Animacionb10PageModule)
+  },
+  {
+    path: 'animacionb11',
+    loadChildren: () => import('./pages/dashboard-admin/animaciones/animacionb11/animacionb11.module').then( m => m.Animacionb11PageModule)
+  },
+  {
+    path: 'animacionb12',
+    loadChildren: () => import('./pages/dashboard-admin/animaciones/animacionb12/animacionb12.module').then( m => m.Animacionb12PageModule)
+  },
+  {
+    path: 'registrop1',
+    loadChildren: () => import('./pages/dashboard-admin/registrop1/registrop1.module').then( m => m.Registrop1PageModule)
+  },
+  {
+    path: 'registrop2',
+    loadChildren: () => import('./pages/dashboard-admin/registrop2/registrop2.module').then( m => m.Registrop2PageModule)
+  },
+  {
+    path: 'registrop3',
+    loadChildren: () => import('./pages/dashboard-admin/registrop3/registrop3.module').then( m => m.Registrop3PageModule)
+  },
+  {
+    path: 'registrop4',
+    loadChildren: () => import('./pages/dashboard-admin/registrop4/registrop4.module').then( m => m.Registrop4PageModule)
+  },
+  {
+    path: 'registrop5',
+    loadChildren: () => import('./pages/dashboard-admin/registrop5/registrop5.module').then( m => m.Registrop5PageModule)
+  },
+  {
+    path: 'registrop6',
+    loadChildren: () => import('./pages/dashboard-admin/registrop6/registrop6.module').then( m => m.Registrop6PageModule)
+  },
+  {
+    path: 'registrop7',
+    loadChildren: () => import('./pages/dashboard-admin/registrop7/registrop7.module').then( m => m.Registrop7PageModule)
+  },
+  {
+    path: 'registrop8',
+    loadChildren: () => import('./pages/dashboard-admin/registrop8/registrop8.module').then( m => m.Registrop8PageModule)
+  },
+  {
+    path: 'registrop9',
+    loadChildren: () => import('./pages/dashboard-admin/registrop9/registrop9.module').then( m => m.Registrop9PageModule)
+  },
+  {
+    path: 'registrop10',
+    loadChildren: () => import('./pages/dashboard-admin/registrop10/registrop10.module').then( m => m.Registrop10PageModule)
+  },
+  {
+    path: 'registrop11',
+    loadChildren: () => import('./pages/dashboard-admin/registrop11/registrop11.module').then( m => m.Registrop11PageModule)
+  },
+  {
+    path: 'registrop2r11',
+    loadChildren: () => import('./pages/dashboard-admin/registrop2r11/registrop2r11.module').then( m => m.Registrop2r11PageModule)
+  },
+  {
+    path: 'registro-p2r22',
+    loadChildren: () => import('./pages/dashboard-admin/registro-p2r22/registro-p2r22.module').then( m => m.RegistroP2r22PageModule)
+  },
+  {
+    path: 'registro-p6r11',
+    loadChildren: () => import('./pages/dashboard-admin/registro-p6r11/registro-p6r11.module').then( m => m.RegistroP6r11PageModule)
+  },
+  {
+    path: 'registro-p7r11',
+    loadChildren: () => import('./pages/dashboard-admin/registro-p7r11/registro-p7r11.module').then( m => m.RegistroP7r11PageModule)
+  },
+  {
+    path: 'registro-p8r1',
+    loadChildren: () => import('./pages/dashboard-admin/registro-p8r1/registro-p8r1.module').then( m => m.RegistroP8r1PageModule)
   }
 ];
 

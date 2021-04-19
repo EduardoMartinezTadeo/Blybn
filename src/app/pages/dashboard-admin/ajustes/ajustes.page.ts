@@ -14,7 +14,7 @@ import { DataService } from 'src/app/services/data.service';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from 'src/app/services/provider.service';
 import { Modal8Page } from '../../../Modals/modal8/modal8.page';
-
+import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
 @Component({
   selector: 'app-ajustes',
   templateUrl: './ajustes.page.html',
@@ -31,8 +31,11 @@ export class AjustesPage implements OnInit {
     private loading: LoadingController,
     private toastCtrl: ToastController,
     private providerService: ProviderService,
-    private actionSheetController: ActionSheetController
-  ) {}
+    private actionSheetController: ActionSheetController,
+    private camera: Camera
+  ) {
+    this.server = this.providerService.server;
+  }
 
   contentLoaded = false;
   contentLoadedF = false;
@@ -57,6 +60,7 @@ export class AjustesPage implements OnInit {
 
   ionViewWillEnter() {
     setTimeout(() => {
+      this.cargarFotoPerfil(); 
       this.contentLoaded = true;
       this.contentLoadedF = true;
     }, 2500);
@@ -113,6 +117,8 @@ export class AjustesPage implements OnInit {
     return await presentModel.present();
   }
 
+  server: string;
+  foto: string;
   usuario: string;
   correo: string;
   telefono: string;
@@ -212,24 +218,28 @@ export class AjustesPage implements OnInit {
     if (this.facturacion.razonSocial == '') {
       const toast = await this.toastCtrl.create({
         message: 'La razón social es requerida...',
+        mode: 'ios',
         duration: 2000,
       });
       toast.present();
     } else if (this.facturacion.rfc == '') {
       const toast = await this.toastCtrl.create({
         message: 'El RFC es requerido...',
+        mode: 'ios',
         duration: 2000,
       });
       toast.present();
     } else if (this.facturacion.direccionFiscal == '') {
       const toast = await this.toastCtrl.create({
         message: 'La dirección fiscal es requerida...',
+        mode: 'ios',
         duration: 2000,
       });
       toast.present();
     } else if (this.facturacion.correoElectronico == '') {
       const toast = await this.toastCtrl.create({
         message: 'El correo electrónico es requerido...',
+        mode: 'ios',
         duration: 2000,
       });
       toast.present();
@@ -240,6 +250,7 @@ export class AjustesPage implements OnInit {
   async presentAlertServer() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
+      mode: 'ios',
       header: 'Error',
       message: 'Ha ocurrido un error, verifique su conexión!!!',
       buttons: [
@@ -257,6 +268,7 @@ export class AjustesPage implements OnInit {
   async presentLoadingServer() {
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
+      mode: 'ios',
       duration: 1500,
       spinner: 'bubbles',
     });
@@ -269,6 +281,7 @@ export class AjustesPage implements OnInit {
   async presentFacturacion() {
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
+      mode: 'ios',
       spinner: 'bubbles',
       duration: 1500,
     });
@@ -281,6 +294,7 @@ export class AjustesPage implements OnInit {
   async presentActualizarFacturacion() {
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
+      mode: 'ios',
       spinner: 'bubbles',
       duration: 1500,
     });
@@ -294,24 +308,28 @@ export class AjustesPage implements OnInit {
     if (this.facturacion.razonSocial == '') {
       const toast = await this.toastCtrl.create({
         message: 'La razón social es requerida...',
+        mode: 'ios',
         duration: 2000,
       });
       toast.present();
     } else if (this.facturacion.rfc == '') {
       const toast = await this.toastCtrl.create({
         message: 'El RFC es requerido...',
+        mode: 'ios',
         duration: 2000,
       });
       toast.present();
     } else if (this.facturacion.direccionFiscal == '') {
       const toast = await this.toastCtrl.create({
         message: 'La dirección fiscal es requerida...',
+        mode: 'ios',
         duration: 2000,
       });
       toast.present();
     } else if (this.facturacion.correoElectronico == '') {
       const toast = await this.toastCtrl.create({
         message: 'El correo electrónico es requerido...',
+        mode: 'ios',
         duration: 2000,
       });
       toast.present();
@@ -337,6 +355,7 @@ export class AjustesPage implements OnInit {
           if (data.success) {
             const toast = await this.toastCtrl.create({
               message: '¡Su información ha sido actualizada correctamente!',
+              mode: 'ios',
               duration: 2000,
             });
             toast.present();
@@ -349,6 +368,7 @@ export class AjustesPage implements OnInit {
           } else {
             const toast = await this.toastCtrl.create({
               message: alertpesan,
+              mode: 'ios',
               duration: 2000,
             });
           }
@@ -363,6 +383,7 @@ export class AjustesPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Actualizar Información',
+      mode: 'ios',
       message: '¿Está seguro que desea actualizar sus datos de facturación?',
       buttons: [
         {
@@ -398,34 +419,31 @@ export class AjustesPage implements OnInit {
   async presentActionCamera() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Opciones Cámara',
+      mode:'ios',
       cssClass: 'match-item-action-sheet',
-      buttons: [
-        {
-          text: 'Tomar Fotografía',
-          icon: 'camera',
-          cssClass: 'iconCamera',
-          handler: () => {
-            console.log('Share clicked');
-          },
-        },
-        {
-          text: 'Seleccionar Fotografía',
-          icon: 'images',
-          cssClass: 'iconGaleria',
-          handler: () => {
-            console.log('Play clicked');
-          },
-        },
-        {
-          text: 'Cancelar',
-          icon: 'close-circle-outline',
-          role: 'cancel',
-          cssClass: 'iconCerrar',
-          handler: () => {
-            console.log('Cancel clicked');
-          },
-        },
-      ],
+      buttons: [{
+        text: 'Tomar Fotografía',
+        icon: 'camera',
+        cssClass: 'iconCamera',
+        handler: () => {
+          this.openCamera();
+        }
+      }, {
+        text: 'Seleccionar Fotografía',
+        icon: 'images',
+        cssClass: 'iconGaleria',
+        handler: () => {
+          this.openGallery();
+        }
+      }, {
+        text: 'Cancelar',
+        icon: 'close-circle-outline',
+        role: 'cancel',
+        cssClass: 'iconCerrar',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
     });
     await actionSheet.present();
   }
@@ -433,6 +451,7 @@ export class AjustesPage implements OnInit {
   async presentLoadingCambio() {
     const loading = await this.loading.create({
       spinner: 'bubbles',
+      mode: 'ios',
       message: 'Espere un momento...',
       duration: 1500,
     });
@@ -445,6 +464,7 @@ export class AjustesPage implements OnInit {
   async presentCambiarContrasena() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
+      mode: 'ios',
       header: 'Actualizar Contraseña',
       message: '¿Está seguro que desea actualizar su contraseña?',
       buttons: [
@@ -466,5 +486,88 @@ export class AjustesPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  cameraData: string;
+  base64Image: string;
+  openCamera() {
+    const options: CameraOptions = {
+      quality: 100,
+      targetWidth: 512,
+      targetHeight: 512,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+    };
+
+    this.camera.getPicture(options).then(
+      (imageData) => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64 (DATA_URL):
+        this.cameraData = imageData;
+        this.foto = 'data:image/jpeg;base64,' + imageData;
+        this.actualizarFoto();
+      },
+      (err) => {
+        // Handle error
+      }
+    );
+  }
+
+  openGallery() {
+    const options: CameraOptions = {
+      quality: 100,
+      targetWidth: 512,
+      targetHeight: 512,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+    };
+
+    this.camera.getPicture(options).then(
+      (imageData) => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64 (DATA_URL):
+        this.cameraData = imageData;
+        this.foto = 'data:image/jpeg;base64,' + imageData;
+        this.actualizarFoto();
+      },
+      (err) => {
+        // Handle error
+      }
+    );
+  }
+
+  fotoPerfil : any = [];
+  actualizarFoto() {
+    let body = {
+      aksi: 'actualizarImage',
+      bly_usuario: this.id,
+      bly_foto: this.cameraData,
+    };
+    this.providerService
+      .postDataAFP(body, 'db_controlFotoPerfil.php')
+      .subscribe((data) => {
+        this.cargarFotoPerfil();
+      }); 
+  }
+
+  cargarFotoPerfil(){
+    return new Promise(resolve => {
+      let body = {
+        aksi: 'perfilFoto',
+        bly_usuario: this.id
+      }
+      this.providerService.postDataCFPA(body, 'db_cargarFotoPerfilAct.php').subscribe(data => {
+        this.fotoPerfil = data;
+        this.foto = this.fotoPerfil.bly_fotografia;
+        resolve(true);
+      });
+    });      
+  }
+
+  onError(img) {
+    img.src = '../../../../assets/imgs/avatar.svg';
   }
 }

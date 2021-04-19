@@ -32,7 +32,11 @@ const routes: Routes = [
       {
         path: 'mensajes-tab',
         loadChildren: () => import('../mensajes-tab/mensajes-tab.module').then( m => m.MensajesTabPageModule)
-      }
+      },
+      {
+        path: 'registrar-propiedad',
+        loadChildren: () => import('../registrar-propiedad/registrar-propiedad.module').then( m => m.RegistrarPropiedadPageModule)
+      },
     ]
   }
 ];

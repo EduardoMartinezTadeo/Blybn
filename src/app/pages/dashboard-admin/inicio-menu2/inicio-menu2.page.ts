@@ -270,7 +270,7 @@ export class InicioMenu2Page implements OnInit {
   }
 
   registrar(){
-
+    this.router.navigateByUrl('/dashboard/menutabs/registrar-propiedad');
   }
 
   onError(img) {

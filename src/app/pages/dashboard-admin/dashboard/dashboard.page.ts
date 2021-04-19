@@ -44,7 +44,7 @@ export class DashboardPage implements OnInit {
       children: [
         {
           title: 'Registrar Propiedad',
-          url: '/dashboard/registrar-propiedad',
+          url: '/dashboard/menutabs/registrar-propiedad',
           icon: 'create-outline',
           open: false,
         },

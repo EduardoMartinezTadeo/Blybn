@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { OperacionesService } from 'src/app/services/operaciones.service';
+import { ProviderService } from 'src/app/services/provider.service';
 import { DetallePerfilPage } from '../../detalle-perfil/detalle-perfil.page';
 
 @Component({
@@ -16,7 +17,10 @@ export class PerfilPage implements OnInit {
     private router: Router,  
     private modalCtrl: ModalController,
     private storage: Storage, 
-    private service: OperacionesService) { }
+    private service: OperacionesService,
+    private provider: ProviderService) { 
+      this.server = this.provider.server;
+    }
 
   contentLoaded = false;
   contentLoadedF = false;
@@ -43,6 +47,8 @@ export class PerfilPage implements OnInit {
     await modal.present();
   }
 
+  server: string;
+  foto: string;
   usuario: string;
   correo: string;
   rol = 'Propietario Blybn';
@@ -65,6 +71,7 @@ export class PerfilPage implements OnInit {
       this.tipoRol = this.perfilData.bly_rol,
       this.service.consultarDatosFacturacionAdmin(this.id).subscribe(data => {
         this.responseData = data;
+        this.cargarFotoPerfil();  
       });
     });
     this.storage.get('facturacion').then((factura) =>{
@@ -74,5 +81,20 @@ export class PerfilPage implements OnInit {
       this.bly_razonSocial = this.facturacionData.bly_razonSocial,
       this.bly_rfc = this.facturacionData.bly_rfc
     });
+  }
+
+  fotoPerfil : any = [];
+  cargarFotoPerfil(){
+    return new Promise(resolve => {
+      let body = {
+        aksi: 'perfilFoto',
+        bly_usuario: this.id
+      }
+      this.provider.postDataCFPA(body, 'db_cargarFotoPerfilAct.php').subscribe(data => {
+        this.fotoPerfil = data;
+        this.foto = this.fotoPerfil.bly_fotografia;
+        resolve(true);
+      });
+    });      
   }
 }

@@ -49,6 +49,7 @@ export class Modal8Page implements OnInit {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Cancelar Operación',
+      mode: 'ios',
       message: '¿Está seguro de abortar esta operación?',
       buttons: [
         {
@@ -152,12 +153,14 @@ export class Modal8Page implements OnInit {
           this.modalCtrl.dismiss();
           const toast = await this.toastCtrl.create({
             message: 'Se ha restablecido tu contraseña correctamente',
+            mode: 'ios',
             duration: 2000
           });
           toast.present();
         } else {
           const toast = await this.toastCtrl.create({
             message: alert,
+            mode: 'ios',
             duration: 2000
           });
         }
@@ -169,6 +172,7 @@ export class Modal8Page implements OnInit {
     const toast = await this.toastCtrl.create({
       message: a,
       duration: 2000,
+      mode: 'ios',
       cssClass: 'toast-scheme'
     });
     toast.present();

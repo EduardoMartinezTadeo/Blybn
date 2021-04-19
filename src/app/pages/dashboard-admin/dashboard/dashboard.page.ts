@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { PerfilService } from 'src/app/services/perfil.service';
 import { OperacionesService } from 'src/app/services/operaciones.service';
+import { ProviderService } from 'src/app/services/provider.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -12,7 +13,7 @@ import { OperacionesService } from 'src/app/services/operaciones.service';
 export class DashboardPage implements OnInit {
 
   toast2: any;
-
+  server: string;
   constructor(
     public alertCtrl: AlertController, 
     private router: Router,
@@ -20,7 +21,9 @@ export class DashboardPage implements OnInit {
     private navCtrl: NavController,
     private toast: ToastController,
     private perfilService: PerfilService,
-    private service: OperacionesService) { 
+    private service: OperacionesService,
+    private provider: ProviderService) { 
+      this.server = this.provider.server;
   }
   
   pages = [
@@ -119,6 +122,7 @@ export class DashboardPage implements OnInit {
   async presentAlertConfirm() {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
+      mode: 'ios',
       header: 'Cerrar sesión',
       message: '¿Está seguro de cerrar sesión?',
       buttons: [
@@ -186,8 +190,28 @@ export class DashboardPage implements OnInit {
       this.id_usuario = this.perfildata.bly_usuario,
       this.service.consultarDatosFacturacionAdmin(this.id_usuario).subscribe(data => {
         this.responseData = data;
+        this.cargarFotoPerfil();
       });
     });
   }
 
+  foto: string;
+  fotoPerfil : any = [];
+  cargarFotoPerfil(){
+    return new Promise(resolve => {
+      let body = {
+        aksi: 'perfilFoto',
+        bly_usuario: this.id_usuario
+      }
+      this.provider.postDataCFPA(body, 'db_cargarFotoPerfilAct.php').subscribe(data => {
+        this.fotoPerfil = data;
+        this.foto = this.fotoPerfil.bly_fotografia;
+        resolve(true);
+      });
+    });      
+  }
+
+  onError(img) {
+    img.src = '../../../../assets/imgs/avatar.svg';
+  }
 }

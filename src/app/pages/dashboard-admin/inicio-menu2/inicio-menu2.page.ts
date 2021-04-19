@@ -25,7 +25,9 @@ export class InicioMenu2Page implements OnInit {
     private loadingController: LoadingController,
     private toastController: ToastController,
     private router: Router
-  ) { }
+  ) { 
+    this.server = this.providerService.server;
+  }
 
   toast: any;
   dataPerfil: any;
@@ -36,12 +38,41 @@ export class InicioMenu2Page implements OnInit {
       this.bly_usuario = this.dataPerfil.bly_usuario;
     });
   }
+  server: string;
+  contentLoaded = false;
+  ionViewWillEnter() {
+    this.aventurasImg = [];
+    this.cargarImagenesAventura();
+    this.storage.get('perfil').then((res) => {
+      this.dataPerfil = res;
+      this.bly_usuario = this.dataPerfil.bly_usuario;
+    });
+    setTimeout(() => {
+      this.contentLoaded = true;
+    }, 2000); 
+  }
+
+  aventurasImg: any = [];
+  cargarImagenesAventura(){
+    return new Promise(resolve => {
+      let body = {
+        aksi: 'img-aventura'
+      };
+      this.providerService.postDataCIAV(body, 'db_cargarImagenesAventura.php').subscribe(data => {
+        for (let imagenes of data.result){
+          this.aventurasImg.push(imagenes);
+        }
+        resolve(true);
+      });
+    });
+  }
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       header: '¡Síguenos!',
       backdropDismiss: false,
       cssClass: 'match-item-action-sheet',
+      mode: 'ios',
       buttons: [
         {
           text: 'Facebook',
@@ -114,6 +145,7 @@ export class InicioMenu2Page implements OnInit {
   async presentAlertPrompt() {
     const alert = await this.alertCtrl.create({
       header: 'Déjanos tus comentarios',
+      mode: 'ios',
       cssClass: 'my-custom-class',
       inputs: [
         {
@@ -151,6 +183,7 @@ export class InicioMenu2Page implements OnInit {
       message: 'Espere un momento...',
       duration: 1500,
       spinner: 'bubbles',
+      mode: 'ios'
     });
     await loading.present();
     setTimeout(() => {
@@ -169,7 +202,8 @@ export class InicioMenu2Page implements OnInit {
       const toast = await this.toastController.create({
         message: 'Debe enviar un comentario valido...',
         duration: 2000,
-      });
+        mode: 'ios'
+      })
       toast.present();
     } else {
       let body = {
@@ -182,14 +216,16 @@ export class InicioMenu2Page implements OnInit {
           if (data.error) {
             this.toast = this.toastController.create({
               message: 'Ha ocurrido un error, inténtelo más tarde...',
-              duration: 2000
+              duration: 2000,
+              mode: 'ios'
             }).then((toastData) => {
               toastData.present();
             });
           } else {
             this.toast = this.toastController.create({
               message: 'Se ha enviado tu comentario exitosamente…',
-              duration: 2000
+              duration: 2000,
+              mode: 'ios'
             }).then((toastData) => {
               toastData.present();
             });
@@ -203,7 +239,8 @@ export class InicioMenu2Page implements OnInit {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       duration: 1500,
-      spinner: "bubbles"
+      spinner: "bubbles",
+      mode: 'ios'
     });
     await loading.present();
     setTimeout(() => {
@@ -215,6 +252,7 @@ export class InicioMenu2Page implements OnInit {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Error',
+      mode: 'ios',
       message: 'Ha ocurrido un error, verifique su conexión!!!',
       buttons: [{
         text: 'Reintentar',
@@ -229,5 +267,13 @@ export class InicioMenu2Page implements OnInit {
 
   tipoaventura(){
     this.router.navigateByUrl('/tipo-aventura2');
+  }
+
+  registrar(){
+
+  }
+
+  onError(img) {
+    img.src = '../../../../assets/imgs/default-inicio.svg';
   }
 }

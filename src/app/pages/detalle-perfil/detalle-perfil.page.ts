@@ -14,6 +14,7 @@ import { Modal5Page } from '../../Modals/modal5/modal5.page';
 import { Modal8Page } from '../../Modals/modal8/modal8.page';
 import { DataService } from '../../services/data.service';
 import { ProviderService } from '../../services/provider.service';
+import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
 
 @Component({
   selector: 'app-detalle-perfil',
@@ -31,8 +32,12 @@ export class DetallePerfilPage implements OnInit {
     private dataService: DataService,
     private providerService: ProviderService,
     private service: OperacionesService,
-    private actionSheetController: ActionSheetController
-  ) {}
+    private actionSheetController: ActionSheetController,
+    private provider: ProviderService,
+    private camera: Camera
+  ) {
+    this.server = this.provider.server;
+  }
 
   showPassword = false;
   passwordToggleIcon = 'eye';
@@ -53,6 +58,7 @@ export class DetallePerfilPage implements OnInit {
 
   ngOnInit() {}
 
+  server: string;
   usuario: string;
   correo: string;
   numeroTelefono: string;
@@ -84,6 +90,7 @@ export class DetallePerfilPage implements OnInit {
         (this.facturacion.razonSocial = this.facturacionData.bly_razonSocial),
         (this.facturacion.rfc = this.facturacionData.bly_rfc),
         (this.statusBtn = this.facturacionData.bly_statusBtn);
+        this.cargarFotoPerfil();  
       if (this.statusBtn == 'true') {
         this.dato1 = true;
         this.dato2 = true;
@@ -195,24 +202,28 @@ export class DetallePerfilPage implements OnInit {
       const toast = await this.toastCtrl.create({
         message: 'La razón social es requerida...',
         duration: 2000,
+        mode: 'ios'
       });
       toast.present();
     } else if (this.facturacion.rfc == '') {
       const toast = await this.toastCtrl.create({
         message: 'El RFC es requerido...',
         duration: 2000,
+        mode: 'ios'
       });
       toast.present();
     } else if (this.facturacion.direccionFiscal == '') {
       const toast = await this.toastCtrl.create({
         message: 'La dirección fiscal es requerida...',
         duration: 2000,
+        mode: 'ios'
       });
       toast.present();
     } else if (this.facturacion.correoElectronico == '') {
       const toast = await this.toastCtrl.create({
         message: 'El correo electrónico es requerido...',
         duration: 2000,
+        mode: 'ios'
       });
       toast.present();
     } else {
@@ -223,6 +234,7 @@ export class DetallePerfilPage implements OnInit {
   async presentAlertServer() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
+      mode: 'ios',
       header: 'Error',
       message: 'Ha ocurrido un error, verifique su conexión!!!',
       buttons: [
@@ -248,6 +260,7 @@ export class DetallePerfilPage implements OnInit {
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
       duration: 1500,
+      mode: 'ios',
       spinner: 'bubbles',
     });
     await loading.present();
@@ -260,6 +273,7 @@ export class DetallePerfilPage implements OnInit {
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
       spinner: 'bubbles',
+      mode: 'ios',
       duration: 1500,
     });
     await loading.present();
@@ -272,6 +286,7 @@ export class DetallePerfilPage implements OnInit {
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
       spinner: 'bubbles',
+      mode: 'ios',
       duration: 1500,
     });
     await loading.present();
@@ -285,24 +300,28 @@ export class DetallePerfilPage implements OnInit {
       const toast = await this.toastCtrl.create({
         message: 'La razón social es requerida...',
         duration: 2000,
+        mode: 'ios'
       });
       toast.present();
     } else if (this.facturacion.rfc == '') {
       const toast = await this.toastCtrl.create({
         message: 'El RFC es requerido...',
         duration: 2000,
+        mode: 'ios'
       });
       toast.present();
     } else if (this.facturacion.direccionFiscal == '') {
       const toast = await this.toastCtrl.create({
         message: 'La dirección fiscal es requerida...',
         duration: 2000,
+        mode: 'ios'
       });
       toast.present();
     } else if (this.facturacion.correoElectronico == '') {
       const toast = await this.toastCtrl.create({
         message: 'El correo electrónico es requerido...',
         duration: 2000,
+        mode: 'ios'
       });
       toast.present();
     } else {
@@ -328,6 +347,7 @@ export class DetallePerfilPage implements OnInit {
             const toast = await this.toastCtrl.create({
               message: '¡Su información ha sido actualizada correctamente!',
               duration: 2000,
+              mode: 'ios'
             });
             toast.present();
             this.service
@@ -341,6 +361,7 @@ export class DetallePerfilPage implements OnInit {
             const toast = await this.toastCtrl.create({
               message: alertpesan,
               duration: 2000,
+              mode: 'ios'
             });
           }
         },
@@ -354,6 +375,7 @@ export class DetallePerfilPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Actualizar Información',
+      mode: 'ios',
       message: '¿Está seguro que desea actualizar sus datos de facturación?',
       buttons: [
         {
@@ -389,6 +411,7 @@ export class DetallePerfilPage implements OnInit {
   async presentLoadingCambio() {
     const loading = await this.loading.create({
       spinner: 'bubbles',
+      mode: 'ios',
       message: 'Espere un momento...',
       duration: 1500,
     });
@@ -402,6 +425,7 @@ export class DetallePerfilPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Actualizar Contraseña',
+      mode: 'ios',
       message: '¿Está seguro que desea actualizar su contraseña?',
       buttons: [
         {
@@ -426,13 +450,14 @@ export class DetallePerfilPage implements OnInit {
     const actionSheet = await this.actionSheetController.create({
       header: 'Opciones Cámara',
       cssClass: 'match-item-action-sheet',
+      mode: 'ios',
       buttons: [
         {
           text: 'Tomar Fotografía',
           icon: 'camera',
           cssClass: 'iconCamera',
           handler: () => {
-            console.log('Share clicked');
+            this.openCamera();
           },
         },
         {
@@ -440,7 +465,7 @@ export class DetallePerfilPage implements OnInit {
           icon: 'images',
           cssClass: 'iconGaleria',
           handler: () => {
-            console.log('Play clicked');
+            this.openGallery();
           },
         },
         {
@@ -455,5 +480,94 @@ export class DetallePerfilPage implements OnInit {
       ],
     });
     await actionSheet.present();
+  }
+
+  foto: string;
+  cameraData: string;
+  base64Image: string;
+  openCamera() {
+    const options: CameraOptions = {
+      quality: 100,
+      targetWidth: 512,
+      targetHeight: 512,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+    };
+
+    this.camera.getPicture(options).then(
+      (imageData) => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64 (DATA_URL):
+        this.cameraData = imageData;
+        this.foto = 'data:image/jpeg;base64,' + imageData;
+        this.actualizarFoto();
+      },
+      (err) => {
+        // Handle error
+      }
+    );
+  }
+
+  openGallery() {
+    const options: CameraOptions = {
+      quality: 100,
+      targetWidth: 512,
+      targetHeight: 512,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+    };
+
+    this.camera.getPicture(options).then(
+      (imageData) => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64 (DATA_URL):
+        this.cameraData = imageData;
+        this.foto = 'data:image/jpeg;base64,' + imageData;
+        this.actualizarFoto();
+      },
+      (err) => {
+        // Handle error
+      }
+    );
+  }
+
+
+  fotoPerfil: any = [];
+
+  actualizarFoto() {
+    let body = {
+      aksi: 'actualizarImage',
+      bly_usuario: this.id,
+      bly_foto: this.cameraData,
+    };
+    this.providerService
+      .postDataAFP(body, 'db_controlFotoPerfil.php')
+      .subscribe((data) => {
+        console.log(data.result);
+        this.cargarFotoPerfil();
+      });
+  }
+  
+  cargarFotoPerfil() {
+    return new Promise((resolve) => {
+      let body = {
+        aksi: 'perfilFoto',
+        bly_usuario: this.id,
+      };
+      this.provider
+        .postDataCFPA(body, 'db_cargarFotoPerfilAct.php')
+        .subscribe((data) => {
+          this.fotoPerfil = data;
+          this.foto = this.fotoPerfil.bly_fotografia;
+          resolve(true);
+        });
+    });
+  }
+
+  onError(img) {
+    img.src = '../../../../assets/imgs/avatar.svg';
   }
 }

@@ -9,7 +9,9 @@
     <ion-content>
       <div class="menu-header-bg"></div>
       <div class="header-content" (click)="perfil()">
-        <img src="/assets/imgs/avatar.svg" alt="">
+        <ion-avatar>
+          <ion-img src="{{server + foto}}" (ionError)="onError(img)" #img></ion-img>
+        </ion-avatar>
         <ion-label>
           <h2>{{usuario}}</h2>
           <p>{{correo}}</p>

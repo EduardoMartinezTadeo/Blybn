@@ -571,6 +571,8 @@ export class RegistroFPage implements OnInit {
   registrarInfoGeneral(){
     this.servicio.registrarPropiedad(this.bly_tituloPropiedad, this.bly_pais, this.bly_calle, this.bly_ciudad, this.bly_estado, this.bly_codigoPostal, this.bly_direccionGeneral, this.bly_latitud, this.bly_longitud, this.bly_numHabitaciones, this.bly_numHuespedes, this.bly_numCamas, this.bly_numBanos, this.bly_tipoBano, this.bly_tipoPropiedad, this.bly_tipoAlojamiento, this.bly_tipoAventura, this.bly_frecuenciaRenta, this.bly_historialPrevioPropiedad, this.bly_tipoAprobacionRenta, this.bly_usuario, this.bly_statusAceptacionContrato).subscribe(data => {
       this.responseData = data;
+    }, (error) => {
+      this.presentLoadingServer();
     });
   }
 
@@ -578,6 +580,8 @@ export class RegistroFPage implements OnInit {
   registrarExclusividad(){
     this.servicio.registrarExclusividad(this.bly_exclusividad, this.bly_propiedad).subscribe(data => {
       this.responseDataExclusividad = data;
+    }, (error) => {
+      this.presentLoadingServer();
     });
   }
 
@@ -603,6 +607,8 @@ export class RegistroFPage implements OnInit {
   registrarAmenidad(){
     this.servicio.registrarAmenidades(this.bly_tipoAmenidad, this.bly_propiedad).subscribe(data => {
       this.responseDataA = data;
+    }, (error) => {
+      this.presentLoadingServer();
     });
   }
 
@@ -633,6 +639,8 @@ export class RegistroFPage implements OnInit {
   registrarCostos(){
     this.servicio.registrarCostos(this.bly_tipoMoneda, this.bly_precioBase, this.bly_cargoLimpieza, this.bly_descuentoSemana, this.bly_descuentoMes, this.bly_propiedad).subscribe(data => {
       this.responseDataC = data;
+    }, (error) => {
+      this.presentLoadingServer();
     });
   }
 
@@ -658,6 +666,8 @@ export class RegistroFPage implements OnInit {
   registrarMuebles(){
     this.servicio.registrarMuebles(this.bly_cantidad, this.bly_mueble, this.bly_propiedad).subscribe(data => {
       this.responseDataM = data;
+    },(error) => {
+      this.presentLoadingServer();
     });
   }
 
@@ -683,6 +693,8 @@ export class RegistroFPage implements OnInit {
   registrarEspacios(){
     this.servicio.registrarEspacio(this.bly_espacios, this.bly_propiedad).subscribe(data => {
       this.responseDataES = data;
+    }, (error) => {
+      this.presentLoadingServer();
     });
   }
 
@@ -708,6 +720,8 @@ export class RegistroFPage implements OnInit {
   registrarSeguridadM(){
     this.servicio.registrarSeguridadPropiedad(this.bly_seguridad, this.bly_propiedad).subscribe(data => {
       this.responseDataRS = data;
+    }, (error) => {
+      this.presentLoadingServer();
     });
   }
 
@@ -733,6 +747,8 @@ export class RegistroFPage implements OnInit {
   registrarRestricciones(){
     this.servicio.registrarRestricciones(this.bly_restriccion, this.bly_propiedad).subscribe(data => {
       this.responseDataRP = data;
+    }, (error) => {
+      this.presentLoadingServer();
     });
   }
 
@@ -759,6 +775,8 @@ export class RegistroFPage implements OnInit {
       this.responseDataREP = data;
       this.btnDisponibilidadN = false;
       this.btnDisponibilidad = true;
+    }, (error) => {
+      this.presentLoadingServer();
     });
   }
 
@@ -786,6 +804,8 @@ export class RegistroFPage implements OnInit {
       this.btnDisponibilidadF = true;
       this.btnPublicar = false;
       this.publicarbtn = true;
+    }, (error) => {
+      this.presentLoadingServer();
     });
   }
 
@@ -827,6 +847,8 @@ export class RegistroFPage implements OnInit {
   cargarPerfilActualizado(){
     this.operacionesService.consultarPerfilActualizado(this.bly_correoElectronico).subscribe(data =>{
       this.perfilActualizado = data;
+    }, (error) => {
+      this.presentLoadingServer();
     });
   }
 
@@ -953,5 +975,36 @@ export class RegistroFPage implements OnInit {
     else {
       this.close();
     }
+  }
+
+  async presentAlertServer() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      mode: 'ios',
+      message: 'Ha ocurrido un error, verifique su conexión!!!',
+      buttons: [
+        {
+          text: 'Reintentar',
+          handler: () => {
+            this.router.navigateByUrl('/registro-f');
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  async presentLoadingServer() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      duration: 1500,
+      spinner: 'bubbles',
+      mode: 'ios',
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.presentAlertServer();
+    }, 2000);
   }
 }

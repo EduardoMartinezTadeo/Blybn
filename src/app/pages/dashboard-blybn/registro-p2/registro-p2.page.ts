@@ -16,7 +16,6 @@ declare var google;
 })
 export class RegistroP2Page {
   
- 
   autocomplete: { input: string };
   autocompleteItems: any[];
   main_text: any;

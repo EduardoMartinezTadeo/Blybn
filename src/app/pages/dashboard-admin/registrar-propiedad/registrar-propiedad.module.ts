@@ -12,8 +12,7 @@ import { RegistrarPropiedadPage } from './registrar-propiedad.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    RegistrarPropiedadPageRoutingModule,
-    
+    RegistrarPropiedadPageRoutingModule    
   ],
   declarations: [RegistrarPropiedadPage]
 })

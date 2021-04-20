@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-animacionb12',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Animacionb12Page implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { 
+    setTimeout(()=>{
+      this.router.navigateByUrl('/registro-final');
+    }, 3000);
+  }
 
   ngOnInit() {
   }

@@ -1,0 +1,62 @@
+ion-content {
+    --background: #1d1e1e;
+}
+
+.ion-label1 {
+    margin-top: 10%;
+    margin-left: 10%;
+    font-family: "HelveticaBold";
+    font-size: 25px;
+    color: white;
+    display: inline-block;
+}
+.ion-label2 {
+    margin-left: 10%;
+    font-family: "HelveticaBold";
+    font-size: 25px;
+    color: white;
+    display: inline-block;
+}
+
+.parrafo {
+    font-family: "HelveticaBold";
+    font-size: 13px;
+    text-align: justify;
+    margin-left: 10%;
+    margin-right: 10%;
+    color: white;
+}
+
+p {
+    margin-left: 10%;
+    margin-right: 10%;
+    font-family: "Helvetica";
+    font-size: 12px;
+    color: white;
+    text-align: justify;
+}
+
+ion-item {
+    --background: #1d1e1e;
+    --border-color: var(--ion-color-form, #ffffff);
+    color: #ffffff;
+    font-family: "Helvetica";
+    font-size: 13px;
+    color: white;
+    text-align: justify;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+ion-input {
+    font-family: "Helvetica";
+    font-size: 12px;
+    color: white;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+ion-skeleton-text {
+    --background: green;
+    --background-rgb: 254, 254, 254;
+  }

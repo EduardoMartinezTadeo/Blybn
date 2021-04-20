@@ -1,9 +1,98 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>registro-p6r11</ion-title>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="bg" (click)="close()"></div>
 
+  <div class="bottomSheet" (touchmove)="touchMove($event)" (touchend)="touchEnd()">
+    <div class="swipe-handler"></div>
+    <div class="content ion-padding">
+      <h1>Reglas para niños, bebés o mascotas.</h1>
+      <br>
+      <p class="parrafo">Niños</p>
+      <p>Puedes indicar que tu espacio no es adecuado para bebés o niños si existe un riesgo extraordinario de que lo
+        estropeen o se haganndaño debido a alguna de sus características. Los huéspedes podrán ponerse en contacto
+        contigo para que les des más información.</p>
+      <p class="parrafo">Mascotas</p>
+      <p>Puedes impedir que los huéspedes traigan mascotas, pero los animales de asistencia, como los perros guía, no
+        entran en esa categoría. Tienes que alojar adecuadamente a huéspedes acompañados de animales de asistencia,
+        aun cuando en el espacio o en las reglas de la casa hayas especificado "no se admiten mascotas".</p>
+    </div>
+  </div>
+  <div *ngIf="contentLoaded">
+    <ion-label class="ion-label1">
+      Establece tus Reglas
+    </ion-label>
+    <br />
+    <ion-label class="ion-label2">
+      de la casa
+    </ion-label>
+    <br>
+    <br>
+    <p>Los huéspedes deben aceptar tus reglas de la casa antes de reservar.
+      <ion-button fill="clear" (click)="open()" shape="round" slot="end">
+        <ion-icon name="alert-circle-outline" color="warning"></ion-icon>
+      </ion-button>
+    </p>
+    <br>
+    <br>
+    <ion-grid>
+      <ion-row *ngFor="let restriccion of restriciones" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label>{{restriccion.bly_tipoRestriccion}}</ion-label>
+        </ion-col>
+        <ion-col size="5" class="ion-text-right">
+          <ion-checkbox [(ngModel)]="restriccion.bly_selected"  (click)="onClick( restriccion )" required></ion-checkbox>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngIf="!contentLoaded">
+    <ion-label class="ion-label1">
+      <ion-skeleton-text animated style="width: 320px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br />
+    <ion-label class="ion-label2">
+      <ion-skeleton-text animated style="width: 250px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <br>
+    <p><ion-skeleton-text animated style="width: 195px; height: 10px" slot="start"></ion-skeleton-text>
+      <ion-button fill="clear" (click)="open()" shape="round" slot="end">
+        <ion-skeleton-text animated style="width: 14px; height: 14px" slot="start"></ion-skeleton-text>
+      </ion-button>
+    </p>
+    <br>
+    <br>
+    <ion-grid>
+      <ion-row *ngFor="let restriccion of restriciones" mode="ios">
+        <ion-col class="ion-no-border" lines="none" size="7">
+          <ion-label><ion-skeleton-text animated style="width: 180px; height: 10px" slot="start"></ion-skeleton-text></ion-label>
+        </ion-col>
+        <ion-col size="5" class="ion-text-right">
+          <ion-skeleton-text animated style="width: 14px; height: 14px" slot="start"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
+
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -1,9 +1,192 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>registrop10</ion-title>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding">
+  <div *ngIf="contentLoaded">
+    <ion-label class="ion-label1">
+      ¿Cuántos huéspedes
+    </ion-label>
+    <br />
+    <ion-label class="ion-label2">
+      pueden alojarse?
+    </ion-label>
+    <br>
+    <p>
+      Asegúrate de tener suficientes camas para acomodar cómodamente a todos los huéspedes.
+    </p>
+    <br>
+    <ion-grid>
+        <ion-row>
+          <ion-col size="4">
+            <ion-label>
+              Número de húespedes
+            </ion-label>
+          </ion-col>
+          <ion-col size="8" class="ion-text-right">
+            <ion-col size="2">
+              <ion-button fill="clear" (click)="decrementarHuespedes()">
+                <ion-icon name="remove-circle-outline" color="primary"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="3">
+              {{huespedes}}
+            </ion-col>
+            <ion-col size="2">
+              <ion-button fill="clear" (click)="incrementarHuespedes()">
+                <ion-icon name="add-circle-outline" color="primary"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-col>
+        </ion-row>
+     <br>
+     <ion-row>
+      <ion-col size="4">
+        <ion-label>
+          Habitaciones para húespedes
+        </ion-label>
+      </ion-col>
+      <ion-col size="8" class="ion-text-right">
+        <ion-col size="2">
+          <ion-button fill="clear" (click)="decrementarHabitaciones()">
+            <ion-icon name="remove-circle-outline" color="primary"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="3">
+          {{habitaciones}}
+        </ion-col>
+        <ion-col size="2">
+          <ion-button fill="clear" (click)="incrementarHabitaciones()">
+            <ion-icon name="add-circle-outline" color="primary"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-col>
+    </ion-row>
+    <br>
+    <ion-row>
+      <ion-col size="4">
+        <ion-label>
+          Camas para húespedes
+        </ion-label>
+      </ion-col>
+      <ion-col size="8" class="ion-text-right">
+        <ion-col size="2">
+          <ion-button fill="clear" (click)="decrementarCamas()">
+            <ion-icon name="remove-circle-outline" color="primary"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="3">
+           {{camas}}
+        </ion-col>
+        <ion-col size="2">
+          <ion-button fill="clear" (click)="incrementarCamas()">
+            <ion-icon name="add-circle-outline" color="primary"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-col>
+    </ion-row>    
+    </ion-grid>
+  </div>
+  <div *ngIf="!contentLoaded">
+    <ion-label class="ion-label1">
+      <ion-skeleton-text animated style="width: 245px; height: 13px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br />
+    <ion-label class="ion-label2">
+      <ion-skeleton-text animated style="width: 230px; height: 13px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <p>
+      <ion-skeleton-text animated style="width: 200px; height: 10px" slot="start"></ion-skeleton-text>
+    </p>
+    <br>
+    <ion-grid>
+        <ion-row>
+          <ion-col size="4">
+            <ion-label>
+              <ion-skeleton-text animated style="width: 80px; height: 10px" slot="start"></ion-skeleton-text>
+            </ion-label>
+          </ion-col>
+          <ion-col size="8" class="ion-text-right">
+            <ion-col size="2">
+              <ion-button fill="clear" >
+                <ion-skeleton-text animated style="width: 15px; height: 15px" slot="start"></ion-skeleton-text>
+              </ion-button>
+            </ion-col>
+            <ion-col size="3">
+              <ion-skeleton-text animated style="width: 10px; height: 10px" slot="start"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button fill="clear" >
+                <ion-skeleton-text animated style="width: 15px; height: 15px" slot="start"></ion-skeleton-text>
+              </ion-button>
+            </ion-col>
+          </ion-col>
+        </ion-row>
+     <br>
+     <ion-row>
+      <ion-col size="4">
+        <ion-label>
+          <ion-skeleton-text animated style="width: 80px; height: 10px" slot="start"></ion-skeleton-text>
+        </ion-label>
+      </ion-col>
+      <ion-col size="8" class="ion-text-right">
+        <ion-col size="2">
+          <ion-button fill="clear" >
+            <ion-skeleton-text animated style="width: 15px; height: 15px" slot="start"></ion-skeleton-text>
+          </ion-button>
+        </ion-col>
+        <ion-col size="3">
+          <ion-skeleton-text animated style="width: 10px; height: 10px" slot="start"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button fill="clear">
+            <ion-skeleton-text animated style="width: 15px; height: 15px" slot="start"></ion-skeleton-text>
+          </ion-button>
+        </ion-col>
+      </ion-col>
+    </ion-row>
+    <br>
+    <ion-row>
+      <ion-col size="4">
+        <ion-label>
+          <ion-skeleton-text animated style="width: 80px; height: 10px" slot="start"></ion-skeleton-text>
+        </ion-label>
+      </ion-col>
+      <ion-col size="8" class="ion-text-right">
+        <ion-col size="2">
+          <ion-button fill="clear" >
+            <ion-skeleton-text animated style="width: 15px; height: 15px" slot="start"></ion-skeleton-text>
+          </ion-button>
+        </ion-col>
+        <ion-col size="3">
+          <ion-skeleton-text animated style="width: 10px; height: 10px" slot="start"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button fill="clear" >
+            <ion-skeleton-text animated style="width: 15px; height: 15px" slot="start"></ion-skeleton-text>
+          </ion-button>
+        </ion-col>
+      </ion-col>
+    </ion-row>    
+    </ion-grid>
+  </div>
+ 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

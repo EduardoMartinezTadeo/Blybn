@@ -1,9 +1,53 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>registro-p2r22</ion-title>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <div *ngIf="contentLoaded">
+    <ion-label class="ion-label1">
+      ¿Está el marcador en 
+    </ion-label>
+    <br />
+    <ion-label class="ion-label2">
+      el lugar correcto?
+    </ion-label>
+  </div>
+  <br>
+  <div class="map-wrapper" style="height: 100%;" *ngIf="contentLoaded">      
+    <div id="map_center">
+      <ion-img src="/assets/icons/market.png"></ion-img>   
+    </div>
+    <div #map id="map"  style="height: 100%;"></div>
+  </div> 
 
+  <div *ngIf="!contentLoaded">
+    <ion-label class="ion-label1">
+      <ion-skeleton-text animated style="width: 180px; height: 18px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br />
+    <ion-label class="ion-label2">
+      <ion-skeleton-text animated style="width: 120px; height: 18px" slot="start"></ion-skeleton-text>
+    </ion-label>
+  </div>
+  <br>
+  <div class="map-wrapper" style="height: 100%;" *ngIf="!contentLoaded">      
+    <ion-skeleton-text animated style="width: 100%; height: 100%"></ion-skeleton-text>
+  </div> 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

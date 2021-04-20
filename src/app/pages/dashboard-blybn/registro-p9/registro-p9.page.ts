@@ -20,7 +20,9 @@ export class RegistroP9Page implements OnInit {
   informacionR9: any;
   informacionR10: any;  
   informacionR11: any;
-  
+  informacionEspecial: any;
+  public btnEspecial: boolean = false;
+  valor9: boolean;
   constructor(
     private alertController: AlertController,
     private router: Router,
@@ -60,38 +62,13 @@ export class RegistroP9Page implements OnInit {
     this.informacionR11 = {
       registro11: false
     }
+    this.informacionEspecial = {
+      finalActivar: false
+    } 
   }
 
   ngOnInit() {}
 
-  async cancelar() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Cancelar operación',
-      mode: 'ios',
-      message: '¿Esta seguro que desea cancelar el registro de la propiedad?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
-        },
-        {
-          text: 'Aceptar',
-          handler: () => {
-            this.router.navigateByUrl('/dashboard2/menutabs2/registrar-propiedad2');
-          },
-        },
-      ],
-    });
-
-    await alert.present();
-  }
-
-  
   async confirmacionContrato() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -191,6 +168,9 @@ export class RegistroP9Page implements OnInit {
             this.storage.set('registroP11', this.informacionR11).then((res) => {
               console.log(res);
             }); 
+            this.storage.set('botonEspecial', this.informacionEspecial).then((res) => {
+              this.btnEspecial = false;
+            });
             this.storage.remove('costosPropiedad');
             this.storage.remove('mapaInformacion');
             this.storage.remove('mueblesInformacion');

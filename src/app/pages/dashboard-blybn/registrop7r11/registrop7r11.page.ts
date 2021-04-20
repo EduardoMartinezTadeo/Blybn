@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
-
-
 @Component({
   selector: 'app-registrop7r11',
   templateUrl: './registrop7r11.page.html',

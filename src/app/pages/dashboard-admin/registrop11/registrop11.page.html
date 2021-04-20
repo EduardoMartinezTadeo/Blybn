@@ -1,9 +1,91 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>registrop11</ion-title>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding">
+  <div *ngIf="contentLoaded">
+    <ion-label class="ion-label1">
+      ¿Cómo son las camas?
+    </ion-label>
+    <p>
+      Ayuda a los huéspedes a entender dónde pueden dormir indicando de manera general el tipo de camas que hay en la propiedad.
+    </p>
+    <p>Se recomienda se seleccione la cantidad de muebles con la que cuenta y al final lo marque como listo.</p>
+    <br>  
+    
+      <ion-row *ngFor="let mueble of muebles" mode="ios">
+        <ion-col class="ion-text-right">
+          <ion-checkbox [(ngModel)]="mueble.bly_selected" required (click)="onClick( mueble )"></ion-checkbox>
+        </ion-col>
+        <ion-col class="ion-no-border" lines="none">
+          <ion-label>{{mueble.bly_tipoMueble}}</ion-label>
+        </ion-col>
+        <ion-col size="7" class="ion-text-right">
+          <ion-col size="2">
+            <ion-button fill="clear" (click)="disminuir(mueble)">
+              <ion-icon name="remove-circle-outline" color="primary"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="3">
+            {{ (mueble.bly_cantidadMuebles) ? mueble.bly_cantidadMuebles: 0}}
+          </ion-col>
+          <ion-col size="2">
+            <ion-button fill="clear" (click)="incrementar(mueble)">
+              <ion-icon name="add-circle-outline" color="primary"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-col>
+      </ion-row>
+  </div>
+  <div *ngIf="!contentLoaded">
+    <ion-label class="ion-label1">
+      <ion-skeleton-text animated style="width: 320px; height: 13px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <p>
+      <ion-skeleton-text animated style="width: 252px; height: 8px" slot="start"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 250px; height: 8px" slot="start"></ion-skeleton-text>
+    </p>
+    <br>  
+    
+      <ion-row *ngFor="let mueble of muebles" mode="ios">
+        <ion-col class="ion-text-right">
+          <ion-skeleton-text animated style="width: 15px; height: 15px" slot="start"></ion-skeleton-text>
+        </ion-col>
+        <ion-col class="ion-no-border" lines="none">
+          <ion-skeleton-text animated style="width: 100px; height: 8px" slot="start"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="7" class="ion-text-right">
+          <ion-col size="2">
+            <ion-button fill="clear">
+              <ion-skeleton-text animated style="width: 15px; height: 15px" slot="start"></ion-skeleton-text>
+            </ion-button>
+          </ion-col>
+          <ion-col size="3">
+            <ion-skeleton-text animated style="width: 15px; height: 15px" slot="start"></ion-skeleton-text>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button fill="clear">
+              <ion-skeleton-text animated style="width: 15px; height: 15px" slot="start"></ion-skeleton-text>
+            </ion-button>
+          </ion-col>
+        </ion-col>
+      </ion-row>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

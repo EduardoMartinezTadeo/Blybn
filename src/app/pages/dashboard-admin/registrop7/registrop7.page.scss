@@ -1,0 +1,44 @@
+ion-content {
+    --background: #1d1e1e;
+}
+
+.ion-label1 {
+    margin-top: 10%;
+    margin-left: 10%;
+    font-family: "HelveticaBold";
+    font-size: 25px;
+    color: white;
+    display: inline-block;
+}
+.ion-label2 {
+    margin-left: 10%;
+    font-family: "HelveticaBold";
+    font-size: 25px;
+    color: white;
+    display: inline-block;
+}
+
+ion-skeleton-text {
+    --background: green;
+    --background-rgb: 254, 254, 254;
+}
+
+.parrafo {
+    font-family: "HelveticaBold";
+    font-size: 13px;
+    text-align: justify;
+    margin-left: 10%;
+    margin-right: 10%;
+    color: white;
+}
+
+ion-grid {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+ion-col {
+    font-family: "Helvetica";
+    font-size: 13px;
+    color: white;
+}

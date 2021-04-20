@@ -1,9 +1,249 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>registro-p7r11</ion-title>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <div *ngIf="contentLoaded">
+    <ion-label class="ion-label1">
+      Disponibilidad
+    </ion-label>
+    <br>
+    <br>
+    <ion-label class="ion-label3">
+      Margen de reservación
+    </ion-label>
+    <br>
+    <br>
+    <ion-label class="parrafo">
+      Preaviso
+      <p slot="start">
+        ¿Cuánto tiempo necesitas para tener todo listo antes de que lleguen los huéspedes?
+      </p>
+    </ion-label>
+    <ion-item lines="none" class="parrafo">    
+      <ion-select lect mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange($event)">
+        <ion-select-option value="{{preaviso.bly_numPreaviso}}" *ngFor="let preaviso of catalogo1">{{preaviso.bly_preavisoDescripcion}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-label class="parrafo">
+      <p slot="start">
+        ¿Cuánto tiempo necesitas para tener todo listo después de la salida de huéspedes?
+      </p>
+    </ion-label>
+    <ion-item lines="none" class="parrafo">    
+      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange2($event)">
+        <ion-select-option value="{{preaviso.bly_numPreaviso}}" *ngFor="let preaviso of catalogo1">{{preaviso.bly_preavisoDescripcion}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-label class="parrafo">
+      Hora límite para las reservaciones
+    </ion-label>
+    <ion-item lines="none" class="parrafo">
+      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange3($event)">
+        <ion-select-option value="{{horas.bly_numHora}}" *ngFor="let horas of catalogo2">{{horas.bly_Horas}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-label class="parrafo">
+      Ventana de disponibilidad
+      <p slot="start">
+        ¿Con cuánta anticipación pueden reservar los huéspedes?
+      </p>
+    </ion-label>
+    <ion-item lines="none" class="parrafo">
+      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange4($event)">
+        <ion-select-option value="{{disposicion.bly_numventanaDisponibilidad}}" *ngFor="let disposicion of catalogo3">{{disposicion.bly_descripcionVentanaDisponibilidad}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
 
+    <ion-label class="ion-label3">
+      Llegada
+    </ion-label>
+    <br>
+    <br>
+    <ion-label class="parrafo">
+      Llegada después de las
+    </ion-label>
+    <ion-item lines="none" class="parrafo">
+      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange5($event)">
+        <ion-select-option value="{{llegada.bly_numLllegadas}}" *ngFor="let llegada of catalogo4">{{llegada.bly_descripcionLlegadas}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <br>
+    <ion-label class="parrafo">
+      Llegada antes de las
+    </ion-label>
+    <ion-item lines="none" class="parrafo">
+      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange6($event)">
+        <ion-select-option value="{{llegada.bly_numLllegadas}}" *ngFor="let llegada of catalogo4">{{llegada.bly_descripcionLlegadas}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <br>
+    <ion-label class="parrafo">
+      Salida antes de las
+    </ion-label>
+    <ion-item lines="none" class="parrafo">
+      <ion-select mode="ios" placeholder="Selecciona:" cancelText="Cancelar" okText="Aceptar" (ionChange)="ionChange7($event)">
+        <ion-select-option value="{{llegada.bly_numLllegadas}}" *ngFor="let llegada of catalogo4">{{llegada.bly_descripcionLlegadas}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-label class="ion-label3">
+      Fechas de disponibilidad 
+    </ion-label>
+    <br>
+    <br>
+    <ion-item class="fechas" lines="none">
+      <ion-label>Fecha inicial</ion-label>
+      <ion-datetime  doneText="Aceptar" cancelText="Cancelar" mode="ios" min="2021" max="2030"   monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" [(ngModel)]="fechainiciald"></ion-datetime>
+    </ion-item>
+    <ion-item class="fechas" lines="none">
+      <ion-label>Fecha final</ion-label>
+      <ion-datetime  doneText="Aceptar" cancelText="Cancelar" mode="ios" min="2021" max="2030"   monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" [(ngModel)]="fechafinald"></ion-datetime>
+    </ion-item>
+    <ion-label class="ion-label3">
+      Fechas no disponibilidad 
+    </ion-label>
+    <br>
+    <br>
+    <ion-item class="fechas" lines="none">
+      <ion-label>Fechas no disponibles inicial</ion-label>
+      <ion-datetime  doneText="Aceptar" cancelText="Cancelar" mode="ios" min="2021" max="2030"   monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" [(ngModel)]="fechainicialnd"></ion-datetime>
+    </ion-item>
+    <ion-item class="fechas" lines="none">
+      <ion-label>Fechas no disponibles final</ion-label>
+      <ion-datetime  doneText="Aceptar" cancelText="Cancelar" mode="ios" min="2021" max="2030"   monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" [(ngModel)]="fechafinalnd"></ion-datetime>
+    </ion-item>
+  </div>
+  <div *ngIf="!contentLoaded">
+    <ion-label class="ion-label1">
+      <ion-skeleton-text animated style="width: 320px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <br>
+    <ion-label class="ion-label3">
+      <ion-skeleton-text animated style="width: 240px; height: 12px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <ion-item lines="none">
+      <ion-label class="parrafo">
+        <ion-skeleton-text animated style="width: 140px; height: 11px" slot="start"></ion-skeleton-text>
+      </ion-label>
+      <p slot="start">
+        <ion-skeleton-text animated style="width: 210px; height: 10px" slot="start"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 18  0px; height: 10px" slot="start"></ion-skeleton-text>
+      </p>
+    </ion-item>
+    <br>
+    <ion-item lines="none">
+      <ion-label class="parrafo">
+        <ion-skeleton-text animated style="width: 140px; height: 11px" slot="start"></ion-skeleton-text>
+      </ion-label>
+      <p slot="start">
+        <ion-skeleton-text animated style="width: 210px; height: 10px" slot="start"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 18  0px; height: 10px" slot="start"></ion-skeleton-text>
+      </p>
+    </ion-item>
+    <br>
+    <ion-item lines="none">
+      <ion-label class="parrafo">
+        <ion-skeleton-text animated style="width: 140px; height: 11px" slot="start"></ion-skeleton-text>
+      </ion-label>
+      <p slot="start">
+        <ion-skeleton-text animated style="width: 210px; height: 10px" slot="start"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 18  0px; height: 10px" slot="start"></ion-skeleton-text>
+      </p>
+    </ion-item>
+    <br>
+    <ion-item lines="none">
+      <ion-label class="parrafo">
+        <ion-skeleton-text animated style="width: 140px; height: 11px" slot="start"></ion-skeleton-text>
+      </ion-label>
+      <p slot="start">
+        <ion-skeleton-text animated style="width: 210px; height: 10px" slot="start"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 18  0px; height: 10px" slot="start"></ion-skeleton-text>
+      </p>
+    </ion-item>
+    <br>
+    <ion-item lines="none">
+      <ion-label class="parrafo">
+        <ion-skeleton-text animated style="width: 140px; height: 11px" slot="start"></ion-skeleton-text>
+      </ion-label>
+      <p slot="start">
+        <ion-skeleton-text animated style="width: 210px; height: 10px" slot="start"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 18  0px; height: 10px" slot="start"></ion-skeleton-text>
+      </p>
+    </ion-item>
+    <br>
+    <ion-item lines="none">
+      <ion-label class="parrafo">
+        <ion-skeleton-text animated style="width: 140px; height: 11px" slot="start"></ion-skeleton-text>
+      </ion-label>
+      <p slot="start">
+        <ion-skeleton-text animated style="width: 210px; height: 10px" slot="start"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 18  0px; height: 10px" slot="start"></ion-skeleton-text>
+      </p>
+    </ion-item>
+    <br>
+    <ion-item lines="none">
+      <ion-label class="parrafo">
+        <ion-skeleton-text animated style="width: 140px; height: 11px" slot="start"></ion-skeleton-text>
+      </ion-label>
+      <p slot="start">
+        <ion-skeleton-text animated style="width: 210px; height: 10px" slot="start"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 18  0px; height: 10px" slot="start"></ion-skeleton-text>
+      </p>
+    </ion-item>
+    <br>
+    <ion-item lines="none">
+      <ion-label class="parrafo">
+        <ion-skeleton-text animated style="width: 140px; height: 11px" slot="start"></ion-skeleton-text>
+      </ion-label>
+      <p slot="start">
+        <ion-skeleton-text animated style="width: 210px; height: 10px" slot="start"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 18  0px; height: 10px" slot="start"></ion-skeleton-text>
+      </p>
+    </ion-item>
+    <br>
+    <ion-item lines="none">
+      <ion-label class="parrafo">
+        <ion-skeleton-text animated style="width: 140px; height: 11px" slot="start"></ion-skeleton-text>
+      </ion-label>
+      <p slot="start">
+        <ion-skeleton-text animated style="width: 210px; height: 10px" slot="start"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 18  0px; height: 10px" slot="start"></ion-skeleton-text>
+      </p>
+    </ion-item>
+    <br>
+    <ion-item lines="none">
+      <ion-label class="parrafo">
+        <ion-skeleton-text animated style="width: 140px; height: 11px" slot="start"></ion-skeleton-text>
+      </ion-label>
+      <p slot="start">
+        <ion-skeleton-text animated style="width: 210px; height: 10px" slot="start"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 18  0px; height: 10px" slot="start"></ion-skeleton-text>
+      </p>
+    </ion-item>
+  </div>
 </ion-content>
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

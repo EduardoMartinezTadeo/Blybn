@@ -1,9 +1,43 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>registrop9</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-content class="ion-padding">
+  <ion-label class="ion-label1">
+    Legislación local
+  </ion-label>
+  <br>
+  <br>
+  <p class="parrafo">
+    Tómate un momento para consultar las leyes y normativas locales que afectan a tu alojamiento. Queremos asegurarnos
+    de que tienes todo lo que necesitas para empezar correctamente esta aventura.
+  </p>
+  <p class="parrafo">
+    En la mayoría de las localidades, tendrás que inscribirte en un registro, tramitar un permiso u obtener una licencia
+    antes de poder anunciar tu espacio y recibir huéspedes. También es posible que tengas que encargarte de cobrar y
+    declarar algunos impuestos. También es posible que tengas que encargarte de recaudar y liquidar algunos impuestos.
+    Puede ser que las rentas de corta duración estén prohibidas por completo en algunos lugares.
+  </p>
+  <p class="parrafo">
+    Puesto que eres la única persona responsable a la hora de decidir anunciar o reservar un espacio, te recomendamos que te familiarices con la legislación y la normativa aplicables antes de anunciar tu espacio en Blybn. Para ello, te ofrecemos algunos recursos útiles en la sección dedicada en nuestro aviso de privacidad.
+  </p>
+  <br>
+  <br>
+  <br>
+  <p class="parrafoAceptar">
+    Al aceptar los términos de servicio y anunciar tu espacio, te comprometes a cumplir con la legislación y la normativa aplicables.
+  </p>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirmacionContrato()">
+        Aceptar
+        <ion-icon slot="end" name="checkmark-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="rechazarContrato()"> 
+        Rechazar
+        <ion-icon slot="start" name="close-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

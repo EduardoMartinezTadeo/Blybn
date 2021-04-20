@@ -339,6 +339,10 @@ const routes: Routes = [
   {
     path: 'registro-p8r1',
     loadChildren: () => import('./pages/dashboard-admin/registro-p8r1/registro-p8r1.module').then( m => m.RegistroP8r1PageModule)
+  },
+  {
+    path: 'registro-final',
+    loadChildren: () => import('./pages/dashboard-admin/registro-final/registro-final.module').then( m => m.RegistroFinalPageModule)
   }
 ];
 

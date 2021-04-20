@@ -741,7 +741,7 @@ export class RegistroP4Page implements OnInit {
   guardarInformacion(){
     if(this.cameraData1 == undefined){
       this.toast = this.toastController.create({
-        message: 'Debe seleccionar al menos 5 fotografias...',
+        message: 'Debe seleccionar al menos 8 fotografias...',
         duration: 2000,
         mode: 'ios'
       }).then((toastData) => {
@@ -749,7 +749,7 @@ export class RegistroP4Page implements OnInit {
       });
     } else if (this.cameraData2 == undefined){
       this.toast = this.toastController.create({
-        message: 'Debe seleccionar al menos 5 fotografias...',
+        message: 'Debe seleccionar al menos 8 fotografias...',
         duration: 2000,
         mode: 'ios'
       }).then((toastData) => {
@@ -757,7 +757,7 @@ export class RegistroP4Page implements OnInit {
       });
     } else if (this.cameraData3 == undefined){
       this.toast = this.toastController.create({
-        message: 'Debe seleccionar al menos 5 fotografias...',
+        message: 'Debe seleccionar al menos 8 fotografias...',
         duration: 2000,
         mode: 'ios'
       }).then((toastData) => {
@@ -765,7 +765,7 @@ export class RegistroP4Page implements OnInit {
       });
     } else if (this.cameraData4 == undefined){
       this.toast = this.toastController.create({
-        message: 'Debe seleccionar al menos 5 fotografias...',
+        message: 'Debe seleccionar al menos 8 fotografias...',
         duration: 2000,
         mode: 'ios'
       }).then((toastData) => {
@@ -773,13 +773,37 @@ export class RegistroP4Page implements OnInit {
       });
     } else if (this.cameraData5 == undefined){
       this.toast = this.toastController.create({
-        message: 'Debe seleccionar al menos 5 fotografias...',
+        message: 'Debe seleccionar al menos 8 fotografias...',
         duration: 2000,
         mode: 'ios'
       }).then((toastData) => {
         toastData.present();
       });
-    } else {
+    } else if (this.cameraData6 == undefined){
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar al menos 8 fotografias...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if (this.cameraData7 == undefined) {
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar al menos 8 fotografias...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    } else if(this.cameraData8 == undefined) {
+      this.toast = this.toastController.create({
+        message: 'Debe seleccionar al menos 8 fotografias...',
+        duration: 2000,
+        mode: 'ios'
+      }).then((toastData) => {
+        toastData.present();
+      });
+    }else {
       this.informacionR4 = {
         foto1: this.cameraData1,
         foto2: this.cameraData2,

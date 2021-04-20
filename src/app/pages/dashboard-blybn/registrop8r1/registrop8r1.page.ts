@@ -74,5 +74,4 @@ export class Registrop8r1Page implements OnInit {
       });
     }   
   }
-
 }

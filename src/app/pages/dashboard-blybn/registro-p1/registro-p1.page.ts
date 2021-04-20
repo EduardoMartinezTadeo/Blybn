@@ -239,6 +239,4 @@ export class RegistroP1Page implements OnInit {
       });
     } 
   }
-
- 
 }

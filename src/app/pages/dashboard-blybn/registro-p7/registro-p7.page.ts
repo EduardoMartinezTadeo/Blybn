@@ -176,5 +176,4 @@ export class RegistroP7Page implements OnInit {
       this.tipoAprobacion = [];
     }   
   }
-
 }

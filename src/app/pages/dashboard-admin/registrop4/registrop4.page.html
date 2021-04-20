@@ -1,9 +1,74 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>registrop4</ion-title>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content fullscreen>
+  <ion-label class="ion-label1">
+    Fotografía o multimedia 
+  </ion-label>
+  <p class="parrafo">
+    Selecciona al menos 8 fotografías donde muestres lo espectacular que es tu propiedad…</p>
+  <br>
+  <br>
+  <ion-grid fixed class="animate__animated animate__zoomInDown animate__slower 3s" mode="md">
+    <ion-row>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="6">
+        <ion-card (click)="presentActionCamera1()" class="ion-text-center">
+          <ion-img src="{{foto1}}" (ionError)="onError(img)" #img></ion-img>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="6">
+        <ion-card (click)="presentActionCamera2()">
+          <ion-img src="{{foto2}}" (ionError)="onError2(img2)" #img2></ion-img>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="6">
+        <ion-card (click)="presentActionCamera3()">
+          <ion-img src="{{foto3}}" (ionError)="onError3(img3)" #img3></ion-img>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="6">
+        <ion-card (click)="presentActionCamera4()">
+          <ion-img src="{{foto4}}" (ionError)="onError4(img4)" #img4></ion-img>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="6">
+        <ion-card (click)="presentActionCamera5()">
+          <ion-img src="{{foto5}}" (ionError)="onError5(img5)" #img5></ion-img>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="6">
+        <ion-card (click)="presentActionCamera6()">
+          <ion-img src="{{foto6}}" (ionError)="onError6(img6)" #img6></ion-img>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="6">
+        <ion-card (click)="presentActionCamera7()">
+          <ion-img src="{{foto7}}" (ionError)="onError7(img7)" #img7></ion-img>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="6">
+        <ion-card (click)="presentActionCamera8()">
+          <ion-img src="{{foto8}}" (ionError)="onError8(img8)" #img8></ion-img>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

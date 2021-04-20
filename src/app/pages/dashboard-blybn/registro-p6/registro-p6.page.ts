@@ -111,6 +111,4 @@ export class RegistroP6Page implements OnInit {
       });
     });
   }
-
-
 }

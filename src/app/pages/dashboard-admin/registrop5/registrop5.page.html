@@ -1,9 +1,88 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>registrop5</ion-title>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  
+  <div class="bgp5" (click)="close()"></div>
 
+  <div class="bottomSheetp5" (touchmove)="touchMove($event)" (touchend)="touchEnd()">
+    <div class="swipe-handler"></div>
+    <div class="content ion-padding">
+      <h1>Busca un título que sea descriptivo</h1>
+      <p>Los viajeros que buscan un alojamiento en Blybn leen los títulos de los espacios sin detenerse en ellos.</p>
+
+      <p>Te recomendamos que des con uno breve que destaque algo realmente especial: cualquier cosa interesante que haya
+        en la zona, si es espacioso o acogedor, etc.</p>
+
+      <p>También es importante explicar qué tipo de espacio es: si es luminoso, perfecto para ir en familia o si tiene
+        un encanto especial.</p>
+    </div>
+  </div>
+
+  <div *ngIf="contentLoaded">
+    <ion-label class="ion-label1">
+      Ponle nombre a tu
+    </ion-label>
+    <br />
+    <ion-label class="ion-label2">
+      espacio
+    </ion-label>
+    <br>
+    <p>
+      Atrae a los huéspedes con un título que resalte lo que hace que tu espacio sea especial.
+      <ion-button fill="clear" (click)="open()" shape="round" slot="end">
+        <ion-icon name="alert-circle-outline" color="warning"></ion-icon>
+      </ion-button>
+    </p>
+   
+    <ion-card>
+      <ion-card-content>
+        <ion-textarea placeholder="Escribe un titulo llamativo..." rows="6" cols="20" [(ngModel)]="titulo" required>
+        </ion-textarea>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  
+  <div *ngIf="!contentLoaded">
+    <ion-label class="ion-label1">
+      <ion-skeleton-text animated style="width: 320px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br />
+    <ion-label class="ion-label2">
+      <ion-skeleton-text animated style="width: 150px; height: 14px" slot="start"></ion-skeleton-text>
+    </ion-label>
+    <br>
+    <p>
+      <ion-skeleton-text animated style="width: 320px; height: 10px" slot="start"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 280px; height: 10px" slot="start"></ion-skeleton-text>  
+      <ion-button fill="clear"  shape="round" slot="end">
+        <ion-skeleton-text animated style="width: 10px; height: 10px" slot="start"></ion-skeleton-text>
+        
+      </ion-button>
+    </p>
+   
+    <ion-card>
+      <ion-card-content>
+        <ion-skeleton-text animated style="width: 100%; height: 320px" slot="start"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="titulos" class="ion-no-border" translucent>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardarInformacion()">
+        Siguiente
+        <ion-icon slot="end" name="chevron-forward-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

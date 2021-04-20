@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-
 @Component({
   selector: 'app-registro-p5',
   templateUrl: './registro-p5.page.html',

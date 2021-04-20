@@ -139,5 +139,4 @@ export class RegistroP2r11Page implements OnInit {
       });
     }
   }
-
 }

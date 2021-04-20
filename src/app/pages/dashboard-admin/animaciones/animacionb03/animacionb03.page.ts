@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-animacionb03',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Animacionb03Page implements OnInit {
 
-  constructor() { }
+  constructor(public router: Router) {
+    setTimeout(()=>{
+      this.router.navigateByUrl('/registrop3');
+    }, 3000);
+   }
 
   ngOnInit() {
   }

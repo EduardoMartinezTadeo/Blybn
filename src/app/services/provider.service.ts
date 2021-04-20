@@ -41,6 +41,7 @@ const apiCargarVentanaDisponibilidad = environment.apiCargarVentanaDisponibilida
 const apiActualizarRolUsuario = environment.apiActualizarRolUsuarioURL;
 const apiCargarPerfilAdminBlybn = environment.apiCargarPerfilAdminURL;
 const apiCargarPropiedadesUsuario = environment.apiCargarPropiedadesUsuarioURL;
+const apiRegistrarFotosPropiedades = environment.apiRegistrarFotosPropiedadURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -351,5 +352,13 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiCargarPropiedadesUsuario + file, body, {headers})
+  }
+
+  postDataRFP(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiRegistrarFotosPropiedades + file, body, {headers})
   }
 }

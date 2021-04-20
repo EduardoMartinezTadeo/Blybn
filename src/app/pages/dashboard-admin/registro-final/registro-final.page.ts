@@ -804,6 +804,7 @@ export class RegistroFinalPage implements OnInit {
       this.btnDisponibilidadF = true;
       this.btnPublicar = false;
       this.publicarbtn = true;
+      
     }, (error) => {
       this.presentLoadingServer();
     });

@@ -333,6 +333,7 @@ export class RegistroFPage implements OnInit {
       this.cargarHoraLlegadaDespues();
       this.cargarHoraLlegadaAntes();
       this.cargarSalida();
+      this.cargarFotos();
     });
   }
 
@@ -804,6 +805,8 @@ export class RegistroFPage implements OnInit {
       this.btnDisponibilidadF = true;
       this.btnPublicar = false;
       this.publicarbtn = true;
+      this.btnf1 = false;
+      this.btnf1n = true;
     }, (error) => {
       this.presentLoadingServer();
     });
@@ -1006,5 +1009,106 @@ export class RegistroFPage implements OnInit {
     setTimeout(() => {
       this.presentAlertServer();
     }, 2000);
+  }
+
+  foto1: string;
+  foto2: string;
+  foto3: string;
+  foto4: string;
+  foto5: string;
+  foto6: string;
+  foto7: string;
+  foto8: string;
+
+  dataF1: string;
+  dataF2: string;
+  dataF3: string;
+  dataF4: string;
+  dataF5: string;
+  dataF6: string;
+  dataF7: string;
+  dataF8: string;
+  informacionFotos: any;
+
+  public btnf1: boolean = true;
+  public btnf1n: boolean = false;
+  public btnf1s: boolean = false;
+
+  public btnf2: boolean = true;
+  public btnf2n: boolean = false;
+
+  public btnf3: boolean = true;
+  public btnf3n: boolean = false;
+
+  public btnf4: boolean = true;
+  public btnf4n: boolean = false;
+
+  public btnf5: boolean = true;
+  public btnf5n: boolean = false;
+
+  public btnf6: boolean = true;
+  public btnf6n: boolean = false;
+
+  public btnf7: boolean = true;
+  public btnf7n: boolean = false;
+
+  public btnf8: boolean = true;
+  public btnf8n: boolean = false;
+
+
+  cargarFotos(){
+    this.storage.get('registroP4').then((res) => {
+      this.informacionFotos = res;
+      this.dataF1 = this.informacionFotos.foto1;
+      this.dataF2 = this.informacionFotos.foto2;
+      this.dataF3 = this.informacionFotos.foto3;    
+      this.dataF4 = this.informacionFotos.foto4;
+      this.dataF5 = this.informacionFotos.foto5;
+      this.dataF6 = this.informacionFotos.foto6;
+      this.dataF7 = this.informacionFotos.foto7;
+      this.dataF8 = this.informacionFotos.foto8;
+      this.foto1 = 'data:image/jpeg;base64,' + this.dataF1;
+      this.foto2 = 'data:image/jpeg;base64,' + this.dataF2;
+      this.foto3 = 'data:image/jpeg;base64,' + this.dataF3;
+      this.foto4 = 'data:image/jpeg;base64,' + this.dataF4;
+      this.foto5 = 'data:image/jpeg;base64,' + this.dataF5;
+      this.foto6 = 'data:image/jpeg;base64,' + this.dataF6;
+      this.foto7 = 'data:image/jpeg;base64,' + this.dataF7;
+      this.foto8 = 'data:image/jpeg;base64,' + this.dataF8;
+    });
+  }
+
+  registrarF1(){
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+    });
+    let body = {
+      aksi: 'imagenPropiedad',
+      bly_propiedad: this.bly_propiedad,
+      bly_foto: this.dataF1
+    }
+    this.provider.postDataRFP(body, 'db_registrarFotosPropiedad.php').subscribe((data) => {
+      var alert = data.msg;
+      if(data.success){
+        this.toast = this.toastController.create({
+          message: 'Se ha verificado su fotografía...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+          this.btnf1n = false;
+          this.btnf1s = true;
+        });   
+      } else {
+        this.toast = this.toastController.create({
+          message: 'Ha ocurrido un error...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+        });
+      }
+    });
   }
 }

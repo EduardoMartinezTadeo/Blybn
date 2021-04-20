@@ -378,34 +378,44 @@ export class RegistrarPropiedadPage implements OnInit {
     
     this.dato1 = true;
     this.dator1 = false;
+    this.dato2 = false;
 
     this.dato3 = true;
+    this.dato4 = false;
     this.dator2 = false;
 
     this.dato5 = true;
+    this.dato6 = false;
     this.dator3 = false;
 
     this.dato7 = true;
+    this.dato8 = false;
     this.dator4 = false;
 
     this.dato9 = true;
+    this.dato10 = false;
     this.dator5 = false;
 
     this.dato11 = true;
+    this.dato12 = false;
     this.dator6 = false;
 
     this.dato13 = true;
+    this.dato14 = false;
     this.dator7 = false;
 
     this.dato15 = true;
+    this.dato16 = false;
     this.dator8 = false;
 
     this.dato17 = true;
-
+    
     this.dato19 = true;
+    this.dato20 = false;
     this.dator10 = false;
 
     this.dato21 = true;
+    this.dato22 = false;
     this.dator11 = false;
   }
 
@@ -923,7 +933,7 @@ export class RegistrarPropiedadPage implements OnInit {
       this.dato21 = false;
       this.dato22 = true;
 
-      this.dato23 = true;
+      this.dato23 = false;
       this.router.navigate(['/animacionb09']);
     }
   }

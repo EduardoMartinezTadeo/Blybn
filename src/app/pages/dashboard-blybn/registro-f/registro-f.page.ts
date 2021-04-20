@@ -803,8 +803,6 @@ export class RegistroFPage implements OnInit {
       this.responseDataRDP = data;
       this.btnDisponibilidad = false;
       this.btnDisponibilidadF = true;
-      this.btnPublicar = false;
-      this.publicarbtn = true;
       this.btnf1 = false;
       this.btnf1n = true;
     }, (error) => {
@@ -1036,25 +1034,31 @@ export class RegistroFPage implements OnInit {
 
   public btnf2: boolean = true;
   public btnf2n: boolean = false;
+  public btnf2s: boolean = false;
 
   public btnf3: boolean = true;
   public btnf3n: boolean = false;
+  public btnf3s: boolean = false;
 
   public btnf4: boolean = true;
   public btnf4n: boolean = false;
+  public btnf4s: boolean = false;
 
   public btnf5: boolean = true;
   public btnf5n: boolean = false;
+  public btnf5s: boolean = false;
 
   public btnf6: boolean = true;
   public btnf6n: boolean = false;
+  public btnf6s: boolean = false;
 
   public btnf7: boolean = true;
   public btnf7n: boolean = false;
+  public btnf7s: boolean = false;
 
   public btnf8: boolean = true;
   public btnf8n: boolean = false;
-
+  public btnf8s: boolean = false;
 
   cargarFotos(){
     this.storage.get('registroP4').then((res) => {
@@ -1099,6 +1103,256 @@ export class RegistroFPage implements OnInit {
           toastData.present();
           this.btnf1n = false;
           this.btnf1s = true;
+          this.btnf2 = false;
+          this.btnf2n = true;
+        });   
+      } else {
+        this.toast = this.toastController.create({
+          message: 'Ha ocurrido un error...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+        });
+      }
+    });
+  }
+
+  registrarF2(){
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+    });
+    let body = {
+      aksi: 'imagenPropiedad',
+      bly_propiedad: this.bly_propiedad,
+      bly_foto: this.dataF2
+    }
+    this.provider.postDataRFP(body, 'db_registrarFotosPropiedad.php').subscribe((data) => {
+      var alert = data.msg;
+      if(data.success){
+        this.toast = this.toastController.create({
+          message: 'Se ha verificado su fotografía...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+          this.btnf2n = false;
+          this.btnf2s = true;
+          this.btnf3 = false;
+          this.btnf3n = true;
+        });   
+      } else {
+        this.toast = this.toastController.create({
+          message: 'Ha ocurrido un error...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+        });
+      }
+    });
+  }
+
+  registrarF3(){
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+    });
+    let body = {
+      aksi: 'imagenPropiedad',
+      bly_propiedad: this.bly_propiedad,
+      bly_foto: this.dataF3
+    }
+    this.provider.postDataRFP(body, 'db_registrarFotosPropiedad.php').subscribe((data) => {
+      var alert = data.msg;
+      if(data.success){
+        this.toast = this.toastController.create({
+          message: 'Se ha verificado su fotografía...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+          this.btnf3n = false;
+          this.btnf3s = true;
+          this.btnf4 = false;
+          this.btnf4n = true;
+        });   
+      } else {
+        this.toast = this.toastController.create({
+          message: 'Ha ocurrido un error...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+        });
+      }
+    });
+  }
+
+  registrarF4(){
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+    });
+    let body = {
+      aksi: 'imagenPropiedad',
+      bly_propiedad: this.bly_propiedad,
+      bly_foto: this.dataF4
+    }
+    this.provider.postDataRFP(body, 'db_registrarFotosPropiedad.php').subscribe((data) => {
+      var alert = data.msg;
+      if(data.success){
+        this.toast = this.toastController.create({
+          message: 'Se ha verificado su fotografía...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+          this.btnf4n = false;
+          this.btnf4s = true;
+          this.btnf5 = false;
+          this.btnf5n = true;
+        });   
+      } else {
+        this.toast = this.toastController.create({
+          message: 'Ha ocurrido un error...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+        });
+      }
+    });
+  }
+  registrarF5(){
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+    });
+    let body = {
+      aksi: 'imagenPropiedad',
+      bly_propiedad: this.bly_propiedad,
+      bly_foto: this.dataF5
+    }
+    this.provider.postDataRFP(body, 'db_registrarFotosPropiedad.php').subscribe((data) => {
+      var alert = data.msg;
+      if(data.success){
+        this.toast = this.toastController.create({
+          message: 'Se ha verificado su fotografía...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+          this.btnf5n = false;
+          this.btnf5s = true;
+          this.btnf6 = false;
+          this.btnf6n = true;
+        });   
+      } else {
+        this.toast = this.toastController.create({
+          message: 'Ha ocurrido un error...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+        });
+      }
+    });
+  }
+  registrarF6(){
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+    });
+    let body = {
+      aksi: 'imagenPropiedad',
+      bly_propiedad: this.bly_propiedad,
+      bly_foto: this.dataF6
+    }
+    this.provider.postDataRFP(body, 'db_registrarFotosPropiedad.php').subscribe((data) => {
+      var alert = data.msg;
+      if(data.success){
+        this.toast = this.toastController.create({
+          message: 'Se ha verificado su fotografía...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+          this.btnf6n = false;
+          this.btnf6s = true;
+          this.btnf7 = false;
+          this.btnf7n = true;
+        });   
+      } else {
+        this.toast = this.toastController.create({
+          message: 'Ha ocurrido un error...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+        });
+      }
+    });
+  }
+  registrarF7(){
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+    });
+    let body = {
+      aksi: 'imagenPropiedad',
+      bly_propiedad: this.bly_propiedad,
+      bly_foto: this.dataF7
+    }
+    this.provider.postDataRFP(body, 'db_registrarFotosPropiedad.php').subscribe((data) => {
+      var alert = data.msg;
+      if(data.success){
+        this.toast = this.toastController.create({
+          message: 'Se ha verificado su fotografía...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+          this.btnf7n = false;
+          this.btnf7s = true;
+          this.btnf8 = false;
+          this.btnf8n = true;
+        });   
+      } else {
+        this.toast = this.toastController.create({
+          message: 'Ha ocurrido un error...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+        });
+      }
+    });
+  }
+  registrarF8(){
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+    });
+    let body = {
+      aksi: 'imagenPropiedad',
+      bly_propiedad: this.bly_propiedad,
+      bly_foto: this.dataF8
+    }
+    this.provider.postDataRFP(body, 'db_registrarFotosPropiedad.php').subscribe((data) => {
+      var alert = data.msg;
+      if(data.success){
+        this.toast = this.toastController.create({
+          message: 'Se ha verificado su fotografía...',
+          duration: 3000,
+          mode: 'ios'
+        }).then((toastData) => {
+          toastData.present();
+          this.btnf8n = false;
+          this.btnf8s = true;
+          this.btnPublicar = false;
+          this.publicarbtn = true;
         });   
       } else {
         this.toast = this.toastController.create({

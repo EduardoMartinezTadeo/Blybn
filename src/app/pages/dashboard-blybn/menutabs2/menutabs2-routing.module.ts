@@ -62,6 +62,10 @@ const routes: Routes = [
             (m) => m.RegistrarPropiedad2PageModule
           ),
       },
+      {
+        path: 'tipo-aventura4',
+        loadChildren: () => import('../tipo-aventura4/tipo-aventura4.module').then( m => m.TipoAventura4PageModule)
+      }
     ],
   },
 ];

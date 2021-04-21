@@ -321,6 +321,32 @@ export class RegistrarPropiedadPage implements OnInit {
     await alert.present();
   }
 
+  async confirmaReinicio() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      mode: 'ios',
+      header: 'Confirmación',
+      subHeader: 'Esta seguro de reiniciar los apartados del registro',
+      message: 'Toda la información se borrará definitivamente',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Continuar con el reinicio',
+          handler: () => {
+            this.cargaReinicio();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
   async cargaReinicio() {
     const loading = await this.loadingController.create({
       mode: 'ios',
@@ -824,6 +850,16 @@ export class RegistrarPropiedadPage implements OnInit {
       this.toast = this.toastController
         .create({
           message: 'Debe completar el apartado de servicios...',
+          duration: 2000,
+          mode: 'ios',
+        })
+        .then((toastData) => {
+          toastData.present();
+        });
+    } else if (this.valor4 == false){
+      this.toast = this.toastController
+        .create({
+          message: 'Debe completar el apartado de fotografías...',
           duration: 2000,
           mode: 'ios',
         })

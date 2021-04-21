@@ -37,6 +37,14 @@ const routes: Routes = [
         path: 'registrar-propiedad',
         loadChildren: () => import('../registrar-propiedad/registrar-propiedad.module').then( m => m.RegistrarPropiedadPageModule)
       },
+      {
+        path: 'tipo-aventura2',
+        loadChildren: () => import('../tipo-aventura2/tipo-aventura2.module').then( m => m.TipoAventura2PageModule)
+      },
+      {
+        path: 'tipo-aventura3',
+        loadChildren: () => import('../tipo-aventura3/tipo-aventura3.module').then( m => m.TipoAventura3PageModule)
+      },
     ]
   }
 ];

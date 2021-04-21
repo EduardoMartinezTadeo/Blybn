@@ -1,4 +1,21 @@
-<ion-content class="ion-no-padding card-background-page"> 
+<ion-content class="ion-no-padding card-background-page">
+  <div class="banner">
+    <ion-img src="{{server + imagenAventura}}" (ionError)="onError(img)" #img></ion-img>
+    <div class="caption ion-padding">
+      Una experiencia<br>
+      en la ciudad
+    </div>
+    <div class="search">
+      <ion-item lines="none" class="ion-no-padding">
+        <ion-label>
+          ¿A dónde quieres ir?
+        </ion-label>
+      </ion-item>
+    </div>
+  </div> 
+  <div class="title">
+    
+  </div>
   <ion-row>
     <ion-col size="12">
       <ion-card>

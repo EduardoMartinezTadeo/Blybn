@@ -8,11 +8,11 @@ import { ProviderService } from 'src/app/services/provider.service';
 import { TerminosCondiciones2Page } from '../../terminos-condiciones2/terminos-condiciones2.page';
 
 @Component({
-  selector: 'app-tipo-aventura',
-  templateUrl: './tipo-aventura.page.html',
-  styleUrls: ['./tipo-aventura.page.scss'],
+  selector: 'app-tipo-aventura4',
+  templateUrl: './tipo-aventura4.page.html',
+  styleUrls: ['./tipo-aventura4.page.scss'],
 })
-export class TipoAventuraPage implements OnInit {
+export class TipoAventura4Page implements OnInit {
 
   constructor(
     private iab: InAppBrowser,
@@ -25,9 +25,9 @@ export class TipoAventuraPage implements OnInit {
     private toastController: ToastController,
     private providerService: ProviderService,
     private router: Router
-  ) { 
+  ) {
     this.server = this.providerService.server;
-  }
+   }
   server: string;
   contentLoaded = false;
   toast: any;
@@ -45,7 +45,7 @@ export class TipoAventuraPage implements OnInit {
   cargarImagenAventura(){
     let body = {
       aksi: 'img-aventura',
-      bly_aventura: 1
+      bly_aventura: 2
     }
     this.providerService.postDataCTA(body, 'db_cargarImagenAventura.php').subscribe(data => {
       this.imagenesTipoAventura = data;

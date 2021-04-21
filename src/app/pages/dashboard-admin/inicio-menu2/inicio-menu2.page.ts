@@ -265,8 +265,12 @@ export class InicioMenu2Page implements OnInit {
     await alert.present();
   }
 
-  tipoaventura(){
-    this.router.navigateByUrl('/tipo-aventura2');
+  tipoaventura(aventura: any){
+    if(aventura == 'Ciudad'){
+      this.router.navigateByUrl('/dashboard/menutabs/tipo-aventura2');
+    } else if(aventura == 'Playa'){
+      this.router.navigateByUrl('/dashboard/menutabs/tipo-aventura3');
+    }
   }
 
   registrar(){

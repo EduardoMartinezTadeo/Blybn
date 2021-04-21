@@ -1347,4 +1347,100 @@ export class RegistroFinalPage implements OnInit {
       }
     });
   }
+
+  async cargaRF1() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+    this.registrarF1();
+    },1500);
+  }
+
+  async cargaRF2() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+    this.registrarF2();
+    },1500);
+  }
+
+  async cargaRF3() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+    this.registrarF3();
+    },1500);
+  }
+
+  async cargaRF4() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+    this.registrarF4();
+    },1500);
+  }
+
+  async cargaRF5() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+    this.registrarF5();
+    },1500);
+  }
+
+  async cargaRF6() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+    this.registrarF6();
+    },1500);
+  }
+
+  async cargaRF7() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+    this.registrarF7();
+    },1500);
+  }
+
+  async cargaRF8() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+    this.registrarF8();
+    },1500);
+  }
 }

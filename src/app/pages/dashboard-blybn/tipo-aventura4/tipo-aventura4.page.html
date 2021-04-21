@@ -1,36 +1,26 @@
-<app-header></app-header>
-<ion-content class="ion-no-padding card-background-page">
+<ion-content class="ion-no-padding card-background-page"> 
+  <div class="banner">
+    <ion-img src="{{server + imagenAventura}}" (ionError)="onError(img)" #img></ion-img>
+    <div class="caption ion-padding">
+      Una experiencia<br>
+      en la playa
+    </div>
+    <div class="search">
+      <ion-item lines="none" class="ion-no-padding">
+        <ion-label>
+          ¿A dónde quieres ir?
+        </ion-label>
+      </ion-item>
+    </div>
+  </div> 
+  <div class="title">
+    
+  </div>
   <ion-row>
-    <h1>Descubre</h1>
-  </ion-row>
-  <div *ngIf="contentLoaded">
-    <ion-row class="animate__animated animate__bounceInDown animate__slower	3s">
-      <ion-col size="12" *ngFor="let aventura of aventurasImg">
-        <ion-card (click)="tipoaventura(aventura.bly_aventura)" mode="md" class="listCards">
-          <ion-card-content>
-            <ion-img src="{{server + aventura.bly_nombreImagen}}" (ionError)="onError(img)" #img></ion-img>
-            <div class="card-title">{{aventura.bly_aventura}}</div>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </div>
-  <div *ngIf="!contentLoaded">
-    <ion-row class="animate__animated animate__bounceInDown animate__slower	3s">
-      <ion-col size="12" *ngFor="let aventura of aventurasImg">
-        <ion-card mode="md" class="listCards">
-          <ion-card-content>
-            <ion-skeleton-text animated style="width: 100%; height: 250px" slot="start"></ion-skeleton-text>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </div>
-  <ion-row class="animate__animated animate__bounceInDown animate__slower	3s">
     <ion-col size="12">
-      <ion-card mode="md">
+      <ion-card>
         <ion-card-content>
-          <ion-img src="/assets/templates/3.jpg" class="imgInfo"></ion-img>
+          <ion-img src="/assets/templates/3.jpg"></ion-img>
           <div class="imgsCards">
             <ion-img src="/assets/imgs/logo.svg"></ion-img>
           </div>
@@ -46,7 +36,7 @@
       </ion-card>
     </ion-col>
   </ion-row>
-  <ion-list class="animate__animated animate__bounceInDown">
+  <ion-list>
     <ion-row>
       <ion-item (click)="presentActionSheet()">
         <ion-thumbnail slot="start">

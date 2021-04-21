@@ -3,7 +3,7 @@
   <div *ngIf="contentLoaded">
     <ion-row class="animate__animated animate__bounceInDown animate__slower	3s">
       <ion-col size="12" *ngFor="let aventura of aventurasImg">
-        <ion-card (click)="tipoaventura()" mode="md" class="listCards">
+        <ion-card (click)="tipoaventura(aventura.bly_aventura)" mode="md" class="listCards">
           <ion-card-content>
             <ion-img src="{{server + aventura.bly_nombreImagen}}" (ionError)="onError(img)" #img></ion-img>
             <div class="card-title">{{aventura.bly_aventura}}</div>

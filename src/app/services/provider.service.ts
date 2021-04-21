@@ -42,6 +42,7 @@ const apiActualizarRolUsuario = environment.apiActualizarRolUsuarioURL;
 const apiCargarPerfilAdminBlybn = environment.apiCargarPerfilAdminURL;
 const apiCargarPropiedadesUsuario = environment.apiCargarPropiedadesUsuarioURL;
 const apiRegistrarFotosPropiedades = environment.apiRegistrarFotosPropiedadURL;
+const apiCargarImagenTipoAventura = environment.apiCargarImagenTipoAventuraURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -360,5 +361,13 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiRegistrarFotosPropiedades + file, body, {headers})
+  }
+
+  postDataCTA(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarImagenTipoAventura + file, body, {headers})
   }
 }

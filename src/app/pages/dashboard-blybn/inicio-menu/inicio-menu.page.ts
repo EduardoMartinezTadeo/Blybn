@@ -260,8 +260,12 @@ export class InicioMenuPage {
     await alert.present();
   }
 
-  tipoaventura(){
-    this.router.navigateByUrl('/dashboard2/menutabs2/tipo-aventura');
+  tipoaventura(aventura: any){
+    if(aventura == 'Ciudad'){
+      this.router.navigateByUrl('/dashboard2/menutabs2/tipo-aventura');
+    } else if(aventura == 'Playa'){
+      this.router.navigateByUrl('/dashboard2/menutabs2/tipo-aventura4');
+    }
   }
 
   registrar(){

@@ -6,12 +6,13 @@ import { ActionSheetController, AlertController, LoadingController, ModalControl
 import { Storage } from '@ionic/storage';
 import { ProviderService } from 'src/app/services/provider.service';
 import { TerminosCondiciones2Page } from '../../terminos-condiciones2/terminos-condiciones2.page';
+
 @Component({
-  selector: 'app-tipo-aventura2',
-  templateUrl: './tipo-aventura2.page.html',
-  styleUrls: ['./tipo-aventura2.page.scss'],
+  selector: 'app-tipo-aventura3',
+  templateUrl: './tipo-aventura3.page.html',
+  styleUrls: ['./tipo-aventura3.page.scss'],
 })
-export class TipoAventura2Page implements OnInit {
+export class TipoAventura3Page implements OnInit {
 
   constructor(
     private iab: InAppBrowser,
@@ -45,7 +46,7 @@ export class TipoAventura2Page implements OnInit {
    cargarImagenAventura(){
      let body = {
        aksi: 'img-aventura',
-       bly_aventura: 1
+       bly_aventura: 2
      }
      this.providerService.postDataCTA(body, 'db_cargarImagenAventura.php').subscribe(data => {
        this.imagenesTipoAventura = data;
@@ -265,4 +266,4 @@ export class TipoAventura2Page implements OnInit {
    onError(img) {
      img.src = '../../../../assets/imgs/default-inicio.svg';
    }
- }
+}

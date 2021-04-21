@@ -253,6 +253,7 @@ export class TipoAventura4Page implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.cargarImagenesPlaya();
     this.cargarImagenAventura();
     setTimeout(() => {
       this.contentLoaded = true;        
@@ -264,5 +265,15 @@ export class TipoAventura4Page implements OnInit {
   }
   onError(img) {
     img.src = '../../../../assets/imgs/default-inicio.svg';
+  }
+
+  informacionPlaya: any = [];
+  cargarImagenesPlaya(){
+    let body = {
+      aksi: 'img-estadoPlaya'
+    }
+    this.providerService.postDataCITAP(body, 'db_cargarImagenesEstadoPlaya.php').subscribe(data => {
+      this.informacionPlaya = data.result;
+    });
   }
 }

@@ -175,3 +175,24 @@ ion-content {
         font-size: 5px;
     }
 }
+
+
+.listCards {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px 10px 10px 10px;
+    ion-img {
+        width: 100%;
+        overflow: hidden;
+    }
+}
+
+.card-titleA {
+    position: absolute;
+    text-align: right;
+    top: 65%;
+    font-size: 35px;
+    font-family: "HelveticaBold";
+    color: #fff;
+    margin-left: 15px;
+}

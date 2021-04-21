@@ -16,6 +16,18 @@
   <div class="title">
     
   </div>
+  <ion-grid class="ion-text-center">
+    <ion-row>
+      <ion-col size="12" *ngFor="let aventura of informacionPlaya">
+        <ion-card mode="md" class="listCards">
+          <ion-card-content>
+            <ion-img src="{{server + aventura.bly_imagen}}" (ionError)="onError(img)" #img></ion-img>
+            <div class="card-titleA">{{aventura.bly_nombre}}</div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-row>
     <ion-col size="12">
       <ion-card>

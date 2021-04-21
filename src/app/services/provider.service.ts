@@ -43,6 +43,8 @@ const apiCargarPerfilAdminBlybn = environment.apiCargarPerfilAdminURL;
 const apiCargarPropiedadesUsuario = environment.apiCargarPropiedadesUsuarioURL;
 const apiRegistrarFotosPropiedades = environment.apiRegistrarFotosPropiedadURL;
 const apiCargarImagenTipoAventura = environment.apiCargarImagenTipoAventuraURL;
+const apiCargarImagenesAventuraCiudad = environment.apiCargarImagenesAventuraCiudadURL;
+const apiCargarImagenesAventuraPlaya = environment.apiCargarImagenesAventuraPlayaURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -369,5 +371,21 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiCargarImagenTipoAventura + file, body, {headers})
+  }
+
+  postDataCITAC(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarImagenesAventuraCiudad + file, body, {headers})
+  }
+
+  postDataCITAP(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarImagenesAventuraPlaya + file, body, {headers})
   }
 }

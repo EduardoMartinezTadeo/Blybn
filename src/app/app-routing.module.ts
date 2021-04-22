@@ -339,7 +339,11 @@ const routes: Routes = [
   {
     path: 'registro-final',
     loadChildren: () => import('./pages/dashboard-admin/registro-final/registro-final.module').then( m => m.RegistroFinalPageModule)
-  } 
+  },   {
+    path: 'detalle-propiedades/:bly_registroPropiedad/:bly_usuario',
+    loadChildren: () => import('./pages/dashboard-admin/detalle-propiedades/detalle-propiedades.module').then( m => m.DetallePropiedadesPageModule)
+  }
+
 ];
 
 @NgModule({

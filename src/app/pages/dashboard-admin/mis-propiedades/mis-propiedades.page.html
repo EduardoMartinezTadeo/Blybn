@@ -6,15 +6,54 @@
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
-  </ion-header>
+</ion-header>
 <ion-content class="ion-padding">
     <ion-label class="ion-label1">
         Tus propiedades
-      </ion-label>
+    </ion-label>
     <ion-card *ngFor="let exclusivo of propiedades">
-        <ion-card-title>{{exclusivo.bly_tituloPropiedad}}</ion-card-title>
+        <ion-card-header>
+            <ion-row class="ion-text-end">
+                <ion-col size="12">
+                    <ion-badge color="warning" mode="ios">
+                        <ion-icon name="document-attach"></ion-icon>
+                        Editar
+                    </ion-badge>
+                </ion-col>
+            </ion-row>
+        </ion-card-header>
         <ion-card-content>
-            {{exclusivo.bly_direccionGeneral}}
+            <ion-thumbnail>
+                <ion-img src="{{server + exclusivo.bly_imagen}}" (ionError)="onError(img)" #img></ion-img>
+            </ion-thumbnail>
+            <ion-row>
+                <ion-col size="8">
+                    <ion-card-title>{{exclusivo.bly_ciudad}}</ion-card-title>
+                    <ion-card-title>{{exclusivo.bly_estado}}</ion-card-title>
+                    <ion-card-subtitle>${{exclusivo.bly_precioBase}} por noche</ion-card-subtitle>
+                </ion-col>
+                <ion-col size="4" class="ion-text-right">
+                    <ion-button fill="clear" color="dark" size="large"
+                        (click)="mostrarDetalle(exclusivo.bly_registroPropiedad, exclusivo.bly_usuario)">
+                        <ion-icon slot="icon-only" name="chevron-forward-circle-outline"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-row class="ion-text-center">
+                <ion-col size="12">
+                    <ion-button color="primary">
+                        Ingresos
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-content>
+            <ion-button expand="block" fill="outline" color="medium" (click)="registrarCasaNueva()">
+                <ion-icon name="add"></ion-icon>
+            </ion-button>
         </ion-card-content>
     </ion-card>
 </ion-content>

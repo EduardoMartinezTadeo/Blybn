@@ -1,8 +1,50 @@
 .ion-label1 {
-    margin-top: 10%;
+    margin-top: 2%;
+    margin-bottom: 8%;
     margin-left: 10%;
     font-family: "HelveticaBold";
     font-size: 25px;
     color: black;
     display: inline-block;
 }
+
+ion-card {
+    margin-top: 6%;
+    background: #e4e0e0;
+    padding: 6px;
+    box-shadow: none;
+    box-shadow: 0px 3px 45px 0px rgba(24, 20, 20, 0.16);
+    border-radius: 12px;
+  
+    ion-img {
+        width: 300px;
+        margin: 0 auto;
+        border-radius: 10px
+      }
+
+      ion-card-title{
+          font-family: 'HelveticaBold';
+          font-size: 15px;
+          color: black;
+      }
+
+      ion-card-subtitle{
+          font-family: 'HelveticaBold';
+          font-size: 12px;
+          color:black;
+      }
+  }  
+  
+  ion-thumbnail {
+    --border-radius: 10px;
+    border: 1px solid var(--grayColor);
+    width: 300px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  ion-badge{
+      font-family: 'HelveticaBold';
+      font-size: 12px;
+      color:white;
+  }

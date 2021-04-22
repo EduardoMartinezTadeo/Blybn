@@ -182,17 +182,17 @@ ion-content {
     margin-right: auto;
     border-radius: 10px 10px 10px 10px;
     ion-img {
+        border-radius: 10px 10px 10px 10px !important;
         width: 100%;
         overflow: hidden;
     }
 }
-
 .card-titleA {
     position: absolute;
     text-align: right;
     top: 65%;
-    font-size: 35px;
+    font-size: 32px;
     font-family: "HelveticaBold";
     color: #fff;
-    margin-left: 15px;
+    margin-left: 10px;
 }

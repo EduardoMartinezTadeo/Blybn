@@ -45,6 +45,7 @@ const apiRegistrarFotosPropiedades = environment.apiRegistrarFotosPropiedadURL;
 const apiCargarImagenTipoAventura = environment.apiCargarImagenTipoAventuraURL;
 const apiCargarImagenesAventuraCiudad = environment.apiCargarImagenesAventuraCiudadURL;
 const apiCargarImagenesAventuraPlaya = environment.apiCargarImagenesAventuraPlayaURL;
+const apiCargarImagenesPropiedadIndividuales = environment.apiCargarImagenesPropiedadIndividualURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -387,5 +388,13 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiCargarImagenesAventuraPlaya + file, body, {headers})
+  }
+
+  postDataCFPI(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarImagenesPropiedadIndividuales + file, body, {headers})
   }
 }

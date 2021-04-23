@@ -65,7 +65,8 @@ export const environment = {
   apiRegistrarFotosPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarFotosPropiedad.php/',
   apiCargarImagenTipoAventuraURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarImagenAventura.php/',
   apiCargarImagenesAventuraCiudadURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarImagenesEstadoCiudad.php/',
-  apiCargarImagenesAventuraPlayaURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarImagenesEstadoPlaya.php/'
+  apiCargarImagenesAventuraPlayaURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarImagenesEstadoPlaya.php/',
+  apiCargarImagenesPropiedadIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarImagenesPropiedadIndividualmente.php/'
 };
 
 /*

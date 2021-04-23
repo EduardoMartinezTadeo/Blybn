@@ -1,45 +1,78 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button icon="chevron-back"></ion-back-button>
-    </ion-buttons>
+   
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
+  <ion-row>
+    <ion-button fill="clear" (click)="salir()">
+      <ion-icon slot="icon-only" color="dark" name="chevron-back-outline"></ion-icon>
+    </ion-button> 
+  </ion-row>
   <div class="ion-padding">
-
     <ion-card class="ion-margin-bottom">
-      <ion-img src="https://www.pngonly.com/wp-content/uploads/2017/06/transparent-car-png-10207.png"></ion-img>
       <ion-card-content>
+          <ion-slides pager="ios" class="slide-full" [options]="slideOpts">
+            <ion-slide *ngFor = "let propiedades of informacionPropiedad"> 
+              <ion-thumbnail class="ion-text-center">
+                <ion-img src="{{server + propiedades.bly_imagen}}"></ion-img>   
+              </ion-thumbnail>             
+            </ion-slide>  
+          </ion-slides> 
         <ion-row>
           <ion-col size="12" class="ion-text-center ion-margin-bottom">
             <ion-card-title>Car Title</ion-card-title>
             <ion-card-subtitle>2 doors | Sport</ion-card-subtitle>
-            <ion-card-subtitle>
-              <ion-icon name="star" color="warning"></ion-icon>
-              <ion-icon name="star" color="warning"></ion-icon>
-              <ion-icon name="star" color="warning"></ion-icon>
-              <ion-icon name="star" color="warning"></ion-icon>
-              <ion-icon name="star-outline" color="warning"></ion-icon>
-              <span> (12.5K)</span>
-            </ion-card-subtitle>
           </ion-col>
-          <ion-col size="4" class="ion-text-right">
-            <ion-button fill="clear" color="dark" routerLink="/details">
-              <ion-icon slot="icon-only" name="speedometer-outline"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col size="4" class="ion-text-right">
-            <ion-button fill="clear" color="dark" routerLink="/details">
-              <ion-icon slot="icon-only" name="snow"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col size="4" class="ion-text-right">
-            <ion-button fill="clear" color="dark" routerLink="/details">
-              <ion-icon slot="icon-only" name="person-outline"></ion-icon>
-            </ion-button>
-          </ion-col>
+        </ion-row>
+        <ion-row>
+          <div class="datos ion-text-center">
+            <ion-col size="2">
+              <ion-button fill="clear" color="dark" (click)="openp1()">
+                <ion-icon slot="icon-only" name="bed-sharp"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button fill="clear" color="dark">
+                <ion-icon slot="icon-only" name="cafe-sharp"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button fill="clear" color="dark">
+                <ion-icon slot="icon-only" name="cash-sharp"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button fill="clear" color="dark">
+                <ion-icon slot="icon-only" name="logo-no-smoking"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </div>
+        </ion-row>
+        <ion-row>
+          <div class="datos ion-text-center">
+            <ion-col size="2">
+              <ion-button fill="clear" color="dark">
+                <ion-icon slot="icon-only" name="medkit-sharp"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button fill="clear" color="dark">
+                <ion-icon slot="icon-only" name="receipt-sharp"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button fill="clear" color="dark">
+                <ion-icon slot="icon-only" name="calendar-sharp"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button fill="clear" color="dark">
+                <ion-icon slot="icon-only" name="share-social-sharp"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </div>
         </ion-row>
       </ion-card-content>
     </ion-card>
@@ -64,10 +97,20 @@
     </ion-item>
 
   </div>
-</ion-content>
 
-<div class="ion-padding">
-  <ion-badge color="dark" mode="ios">
-    Habib Dev.
-  </ion-badge>
-</div>
+  <div class="bgp1" (click)="closep1()"></div>
+
+  <div class="bottomSheetp1" (touchmove)="touchMovep1($event)" (touchend)="touchEndp1()">
+    <div class="swipe-handler"></div>
+    <div class="content ion-padding">
+      <h1>Busca un título que sea descriptivo</h1>
+      <p>Los viajeros que buscan un alojamiento en Blybn leen los títulos de los espacios sin detenerse en ellos.</p>
+
+      <p>Te recomendamos que des con uno breve que destaque algo realmente especial: cualquier cosa interesante que haya
+        en la zona, si es espacioso o acogedor, etc.</p>
+
+      <p>También es importante explicar qué tipo de espacio es: si es luminoso, perfecto para ir en familia o si tiene
+        un encanto especial.</p>
+    </div>
+  </div>
+</ion-content>

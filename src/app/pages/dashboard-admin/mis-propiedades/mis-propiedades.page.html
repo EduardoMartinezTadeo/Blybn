@@ -11,7 +11,7 @@
     <ion-label class="ion-label1">
         Tus propiedades
     </ion-label>
-    <ion-card *ngFor="let exclusivo of propiedades">
+    <ion-card *ngFor="let exclusivo of propiedades" class="animate__animated animate__bounceInDown animate__slower 3s">
         <ion-card-header>
             <ion-row class="ion-text-end">
                 <ion-col size="12">
@@ -49,7 +49,7 @@
         </ion-card-content>
     </ion-card>
 
-    <ion-card>
+    <ion-card class="animate__animated animate__bounceInDown animate__slower 3s">
         <ion-card-content>
             <ion-button expand="block" fill="outline" color="medium" (click)="registrarCasaNueva()">
                 <ion-icon name="add"></ion-icon>

@@ -4,6 +4,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 import { ActionSheetController, AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { DataService } from 'src/app/services/data.service';
 import { ProviderService } from 'src/app/services/provider.service';
 import { TerminosCondiciones2Page } from '../../terminos-condiciones2/terminos-condiciones2.page';
 @Component({
@@ -23,7 +24,8 @@ export class TipoAventura2Page implements OnInit {
     private loadingController: LoadingController,
     private toastController: ToastController,
     private providerService: ProviderService,
-    private router: Router
+    private router: Router,
+    private servicio: DataService
   ) {
     this.server = this.providerService.server;
    }
@@ -276,4 +278,27 @@ export class TipoAventura2Page implements OnInit {
        this.informacionCiudad = data.result;
      });
    }
+
+   buscar: string;
+   buscarEstado(dataBuscar:any){
+     this.buscar = dataBuscar;
+    this.buscarPropiedadLoading();
+   }
+
+   responseData: any;
+   async buscarPropiedadLoading() {
+     const loading = await this.loadingController.create({
+       message: 'Espere un momento',
+       mode: 'ios',
+       spinner: 'bubbles',
+       duration: 1500
+     });
+     await loading.present();
+     setTimeout(() => {
+       this.servicio.buscarPropiedadCiudad(this.buscar).subscribe(data => {
+         this.responseData = data;
+       })
+     },1600)
+   }
  }
+ 

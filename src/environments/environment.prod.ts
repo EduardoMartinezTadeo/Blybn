@@ -62,5 +62,17 @@ export const environment = {
   apiCargarImagenTipoAventuraURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarImagenAventura.php/',
   apiCargarImagenesAventuraCiudadURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarImagenesEstadoCiudad.php/',
   apiCargarImagenesAventuraPlayaURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarImagenesEstadoPlaya.php/',
-  apiCargarImagenesPropiedadIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarImagenesPropiedadIndividualmente.php/'
+  apiCargarImagenesPropiedadIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarImagenesPropiedadIndividualmente.php/',
+  apiCargarDetalleP1URL: 'https://emtdeveloper.com/server_blybn/api/db_CargarDetallePropiedad.php/',
+  apiCargarDetalleP2URL: 'https://emtdeveloper.com/server_blybn/api/db_CargarAmenidadesPropiedades.php/',
+  apiCargarDetalleP3URL: 'https://emtdeveloper.com/server_blybn/api/db_CargarCostosPropiedad.php/',
+  apiCargarDetalleP4URL: 'https://emtdeveloper.com/server_blybn/api/db_CargarMueblesPropiedades.php/',
+  apiCargarDetalleP5URL: 'https://emtdeveloper.com/server_blybn/api/db_CargarRestriccionesPropiedad.php/',
+  apiCargarDetalleP6URL: 'https://emtdeveloper.com/server_blybn/api/db_CargarSeguridadPropiedad.php/',
+  apiCargarDetalleP7URL: 'https://emtdeveloper.com/server_blybn/api/db_CargarRequisitosPropiedad.php/',
+  apiCargarDetalleP8URL: 'https://emtdeveloper.com/server_blybn/api/db_CargarDisponibilidadPropiedad.php/',
+  apiCargarDetalleP9URL: 'https://emtdeveloper.com/server_blybn/api/db_CargarEspaciosPropiedades.php/',
+  apiBuscarPropiedadesURL: 'https://emtdeveloper.com/server_blybn/api/db_BuscarPropiedadesDireccionGeneral.php/',
+  apiBuscarPropiedadesPlayaURL: 'https://emtdeveloper.com/server_blybn/api/db_BuscarPropiedadesAventuraPlaya.php/',
+  apiBuscarPropiedadesCiudadURL: 'https://emtdeveloper.com/server_blybn/api/db_BuscarPropiedadesCiudad.php/'
 };

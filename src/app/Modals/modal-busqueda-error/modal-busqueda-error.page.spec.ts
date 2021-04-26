@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { DetallePropiedadesPage } from './detalle-propiedades.page';
+import { ModalBusquedaErrorPage } from './modal-busqueda-error.page';
 
-describe('DetallePropiedadesPage', () => {
-  let component: DetallePropiedadesPage;
-  let fixture: ComponentFixture<DetallePropiedadesPage>;
+describe('ModalBusquedaErrorPage', () => {
+  let component: ModalBusquedaErrorPage;
+  let fixture: ComponentFixture<ModalBusquedaErrorPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetallePropiedadesPage ],
+      declarations: [ ModalBusquedaErrorPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DetallePropiedadesPage);
+    fixture = TestBed.createComponent(ModalBusquedaErrorPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

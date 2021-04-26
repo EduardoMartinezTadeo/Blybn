@@ -6,6 +6,7 @@ import { ActionSheetController, AlertController, LoadingController, ModalControl
 import { Storage } from '@ionic/storage';
 import { ProviderService } from 'src/app/services/provider.service';
 import { TerminosCondiciones2Page } from '../../terminos-condiciones2/terminos-condiciones2.page';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-tipo-aventura4',
@@ -24,7 +25,8 @@ export class TipoAventura4Page implements OnInit {
     private loadingController: LoadingController,
     private toastController: ToastController,
     private providerService: ProviderService,
-    private router: Router
+    private router: Router,
+    private servicio: DataService
   ) {
     this.server = this.providerService.server;
    }
@@ -275,5 +277,27 @@ export class TipoAventura4Page implements OnInit {
     this.providerService.postDataCITAP(body, 'db_cargarImagenesEstadoPlaya.php').subscribe(data => {
       this.informacionPlaya = data.result;
     });
+  }
+
+  buscar: string;
+  buscarEstado(dataBuscar:any){
+    this.buscar = dataBuscar;
+   this.buscarPropiedadLoading();
+  }
+
+  responseData: any;
+  async buscarPropiedadLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento',
+      mode: 'ios',
+      spinner: 'bubbles',
+      duration: 1500
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.servicio.buscarPropiedadPlaya(this.buscar).subscribe(data => {
+        this.responseData = data;
+      })
+    },1600)
   }
 }

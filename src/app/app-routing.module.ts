@@ -342,6 +342,14 @@ const routes: Routes = [
   },   {
     path: 'detalle-propiedades/:bly_registroPropiedad/:bly_usuario',
     loadChildren: () => import('./pages/dashboard-admin/detalle-propiedades/detalle-propiedades.module').then( m => m.DetallePropiedadesPageModule)
+  },
+  {
+    path: 'modal-busqueda-error',
+    loadChildren: () => import('./Modals/modal-busqueda-error/modal-busqueda-error.module').then( m => m.ModalBusquedaErrorPageModule)
+  },
+  {
+    path: 'modal-busqueda',
+    loadChildren: () => import('./Modals/modal-busqueda/modal-busqueda.module').then( m => m.ModalBusquedaPageModule)
   }
 
 ];

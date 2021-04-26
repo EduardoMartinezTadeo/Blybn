@@ -19,7 +19,7 @@
   <ion-grid class="ion-text-center">
     <ion-row class="animate__animated animate__bounceInLeft animate__slower	3s">
       <ion-col size="12" *ngFor="let aventura of informacionCiudad">
-        <ion-card mode="md" class="listCards">
+        <ion-card mode="md" class="listCards" (click)="buscarEstado(aventura.bly_nombre)">
           <ion-card-content>
             <ion-img src="{{server + aventura.bly_imagen}}" (ionError)="onError(img)" #img></ion-img>
             <div class="card-titleA">{{aventura.bly_nombre}}</div>

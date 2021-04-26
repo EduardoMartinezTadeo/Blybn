@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-   
+
   </ion-toolbar>
 </ion-header>
 
@@ -8,43 +8,43 @@
   <ion-row>
     <ion-button fill="clear" (click)="salir()">
       <ion-icon slot="icon-only" color="dark" name="chevron-back-outline"></ion-icon>
-    </ion-button> 
+    </ion-button>
   </ion-row>
-  <div class="ion-padding">
+  <div class="ion-padding" class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <ion-card class="ion-margin-bottom">
       <ion-card-content>
-          <ion-slides pager="ios" class="slide-full" [options]="slideOpts">
-            <ion-slide *ngFor = "let propiedades of informacionPropiedad"> 
-              <ion-thumbnail class="ion-text-center">
-                <ion-img src="{{server + propiedades.bly_imagen}}"></ion-img>   
-              </ion-thumbnail>             
-            </ion-slide>  
-          </ion-slides> 
-        <ion-row>
+        <ion-slides pager="ios" class="slide-full" [options]="slideOpts">
+          <ion-slide *ngFor="let propiedades of informacionPropiedad">
+            <ion-thumbnail class="ion-text-center">
+              <ion-img src="{{server + propiedades.bly_imagen}}" (ionError)="onError(img)" #img></ion-img>
+            </ion-thumbnail>
+          </ion-slide>
+        </ion-slides>
+        <ion-row *ngFor="let detalle of informacionP1">
           <ion-col size="12" class="ion-text-center ion-margin-bottom">
-            <ion-card-title>Car Title</ion-card-title>
-            <ion-card-subtitle>2 doors | Sport</ion-card-subtitle>
+            <ion-card-title>{{detalle.bly_tituloPropiedad}}</ion-card-title>
+            <ion-card-subtitle>Propiedad {{detalle.bly_status}}</ion-card-subtitle>
           </ion-col>
         </ion-row>
         <ion-row>
           <div class="datos ion-text-center">
             <ion-col size="2">
-              <ion-button fill="clear" color="dark" (click)="openp1()">
+              <ion-button fill="clear" color="mueble" (click)="openp1()">
                 <ion-icon slot="icon-only" name="bed-sharp"></ion-icon>
               </ion-button>
             </ion-col>
             <ion-col size="2">
-              <ion-button fill="clear" color="dark">
+              <ion-button fill="clear" color="amenidad" (click)="openp2()">
                 <ion-icon slot="icon-only" name="cafe-sharp"></ion-icon>
               </ion-button>
             </ion-col>
             <ion-col size="2">
-              <ion-button fill="clear" color="dark">
+              <ion-button fill="clear" color="dinero" (click)="openp3()">
                 <ion-icon slot="icon-only" name="cash-sharp"></ion-icon>
               </ion-button>
             </ion-col>
             <ion-col size="2">
-              <ion-button fill="clear" color="dark">
+              <ion-button fill="clear" color="restringir" (click)="openp4()">
                 <ion-icon slot="icon-only" name="logo-no-smoking"></ion-icon>
               </ion-button>
             </ion-col>
@@ -53,64 +53,332 @@
         <ion-row>
           <div class="datos ion-text-center">
             <ion-col size="2">
-              <ion-button fill="clear" color="dark">
+              <ion-button fill="clear" color="seguridad" (click)="openp5()">
                 <ion-icon slot="icon-only" name="medkit-sharp"></ion-icon>
               </ion-button>
             </ion-col>
             <ion-col size="2">
-              <ion-button fill="clear" color="dark">
+              <ion-button fill="clear" color="requisito" (click)="openp6()">
                 <ion-icon slot="icon-only" name="receipt-sharp"></ion-icon>
               </ion-button>
             </ion-col>
             <ion-col size="2">
-              <ion-button fill="clear" color="dark">
+              <ion-button fill="clear" color="disponibilidad" (click)="openp7()">
                 <ion-icon slot="icon-only" name="calendar-sharp"></ion-icon>
               </ion-button>
             </ion-col>
             <ion-col size="2">
-              <ion-button fill="clear" color="dark">
-                <ion-icon slot="icon-only" name="share-social-sharp"></ion-icon>
+              <ion-button fill="clear" color="dark" (click)="openp8()">
+                <ion-icon slot="icon-only" name="business"></ion-icon>
               </ion-button>
             </ion-col>
           </div>
         </ion-row>
       </ion-card-content>
     </ion-card>
-
-
-    <h6>Select Dates</h6>
-    <ion-item lines="none">
-      <ion-icon name="calendar-outline" slot="start"></ion-icon>
-      <ion-label>
-        <ion-datetime placeholder="23-07-2020" display-format="DD-MM-YYYY"></ion-datetime>
-      </ion-label>
-      <ion-icon name="chevron-forward" slot="end"></ion-icon>
-    </ion-item>
-
-    <h6>Pickup Location</h6>
-    <ion-item lines="none">
-      <ion-icon name="location-outline" slot="start"></ion-icon>
-      <ion-label>
-        <ion-input placeholder="Muscat"></ion-input>
-      </ion-label>
-      <ion-icon name="chevron-forward" slot="end"></ion-icon>
-    </ion-item>
-
   </div>
 
+  <ion-row>
+    <div class="dueñoPropiedad">
+      <ion-item lines="none">
+        <ion-avatar class="ionFoto">
+          <ion-img src="{{server + foto}}" (ionError)="onErrorf(img)" #img></ion-img>
+        </ion-avatar>
+        <ion-label>De</ion-label>
+      </ion-item> 
+    </div>   
+  </ion-row>
+  
+  <br>
+  <ion-card>
+    <ion-card-title>
+      
+    </ion-card-title>
+    <ion-card-content>
+
+    </ion-card-content>
+  </ion-card>
+  <br>
+  <ion-card>
+    <ion-card-title>
+      
+    </ion-card-title>
+    <ion-card-content>
+
+    </ion-card-content>
+  </ion-card>
   <div class="bgp1" (click)="closep1()"></div>
 
   <div class="bottomSheetp1" (touchmove)="touchMovep1($event)" (touchend)="touchEndp1()">
     <div class="swipe-handler"></div>
     <div class="content ion-padding">
-      <h1>Busca un título que sea descriptivo</h1>
-      <p>Los viajeros que buscan un alojamiento en Blybn leen los títulos de los espacios sin detenerse en ellos.</p>
+      <h1>Muebles de la propiedad</h1>
+      <ion-grid>
+        <p>
+          Esta propiedad cuenta con los siguientes muebles:
+        </p>
+        <ion-row *ngFor="let mueble of informacionP4" class="ion-align-items-center">
+          <ion-col size="5">
+            <ul>
+              <li>{{mueble.bly_tipoMueble}}</li>
+            </ul>
+          </ion-col>
+          <ion-col size="5">
+            <p class="can">
+              {{mueble.bly_cantidadMuebles}} pieza(s)
+            </p>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="checkmark-done-circle" color="mueble"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
 
-      <p>Te recomendamos que des con uno breve que destaque algo realmente especial: cualquier cosa interesante que haya
-        en la zona, si es espacioso o acogedor, etc.</p>
+  <div class="bgp2" (click)="closep2()"></div>
 
-      <p>También es importante explicar qué tipo de espacio es: si es luminoso, perfecto para ir en familia o si tiene
-        un encanto especial.</p>
+  <div class="bottomSheetp2" (touchmove)="touchMovepc2($event)" (touchend)="touchEndpc2()">
+    <div class="swipe-handler"></div>
+    <div class="content ion-padding">
+      <h1>Amenidades de la propiedad</h1>
+      <ion-grid>
+        <p>Esta propiedad cuenta con las siguientes amenidades:</p>
+        <ion-row *ngFor="let amenidad of informacionP2" class="ion-text-center">
+          <ion-col size="10">
+            <ul>
+              <li>{{amenidad.bly_tipoAmenidad}}</li>
+            </ul>
+          </ion-col>
+          <ion-col size="2">
+            <br>
+            <ion-icon name="checkmark-done-circle" color="amenidad"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <div class="bgp3" (click)="closep3()"></div>
+
+  <div class="bottomSheetp3" (touchmove)="touchMovepc3($event)" (touchend)="touchEndpc3()">
+    <div class="swipe-handler"></div>
+    <div class="content ion-padding">
+      <h1>Costos de renta de la propiedad</h1>
+      <ion-grid *ngFor="let costos of informacionP3">
+        <p>Los costos de renta son los siguientes:</p>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="7">
+            <p class="sub">El costo por noche es de:</p>
+          </ion-col>
+          <ion-col size="3">
+            <p class="din">
+              ${{costos.bly_precioBase}}
+            </p>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="checkmark-done-circle" color="dinero"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="7">
+            <p class="sub">El costo de limpieza es de:</p>
+          </ion-col>
+          <ion-col size="3">
+            <p class="din">
+              ${{costos.bly_cargoLimpieza}}
+            </p>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="checkmark-done-circle" color="dinero"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="8">
+            <p class="sub">El descuento por semana es del:</p>
+          </ion-col>
+          <ion-col size="2">
+            <p class="din">
+              {{costos.bly_descuentoSemana}}%
+            </p>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="checkmark-done-circle" color="dinero"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="8">
+            <p class="sub">El descuento por mes es del:</p>
+          </ion-col>
+          <ion-col size="2">
+            <p class="din">
+              ${{costos.bly_descuentoMes}}%
+            </p>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="checkmark-done-circle" color="dinero"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="5">
+            <p class="sub">El pago es en:</p>
+          </ion-col>
+          <ion-col size="5">
+            <p class="din">
+              ${{costos.bly_moneda}}
+            </p>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="checkmark-done-circle" color="dinero"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <div class="bgp4" (click)="closep4()"></div>
+
+  <div class="bottomSheetp4" (touchmove)="touchMovepc4($event)" (touchend)="touchEndpc4()">
+    <div class="swipe-handler"></div>
+    <div class="content ion-padding">
+      <h1>Restricciones de la propiedad</h1>
+      <ion-grid>
+        <p>Estas son algunas de las cosas permitidas en la propiedad:</p>
+        <ion-row *ngFor="let restriccion of informacionP5" class="ion-align-items-center">
+          <ion-col size="10">
+            <ul>
+              <li>
+                {{restriccion.bly_tipoRestriccion}}
+              </li>
+            </ul>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="checkmark-done-circle" color="restringir"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <div class="bgp5" (click)="closep5()"></div>
+
+  <div class="bottomSheetp5" (touchmove)="touchMovepc5($event)" (touchend)="touchEndpc5()">
+    <div class="swipe-handler"></div>
+    <div class="content ion-padding">
+      <h1>Medidas de seguridad de la propiedad</h1>
+      <ion-grid>
+        <p>Estas son algunas de las medidas de seguridad:</p>
+        <ion-row *ngFor="let seguridad of informacionP6" class="ion-align-items-center">
+          <ion-col size="10">
+            <ul>
+              <li>
+                {{seguridad.bly_tipoSeguridad}}
+              </li>
+            </ul>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="checkmark-done-circle" color="seguridad"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <div class="bgp6" (click)="closep6()"></div>
+
+  <div class="bottomSheetp6" (touchmove)="touchMovepc6($event)" (touchend)="touchEndpc6()">
+    <div class="swipe-handler"></div>
+    <div class="content ion-padding">
+      <h1>Requisitos de renta</h1>
+      <ion-grid>
+        <p>Estos son los requisitos para rentar esta propiedad:</p>
+        <ion-row *ngFor="let requisitos of informacionP7" class="ion-align-items-center">
+          <ion-col size="10">
+            <ul>
+              <li>{{requisitos.bly_tipo_requisitoRenta}}</li>
+            </ul>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="checkmark-done-circle" color="requisito"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <div class="bgp7" (click)="closep7()"></div>
+
+  <div class="bottomSheetp7" (touchmove)="touchMovepc7($event)" (touchend)="touchEndpc7()">
+    <div class="swipe-handler"></div>
+    <div class="content ion-padding">
+      <h1>Disponibilidad de renta</h1>
+      <ion-grid>
+        <p>Estas son las fechas de disponibilidad de la propiedad:</p>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="5">
+            <ul>
+              <li>Esta propiedad esta disponible apartir del:</li>
+            </ul>
+          </ion-col>
+          <ion-col size="5">
+            <ion-datetime displayFormat="MM/DD/YYYY" value="{{dato1}}" disabled></ion-datetime>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="calendar-number" color="disponibilidad"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="5">
+            <ul>
+              <li>Esta propiedad dejara de estar disponible apartir del:</li>
+            </ul>
+          </ion-col>
+          <ion-col size="5">
+            <ion-datetime displayFormat="MM/DD/YYYY" value="{{dato2}}" disabled></ion-datetime>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="calendar-number" color="disponibilidad"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="5">
+            <ul>
+              <li>Esta propiedad no estara disponible los días siguientes:</li>
+            </ul>
+          </ion-col>
+          <ion-col size="5">
+            <ion-datetime displayFormat="MM/DD/YYYY" value="{{dato3}}" disabled></ion-datetime>
+            <ion-datetime displayFormat="MM/DD/YYYY" value="{{dato4}}" disabled></ion-datetime>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="calendar-number" color="disponibilidad"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <div class="bgp8" (click)="closep8()"></div>
+
+  <div class="bottomSheetp8" (touchmove)="touchMovepc8($event)" (touchend)="touchEndpc8()">
+    <div class="swipe-handler"></div>
+    <div class="content ion-padding">
+      <h1>Espacios y áreas comunes</h1>
+      <ion-grid>
+        <p>
+          Esta propiedad cuenta con las siguientes áreas comunes y espacios:
+        </p>
+        <ion-row *ngFor="let areas of informacionP9" class="ion-align-items-center">
+          <ion-col size="10">
+            <ul>
+              <li>{{areas.bly_descripcionEspacios}}</li>
+            </ul>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="business" color="primary"></ion-icon>
+          </ion-col>        
+        </ion-row>
+      </ion-grid>
     </div>
   </div>
 </ion-content>

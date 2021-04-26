@@ -46,6 +46,16 @@ const apiCargarImagenTipoAventura = environment.apiCargarImagenTipoAventuraURL;
 const apiCargarImagenesAventuraCiudad = environment.apiCargarImagenesAventuraCiudadURL;
 const apiCargarImagenesAventuraPlaya = environment.apiCargarImagenesAventuraPlayaURL;
 const apiCargarImagenesPropiedadIndividuales = environment.apiCargarImagenesPropiedadIndividualURL;
+const apiCargarDetalleP1 = environment.apiCargarDetalleP1URL;
+const apiCargarDetalleP2 = environment.apiCargarDetalleP2URL;
+const apiCargarDetalleP3 = environment.apiCargarDetalleP3URL;
+const apiCargarDetalleP4 = environment.apiCargarDetalleP4URL;
+const apiCargarDetalleP5 = environment.apiCargarDetalleP5URL;
+const apiCargarDetalleP6 = environment.apiCargarDetalleP6URL;
+const apiCargarDetalleP7 = environment.apiCargarDetalleP7URL;
+const apiCargarDetalleP8 = environment.apiCargarDetalleP8URL;
+const apiCargarDetalleP9 = environment.apiCargarDetalleP9URL;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -397,4 +407,78 @@ export class ProviderService {
     
     return this.http.post<any>(apiCargarImagenesPropiedadIndividuales + file, body, {headers})
   }
+
+  //Detalle propiedad 
+  detalleP1(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarDetalleP1 + file, body, {headers})
+  }
+
+  detalleP2(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarDetalleP2 + file, body, {headers})
+  }
+
+  detalleP3(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarDetalleP3 + file, body, {headers})
+  }
+
+  detalleP4(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarDetalleP4 + file, body, {headers})
+  }
+
+  detalleP5(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarDetalleP5 + file, body, {headers})
+  }
+
+  detalleP6(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarDetalleP6 + file, body, {headers})
+  }
+
+  detalleP7(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarDetalleP7 + file, body, {headers})
+  }
+
+  detalleP8(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarDetalleP8 + file, body, {headers})
+  }
+  
+  detalleP9(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarDetalleP9 + file, body, {headers})
+  }
+  
 }

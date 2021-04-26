@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Storage } from '@ionic/storage';
 import { ProviderService } from 'src/app/services/provider.service';
+import { OperacionesService } from '../../../services/operaciones.service';
 
 @Component({
   selector: 'app-detalle-propiedades',
@@ -12,26 +14,81 @@ export class DetallePropiedadesPage implements OnInit {
   constructor(
     private actRoute: ActivatedRoute,
     private router: Router,
-    private provider: ProviderService) {
+    private provider: ProviderService,
+    private storage: Storage,
+    private service: OperacionesService) {
       this.server = this.provider.server;
      }
-
     id_usuario: number;
     id_propiedad: number;
+    usuario: string;
+    correo: string;
+    id: string;
+    tipoRol: number;
+    responseData: any;
   ngOnInit() {
-   
+    this.closep1();
+    this.closep2();
+    this.closep3();
+    this.closep4();
+    this.closep5();
+    this.closep6();
+    this.closep7();
+    this.closep8();
   }
   server: string;
+  perfilData: any;
   ionViewWillEnter() {
+    this.closep1();
+    this.closep2();
+    this.closep3();
+    this.closep4();
+    this.closep5();
+    this.closep6();
+    this.closep7();
+    this.closep8();
     this.actRoute.params.subscribe((data: any)=>{
       this.id_propiedad = data.bly_registroPropiedad;
       this.id_usuario = data.bly_usuario;
       this.cargarImagenesP();
+      this.cargarP1();
+      this.cargarP8();
     }); 
+    this.storage.get('perfil').then((res) => {
+      this.perfilData = res;
+      this.usuario = this.perfilData.bly_nombre,
+      this.correo = this.perfilData.bly_correoElectronico,
+      this.id = this.perfilData.bly_usuario,
+      this.tipoRol = this.perfilData.bly_rol,
+      this.service.consultarDatosFacturacionAdmin(this.id).subscribe(data => {
+        this.responseData = data;
+        this.cargarFotoPerfil();  
+      });
+    });
+  }
+
+  foto: string;
+  fotoPerfil : any = [];
+  cargarFotoPerfil(){
+    return new Promise(resolve => {
+      let body = {
+        aksi: 'perfilFoto',
+        bly_usuario: this.id
+      }
+      this.provider.postDataCFPA(body, 'db_cargarFotoPerfilAct.php').subscribe(data => {
+        this.fotoPerfil = data;
+        this.foto = this.fotoPerfil.bly_fotografia;
+        resolve(true);
+      });
+    });      
   }
 
   salir(){
-    this.router.navigateByUrl('/dashboard/mis-propiedades');
+    this.router.navigate(['/dashboard/mis-propiedades']);
+  }
+
+  onError(img) {
+    img.src = '../../../../assets/imgs/default-inicio.svg';
   }
 
   informacionPropiedad: any = [];
@@ -44,6 +101,135 @@ export class DetallePropiedadesPage implements OnInit {
       this.informacionPropiedad = data.result;
     });
   }
+
+  informacionP1: any = [];
+  cargarP1(){
+    let body = {
+      aksi: 'detallePropiedad',
+      bly_propiedad: this.id_propiedad
+    }
+    this.provider.detalleP1(body, 'db_CargarDetallePropiedad.php').subscribe(data => {
+      this.informacionP1 = data.result;
+      console.log(this.informacionP1);
+    });
+  }
+
+  informacionP2: any = [];
+  cargarP2(){
+    let body = {
+      aksi: 'tipo1',
+      bly_propiedad: this.id_propiedad
+    }
+    this.provider.detalleP2(body, 'db_CargarAmenidadesPropiedades.php').subscribe(data => {
+      this.informacionP2 = data.result;
+    });
+  }
+
+  informacionP3: any = [];
+  cargarP3(){
+    let body = {
+      aksi: 'tipo4',
+      bly_propiedad: this.id_propiedad
+    }
+    this.provider.detalleP3(body, 'db_CargarCostosPropiedad.php').subscribe(data => {
+      this.informacionP3 = data.result;
+    });
+  }
+
+  informacionP4: any = [];
+  cargarP4(){
+    let body = {
+      aksi: 'tipo5',
+      bly_propiedad: this.id_propiedad
+    }
+    this.provider.detalleP4(body, 'db_CargarMueblesPropiedades.php').subscribe(data => {
+      this.informacionP4 = data.result;
+    });
+  }
+
+  informacionP5: any = [];
+  cargarP5(){
+    let body = {
+      aksi: 'restriccionP',
+      bly_propiedad: this.id_propiedad
+    }
+    this.provider.detalleP5(body, 'db_CargarRestriccionesPropiedad.php').subscribe(data => {
+      this.informacionP5 = data.result;
+    });
+  }
+
+  informacionP6: any = [];
+  cargarP6(){
+    let body = {
+      aksi: 'requisitos',
+      bly_propiedad: this.id_propiedad
+    }
+    this.provider.detalleP6(body, 'db_CargarSeguridadPropiedad.php').subscribe(data => {
+      this.informacionP6 = data.result;
+    });
+  }
+
+  informacionP7: any = [];
+  cargarP7(){
+    let body = {
+      aksi: 'requisitos',
+      bly_propiedad: this.id_propiedad
+    }
+    this.provider.detalleP7(body, 'db_CargarRequisitosPropiedad.php').subscribe(data => {
+      this.informacionP7 = data.result;
+    });
+  }
+
+
+  
+  informacionP8: any = [];
+  dato1: string;
+  dato2: string;
+  dato3: string;
+  dato4: string;
+  dato5: string;
+  dato6: string;
+  dato7: string;
+  dato8: string;
+  dato9: string;
+  dato10: string;
+  dato11: string;
+  dato12: string;
+  cargarP8(){
+    let body = {
+      aksi: 'tipo6',
+      bly_propiedad: this.id_propiedad
+    }
+    this.provider.detalleP8(body, 'db_CargarDisponibilidadPropiedad.php').subscribe(data => {
+      this.informacionP8 = data.result;
+      this.dato1 = this.informacionP8.bly_fechaInicio;
+      this.dato2 = this.informacionP8.bly_fechaFinal;
+      this.dato3 = this.informacionP8.bly_fechaInicialND;
+      this.dato4 = this.informacionP8.bly_fechaFinalND;
+      this.dato5 = this.informacionP8.bly_horaLimiteReservacion;
+      this.dato6 = this.informacionP8.bly_llegadaAntes;
+      this.dato7 = this.informacionP8.bly_llegadaDespues;
+      this.dato8 = this.informacionP8.bly_preaviso;
+      this.dato9 = this.informacionP8.bly_propiedad;
+      this.dato10 = this.informacionP8.bly_salidaAntes;
+      this.dato11 = this.informacionP8.bly_tiempoAnticipacionReservacion;
+      this.dato12 = this.informacionP8.bly_tiempoSalidadH;
+      console.log(this.informacionP8);
+      console.log(this.dato7);
+    });
+  }
+
+  informacionP9: any = [];
+  cargarP9() {
+    let body = {
+      aksi: 'tipo2',
+      bly_propiedad: this.id_propiedad
+    }
+    this.provider.detalleP9(body, 'db_CargarEspaciosPropiedades.php').subscribe(data => {
+      this.informacionP9 = data.result;
+    });
+  }
+
 
   slideOpts = {
     grabCursor: true,
@@ -204,43 +390,44 @@ export class DetallePropiedadesPage implements OnInit {
 
   currentPositionp1;
   heightp1;
-  minimumThreshold;
-  startPosition;
+  minimumThresholdp1;
+  startPositionp1;
 
   openp1(){
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.bottom = "0px";
-    (<HTMLStyleElement>document.querySelector(".bgp5")).style.display = "block";
+    this.cargarP4();
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp1")).style.bottom = "0px";
+    (<HTMLStyleElement>document.querySelector(".bgp1")).style.display = "block";
   }
 
   closep1(){
     this.currentPositionp1 = 0;
-    this.startPosition = 0;
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.bottom = "-1000px";
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.transform = "translate3d(0px,0px,0px)";
-    (<HTMLStyleElement>document.querySelector(".bgp5")).style.display = "none";
+    this.startPositionp1 = 0;
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp1")).style.bottom = "-1000px";
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp1")).style.transform = "translate3d(0px,0px,0px)";
+    (<HTMLStyleElement>document.querySelector(".bgp1")).style.display = "none";
   }
 
   touchMovep1(evt: TouchEvent){
-    if (this.startPosition == 0){
-      this.startPosition = evt.touches[0].clientY;
+    if (this.startPositionp1 == 0){
+      this.startPositionp1 = evt.touches[0].clientY;
     }
 
-    this.heightp1 = document.querySelector(".bottomSheetp5").clientHeight;
+    this.heightp1 = document.querySelector(".bottomSheetp1").clientHeight;
 
     var y = evt.touches[0].clientY;
 
-    this.currentPositionp1 = y - this.startPosition;
+    this.currentPositionp1 = y - this.startPositionp1;
 
-    if (this.currentPositionp1 > 0 && this.startPosition > 0) {
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.transform = "translate3d(0px," + this.currentPositionp1 + "px,0px)";
+    if (this.currentPositionp1 > 0 && this.startPositionp1 > 0) {
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp1")).style.transform = "translate3d(0px," + this.currentPositionp1 + "px,0px)";
     }
   }
 
-  touchEnd(){
-    this.minimumThreshold = this.heightp1 - 150;
+  touchEndp1(){
+    this.minimumThresholdp1 = this.heightp1 - 150;
 
-    if (this.currentPositionp1 < this.minimumThreshold){
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.transform = "translate3d(0px,0px,0px)";
+    if (this.currentPositionp1 < this.minimumThresholdp1){
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp1")).style.transform = "translate3d(0px,0px,0px)";
     }
     else {
       this.closep1();
@@ -248,4 +435,328 @@ export class DetallePropiedadesPage implements OnInit {
   }
 
 
+  currentPositionpc2;
+  heightpc2;
+  minimumThresholdpc2;
+  startPositionpc2;
+
+  openp2(){
+    this.cargarP2();
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp2")).style.bottom = "0px";
+    (<HTMLStyleElement>document.querySelector(".bgp2")).style.display = "block";
+  }
+
+  closep2(){
+    this.currentPositionpc2 = 0;
+    this.startPositionpc2 = 0;
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp2")).style.bottom = "-1000px";
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp2")).style.transform = "translate3d(0px,0px,0px)";
+    (<HTMLStyleElement>document.querySelector(".bgp2")).style.display = "none";
+  }
+
+  touchMovepc2(evt: TouchEvent){
+    if (this.startPositionpc2 == 0){
+      this.startPositionpc2 = evt.touches[0].clientY;
+    }
+
+    this.heightpc2 = document.querySelector(".bottomSheetp2").clientHeight;
+
+    var y = evt.touches[0].clientY;
+
+    this.currentPositionpc2 = y - this.startPositionpc2;
+
+    if (this.currentPositionpc2 > 0 && this.startPositionpc2 > 0) {
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp2")).style.transform = "translate3d(0px," + this.currentPositionpc2 + "px,0px)";
+    }
+  }
+
+  touchEndpc2(){
+    this.minimumThresholdpc2 = this.heightpc2 - 150;
+
+    if (this.currentPositionpc2 < this.minimumThresholdpc2){
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp2")).style.transform = "translate3d(0px,0px,0px)";
+    }
+    else {
+      this.closep2();
+    }
+  }
+
+  currentPositionpc3;
+  heightpc3;
+  minimumThresholdpc3;
+  startPositionpc3;
+
+  openp3(){
+    this.cargarP3();
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp3")).style.bottom = "0px";
+    (<HTMLStyleElement>document.querySelector(".bgp3")).style.display = "block";
+  }
+
+  closep3(){
+    this.currentPositionpc3 = 0;
+    this.startPositionpc3 = 0;
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp3")).style.bottom = "-1000px";
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp3")).style.transform = "translate3d(0px,0px,0px)";
+    (<HTMLStyleElement>document.querySelector(".bgp3")).style.display = "none";
+  }
+
+  touchMovepc3(evt: TouchEvent){
+    if (this.startPositionpc3 == 0){
+      this.startPositionpc3 = evt.touches[0].clientY;
+    }
+
+    this.heightpc3 = document.querySelector(".bottomSheetp3").clientHeight;
+
+    var y = evt.touches[0].clientY;
+
+    this.currentPositionpc3 = y - this.startPositionpc3;
+
+    if (this.currentPositionpc3 > 0 && this.startPositionpc3 > 0) {
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp3")).style.transform = "translate3d(0px," + this.currentPositionpc3 + "px,0px)";
+    }
+  }
+
+  touchEndpc3(){
+    this.minimumThresholdpc3 = this.heightpc3 - 150;
+
+    if (this.currentPositionpc3 < this.minimumThresholdpc3){
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp3")).style.transform = "translate3d(0px,0px,0px)";
+    }
+    else {
+      this.closep3();
+    }
+  }
+
+  currentPositionpc4;
+  heightpc4;
+  minimumThresholdpc4;
+  startPositionpc4;
+
+  openp4(){
+    this.cargarP5();
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp4")).style.bottom = "0px";
+    (<HTMLStyleElement>document.querySelector(".bgp4")).style.display = "block";
+  }
+
+  closep4(){
+    this.currentPositionpc4 = 0;
+    this.startPositionpc4 = 0;
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp4")).style.bottom = "-1000px";
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp4")).style.transform = "translate3d(0px,0px,0px)";
+    (<HTMLStyleElement>document.querySelector(".bgp4")).style.display = "none";
+  }
+
+  touchMovepc4(evt: TouchEvent){
+    if (this.startPositionpc4 == 0){
+      this.startPositionpc4 = evt.touches[0].clientY;
+    }
+
+    this.heightpc4 = document.querySelector(".bottomSheetp4").clientHeight;
+
+    var y = evt.touches[0].clientY;
+
+    this.currentPositionpc4 = y - this.startPositionpc4;
+
+    if (this.currentPositionpc4 > 0 && this.startPositionpc4 > 0) {
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp4")).style.transform = "translate3d(0px," + this.currentPositionpc4 + "px,0px)";
+    }
+  }
+
+  touchEndpc4(){
+    this.minimumThresholdpc4 = this.heightpc4 - 150;
+
+    if (this.currentPositionpc4 < this.minimumThresholdpc4){
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp4")).style.transform = "translate3d(0px,0px,0px)";
+    }
+    else {
+      this.closep4();
+    }
+  }
+
+  currentPositionpc5;
+  heightpc5;
+  minimumThresholdpc5;
+  startPositionpc5;
+
+  openp5(){
+    this.cargarP6();
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.bottom = "0px";
+    (<HTMLStyleElement>document.querySelector(".bgp5")).style.display = "block";
+  }
+
+  closep5(){
+    this.currentPositionpc5 = 0;
+    this.startPositionpc5 = 0;
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.bottom = "-1000px";
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.transform = "translate3d(0px,0px,0px)";
+    (<HTMLStyleElement>document.querySelector(".bgp5")).style.display = "none";
+  }
+
+  touchMovepc5(evt: TouchEvent){
+    if (this.startPositionpc5 == 0){
+      this.startPositionpc5 = evt.touches[0].clientY;
+    }
+
+    this.heightpc5 = document.querySelector(".bottomSheetp5").clientHeight;
+
+    var y = evt.touches[0].clientY;
+
+    this.currentPositionpc5 = y - this.startPositionpc5;
+
+    if (this.currentPositionpc5 > 0 && this.startPositionpc5 > 0) {
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.transform = "translate3d(0px," + this.currentPositionpc5 + "px,0px)";
+    }
+  }
+
+  touchEndpc5(){
+    this.minimumThresholdpc5 = this.heightpc5 - 150;
+
+    if (this.currentPositionpc5 < this.minimumThresholdpc5){
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.transform = "translate3d(0px,0px,0px)";
+    }
+    else {
+      this.closep5();
+    }
+  }
+
+  currentPositionpc6;
+  heightpc6;
+  minimumThresholdpc6;
+  startPositionpc6;
+
+  openp6(){
+    this.cargarP7();
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp6")).style.bottom = "0px";
+    (<HTMLStyleElement>document.querySelector(".bgp6")).style.display = "block";
+  }
+
+  closep6(){
+    this.currentPositionpc6 = 0;
+    this.startPositionpc6 = 0;
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp6")).style.bottom = "-1000px";
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp6")).style.transform = "translate3d(0px,0px,0px)";
+    (<HTMLStyleElement>document.querySelector(".bgp6")).style.display = "none";
+  }
+
+  touchMovepc6(evt: TouchEvent){
+    if (this.startPositionpc6 == 0){
+      this.startPositionpc6 = evt.touches[0].clientY;
+    }
+
+    this.heightpc6 = document.querySelector(".bottomSheetp6").clientHeight;
+
+    var y = evt.touches[0].clientY;
+
+    this.currentPositionpc6 = y - this.startPositionpc6;
+
+    if (this.currentPositionpc6 > 0 && this.startPositionpc6 > 0) {
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp6")).style.transform = "translate3d(0px," + this.currentPositionpc6 + "px,0px)";
+    }
+  }
+
+  touchEndpc6(){
+    this.minimumThresholdpc6 = this.heightpc6 - 150;
+
+    if (this.currentPositionpc6 < this.minimumThresholdpc6){
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp6")).style.transform = "translate3d(0px,0px,0px)";
+    }
+    else {
+      this.closep6();
+    }
+  }
+
+  currentPositionpc7;
+  heightpc7;
+  minimumThresholdpc7;
+  startPositionpc7;
+
+  openp7(){
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp7")).style.bottom = "0px";
+    (<HTMLStyleElement>document.querySelector(".bgp7")).style.display = "block";
+  }
+
+  closep7(){
+    this.currentPositionpc7 = 0;
+    this.startPositionpc7 = 0;
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp7")).style.bottom = "-1000px";
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp7")).style.transform = "translate3d(0px,0px,0px)";
+    (<HTMLStyleElement>document.querySelector(".bgp7")).style.display = "none";
+  }
+
+  touchMovepc7(evt: TouchEvent){
+    if (this.startPositionpc7 == 0){
+      this.startPositionpc7 = evt.touches[0].clientY;
+    }
+
+    this.heightpc7 = document.querySelector(".bottomSheetp7").clientHeight;
+
+    var y = evt.touches[0].clientY;
+
+    this.currentPositionpc7 = y - this.startPositionpc7;
+
+    if (this.currentPositionpc7 > 0 && this.startPositionpc7 > 0) {
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp7")).style.transform = "translate3d(0px," + this.currentPositionpc7 + "px,0px)";
+    }
+  }
+
+  touchEndpc7(){
+    this.minimumThresholdpc7 = this.heightpc7 - 150;
+
+    if (this.currentPositionpc7 < this.minimumThresholdpc7){
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp7")).style.transform = "translate3d(0px,0px,0px)";
+    }
+    else {
+      this.closep7();
+    }
+  }
+
+  currentPositionpc8;
+  heightpc8;
+  minimumThresholdpc8;
+  startPositionpc8;
+
+  openp8(){
+    this.cargarP9();
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp8")).style.bottom = "0px";
+    (<HTMLStyleElement>document.querySelector(".bgp8")).style.display = "block";
+  }
+
+  closep8(){
+    this.currentPositionpc8 = 0;
+    this.startPositionpc8 = 0;
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp8")).style.bottom = "-1000px";
+    (<HTMLStyleElement>document.querySelector(".bottomSheetp8")).style.transform = "translate3d(0px,0px,0px)";
+    (<HTMLStyleElement>document.querySelector(".bgp8")).style.display = "none";
+  }
+
+  touchMovepc8(evt: TouchEvent){
+    if (this.startPositionpc8 == 0){
+      this.startPositionpc8 = evt.touches[0].clientY;
+    }
+
+    this.heightpc8 = document.querySelector(".bottomSheetp8").clientHeight;
+
+    var y = evt.touches[0].clientY;
+
+    this.currentPositionpc8 = y - this.startPositionpc8;
+
+    if (this.currentPositionpc8 > 0 && this.startPositionpc8 > 0) {
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp8")).style.transform = "translate3d(0px," + this.currentPositionpc8 + "px,0px)";
+    }
+  }
+
+  touchEndpc8(){
+    this.minimumThresholdpc8 = this.heightpc8 - 150;
+
+    if (this.currentPositionpc8 < this.minimumThresholdpc8){
+      (<HTMLStyleElement>document.querySelector(".bottomSheetp8")).style.transform = "translate3d(0px,0px,0px)";
+    }
+    else {
+      this.closep8();
+    }
+  }
+
+  onErrorf(img) {
+    img.src = '../../../../assets/imgs/avatar.svg';
+  }
 }

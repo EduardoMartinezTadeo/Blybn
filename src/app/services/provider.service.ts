@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { delay } from 'rxjs/operators';
 
 const apiRecuperarURL = environment.apiRecuperarURL;
 const apiActualizarFacturacion = environment.apiActualizarFacturacionURL;
@@ -63,6 +62,7 @@ const apiCargarTipoPropiedadIndividual = environment.apiCargarTipoPropiedadIndiv
 const apiCargarAlojamientoIndividual = environment.apiCargarAlojamientoIndividualURL;
 const apiCargarAventuraIndividual = environment.apiCargarTipoAventuraIndividualURL;
 const apiCargarHistorialRentaIndividual = environment.apiCargarHistorialRentaIndividualURL;
+const apiCargarPlaceIDURL = environment.apiCargarPlaceIdURL;
 
 @Injectable({
   providedIn: 'root'
@@ -551,5 +551,13 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiCargarHistorialRentaIndividual + file, body, {headers})
+  }
+
+  cargarPlaceID(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarPlaceIDURL + file, body, {headers})
   }
 }

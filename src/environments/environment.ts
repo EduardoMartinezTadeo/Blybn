@@ -86,7 +86,8 @@ export const environment = {
   apiCargarTipoPropiedadIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarTipoPropiedad.php/',
   apiCargarAlojamientoIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarAlojamientoPropiedad.php/',
   apiCargarTipoAventuraIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarTipoAventuraPropiedad.php/',
-  apiCargarHistorialRentaIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarHistorialPrevioPropiedad.php/'
+  apiCargarHistorialRentaIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarHistorialPrevioPropiedad.php/',
+  apiCargarPlaceIdURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarPlaceIDPropiedad.php/'
 };
 
 /*

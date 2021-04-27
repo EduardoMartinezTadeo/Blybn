@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 
@@ -14,7 +14,8 @@ export class MisPropiedadesPage implements OnInit {
     private router: Router,
     private storage: Storage,
     private provider: ProviderService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loadingController: LoadingController
   ) {
     this.server = this.provider.server;
   }
@@ -47,6 +48,8 @@ export class MisPropiedadesPage implements OnInit {
             this.propiedades.push(exclusivo);
           }
           resolve(true);
+        }, (error) => {
+          this.presentLoadingServer();
         });
     });
   }
@@ -91,5 +94,35 @@ export class MisPropiedadesPage implements OnInit {
 
   mostrarDetalle(bly_registroPropiedad, bly_usuario){
     this.router.navigate(['/detalle-propiedades/' + bly_registroPropiedad + '/' + bly_usuario]);
+  }
+
+  async presentAlertServer() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      message: 'Ha ocurrido un error, verifique su conexión!!!',
+      mode: 'ios',
+      buttons: [{
+        text: 'Reintentar',
+        handler: () => {
+          this.router.navigateByUrl('/offline');
+        }
+      }
+      ]
+    });
+    await alert.present();
+  }
+
+  async presentLoadingServer() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      duration: 1500,
+      spinner: "bubbles",
+      mode: 'ios',
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.presentAlertServer();
+    }, 2000);
   }
 }

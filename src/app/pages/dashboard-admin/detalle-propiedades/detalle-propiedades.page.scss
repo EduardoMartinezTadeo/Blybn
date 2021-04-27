@@ -11,17 +11,18 @@ ion-toolbar {
 }
 
 .ionFotoD {
-    width: 160px;
-    height: 160px;
+    width: 175px;
+    height: 175px;
 }
 
 .ionFotoD1{
-    margin-top: 6%;
+    margin-top: 9%;
     width: 60px;
     height: 60px;
 }
 
 .datoFecha {
+    margin-top: 2%;
     ion-label {
         font-family: 'HelveticaMedium';
         font-size: 11px;
@@ -655,3 +656,35 @@ ion-avatar {
     width: 70px;
     height: 70px;
 }
+
+#map_canvas {
+    width: 90%;
+    height: 80%;
+    border: 1px solid red;
+  }
+   
+   
+  #address {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+   
+  #map {
+    width: 100%;
+    height: 100px;
+  }
+   
+  .map-wrapper {
+    position: relative;
+    #map_center {
+      position: absolute;
+      z-index: 99;
+      height: 40px;
+      width: 40px;
+      top: 50%;
+      left: 50%;
+      margin-left: -21px;
+      margin-top: -41px;
+    }
+  }

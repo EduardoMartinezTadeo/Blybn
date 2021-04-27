@@ -1,28 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from 'src/app/services/provider.service';
-
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import {
+  NativeGeocoder,
+  NativeGeocoderOptions,
+  NativeGeocoderResult,
+} from '@ionic-native/native-geocoder/ngx';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+declare var google;
 @Component({
   selector: 'app-detalle-propiedades',
   templateUrl: './detalle-propiedades.page.html',
   styleUrls: ['./detalle-propiedades.page.scss'],
 })
 export class DetallePropiedadesPage implements OnInit {
-
+  @ViewChild('map', { static: false }) mapElement: ElementRef;
+  map: any;
+  lat: string;
+  long: string;
+  address: string;
   constructor(
     private actRoute: ActivatedRoute,
     private router: Router,
     private provider: ProviderService,
-    private storage: Storage) {
-      this.server = this.provider.server;
-     }
-    id_usuario: number;
-    id_propiedad: number;
-    usuario: string;
-    correo: string;
-    id: string;
-    tipoRol: number;
+    private storage: Storage,
+    private geolocation: Geolocation,
+    private nativeGeocoder: NativeGeocoder,
+    private alertController: AlertController,
+    private loadingController: LoadingController,
+    private iab: InAppBrowser
+  ) {
+    this.server = this.provider.server;
+  }
+  id_usuario: number;
+  id_propiedad: number;
+  usuario: string;
+  correo: string;
+  id: string;
+  tipoRol: number;
+  bly_placeId: string;
   ngOnInit() {
     this.closep1();
     this.closep2();
@@ -44,67 +63,74 @@ export class DetallePropiedadesPage implements OnInit {
     this.closep6();
     this.closep7();
     this.closep8();
-    this.actRoute.params.subscribe((data: any)=>{
+    this.actRoute.params.subscribe((data: any) => {
       this.id_propiedad = data.bly_registroPropiedad;
       this.id_usuario = data.bly_usuario;
       this.cargarImagenesP();
       this.cargarP1();
       this.cargarP8();
-    }); 
+    });
     this.storage.get('perfil').then((res) => {
       this.perfilData = res;
-      this.usuario = this.perfilData.bly_nombre,
-      this.correo = this.perfilData.bly_correoElectronico,
-      this.id = this.perfilData.bly_usuario,
-      this.tipoRol = this.perfilData.bly_rol
-      this.cargarFotoPerfil();  
-    });    
+      (this.usuario = this.perfilData.bly_nombre),
+        (this.correo = this.perfilData.bly_correoElectronico),
+        (this.id = this.perfilData.bly_usuario),
+        (this.tipoRol = this.perfilData.bly_rol);
+      this.cargarFotoPerfil();
+    });
   }
 
   foto: string;
-  fotoPerfil : any = [];
-  cargarFotoPerfil(){
-    return new Promise(resolve => {
+  fotoPerfil: any = [];
+  cargarFotoPerfil() {
+    return new Promise((resolve) => {
       let body = {
         aksi: 'perfilFoto',
-        bly_usuario: this.id
-      }
-      this.provider.postDataCFPA(body, 'db_cargarFotoPerfilAct.php').subscribe(data => {
-        this.fotoPerfil = data;
-        this.foto = this.fotoPerfil.bly_fotografia;
-        resolve(true);
-      });
-    });      
+        bly_usuario: this.id,
+      };
+      this.provider
+        .postDataCFPA(body, 'db_cargarFotoPerfilAct.php')
+        .subscribe((data) => {
+          this.fotoPerfil = data;
+          this.foto = this.fotoPerfil.bly_fotografia;
+          resolve(true);
+        }, (error) => {
+          this.presentLoadingServer();
+        });
+    });
   }
 
-  salir(){
+  salir() {
     this.router.navigate(['/dashboard/mis-propiedades']);
-    this.horaLimiteReservacion = ""
-    this.llegadaAntes = "";
-    this.llegadaSalida = "";
-    this.llegadaDespues = "";
-    this.preavisoPropiedad = "";
-    this.anticipacionRenta = "";
+    this.horaLimiteReservacion = '';
+    this.llegadaAntes = '';
+    this.llegadaSalida = '';
+    this.llegadaDespues = '';
+    this.preavisoPropiedad = '';
+    this.anticipacionRenta = '';
   }
 
   onError(img) {
     img.src = '../../../../assets/imgs/default-inicio.svg';
   }
 
-
   informacionPropiedad: any = [];
-  cargarImagenesP(){
+  cargarImagenesP() {
     let body = {
       aksi: 'imagenPropiedad',
-      bly_propiedad: this.id_propiedad
-    }
-    this.provider.postDataCFPI(body, 'db_cargarImagenesPropiedadIndividualmente.php').subscribe(data => {
-      this.informacionPropiedad = data.result;
-    });
+      bly_propiedad: this.id_propiedad,
+    };
+    this.provider
+      .postDataCFPI(body, 'db_cargarImagenesPropiedadIndividualmente.php')
+      .subscribe((data) => {
+        this.informacionPropiedad = data.result;
+      },(error)  =>{
+        this.presentLoadingServer();
+      });
   }
 
   tituloPropiedad: string;
-  cantidadHabitacion: number
+  cantidadHabitacion: number;
   cantidadBano: number;
   tipoBano: string;
   status: string;
@@ -115,103 +141,171 @@ export class DetallePropiedadesPage implements OnInit {
   id_frecuencia: string;
   huespedes: number;
   exclusividad: string;
-  
+  latitude: number;
+  longitude: number;
+  direccionGeneral: string;
+  fecha_registro: string;
+  fecha: string;
+  calle: string;
+  ciudad: string;
+  estado: string;
+
   informacionP1: any;
-  cargarP1(){
+  cargarP1() {
     let body = {
       aksi: 'detallePropiedad',
-      bly_propiedad: this.id_propiedad
-    }
-    this.provider.detalleP1(body, 'db_CargarDetallePropiedad.php').subscribe(data => {
-      this.informacionP1 = data.result;
-      this.tituloPropiedad = this.informacionP1.bly_tituloPropiedad;
-      this.cantidadHabitacion = this.informacionP1.bly_numHabitaciones;
-      this.cantidadBano = this.informacionP1.bly_numBanos;
-      this.tipoBano = this.informacionP1.bly_tipoBano;
-      this.status = this.informacionP1.bly_status;
-      this.id_propiedad = this.informacionP1.bly_tipoPropiedad;
-      this.id_alojamiento = this.informacionP1.bly_tipoAlojamiento;
-      this.id_aventura = this.informacionP1.bly_tipoAventura;
-      this.id_historial = this.informacionP1.bly_historialPrevioPropiedad;
-      this.id_frecuencia = this.informacionP1.bly_frecuenciaRenta;
-      this.huespedes = this.informacionP1.bly_numHuespedes;
-      this.exclusividad = this.informacionP1.bly_tipoExclusividad;
-      this.cargarTipoPropiedad();
-      this.cargarAlojamiento();
-      this.cargarTipoAventuraIndividual();
-      this.cargarHistorial();
-      console.log(this.informacionP1);
-    });
+      bly_propiedad: this.id_propiedad,
+    };
+    this.provider
+      .detalleP1(body, 'db_CargarDetallePropiedad.php')
+      .subscribe((data) => {
+        this.informacionP1 = data.result;
+        this.tituloPropiedad = this.informacionP1.bly_tituloPropiedad;
+        this.cantidadHabitacion = this.informacionP1.bly_numHabitaciones;
+        this.cantidadBano = this.informacionP1.bly_numBanos;
+        this.tipoBano = this.informacionP1.bly_tipoBano;
+        this.status = this.informacionP1.bly_status;
+        this.id_propiedad = this.informacionP1.bly_tipoPropiedad;
+        this.id_alojamiento = this.informacionP1.bly_tipoAlojamiento;
+        this.id_aventura = this.informacionP1.bly_tipoAventura;
+        this.id_historial = this.informacionP1.bly_historialPrevioPropiedad;
+        this.id_frecuencia = this.informacionP1.bly_frecuenciaRenta;
+        this.huespedes = this.informacionP1.bly_numHuespedes;
+        this.exclusividad = this.informacionP1.bly_tipoExclusividad;
+        this.latitude = parseFloat(this.informacionP1.bly_latitud);
+        this.longitude = parseFloat(this.informacionP1.bly_longitud);
+        this.direccionGeneral = this.informacionP1.bly_direccionGeneral;
+        this.fecha_registro = this.informacionP1.bly_fechaRegistro;
+        this.fecha = this.fecha_registro.split(' ')[0];
+        this.ciudad = this.informacionP1.bly_ciudad;
+        this.estado = this.informacionP1.bly_estado;
+        this.calle = this.informacionP1.bly_calle;
+        this.bly_placeId = this.informacionP1.bly_placeid;
+        console.log(this.fecha);
+        this.cargarTipoPropiedad();
+        this.cargarAlojamiento();
+        this.cargarTipoAventuraIndividual();
+        this.cargarHistorial();
+        this.loadMap();
+        console.log(this.informacionP1);
+      }, (error) => {
+        this.presentLoadingServer();
+      });
+  }
+
+  url: string;
+  infoComoLlegar: any = [];
+  comoLlegar(){
+    let body = {
+      aksi: 'placeId',
+      bly_registroPropiedad: this.id_propiedad,
+    };
+    console.log(this.id_propiedad);
+    this.provider
+      .cargarPlaceID(body, 'db_CargarPlaceIDPropiedad.php')
+      .subscribe((data) => {
+        this.infoComoLlegar = data.result;
+        this.bly_placeId = this.infoComoLlegar.bly_placeid;
+        this.iab.create(
+          `https://www.google.com/maps/search/?api=1&query=Google&query_place_id=`+this.bly_placeId,
+          `_system`
+        );
+        //this.url = 'https://www.google.com/maps/search/?api=1&query=Google&query_place_id='+this.bly_placeId;
+      }, (error) => {
+        this.presentLoadingServer();
+      }); 
   }
 
   informacionP2: any = [];
-  cargarP2(){
+  cargarP2() {
     let body = {
       aksi: 'tipo1',
-      bly_propiedad: this.id_propiedad
-    }
-    this.provider.detalleP2(body, 'db_CargarAmenidadesPropiedades.php').subscribe(data => {
-      this.informacionP2 = data.result;
-    });
+      bly_propiedad: this.id_propiedad,
+    };
+    this.provider
+      .detalleP2(body, 'db_CargarAmenidadesPropiedades.php')
+      .subscribe((data) => {
+        this.informacionP2 = data.result;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
 
   informacionP3: any = [];
-  cargarP3(){
+  cargarP3() {
     let body = {
       aksi: 'tipo4',
-      bly_propiedad: this.id_propiedad
-    }
-    this.provider.detalleP3(body, 'db_CargarCostosPropiedad.php').subscribe(data => {
-      this.informacionP3 = data.result;
-    });
+      bly_propiedad: this.id_propiedad,
+    };
+    this.provider
+      .detalleP3(body, 'db_CargarCostosPropiedad.php')
+      .subscribe((data) => {
+        this.informacionP3 = data.result;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
 
   informacionP4: any = [];
-  cargarP4(){
+  cargarP4() {
     let body = {
       aksi: 'tipo5',
-      bly_propiedad: this.id_propiedad
-    }
-    this.provider.detalleP4(body, 'db_CargarMueblesPropiedades.php').subscribe(data => {
-      this.informacionP4 = data.result;
-    });
+      bly_propiedad: this.id_propiedad,
+    };
+    this.provider
+      .detalleP4(body, 'db_CargarMueblesPropiedades.php')
+      .subscribe((data) => {
+        this.informacionP4 = data.result;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
 
   informacionP5: any = [];
-  cargarP5(){
+  cargarP5() {
     let body = {
       aksi: 'restriccionP',
-      bly_propiedad: this.id_propiedad
-    }
-    this.provider.detalleP5(body, 'db_CargarRestriccionesPropiedad.php').subscribe(data => {
-      this.informacionP5 = data.result;
-    });
+      bly_propiedad: this.id_propiedad,
+    };
+    this.provider
+      .detalleP5(body, 'db_CargarRestriccionesPropiedad.php')
+      .subscribe((data) => {
+        this.informacionP5 = data.result;
+      },(error) => {
+        this.presentLoadingServer();
+      });
   }
 
   informacionP6: any = [];
-  cargarP6(){
+  cargarP6() {
     let body = {
       aksi: 'requisitos',
-      bly_propiedad: this.id_propiedad
-    }
-    this.provider.detalleP6(body, 'db_CargarSeguridadPropiedad.php').subscribe(data => {
-      this.informacionP6 = data.result;
-    });
+      bly_propiedad: this.id_propiedad,
+    };
+    this.provider
+      .detalleP6(body, 'db_CargarSeguridadPropiedad.php')
+      .subscribe((data) => {
+        this.informacionP6 = data.result;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
 
   informacionP7: any = [];
-  cargarP7(){
+  cargarP7() {
     let body = {
       aksi: 'requisitos',
-      bly_propiedad: this.id_propiedad
-    }
-    this.provider.detalleP7(body, 'db_CargarRequisitosPropiedad.php').subscribe(data => {
-      this.informacionP7 = data.result;
-    });
+      bly_propiedad: this.id_propiedad,
+    };
+    this.provider
+      .detalleP7(body, 'db_CargarRequisitosPropiedad.php')
+      .subscribe((data) => {
+        this.informacionP7 = data.result;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
 
-
-  
   informacionP8: any = [];
   dato1: string;
   dato2: string;
@@ -225,33 +319,37 @@ export class DetallePropiedadesPage implements OnInit {
   dato10: string;
   dato11: string;
   dato12: string;
-  cargarP8(){
+  cargarP8() {
     let body = {
       aksi: 'tipo6',
-      bly_propiedad: this.id_propiedad
-    }
-    this.provider.detalleP8(body, 'db_CargarDisponibilidadPropiedad.php').subscribe(data => {
-      this.informacionP8 = data.result;
-      this.dato1 = this.informacionP8.bly_fechaInicio;
-      this.dato2 = this.informacionP8.bly_fechaFinal;
-      this.dato3 = this.informacionP8.bly_fechaInicialND;
-      this.dato4 = this.informacionP8.bly_fechaFinalND;
-      this.dato5 = this.informacionP8.bly_horaLimiteReservacion;
-      this.dato6 = this.informacionP8.bly_llegadaAntes;
-      this.dato7 = this.informacionP8.bly_llegadaDespues;
-      this.dato8 = this.informacionP8.bly_preaviso;
-      this.dato9 = this.informacionP8.bly_propiedad;
-      this.dato10 = this.informacionP8.bly_salidaAntes;
-      this.dato11 = this.informacionP8.bly_tiempoAnticipacionReservacion;
-      this.dato12 = this.informacionP8.bly_tiempoSalidadH;
-      this.cargarLLegadaAntes();
-      this.cargarLlegadaDespues();
-      this.cargarLlegadaSalida();
-      this.cargarHoraLimiteReservacion();
-      this.cargarPreaviso();
-      this.cargarVentanaDisponibilidad();
-      this.cargarSalidaTerminoServicio();
-    });
+      bly_propiedad: this.id_propiedad,
+    };
+    this.provider
+      .detalleP8(body, 'db_CargarDisponibilidadPropiedad.php')
+      .subscribe((data) => {
+        this.informacionP8 = data.result;
+        this.dato1 = this.informacionP8.bly_fechaInicio;
+        this.dato2 = this.informacionP8.bly_fechaFinal;
+        this.dato3 = this.informacionP8.bly_fechaInicialND;
+        this.dato4 = this.informacionP8.bly_fechaFinalND;
+        this.dato5 = this.informacionP8.bly_horaLimiteReservacion;
+        this.dato6 = this.informacionP8.bly_llegadaAntes;
+        this.dato7 = this.informacionP8.bly_llegadaDespues;
+        this.dato8 = this.informacionP8.bly_preaviso;
+        this.dato9 = this.informacionP8.bly_propiedad;
+        this.dato10 = this.informacionP8.bly_salidaAntes;
+        this.dato11 = this.informacionP8.bly_tiempoAnticipacionReservacion;
+        this.dato12 = this.informacionP8.bly_tiempoSalidadH;
+        this.cargarLLegadaAntes();
+        this.cargarLlegadaDespues();
+        this.cargarLlegadaSalida();
+        this.cargarHoraLimiteReservacion();
+        this.cargarPreaviso();
+        this.cargarVentanaDisponibilidad();
+        this.cargarSalidaTerminoServicio();
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
 
   fechaLlegada: any;
@@ -264,130 +362,178 @@ export class DetallePropiedadesPage implements OnInit {
   anticipacionRenta: string;
   salidaTerminoServicio: string;
 
-  cargarLLegadaAntes(){
+  cargarLLegadaAntes() {
     let body = {
       aksi: 'tipoLlegada',
-      bly_llegada: this.dato6
-    }
-    this.provider.cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php').subscribe(data => {
-      this.llegadaAntes = data.result.bly_descripcionLlegadas;
-    });
+      bly_llegada: this.dato6,
+    };
+    this.provider
+      .cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php')
+      .subscribe((data) => {
+        this.llegadaAntes = data.result.bly_descripcionLlegadas;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
-  cargarLlegadaDespues(){
+  cargarLlegadaDespues() {
     let body = {
       aksi: 'tipoLlegada',
-      bly_llegada: this.dato7
-    }
-    this.provider.cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php').subscribe(data => {
-      this.llegadaDespues = data.result.bly_descripcionLlegadas;
-    });
-  }
-
-  cargarLlegadaSalida(){
-    let body = {
-      aksi: 'tipoLlegada',
-      bly_llegada: this.dato10
-    }
-    this.provider.cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php').subscribe(data => {
-      this.llegadaSalida = data.result.bly_descripcionLlegadas;
-    });
+      bly_llegada: this.dato7,
+    };
+    this.provider
+      .cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php')
+      .subscribe((data) => {
+        this.llegadaDespues = data.result.bly_descripcionLlegadas;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
 
-  cargarHoraLimiteReservacion(){
+  cargarLlegadaSalida() {
+    let body = {
+      aksi: 'tipoLlegada',
+      bly_llegada: this.dato10,
+    };
+    this.provider
+      .cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php')
+      .subscribe((data) => {
+        this.llegadaSalida = data.result.bly_descripcionLlegadas;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
+  }
+
+  cargarHoraLimiteReservacion() {
     let body = {
       aksi: 'horas',
-      bly_hora: this.dato5
-    }
-    this.provider.cargarHoraIndividual(body, 'db_CargarHorasPropiedades.php').subscribe(data => {
-      this.horaLimiteReservacion = data.result.bly_Horas;
-    });
+      bly_hora: this.dato5,
+    };
+    this.provider
+      .cargarHoraIndividual(body, 'db_CargarHorasPropiedades.php')
+      .subscribe((data) => {
+        this.horaLimiteReservacion = data.result.bly_Horas;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
 
-  cargarPreaviso(){
+  cargarPreaviso() {
     let body = {
       aksi: 'preaviso',
-      bly_numPreaviso: this.dato8
-    }
-    this.provider.cargarPreavisoIndividual(body, 'db_CargarPreavisoPropiedades.php').subscribe(data => {
-      this.preavisoPropiedad = data.result.bly_preavisoDescripcion;
-    });
+      bly_numPreaviso: this.dato8,
+    };
+    this.provider
+      .cargarPreavisoIndividual(body, 'db_CargarPreavisoPropiedades.php')
+      .subscribe((data) => {
+        this.preavisoPropiedad = data.result.bly_preavisoDescripcion;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
 
-  cargarVentanaDisponibilidad(){
+  cargarVentanaDisponibilidad() {
     let body = {
       aksi: 'ventanaDisponibilidad',
-      bly_numventanaDisponibilidad: this.dato11
-    }
-    this.provider.cargarVentanaDisponibilidadIndividual(body, 'db_CargarVentanaDisponibilidadIndividual.php').subscribe(data => {
-      this.anticipacionRenta = data.result.bly_descripcionVentanaDisponibilidad;
-    });
-   }
+      bly_numventanaDisponibilidad: this.dato11,
+    };
+    this.provider
+      .cargarVentanaDisponibilidadIndividual(
+        body,
+        'db_CargarVentanaDisponibilidadIndividual.php'
+      )
+      .subscribe((data) => {
+        this.anticipacionRenta =
+          data.result.bly_descripcionVentanaDisponibilidad;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
+  }
 
-   cargarSalidaTerminoServicio(){
-     let body = {
-       aksi: 'tipoLlegada',
-       bly_llegada: this.dato12
-     }
-     this.provider.cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php').subscribe(data => {
-      this.salidaTerminoServicio = data.result.bly_descripcionLlegadas;
-    });
-   }
+  cargarSalidaTerminoServicio() {
+    let body = {
+      aksi: 'tipoLlegada',
+      bly_llegada: this.dato12,
+    };
+    this.provider
+      .cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php')
+      .subscribe((data) => {
+        this.salidaTerminoServicio = data.result.bly_descripcionLlegadas;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
+  }
 
-   informacionCasa: any = [];
-  cargarTipoPropiedad(){
+  informacionCasa: any = [];
+  cargarTipoPropiedad() {
     let body = {
       aksi: 'tipo_propiedad',
-      bly_tipoPropiedad: this.id_propiedad
-    }
-    this.provider.cargarTipoPropiedadIndividual(body, 'db_cargarTipoPropiedad.php').subscribe(data => {
-      this.informacionCasa = data.result;
-    });
+      bly_tipoPropiedad: this.id_propiedad,
+    };
+    this.provider
+      .cargarTipoPropiedadIndividual(body, 'db_cargarTipoPropiedad.php')
+      .subscribe((data) => {
+        this.informacionCasa = data.result;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
 
   informacionAlojamiento: any = [];
-  cargarAlojamiento(){
+  cargarAlojamiento() {
     let body = {
       aksi: 'tipo_alojamiento',
-      bly_tipoAlojamiento: this.id_alojamiento
-    }
-    this.provider.cargarAlojamientoIndividual(body, 'db_cargarAlojamientoPropiedad.php').subscribe(data => {
-      this.informacionAlojamiento = data.result;
-    });
+      bly_tipoAlojamiento: this.id_alojamiento,
+    };
+    this.provider
+      .cargarAlojamientoIndividual(body, 'db_cargarAlojamientoPropiedad.php')
+      .subscribe((data) => {
+        this.informacionAlojamiento = data.result;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
 
   informacionAventura: any = [];
   cargarTipoAventuraIndividual() {
     let body = {
       aksi: 'tipo_aventura',
-      bly_tipoAventura: this.id_aventura
-    }
-    this.provider.cargarAventuraIndividual(body, 'db_cargarTipoAventuraPropiedad.php').subscribe(data => {
-      this.informacionAventura = data.result;
-    });
+      bly_tipoAventura: this.id_aventura,
+    };
+    this.provider
+      .cargarAventuraIndividual(body, 'db_cargarTipoAventuraPropiedad.php')
+      .subscribe((data) => {
+        this.informacionAventura = data.result;
+      });
   }
 
   informacionHistorial: any = [];
-  cargarHistorial(){
+  cargarHistorial() {
     let body = {
       aksi: 'historial',
-      bly_historial: this.id_historial
-    }
-    this.provider.cargarHistorialRenta(body, 'db_CargarHistorialPrevioPropiedad.php').subscribe(data => {
-      this.informacionHistorial = data.result;
-    });
+      bly_historial: this.id_historial,
+    };
+    this.provider
+      .cargarHistorialRenta(body, 'db_CargarHistorialPrevioPropiedad.php')
+      .subscribe((data) => {
+        this.informacionHistorial = data.result;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
-
-  
 
   informacionP9: any = [];
   cargarP9() {
     let body = {
       aksi: 'tipo2',
-      bly_propiedad: this.id_propiedad
-    }
-    this.provider.detalleP9(body, 'db_CargarEspaciosPropiedades.php').subscribe(data => {
-      this.informacionP9 = data.result;
-    });
+      bly_propiedad: this.id_propiedad,
+    };
+    this.provider
+      .detalleP9(body, 'db_CargarEspaciosPropiedades.php')
+      .subscribe((data) => {
+        this.informacionP9 = data.result;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
   }
 
   slideOpts = {
@@ -399,11 +545,11 @@ export class DetallePropiedadesPage implements OnInit {
       shadowScale: 0.94,
     },
     on: {
-      beforeInit: function() {
+      beforeInit: function () {
         const swiper = this;
         swiper.classNames.push(`${swiper.params.containerModifierClass}cube`);
         swiper.classNames.push(`${swiper.params.containerModifierClass}3d`);
-  
+
         const overwriteParams = {
           slidesPerView: 1,
           slidesPerColumn: 1,
@@ -414,14 +560,23 @@ export class DetallePropiedadesPage implements OnInit {
           centeredSlides: false,
           virtualTranslate: true,
         };
-  
+
         this.params = Object.assign(this.params, overwriteParams);
-        this.originalParams = Object.assign(this.originalParams, overwriteParams);
+        this.originalParams = Object.assign(
+          this.originalParams,
+          overwriteParams
+        );
       },
-      setTranslate: function() {
+      setTranslate: function () {
         const swiper = this;
         const {
-          $el, $wrapperEl, slides, width: swiperWidth, height: swiperHeight, rtlTranslate: rtl, size: swiperSize,
+          $el,
+          $wrapperEl,
+          slides,
+          width: swiperWidth,
+          height: swiperHeight,
+          rtlTranslate: rtl,
+          size: swiperSize,
         } = swiper;
         const params = swiper.params.cubeEffect;
         const isHorizontal = swiper.isHorizontal();
@@ -432,19 +587,23 @@ export class DetallePropiedadesPage implements OnInit {
           if (isHorizontal) {
             $cubeShadowEl = $wrapperEl.find('.swiper-cube-shadow');
             if ($cubeShadowEl.length === 0) {
-              $cubeShadowEl = swiper.$('<div class="swiper-cube-shadow"></div>');
+              $cubeShadowEl = swiper.$(
+                '<div class="swiper-cube-shadow"></div>'
+              );
               $wrapperEl.append($cubeShadowEl);
             }
             $cubeShadowEl.css({ height: `${swiperWidth}px` });
           } else {
             $cubeShadowEl = $el.find('.swiper-cube-shadow');
             if ($cubeShadowEl.length === 0) {
-              $cubeShadowEl = swiper.$('<div class="swiper-cube-shadow"></div>');
+              $cubeShadowEl = swiper.$(
+                '<div class="swiper-cube-shadow"></div>'
+              );
               $el.append($cubeShadowEl);
             }
           }
         }
-  
+
         for (let i = 0; i < slides.length; i += 1) {
           const $slideEl = slides.eq(i);
           let slideIndex = i;
@@ -468,41 +627,59 @@ export class DetallePropiedadesPage implements OnInit {
             tx = 0;
             tz = -round * 4 * swiperSize;
           } else if ((slideIndex - 2) % 4 === 0) {
-            tx = swiperSize + (round * 4 * swiperSize);
+            tx = swiperSize + round * 4 * swiperSize;
             tz = swiperSize;
           } else if ((slideIndex - 3) % 4 === 0) {
             tx = -swiperSize;
-            tz = (3 * swiperSize) + (swiperSize * 4 * round);
+            tz = 3 * swiperSize + swiperSize * 4 * round;
           }
           if (rtl) {
             tx = -tx;
           }
-  
-           if (!isHorizontal) {
+
+          if (!isHorizontal) {
             ty = tx;
             tx = 0;
           }
-  
-           const transform$$1 = `rotateX(${isHorizontal ? 0 : -slideAngle}deg) rotateY(${isHorizontal ? slideAngle : 0}deg) translate3d(${tx}px, ${ty}px, ${tz}px)`;
+
+          const transform$$1 = `rotateX(${
+            isHorizontal ? 0 : -slideAngle
+          }deg) rotateY(${
+            isHorizontal ? slideAngle : 0
+          }deg) translate3d(${tx}px, ${ty}px, ${tz}px)`;
           if (progress <= 1 && progress > -1) {
-            wrapperRotate = (slideIndex * 90) + (progress * 90);
-            if (rtl) wrapperRotate = (-slideIndex * 90) - (progress * 90);
+            wrapperRotate = slideIndex * 90 + progress * 90;
+            if (rtl) wrapperRotate = -slideIndex * 90 - progress * 90;
           }
           $slideEl.transform(transform$$1);
           if (params.slideShadows) {
             // Set shadows
-            let shadowBefore = isHorizontal ? $slideEl.find('.swiper-slide-shadow-left') : $slideEl.find('.swiper-slide-shadow-top');
-            let shadowAfter = isHorizontal ? $slideEl.find('.swiper-slide-shadow-right') : $slideEl.find('.swiper-slide-shadow-bottom');
+            let shadowBefore = isHorizontal
+              ? $slideEl.find('.swiper-slide-shadow-left')
+              : $slideEl.find('.swiper-slide-shadow-top');
+            let shadowAfter = isHorizontal
+              ? $slideEl.find('.swiper-slide-shadow-right')
+              : $slideEl.find('.swiper-slide-shadow-bottom');
             if (shadowBefore.length === 0) {
-              shadowBefore = swiper.$(`<div class="swiper-slide-shadow-${isHorizontal ? 'left' : 'top'}"></div>`);
+              shadowBefore = swiper.$(
+                `<div class="swiper-slide-shadow-${
+                  isHorizontal ? 'left' : 'top'
+                }"></div>`
+              );
               $slideEl.append(shadowBefore);
             }
             if (shadowAfter.length === 0) {
-              shadowAfter = swiper.$(`<div class="swiper-slide-shadow-${isHorizontal ? 'right' : 'bottom'}"></div>`);
+              shadowAfter = swiper.$(
+                `<div class="swiper-slide-shadow-${
+                  isHorizontal ? 'right' : 'bottom'
+                }"></div>`
+              );
               $slideEl.append(shadowAfter);
             }
-            if (shadowBefore.length) shadowBefore[0].style.opacity = Math.max(-progress, 0);
-            if (shadowAfter.length) shadowAfter[0].style.opacity = Math.max(progress, 0);
+            if (shadowBefore.length)
+              shadowBefore[0].style.opacity = Math.max(-progress, 0);
+            if (shadowAfter.length)
+              shadowAfter[0].style.opacity = Math.max(progress, 0);
           }
         }
         $wrapperEl.css({
@@ -511,131 +688,163 @@ export class DetallePropiedadesPage implements OnInit {
           '-ms-transform-origin': `50% 50% -${swiperSize / 2}px`,
           'transform-origin': `50% 50% -${swiperSize / 2}px`,
         });
-  
-         if (params.shadow) {
+
+        if (params.shadow) {
           if (isHorizontal) {
-            $cubeShadowEl.transform(`translate3d(0px, ${(swiperWidth / 2) + params.shadowOffset}px, ${-swiperWidth / 2}px) rotateX(90deg) rotateZ(0deg) scale(${params.shadowScale})`);
-          } else {
-            const shadowAngle = Math.abs(wrapperRotate) - (Math.floor(Math.abs(wrapperRotate) / 90) * 90);
-            const multiplier = 1.5 - (
-              (Math.sin((shadowAngle * 2 * Math.PI) / 360) / 2)
-              + (Math.cos((shadowAngle * 2 * Math.PI) / 360) / 2)
+            $cubeShadowEl.transform(
+              `translate3d(0px, ${swiperWidth / 2 + params.shadowOffset}px, ${
+                -swiperWidth / 2
+              }px) rotateX(90deg) rotateZ(0deg) scale(${params.shadowScale})`
             );
+          } else {
+            const shadowAngle =
+              Math.abs(wrapperRotate) -
+              Math.floor(Math.abs(wrapperRotate) / 90) * 90;
+            const multiplier =
+              1.5 -
+              (Math.sin((shadowAngle * 2 * Math.PI) / 360) / 2 +
+                Math.cos((shadowAngle * 2 * Math.PI) / 360) / 2);
             const scale1 = params.shadowScale;
             const scale2 = params.shadowScale / multiplier;
             const offset$$1 = params.shadowOffset;
-            $cubeShadowEl.transform(`scale3d(${scale1}, 1, ${scale2}) translate3d(0px, ${(swiperHeight / 2) + offset$$1}px, ${-swiperHeight / 2 / scale2}px) rotateX(-90deg)`);
+            $cubeShadowEl.transform(
+              `scale3d(${scale1}, 1, ${scale2}) translate3d(0px, ${
+                swiperHeight / 2 + offset$$1
+              }px, ${-swiperHeight / 2 / scale2}px) rotateX(-90deg)`
+            );
           }
         }
-  
-        const zFactor = (swiper.browser.isSafari || swiper.browser.isUiWebView) ? (-swiperSize / 2) : 0;
-        $wrapperEl
-          .transform(`translate3d(0px,0,${zFactor}px) rotateX(${swiper.isHorizontal() ? 0 : wrapperRotate}deg) rotateY(${swiper.isHorizontal() ? -wrapperRotate : 0}deg)`);
+
+        const zFactor =
+          swiper.browser.isSafari || swiper.browser.isUiWebView
+            ? -swiperSize / 2
+            : 0;
+        $wrapperEl.transform(
+          `translate3d(0px,0,${zFactor}px) rotateX(${
+            swiper.isHorizontal() ? 0 : wrapperRotate
+          }deg) rotateY(${swiper.isHorizontal() ? -wrapperRotate : 0}deg)`
+        );
       },
-      setTransition: function(duration) {
+      setTransition: function (duration) {
         const swiper = this;
         const { $el, slides } = swiper;
         slides
           .transition(duration)
-          .find('.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left')
+          .find(
+            '.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left'
+          )
           .transition(duration);
         if (swiper.params.cubeEffect.shadow && !swiper.isHorizontal()) {
           $el.find('.swiper-cube-shadow').transition(duration);
         }
       },
-    }
-  }
-
+    },
+  };
 
   currentPositionp1;
   heightp1;
   minimumThresholdp1;
   startPositionp1;
 
-  openp1(){
+  openp1() {
     this.cargarP4();
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp1")).style.bottom = "0px";
-    (<HTMLStyleElement>document.querySelector(".bgp1")).style.display = "block";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp1')).style.bottom =
+      '0px';
+    (<HTMLStyleElement>document.querySelector('.bgp1')).style.display = 'block';
   }
 
-  closep1(){
+  closep1() {
     this.currentPositionp1 = 0;
     this.startPositionp1 = 0;
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp1")).style.bottom = "-1000px";
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp1")).style.transform = "translate3d(0px,0px,0px)";
-    (<HTMLStyleElement>document.querySelector(".bgp1")).style.display = "none";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp1')).style.bottom =
+      '-1000px';
+    (<HTMLStyleElement>(
+      document.querySelector('.bottomSheetp1')
+    )).style.transform = 'translate3d(0px,0px,0px)';
+    (<HTMLStyleElement>document.querySelector('.bgp1')).style.display = 'none';
   }
 
-  touchMovep1(evt: TouchEvent){
-    if (this.startPositionp1 == 0){
+  touchMovep1(evt: TouchEvent) {
+    if (this.startPositionp1 == 0) {
       this.startPositionp1 = evt.touches[0].clientY;
     }
 
-    this.heightp1 = document.querySelector(".bottomSheetp1").clientHeight;
+    this.heightp1 = document.querySelector('.bottomSheetp1').clientHeight;
 
     var y = evt.touches[0].clientY;
 
     this.currentPositionp1 = y - this.startPositionp1;
 
     if (this.currentPositionp1 > 0 && this.startPositionp1 > 0) {
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp1")).style.transform = "translate3d(0px," + this.currentPositionp1 + "px,0px)";
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp1')
+      )).style.transform =
+        'translate3d(0px,' + this.currentPositionp1 + 'px,0px)';
     }
   }
 
-  touchEndp1(){
+  touchEndp1() {
     this.minimumThresholdp1 = this.heightp1 - 150;
 
-    if (this.currentPositionp1 < this.minimumThresholdp1){
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp1")).style.transform = "translate3d(0px,0px,0px)";
-    }
-    else {
+    if (this.currentPositionp1 < this.minimumThresholdp1) {
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp1')
+      )).style.transform = 'translate3d(0px,0px,0px)';
+    } else {
       this.closep1();
     }
   }
-
 
   currentPositionpc2;
   heightpc2;
   minimumThresholdpc2;
   startPositionpc2;
 
-  openp2(){
+  openp2() {
     this.cargarP2();
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp2")).style.bottom = "0px";
-    (<HTMLStyleElement>document.querySelector(".bgp2")).style.display = "block";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp2')).style.bottom =
+      '0px';
+    (<HTMLStyleElement>document.querySelector('.bgp2')).style.display = 'block';
   }
 
-  closep2(){
+  closep2() {
     this.currentPositionpc2 = 0;
     this.startPositionpc2 = 0;
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp2")).style.bottom = "-1000px";
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp2")).style.transform = "translate3d(0px,0px,0px)";
-    (<HTMLStyleElement>document.querySelector(".bgp2")).style.display = "none";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp2')).style.bottom =
+      '-1000px';
+    (<HTMLStyleElement>(
+      document.querySelector('.bottomSheetp2')
+    )).style.transform = 'translate3d(0px,0px,0px)';
+    (<HTMLStyleElement>document.querySelector('.bgp2')).style.display = 'none';
   }
 
-  touchMovepc2(evt: TouchEvent){
-    if (this.startPositionpc2 == 0){
+  touchMovepc2(evt: TouchEvent) {
+    if (this.startPositionpc2 == 0) {
       this.startPositionpc2 = evt.touches[0].clientY;
     }
 
-    this.heightpc2 = document.querySelector(".bottomSheetp2").clientHeight;
+    this.heightpc2 = document.querySelector('.bottomSheetp2').clientHeight;
 
     var y = evt.touches[0].clientY;
 
     this.currentPositionpc2 = y - this.startPositionpc2;
 
     if (this.currentPositionpc2 > 0 && this.startPositionpc2 > 0) {
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp2")).style.transform = "translate3d(0px," + this.currentPositionpc2 + "px,0px)";
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp2')
+      )).style.transform =
+        'translate3d(0px,' + this.currentPositionpc2 + 'px,0px)';
     }
   }
 
-  touchEndpc2(){
+  touchEndpc2() {
     this.minimumThresholdpc2 = this.heightpc2 - 150;
 
-    if (this.currentPositionpc2 < this.minimumThresholdpc2){
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp2")).style.transform = "translate3d(0px,0px,0px)";
-    }
-    else {
+    if (this.currentPositionpc2 < this.minimumThresholdpc2) {
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp2')
+      )).style.transform = 'translate3d(0px,0px,0px)';
+    } else {
       this.closep2();
     }
   }
@@ -645,43 +854,51 @@ export class DetallePropiedadesPage implements OnInit {
   minimumThresholdpc3;
   startPositionpc3;
 
-  openp3(){
+  openp3() {
     this.cargarP3();
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp3")).style.bottom = "0px";
-    (<HTMLStyleElement>document.querySelector(".bgp3")).style.display = "block";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp3')).style.bottom =
+      '0px';
+    (<HTMLStyleElement>document.querySelector('.bgp3')).style.display = 'block';
   }
 
-  closep3(){
+  closep3() {
     this.currentPositionpc3 = 0;
     this.startPositionpc3 = 0;
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp3")).style.bottom = "-1000px";
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp3")).style.transform = "translate3d(0px,0px,0px)";
-    (<HTMLStyleElement>document.querySelector(".bgp3")).style.display = "none";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp3')).style.bottom =
+      '-1000px';
+    (<HTMLStyleElement>(
+      document.querySelector('.bottomSheetp3')
+    )).style.transform = 'translate3d(0px,0px,0px)';
+    (<HTMLStyleElement>document.querySelector('.bgp3')).style.display = 'none';
   }
 
-  touchMovepc3(evt: TouchEvent){
-    if (this.startPositionpc3 == 0){
+  touchMovepc3(evt: TouchEvent) {
+    if (this.startPositionpc3 == 0) {
       this.startPositionpc3 = evt.touches[0].clientY;
     }
 
-    this.heightpc3 = document.querySelector(".bottomSheetp3").clientHeight;
+    this.heightpc3 = document.querySelector('.bottomSheetp3').clientHeight;
 
     var y = evt.touches[0].clientY;
 
     this.currentPositionpc3 = y - this.startPositionpc3;
 
     if (this.currentPositionpc3 > 0 && this.startPositionpc3 > 0) {
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp3")).style.transform = "translate3d(0px," + this.currentPositionpc3 + "px,0px)";
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp3')
+      )).style.transform =
+        'translate3d(0px,' + this.currentPositionpc3 + 'px,0px)';
     }
   }
 
-  touchEndpc3(){
+  touchEndpc3() {
     this.minimumThresholdpc3 = this.heightpc3 - 150;
 
-    if (this.currentPositionpc3 < this.minimumThresholdpc3){
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp3")).style.transform = "translate3d(0px,0px,0px)";
-    }
-    else {
+    if (this.currentPositionpc3 < this.minimumThresholdpc3) {
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp3')
+      )).style.transform = 'translate3d(0px,0px,0px)';
+    } else {
       this.closep3();
     }
   }
@@ -691,43 +908,51 @@ export class DetallePropiedadesPage implements OnInit {
   minimumThresholdpc4;
   startPositionpc4;
 
-  openp4(){
+  openp4() {
     this.cargarP5();
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp4")).style.bottom = "0px";
-    (<HTMLStyleElement>document.querySelector(".bgp4")).style.display = "block";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp4')).style.bottom =
+      '0px';
+    (<HTMLStyleElement>document.querySelector('.bgp4')).style.display = 'block';
   }
 
-  closep4(){
+  closep4() {
     this.currentPositionpc4 = 0;
     this.startPositionpc4 = 0;
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp4")).style.bottom = "-1000px";
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp4")).style.transform = "translate3d(0px,0px,0px)";
-    (<HTMLStyleElement>document.querySelector(".bgp4")).style.display = "none";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp4')).style.bottom =
+      '-1000px';
+    (<HTMLStyleElement>(
+      document.querySelector('.bottomSheetp4')
+    )).style.transform = 'translate3d(0px,0px,0px)';
+    (<HTMLStyleElement>document.querySelector('.bgp4')).style.display = 'none';
   }
 
-  touchMovepc4(evt: TouchEvent){
-    if (this.startPositionpc4 == 0){
+  touchMovepc4(evt: TouchEvent) {
+    if (this.startPositionpc4 == 0) {
       this.startPositionpc4 = evt.touches[0].clientY;
     }
 
-    this.heightpc4 = document.querySelector(".bottomSheetp4").clientHeight;
+    this.heightpc4 = document.querySelector('.bottomSheetp4').clientHeight;
 
     var y = evt.touches[0].clientY;
 
     this.currentPositionpc4 = y - this.startPositionpc4;
 
     if (this.currentPositionpc4 > 0 && this.startPositionpc4 > 0) {
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp4")).style.transform = "translate3d(0px," + this.currentPositionpc4 + "px,0px)";
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp4')
+      )).style.transform =
+        'translate3d(0px,' + this.currentPositionpc4 + 'px,0px)';
     }
   }
 
-  touchEndpc4(){
+  touchEndpc4() {
     this.minimumThresholdpc4 = this.heightpc4 - 150;
 
-    if (this.currentPositionpc4 < this.minimumThresholdpc4){
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp4")).style.transform = "translate3d(0px,0px,0px)";
-    }
-    else {
+    if (this.currentPositionpc4 < this.minimumThresholdpc4) {
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp4')
+      )).style.transform = 'translate3d(0px,0px,0px)';
+    } else {
       this.closep4();
     }
   }
@@ -737,43 +962,51 @@ export class DetallePropiedadesPage implements OnInit {
   minimumThresholdpc5;
   startPositionpc5;
 
-  openp5(){
+  openp5() {
     this.cargarP6();
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.bottom = "0px";
-    (<HTMLStyleElement>document.querySelector(".bgp5")).style.display = "block";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp5')).style.bottom =
+      '0px';
+    (<HTMLStyleElement>document.querySelector('.bgp5')).style.display = 'block';
   }
 
-  closep5(){
+  closep5() {
     this.currentPositionpc5 = 0;
     this.startPositionpc5 = 0;
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.bottom = "-1000px";
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.transform = "translate3d(0px,0px,0px)";
-    (<HTMLStyleElement>document.querySelector(".bgp5")).style.display = "none";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp5')).style.bottom =
+      '-1000px';
+    (<HTMLStyleElement>(
+      document.querySelector('.bottomSheetp5')
+    )).style.transform = 'translate3d(0px,0px,0px)';
+    (<HTMLStyleElement>document.querySelector('.bgp5')).style.display = 'none';
   }
 
-  touchMovepc5(evt: TouchEvent){
-    if (this.startPositionpc5 == 0){
+  touchMovepc5(evt: TouchEvent) {
+    if (this.startPositionpc5 == 0) {
       this.startPositionpc5 = evt.touches[0].clientY;
     }
 
-    this.heightpc5 = document.querySelector(".bottomSheetp5").clientHeight;
+    this.heightpc5 = document.querySelector('.bottomSheetp5').clientHeight;
 
     var y = evt.touches[0].clientY;
 
     this.currentPositionpc5 = y - this.startPositionpc5;
 
     if (this.currentPositionpc5 > 0 && this.startPositionpc5 > 0) {
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.transform = "translate3d(0px," + this.currentPositionpc5 + "px,0px)";
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp5')
+      )).style.transform =
+        'translate3d(0px,' + this.currentPositionpc5 + 'px,0px)';
     }
   }
 
-  touchEndpc5(){
+  touchEndpc5() {
     this.minimumThresholdpc5 = this.heightpc5 - 150;
 
-    if (this.currentPositionpc5 < this.minimumThresholdpc5){
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp5")).style.transform = "translate3d(0px,0px,0px)";
-    }
-    else {
+    if (this.currentPositionpc5 < this.minimumThresholdpc5) {
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp5')
+      )).style.transform = 'translate3d(0px,0px,0px)';
+    } else {
       this.closep5();
     }
   }
@@ -783,43 +1016,51 @@ export class DetallePropiedadesPage implements OnInit {
   minimumThresholdpc6;
   startPositionpc6;
 
-  openp6(){
+  openp6() {
     this.cargarP7();
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp6")).style.bottom = "0px";
-    (<HTMLStyleElement>document.querySelector(".bgp6")).style.display = "block";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp6')).style.bottom =
+      '0px';
+    (<HTMLStyleElement>document.querySelector('.bgp6')).style.display = 'block';
   }
 
-  closep6(){
+  closep6() {
     this.currentPositionpc6 = 0;
     this.startPositionpc6 = 0;
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp6")).style.bottom = "-1000px";
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp6")).style.transform = "translate3d(0px,0px,0px)";
-    (<HTMLStyleElement>document.querySelector(".bgp6")).style.display = "none";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp6')).style.bottom =
+      '-1000px';
+    (<HTMLStyleElement>(
+      document.querySelector('.bottomSheetp6')
+    )).style.transform = 'translate3d(0px,0px,0px)';
+    (<HTMLStyleElement>document.querySelector('.bgp6')).style.display = 'none';
   }
 
-  touchMovepc6(evt: TouchEvent){
-    if (this.startPositionpc6 == 0){
+  touchMovepc6(evt: TouchEvent) {
+    if (this.startPositionpc6 == 0) {
       this.startPositionpc6 = evt.touches[0].clientY;
     }
 
-    this.heightpc6 = document.querySelector(".bottomSheetp6").clientHeight;
+    this.heightpc6 = document.querySelector('.bottomSheetp6').clientHeight;
 
     var y = evt.touches[0].clientY;
 
     this.currentPositionpc6 = y - this.startPositionpc6;
 
     if (this.currentPositionpc6 > 0 && this.startPositionpc6 > 0) {
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp6")).style.transform = "translate3d(0px," + this.currentPositionpc6 + "px,0px)";
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp6')
+      )).style.transform =
+        'translate3d(0px,' + this.currentPositionpc6 + 'px,0px)';
     }
   }
 
-  touchEndpc6(){
+  touchEndpc6() {
     this.minimumThresholdpc6 = this.heightpc6 - 150;
 
-    if (this.currentPositionpc6 < this.minimumThresholdpc6){
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp6")).style.transform = "translate3d(0px,0px,0px)";
-    }
-    else {
+    if (this.currentPositionpc6 < this.minimumThresholdpc6) {
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp6')
+      )).style.transform = 'translate3d(0px,0px,0px)';
+    } else {
       this.closep6();
     }
   }
@@ -829,42 +1070,50 @@ export class DetallePropiedadesPage implements OnInit {
   minimumThresholdpc7;
   startPositionpc7;
 
-  openp7(){
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp7")).style.bottom = "0px";
-    (<HTMLStyleElement>document.querySelector(".bgp7")).style.display = "block";
+  openp7() {
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp7')).style.bottom =
+      '0px';
+    (<HTMLStyleElement>document.querySelector('.bgp7')).style.display = 'block';
   }
 
-  closep7(){
+  closep7() {
     this.currentPositionpc7 = 0;
     this.startPositionpc7 = 0;
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp7")).style.bottom = "-1000px";
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp7")).style.transform = "translate3d(0px,0px,0px)";
-    (<HTMLStyleElement>document.querySelector(".bgp7")).style.display = "none";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp7')).style.bottom =
+      '-1000px';
+    (<HTMLStyleElement>(
+      document.querySelector('.bottomSheetp7')
+    )).style.transform = 'translate3d(0px,0px,0px)';
+    (<HTMLStyleElement>document.querySelector('.bgp7')).style.display = 'none';
   }
 
-  touchMovepc7(evt: TouchEvent){
-    if (this.startPositionpc7 == 0){
+  touchMovepc7(evt: TouchEvent) {
+    if (this.startPositionpc7 == 0) {
       this.startPositionpc7 = evt.touches[0].clientY;
     }
 
-    this.heightpc7 = document.querySelector(".bottomSheetp7").clientHeight;
+    this.heightpc7 = document.querySelector('.bottomSheetp7').clientHeight;
 
     var y = evt.touches[0].clientY;
 
     this.currentPositionpc7 = y - this.startPositionpc7;
 
     if (this.currentPositionpc7 > 0 && this.startPositionpc7 > 0) {
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp7")).style.transform = "translate3d(0px," + this.currentPositionpc7 + "px,0px)";
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp7')
+      )).style.transform =
+        'translate3d(0px,' + this.currentPositionpc7 + 'px,0px)';
     }
   }
 
-  touchEndpc7(){
+  touchEndpc7() {
     this.minimumThresholdpc7 = this.heightpc7 - 150;
 
-    if (this.currentPositionpc7 < this.minimumThresholdpc7){
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp7")).style.transform = "translate3d(0px,0px,0px)";
-    }
-    else {
+    if (this.currentPositionpc7 < this.minimumThresholdpc7) {
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp7')
+      )).style.transform = 'translate3d(0px,0px,0px)';
+    } else {
       this.closep7();
     }
   }
@@ -874,48 +1123,143 @@ export class DetallePropiedadesPage implements OnInit {
   minimumThresholdpc8;
   startPositionpc8;
 
-  openp8(){
+  openp8() {
     this.cargarP9();
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp8")).style.bottom = "0px";
-    (<HTMLStyleElement>document.querySelector(".bgp8")).style.display = "block";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp8')).style.bottom =
+      '0px';
+    (<HTMLStyleElement>document.querySelector('.bgp8')).style.display = 'block';
   }
 
-  closep8(){
+  closep8() {
     this.currentPositionpc8 = 0;
     this.startPositionpc8 = 0;
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp8")).style.bottom = "-1000px";
-    (<HTMLStyleElement>document.querySelector(".bottomSheetp8")).style.transform = "translate3d(0px,0px,0px)";
-    (<HTMLStyleElement>document.querySelector(".bgp8")).style.display = "none";
+    (<HTMLStyleElement>document.querySelector('.bottomSheetp8')).style.bottom =
+      '-1000px';
+    (<HTMLStyleElement>(
+      document.querySelector('.bottomSheetp8')
+    )).style.transform = 'translate3d(0px,0px,0px)';
+    (<HTMLStyleElement>document.querySelector('.bgp8')).style.display = 'none';
   }
 
-  touchMovepc8(evt: TouchEvent){
-    if (this.startPositionpc8 == 0){
+  touchMovepc8(evt: TouchEvent) {
+    if (this.startPositionpc8 == 0) {
       this.startPositionpc8 = evt.touches[0].clientY;
     }
 
-    this.heightpc8 = document.querySelector(".bottomSheetp8").clientHeight;
+    this.heightpc8 = document.querySelector('.bottomSheetp8').clientHeight;
 
     var y = evt.touches[0].clientY;
 
     this.currentPositionpc8 = y - this.startPositionpc8;
 
     if (this.currentPositionpc8 > 0 && this.startPositionpc8 > 0) {
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp8")).style.transform = "translate3d(0px," + this.currentPositionpc8 + "px,0px)";
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp8')
+      )).style.transform =
+        'translate3d(0px,' + this.currentPositionpc8 + 'px,0px)';
     }
   }
 
-  touchEndpc8(){
+  touchEndpc8() {
     this.minimumThresholdpc8 = this.heightpc8 - 150;
 
-    if (this.currentPositionpc8 < this.minimumThresholdpc8){
-      (<HTMLStyleElement>document.querySelector(".bottomSheetp8")).style.transform = "translate3d(0px,0px,0px)";
-    }
-    else {
+    if (this.currentPositionpc8 < this.minimumThresholdpc8) {
+      (<HTMLStyleElement>(
+        document.querySelector('.bottomSheetp8')
+      )).style.transform = 'translate3d(0px,0px,0px)';
+    } else {
       this.closep8();
     }
   }
 
   onErrorf(img) {
     img.src = '../../../../assets/imgs/avatar.svg';
+  }
+
+  loadMap() {
+    //OBTENEMOS LAS COORDENADAS DESDE EL TELEFONO.
+ 
+    this.geolocation
+      .getCurrentPosition()
+      .then((resp) => {
+        let latLng = new google.maps.LatLng(this.latitude, this.longitude);
+        let mapOptions = {
+          center: latLng,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+        };
+
+        //CUANDO TENEMOS LAS COORDENADAS SIMPLEMENTE NECESITAMOS PASAR AL MAPA DE GOOGLE TODOS LOS PARAMETROS.
+        this.getAddressFromCoords(resp.coords.latitude, resp.coords.longitude);
+        this.map = new google.maps.Map(
+          this.mapElement.nativeElement,
+          mapOptions
+        );
+        this.map.addListener('tilesloaded', () => {
+          this.getAddressFromCoords(
+            this.map.center.lat(),
+            this.map.center.lng()
+          );
+          this.lat = this.map.center.lat();
+          this.long = this.map.center.lng();
+        });
+      })
+      .catch((error) => {
+      });
+  }
+
+  getAddressFromCoords(lattitude, longitude) {
+    console.log('getAddressFromCoords ' + lattitude + ' ' + longitude);
+    let options: NativeGeocoderOptions = {
+      useLocale: true,
+      maxResults: 5,
+    };
+    this.nativeGeocoder
+      .reverseGeocode(lattitude, longitude, options)
+      .then((result: NativeGeocoderResult[]) => {
+        this.address = '';
+        let responseAddress = [];
+        for (let [key, value] of Object.entries(result[0])) {
+          if (value.length > 0) responseAddress.push(value);
+        }
+        responseAddress.reverse();
+        for (let value of responseAddress) {
+          this.address += value + ', ';
+        }
+        this.address = this.address.slice(0, -2);
+      })
+      .catch((error: any) => {
+        this.address = 'Address Not Available!';
+      });
+  }
+
+  async presentAlertServer() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      message: 'Ha ocurrido un error, verifique su conexión!!!',
+      mode: 'ios',
+      buttons: [{
+        text: 'Reintentar',
+        handler: () => {
+          this.router.navigateByUrl('/dashboard/mis-propiedades');
+        }
+      }
+      ]
+    });
+    await alert.present();
+  }
+
+  async presentLoadingServer() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      duration: 1500,
+      spinner: "bubbles",
+      mode: 'ios',
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.presentAlertServer();
+    }, 2000);
   }
 }

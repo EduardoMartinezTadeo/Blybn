@@ -145,7 +145,7 @@
               <ion-label>
                 La propiedad cuenta con:
                 <ion-label class="parrafoFecha">{{cantidadHabitacion}} habitación</ion-label>
-              </ion-label>
+              </ion-label><br>
               <ion-label>
                 Esta propiedad cuenta con:
                 <ion-label class="parrafoFecha">{{cantidadBano}}</ion-label>
@@ -161,15 +161,18 @@
               </ion-label>
               <ion-label>
                 El tipo de alojamiento es:
-                <ion-label class="parrafoFecha" *ngFor="let alojamiento of informacionAlojamiento">{{alojamiento.bly_alojamientoPropiedad}}</ion-label>
+                <ion-label class="parrafoFecha" *ngFor="let alojamiento of informacionAlojamiento">
+                  {{alojamiento.bly_alojamientoPropiedad}}</ion-label>
               </ion-label>
               <ion-label>
                 Esta propiedad pertenece al tipo de aventura:
-                <ion-label class="parrafoFecha" *ngFor="let aventura of informacionAventura">{{aventura.bly_aventura}}</ion-label>
+                <ion-label class="parrafoFecha" *ngFor="let aventura of informacionAventura">{{aventura.bly_aventura}}
+                </ion-label>
               </ion-label>
               <ion-label>
                 El historial de renta es:
-                <ion-label class="parrafoFecha" *ngFor="let historial of informacionHistorial">{{historial.bly_tipoHistorial}} para el propietario.</ion-label>
+                <ion-label class="parrafoFecha" *ngFor="let historial of informacionHistorial">
+                  {{historial.bly_tipoHistorial}}</ion-label>
               </ion-label>
               <ion-label>
                 Frecuencia de renta:
@@ -196,7 +199,41 @@
               <ion-label>
                 Exclusividad de la propiedad:
                 <ion-textarea rows="1" class="parrafoFecha">{{exclusividad}}.</ion-textarea>
-              </ion-label>              
+              </ion-label>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </div>
+  </ion-row>
+  <br>
+  <div class="map-wrapper" style="height: 50%; width: 100%">      
+    <div id="map_center">
+      <ion-img src="/assets/icons/market.png"></ion-img>   
+    </div>
+    <div #map id="map"  style="height: 100%;"></div>
+  </div> 
+  <br>
+  <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
+    <div class="dueñoPropiedad1">
+      <ion-item lines="none" class="ion-align-items-center ion-no-padding">
+        <ion-img src="/assets/iconosDetalle/ubicacion.svg" class="ionFotoD1"></ion-img>
+        <ion-row class="datoFecha">
+          <ion-col size="12">
+            <ion-row class="ion-align-items-center">
+              <ion-label>
+                Dirección General:
+                <ion-label class="parrafoFecha">{{calle}}</ion-label>
+                <ion-label class="parrafoFecha">{{ciudad}}</ion-label>
+                <ion-label class="parrafoFecha">{{estado}}</ion-label>
+              </ion-label>
+              <ion-button fill="clear" (click)="comoLlegar()">
+                <ion-icon name="globe"></ion-icon>
+              </ion-button>
+              <ion-label>
+                Fecha de registro de la propiedad:
+                <ion-label  class="parrafoFecha">{{fecha}}.</ion-label>
+              </ion-label>
             </ion-row>
           </ion-col>
         </ion-row>

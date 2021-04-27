@@ -242,6 +242,7 @@ export class RegistroFPage implements OnInit {
       this.bly_codigoPostal = this.informacionMapa.codigoPostal;
       this.bly_direccionGeneral = this.informacionMapa.direccion;
       this.bly_placeid = this.informacionMapa.place_id;
+      console.log(this.bly_placeid);
     });
     this.storage.get('registroP2').then((res) => {
       this.informacionP2 = res;

@@ -82,6 +82,7 @@ export class RegistroP2Page {
   //FUNCION QUE LLAMAMOS DESDE EL ITEM DE LA LISTA.
   SelectSearchResult(item) {
     this.ClearAutocomplete();
+    console.log(item);
     this.Dataubicacion.place_id = item.place_id;
     this.main_text = item.structured_formatting.main_text;
     this.secondary_text = item.structured_formatting.secondary_text;

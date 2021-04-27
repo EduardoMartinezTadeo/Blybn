@@ -217,7 +217,7 @@
   <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <div class="dueñoPropiedad1">
       <ion-item lines="none" class="ion-align-items-center ion-no-padding">
-        <ion-img src="/assets/iconosDetalle/ubicacion.svg" class="ionFotoD1"></ion-img>
+        <ion-img src="/assets/iconosDetalle/ubicacion.svg" class="ionFotoD1"  (click)="llegarComo()"></ion-img>
         <ion-row class="datoFecha">
           <ion-col size="12">
             <ion-row class="ion-align-items-center">
@@ -227,9 +227,6 @@
                 <ion-label class="parrafoFecha">{{ciudad}}</ion-label>
                 <ion-label class="parrafoFecha">{{estado}}</ion-label>
               </ion-label>
-              <ion-button fill="clear" (click)="comoLlegar()">
-                <ion-icon name="globe"></ion-icon>
-              </ion-button>
               <ion-label>
                 Fecha de registro de la propiedad:
                 <ion-label  class="parrafoFecha">{{fecha}}.</ion-label>

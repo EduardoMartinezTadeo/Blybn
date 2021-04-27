@@ -68,8 +68,17 @@ export class DetallePropiedadesPage implements OnInit {
       this.id_usuario = data.bly_usuario;
       this.cargarImagenesP();
       this.cargarP1();
+      this.cargarP2();
+      this.cargarP3();
+      this.cargarP4();
+      this.cargarP5();
+      this.cargarP6();
+      this.cargarP7();
       this.cargarP8();
+      this.cargarP9();
+      this.comoLlegar();
     });
+    console.log(this.id_propiedad);
     this.storage.get('perfil').then((res) => {
       this.perfilData = res;
       (this.usuario = this.perfilData.bly_nombre),
@@ -108,6 +117,14 @@ export class DetallePropiedadesPage implements OnInit {
     this.llegadaDespues = '';
     this.preavisoPropiedad = '';
     this.anticipacionRenta = '';
+    this.informacionP1 = [];
+    this.informacionP2 = [];
+    this.informacionP3 = [];
+    this.informacionP4 = [];
+    this.informacionP5 = [];
+    this.informacionP6 = [];
+    this.informacionP7 = [];
+    this.infoComoLlegar = [];
   }
 
   onError(img) {
@@ -200,20 +217,23 @@ export class DetallePropiedadesPage implements OnInit {
       aksi: 'placeId',
       bly_registroPropiedad: this.id_propiedad,
     };
-    console.log(this.id_propiedad);
     this.provider
       .cargarPlaceID(body, 'db_CargarPlaceIDPropiedad.php')
       .subscribe((data) => {
         this.infoComoLlegar = data.result;
         this.bly_placeId = this.infoComoLlegar.bly_placeid;
-        this.iab.create(
-          `https://www.google.com/maps/search/?api=1&query=Google&query_place_id=`+this.bly_placeId,
-          `_system`
-        );
         //this.url = 'https://www.google.com/maps/search/?api=1&query=Google&query_place_id='+this.bly_placeId;
       }, (error) => {
         this.presentLoadingServer();
       }); 
+  }
+
+  llegarComo(){
+    console.log(this.bly_placeId);
+    this.iab.create(
+      `https://www.google.com/maps/search/?api=1&query=Google&query_place_id=`+this.bly_placeId,
+      `_system`
+    );
   }
 
   informacionP2: any = [];
@@ -248,6 +268,7 @@ export class DetallePropiedadesPage implements OnInit {
 
   informacionP4: any = [];
   cargarP4() {
+    console.log('numero casa',this.id_propiedad);
     let body = {
       aksi: 'tipo5',
       bly_propiedad: this.id_propiedad,
@@ -256,6 +277,7 @@ export class DetallePropiedadesPage implements OnInit {
       .detalleP4(body, 'db_CargarMueblesPropiedades.php')
       .subscribe((data) => {
         this.informacionP4 = data.result;
+        console.log(this.informacionP4);
       }, (error) => {
         this.presentLoadingServer();
       });
@@ -747,7 +769,7 @@ export class DetallePropiedadesPage implements OnInit {
   startPositionp1;
 
   openp1() {
-    this.cargarP4();
+    
     (<HTMLStyleElement>document.querySelector('.bottomSheetp1')).style.bottom =
       '0px';
     (<HTMLStyleElement>document.querySelector('.bgp1')).style.display = 'block';
@@ -801,7 +823,6 @@ export class DetallePropiedadesPage implements OnInit {
   startPositionpc2;
 
   openp2() {
-    this.cargarP2();
     (<HTMLStyleElement>document.querySelector('.bottomSheetp2')).style.bottom =
       '0px';
     (<HTMLStyleElement>document.querySelector('.bgp2')).style.display = 'block';
@@ -855,7 +876,6 @@ export class DetallePropiedadesPage implements OnInit {
   startPositionpc3;
 
   openp3() {
-    this.cargarP3();
     (<HTMLStyleElement>document.querySelector('.bottomSheetp3')).style.bottom =
       '0px';
     (<HTMLStyleElement>document.querySelector('.bgp3')).style.display = 'block';
@@ -909,7 +929,6 @@ export class DetallePropiedadesPage implements OnInit {
   startPositionpc4;
 
   openp4() {
-    this.cargarP5();
     (<HTMLStyleElement>document.querySelector('.bottomSheetp4')).style.bottom =
       '0px';
     (<HTMLStyleElement>document.querySelector('.bgp4')).style.display = 'block';
@@ -963,7 +982,6 @@ export class DetallePropiedadesPage implements OnInit {
   startPositionpc5;
 
   openp5() {
-    this.cargarP6();
     (<HTMLStyleElement>document.querySelector('.bottomSheetp5')).style.bottom =
       '0px';
     (<HTMLStyleElement>document.querySelector('.bgp5')).style.display = 'block';
@@ -1017,7 +1035,6 @@ export class DetallePropiedadesPage implements OnInit {
   startPositionpc6;
 
   openp6() {
-    this.cargarP7();
     (<HTMLStyleElement>document.querySelector('.bottomSheetp6')).style.bottom =
       '0px';
     (<HTMLStyleElement>document.querySelector('.bgp6')).style.display = 'block';
@@ -1124,7 +1141,6 @@ export class DetallePropiedadesPage implements OnInit {
   startPositionpc8;
 
   openp8() {
-    this.cargarP9();
     (<HTMLStyleElement>document.querySelector('.bottomSheetp8')).style.bottom =
       '0px';
     (<HTMLStyleElement>document.querySelector('.bgp8')).style.display = 'block';

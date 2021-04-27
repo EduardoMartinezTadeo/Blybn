@@ -132,6 +132,7 @@ export class RegistroFinalPage implements OnInit {
   bly_estado: string;
   bly_codigoPostal: string;
   bly_direccionGeneral: string;
+  bly_placeid: string;
   
   informacionP2: any;
   bly_latitud: string;
@@ -240,6 +241,7 @@ export class RegistroFinalPage implements OnInit {
       this.bly_calle = this.informacionMapa.calle;
       this.bly_codigoPostal = this.informacionMapa.codigoPostal;
       this.bly_direccionGeneral = this.informacionMapa.direccion;
+      this.bly_placeid = this.informacionMapa.place_id;
     });
     this.storage.get('registroP2').then((res) => {
       this.informacionP2 = res;
@@ -570,7 +572,7 @@ export class RegistroFinalPage implements OnInit {
   }
   responseData: any;
   registrarInfoGeneral(){
-    this.servicio.registrarPropiedad(this.bly_tituloPropiedad, this.bly_pais, this.bly_calle, this.bly_ciudad, this.bly_estado, this.bly_codigoPostal, this.bly_direccionGeneral, this.bly_latitud, this.bly_longitud, this.bly_numHabitaciones, this.bly_numHuespedes, this.bly_numCamas, this.bly_numBanos, this.bly_tipoBano, this.bly_tipoPropiedad, this.bly_tipoAlojamiento, this.bly_tipoAventura, this.bly_frecuenciaRenta, this.bly_historialPrevioPropiedad, this.bly_tipoAprobacionRenta, this.bly_usuario, this.bly_statusAceptacionContrato).subscribe(data => {
+    this.servicio.registrarPropiedad(this.bly_tituloPropiedad, this.bly_pais, this.bly_calle, this.bly_ciudad, this.bly_estado, this.bly_codigoPostal, this.bly_direccionGeneral, this.bly_latitud, this.bly_longitud, this.bly_placeid, this.bly_numHabitaciones, this.bly_numHuespedes, this.bly_numCamas, this.bly_numBanos, this.bly_tipoBano, this.bly_tipoPropiedad, this.bly_tipoAlojamiento, this.bly_tipoAventura, this.bly_frecuenciaRenta, this.bly_historialPrevioPropiedad, this.bly_tipoAprobacionRenta, this.bly_usuario, this.bly_statusAceptacionContrato).subscribe(data => {
       this.responseData = data;
     }, (error) => {
       this.presentLoadingServer();

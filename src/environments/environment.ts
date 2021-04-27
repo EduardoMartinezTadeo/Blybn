@@ -78,7 +78,15 @@ export const environment = {
   apiCargarDetalleP9URL: 'https://emtdeveloper.com/server_blybn/api/db_CargarEspaciosPropiedades.php/',
   apiBuscarPropiedadesURL: 'https://emtdeveloper.com/server_blybn/api/db_BuscarPropiedadesDireccionGeneral.php/',
   apiBuscarPropiedadesPlayaURL: 'https://emtdeveloper.com/server_blybn/api/db_BuscarPropiedadesAventuraPlaya.php/',
-  apiBuscarPropiedadesCiudadURL: 'https://emtdeveloper.com/server_blybn/api/db_BuscarPropiedadesCiudad.php/'
+  apiBuscarPropiedadesCiudadURL: 'https://emtdeveloper.com/server_blybn/api/db_BuscarPropiedadesCiudad.php/',
+  apiCargarLlegadaIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarLLegadasIndividuales.php/',
+  apiCargarHorasPropiedadesURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarHorasPropiedades.php/',
+  apiCargarPreavisoIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarPreavisoPropiedades.php/',
+  apiCargarVentanaDisponibilidadPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarVentanaDisponibilidadIndividual.php/',
+  apiCargarTipoPropiedadIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarTipoPropiedad.php/',
+  apiCargarAlojamientoIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarAlojamientoPropiedad.php/',
+  apiCargarTipoAventuraIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_cargarTipoAventuraPropiedad.php/',
+  apiCargarHistorialRentaIndividualURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarHistorialPrevioPropiedad.php/'
 };
 
 /*

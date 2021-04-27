@@ -71,10 +71,12 @@ export class Registrop2Page {
     estado: '',
     pais: '',
     codigo: '',
+    place_id: ''
   };
   //FUNCION QUE LLAMAMOS DESDE EL ITEM DE LA LISTA.
   SelectSearchResult(item) {
     this.ClearAutocomplete();
+    this.Dataubicacion.place_id = item.place_id;
     this.main_text = item.structured_formatting.main_text;
     this.secondary_text = item.structured_formatting.secondary_text;
     this.types = item.types;
@@ -201,7 +203,8 @@ export class Registrop2Page {
         ciudad: this.Dataubicacion.ciudad,
         estado: this.Dataubicacion.estado,
         direccion: this.Dataubicacion.direccion,
-        codigoPostal: this.Dataubicacion.codigo
+        codigoPostal: this.Dataubicacion.codigo,
+        place_id: this.Dataubicacion.place_id
       }
       this.storage.set('mapaInformacion', this.informacionMapa).then((res) => {
         this.router.navigate(['/registro-p2r22']);

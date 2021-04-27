@@ -97,4 +97,8 @@ export class PerfilPage implements OnInit {
       });
     });      
   }
+
+  onError(img) {
+    img.src = '../../../../assets/imgs/avatar.svg';
+  }
 }

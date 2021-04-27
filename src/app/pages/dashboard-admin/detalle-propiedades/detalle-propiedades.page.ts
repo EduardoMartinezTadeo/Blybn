@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from 'src/app/services/provider.service';
-import { OperacionesService } from '../../../services/operaciones.service';
 
 @Component({
   selector: 'app-detalle-propiedades',
@@ -15,8 +14,7 @@ export class DetallePropiedadesPage implements OnInit {
     private actRoute: ActivatedRoute,
     private router: Router,
     private provider: ProviderService,
-    private storage: Storage,
-    private service: OperacionesService) {
+    private storage: Storage) {
       this.server = this.provider.server;
      }
     id_usuario: number;
@@ -25,7 +23,6 @@ export class DetallePropiedadesPage implements OnInit {
     correo: string;
     id: string;
     tipoRol: number;
-    responseData: any;
   ngOnInit() {
     this.closep1();
     this.closep2();
@@ -59,12 +56,9 @@ export class DetallePropiedadesPage implements OnInit {
       this.usuario = this.perfilData.bly_nombre,
       this.correo = this.perfilData.bly_correoElectronico,
       this.id = this.perfilData.bly_usuario,
-      this.tipoRol = this.perfilData.bly_rol,
-      this.service.consultarDatosFacturacionAdmin(this.id).subscribe(data => {
-        this.responseData = data;
-        this.cargarFotoPerfil();  
-      });
-    });
+      this.tipoRol = this.perfilData.bly_rol
+      this.cargarFotoPerfil();  
+    });    
   }
 
   foto: string;
@@ -85,11 +79,18 @@ export class DetallePropiedadesPage implements OnInit {
 
   salir(){
     this.router.navigate(['/dashboard/mis-propiedades']);
+    this.horaLimiteReservacion = ""
+    this.llegadaAntes = "";
+    this.llegadaSalida = "";
+    this.llegadaDespues = "";
+    this.preavisoPropiedad = "";
+    this.anticipacionRenta = "";
   }
 
   onError(img) {
     img.src = '../../../../assets/imgs/default-inicio.svg';
   }
+
 
   informacionPropiedad: any = [];
   cargarImagenesP(){
@@ -102,7 +103,20 @@ export class DetallePropiedadesPage implements OnInit {
     });
   }
 
-  informacionP1: any = [];
+  tituloPropiedad: string;
+  cantidadHabitacion: number
+  cantidadBano: number;
+  tipoBano: string;
+  status: string;
+  id_tipoPropiedad: number;
+  id_alojamiento: number;
+  id_aventura: number;
+  id_historial: number;
+  id_frecuencia: string;
+  huespedes: number;
+  exclusividad: string;
+  
+  informacionP1: any;
   cargarP1(){
     let body = {
       aksi: 'detallePropiedad',
@@ -110,6 +124,22 @@ export class DetallePropiedadesPage implements OnInit {
     }
     this.provider.detalleP1(body, 'db_CargarDetallePropiedad.php').subscribe(data => {
       this.informacionP1 = data.result;
+      this.tituloPropiedad = this.informacionP1.bly_tituloPropiedad;
+      this.cantidadHabitacion = this.informacionP1.bly_numHabitaciones;
+      this.cantidadBano = this.informacionP1.bly_numBanos;
+      this.tipoBano = this.informacionP1.bly_tipoBano;
+      this.status = this.informacionP1.bly_status;
+      this.id_propiedad = this.informacionP1.bly_tipoPropiedad;
+      this.id_alojamiento = this.informacionP1.bly_tipoAlojamiento;
+      this.id_aventura = this.informacionP1.bly_tipoAventura;
+      this.id_historial = this.informacionP1.bly_historialPrevioPropiedad;
+      this.id_frecuencia = this.informacionP1.bly_frecuenciaRenta;
+      this.huespedes = this.informacionP1.bly_numHuespedes;
+      this.exclusividad = this.informacionP1.bly_tipoExclusividad;
+      this.cargarTipoPropiedad();
+      this.cargarAlojamiento();
+      this.cargarTipoAventuraIndividual();
+      this.cargarHistorial();
       console.log(this.informacionP1);
     });
   }
@@ -214,10 +244,140 @@ export class DetallePropiedadesPage implements OnInit {
       this.dato10 = this.informacionP8.bly_salidaAntes;
       this.dato11 = this.informacionP8.bly_tiempoAnticipacionReservacion;
       this.dato12 = this.informacionP8.bly_tiempoSalidadH;
-      console.log(this.informacionP8);
-      console.log(this.dato7);
+      this.cargarLLegadaAntes();
+      this.cargarLlegadaDespues();
+      this.cargarLlegadaSalida();
+      this.cargarHoraLimiteReservacion();
+      this.cargarPreaviso();
+      this.cargarVentanaDisponibilidad();
+      this.cargarSalidaTerminoServicio();
     });
   }
+
+  fechaLlegada: any;
+  fechaSalida: any;
+  horaLimiteReservacion: string;
+  llegadaAntes: string;
+  llegadaSalida: string;
+  llegadaDespues: string;
+  preavisoPropiedad: string;
+  anticipacionRenta: string;
+  salidaTerminoServicio: string;
+
+  cargarLLegadaAntes(){
+    let body = {
+      aksi: 'tipoLlegada',
+      bly_llegada: this.dato6
+    }
+    this.provider.cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php').subscribe(data => {
+      this.llegadaAntes = data.result.bly_descripcionLlegadas;
+    });
+  }
+  cargarLlegadaDespues(){
+    let body = {
+      aksi: 'tipoLlegada',
+      bly_llegada: this.dato7
+    }
+    this.provider.cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php').subscribe(data => {
+      this.llegadaDespues = data.result.bly_descripcionLlegadas;
+    });
+  }
+
+  cargarLlegadaSalida(){
+    let body = {
+      aksi: 'tipoLlegada',
+      bly_llegada: this.dato10
+    }
+    this.provider.cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php').subscribe(data => {
+      this.llegadaSalida = data.result.bly_descripcionLlegadas;
+    });
+  }
+
+  cargarHoraLimiteReservacion(){
+    let body = {
+      aksi: 'horas',
+      bly_hora: this.dato5
+    }
+    this.provider.cargarHoraIndividual(body, 'db_CargarHorasPropiedades.php').subscribe(data => {
+      this.horaLimiteReservacion = data.result.bly_Horas;
+    });
+  }
+
+  cargarPreaviso(){
+    let body = {
+      aksi: 'preaviso',
+      bly_numPreaviso: this.dato8
+    }
+    this.provider.cargarPreavisoIndividual(body, 'db_CargarPreavisoPropiedades.php').subscribe(data => {
+      this.preavisoPropiedad = data.result.bly_preavisoDescripcion;
+    });
+  }
+
+  cargarVentanaDisponibilidad(){
+    let body = {
+      aksi: 'ventanaDisponibilidad',
+      bly_numventanaDisponibilidad: this.dato11
+    }
+    this.provider.cargarVentanaDisponibilidadIndividual(body, 'db_CargarVentanaDisponibilidadIndividual.php').subscribe(data => {
+      this.anticipacionRenta = data.result.bly_descripcionVentanaDisponibilidad;
+    });
+   }
+
+   cargarSalidaTerminoServicio(){
+     let body = {
+       aksi: 'tipoLlegada',
+       bly_llegada: this.dato12
+     }
+     this.provider.cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php').subscribe(data => {
+      this.salidaTerminoServicio = data.result.bly_descripcionLlegadas;
+    });
+   }
+
+   informacionCasa: any = [];
+  cargarTipoPropiedad(){
+    let body = {
+      aksi: 'tipo_propiedad',
+      bly_tipoPropiedad: this.id_propiedad
+    }
+    this.provider.cargarTipoPropiedadIndividual(body, 'db_cargarTipoPropiedad.php').subscribe(data => {
+      this.informacionCasa = data.result;
+    });
+  }
+
+  informacionAlojamiento: any = [];
+  cargarAlojamiento(){
+    let body = {
+      aksi: 'tipo_alojamiento',
+      bly_tipoAlojamiento: this.id_alojamiento
+    }
+    this.provider.cargarAlojamientoIndividual(body, 'db_cargarAlojamientoPropiedad.php').subscribe(data => {
+      this.informacionAlojamiento = data.result;
+    });
+  }
+
+  informacionAventura: any = [];
+  cargarTipoAventuraIndividual() {
+    let body = {
+      aksi: 'tipo_aventura',
+      bly_tipoAventura: this.id_aventura
+    }
+    this.provider.cargarAventuraIndividual(body, 'db_cargarTipoAventuraPropiedad.php').subscribe(data => {
+      this.informacionAventura = data.result;
+    });
+  }
+
+  informacionHistorial: any = [];
+  cargarHistorial(){
+    let body = {
+      aksi: 'historial',
+      bly_historial: this.id_historial
+    }
+    this.provider.cargarHistorialRenta(body, 'db_CargarHistorialPrevioPropiedad.php').subscribe(data => {
+      this.informacionHistorial = data.result;
+    });
+  }
+
+  
 
   informacionP9: any = [];
   cargarP9() {
@@ -229,7 +389,6 @@ export class DetallePropiedadesPage implements OnInit {
       this.informacionP9 = data.result;
     });
   }
-
 
   slideOpts = {
     grabCursor: true,

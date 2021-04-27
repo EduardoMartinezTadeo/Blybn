@@ -55,6 +55,14 @@ const apiCargarDetalleP6 = environment.apiCargarDetalleP6URL;
 const apiCargarDetalleP7 = environment.apiCargarDetalleP7URL;
 const apiCargarDetalleP8 = environment.apiCargarDetalleP8URL;
 const apiCargarDetalleP9 = environment.apiCargarDetalleP9URL;
+const apiCargarLlegadaIndividual = environment.apiCargarLlegadaIndividualURL;
+const apiCargarHoraIndividual = environment.apiCargarHorasPropiedadesURL;
+const apiCargarPreavisoIndividual = environment.apiCargarPreavisoIndividualURL;
+const apiCargarVentanaIndividual = environment.apiCargarVentanaDisponibilidadPropiedadURL;
+const apiCargarTipoPropiedadIndividual = environment.apiCargarTipoPropiedadIndividualURL;
+const apiCargarAlojamientoIndividual = environment.apiCargarAlojamientoIndividualURL;
+const apiCargarAventuraIndividual = environment.apiCargarTipoAventuraIndividualURL;
+const apiCargarHistorialRentaIndividual = environment.apiCargarHistorialRentaIndividualURL;
 
 @Injectable({
   providedIn: 'root'
@@ -481,4 +489,67 @@ export class ProviderService {
     return this.http.post<any>(apiCargarDetalleP9 + file, body, {headers})
   }
   
+  cargarLlegadaIndividual(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarLlegadaIndividual + file, body, {headers})
+  }
+
+  cargarHoraIndividual(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarHoraIndividual + file, body, {headers})
+  }
+
+  cargarPreavisoIndividual(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarPreavisoIndividual + file, body, {headers})
+  }
+
+  cargarVentanaDisponibilidadIndividual(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarVentanaIndividual + file, body, {headers})
+  }
+
+  cargarTipoPropiedadIndividual(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarTipoPropiedadIndividual + file, body, {headers})
+  }
+
+  cargarAlojamientoIndividual(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarAlojamientoIndividual + file, body, {headers})
+  }
+
+  cargarAventuraIndividual(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarAventuraIndividual + file, body, {headers})
+  }
+
+  cargarHistorialRenta(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarHistorialRentaIndividual + file, body, {headers})
+  }
 }

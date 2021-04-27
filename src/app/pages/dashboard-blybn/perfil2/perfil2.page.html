@@ -16,7 +16,7 @@
     <ion-list>
       <ion-item class="perfiles">
         <ion-avatar>
-          <ion-img src="{{server + foto}}"></ion-img>
+          <ion-img src="{{server + foto}}" (ionError)="onError(img)" #img></ion-img>
         </ion-avatar>
         <ion-label>
           <h2>{{usuario}}</h2>

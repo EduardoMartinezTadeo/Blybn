@@ -93,4 +93,8 @@ export class Perfil2Page {
       });
     });      
   }
+
+  onError(img) {
+    img.src = '../../../../assets/imgs/avatar.svg';
+  }
 }

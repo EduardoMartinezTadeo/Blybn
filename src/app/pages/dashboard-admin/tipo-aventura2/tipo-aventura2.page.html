@@ -16,18 +16,31 @@
   <div class="title">
     
   </div>
-  <ion-grid class="ion-text-center">
-    <ion-row class="animate__animated animate__bounceInLeft animate__slower	3s">
+  <div *ngIf="contentLoaded">
+    <ion-grid class="ion-text-center">
+      <ion-row class="animate__animated animate__bounceInLeft animate__slower	4s">
+        <ion-col size="12" *ngFor="let aventura of informacionCiudad">
+          <ion-card mode="md" class="listCards" (click)="buscarEstado(aventura.bly_nombre)">
+            <ion-card-content>
+              <ion-img src="{{server + aventura.bly_imagen}}" (ionError)="onError(img)" #img></ion-img>
+              <div class="card-titleA">{{aventura.bly_nombre}}</div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div *ngIf="!contentLoaded">
+    <ion-row class="animate__animated animate__bounceInLeft animate__slower	4s">
       <ion-col size="12" *ngFor="let aventura of informacionCiudad">
-        <ion-card mode="md" class="listCards" (click)="buscarEstado(aventura.bly_nombre)">
+        <ion-card mode="md" class="listCards">
           <ion-card-content>
-            <ion-img src="{{server + aventura.bly_imagen}}" (ionError)="onError(img)" #img></ion-img>
-            <div class="card-titleA">{{aventura.bly_nombre}}</div>
+            <ion-skeleton-text animated style="width: 100%; height: 150px" slot="start"></ion-skeleton-text>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </div>
   <ion-row>
     <ion-col size="12">
       <ion-card mode="md" class="listCards">

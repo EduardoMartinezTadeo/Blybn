@@ -5,9 +5,39 @@ ion-toolbar {
     border-radius: 0 0 20% 20%;
 }
 
-.ionFoto{
+.ionFoto {
     width: 65px;
     height: 65px;
+}
+
+.ionFotoD {
+    width: 160px;
+    height: 160px;
+}
+
+.ionFotoD1{
+    margin-top: 6%;
+    width: 60px;
+    height: 60px;
+}
+
+.datoFecha {
+    ion-label {
+        font-family: 'HelveticaMedium';
+        font-size: 11px;
+    }
+    ion-textarea {
+        font-family: 'HelveticaBold';
+        font-size: 9px;
+        color: #316dd0;
+    }
+  
+}
+
+.parrafoFecha{
+    font-family: 'HelveticaBold';
+    font-size: 9px;
+    color: #316dd0;
 }
 
 ion-content {
@@ -92,13 +122,35 @@ ion-content {
     ion-label {
         font-family: 'HelveticaMedium';
         margin-left: 2%;
+        p {
+            font-family: 'Helvetica';
+            font-size: 14px;
+        }
+    }
+}
+
+
+.dueñoPropiedad1{
+    margin-left: 5%;
+    width: 90%;
+    ion-item{
+        --background: #e4e0e0 !important;
+    }
+    ion-label {
+        margin-top: 5%;
+        font-family: 'HelveticaMedium';
+        margin-left: 2%;
+        p {
+            font-family: 'Helvetica';
+            font-size: 14px;
+        }
     }
 }
 
 .bottomSheetp1{
     position: fixed;
     width: 100%;
-    height: 350px;
+    height: 425px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -166,7 +218,7 @@ ion-content {
 .bottomSheetp2 {
     position: fixed;
     width: 100%;
-    height: 350px;
+    height: 425px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -227,7 +279,7 @@ ion-content {
 .bottomSheetp3 {
     position: fixed;
     width: 100%;
-    height: 390px;
+    height: 425px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -290,7 +342,7 @@ ion-content {
 .bottomSheetp4 {
     position: fixed;
     width: 100%;
-    height: 350px;
+    height: 425px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -350,7 +402,7 @@ ion-content {
 .bottomSheetp5 {
     position: fixed;
     width: 100%;
-    height: 350px;
+    height: 425px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -410,7 +462,7 @@ ion-content {
 .bottomSheetp6 {
     position: fixed;
     width: 100%;
-    height: 350px;
+    height: 425px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -470,7 +522,7 @@ ion-content {
 .bottomSheetp7 {
     position: fixed;
     width: 100%;
-    height: 400px;
+    height: 425px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -541,7 +593,7 @@ ion-content {
 .bottomSheetp8 {
     position: fixed;
     width: 100%;
-    height: 350px;
+    height: 425px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;

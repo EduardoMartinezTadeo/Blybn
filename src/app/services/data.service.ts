@@ -268,6 +268,7 @@ export class DataService {
     bly_direccionGeneral: string,
     bly_latitud: string,
     bly_longitud: string,
+    bly_placeid: string,
     bly_numHabitaciones: number,
     bly_numHuespedes: number,
     bly_numCamas: number,
@@ -284,7 +285,7 @@ export class DataService {
   ) {
     return this.http
       .get(
-        `${apiURLRegistrarPropiedad}?bly_tituloPropiedad=${bly_tituloPropiedad}&bly_pais=${bly_pais}&bly_calle=${bly_calle}&bly_ciudad=${bly_ciudad}&bly_estado=${bly_estado}&bly_codigoPostal=${bly_codigoPostal}&bly_direccionGeneral=${bly_direccionGeneral}&bly_latitud=${bly_latitud}&bly_longitud=${bly_longitud}&bly_numHabitaciones=${bly_numHabitaciones}&bly_numHuespedes=${bly_numHuespedes}&bly_numCamas=${bly_numCamas}&bly_numBanos=${bly_numBanos}&bly_tipoBano=${bly_tipoBano}&bly_tipoPropiedad=${bly_tipoPropiedad}&bly_tipoAlojamiento=${bly_tipoAlojamiento}&bly_tipoAventura=${bly_tipoAventura}&bly_frecuenciaRenta=${bly_frecuenciaRenta}&bly_historialPrevioPropiedad=${bly_historialPrevioPropiedad}&bly_tipoAprobacionRenta=${bly_tipoAprobacionRenta}&bly_usuario=${bly_usuario}&bly_statusAceptacionContrato=${bly_statusAceptacionContrato}`
+        `${apiURLRegistrarPropiedad}?bly_tituloPropiedad=${bly_tituloPropiedad}&bly_pais=${bly_pais}&bly_calle=${bly_calle}&bly_ciudad=${bly_ciudad}&bly_estado=${bly_estado}&bly_codigoPostal=${bly_codigoPostal}&bly_direccionGeneral=${bly_direccionGeneral}&bly_latitud=${bly_latitud}&bly_longitud=${bly_longitud}&bly_placeid=${bly_placeid}&bly_numHabitaciones=${bly_numHabitaciones}&bly_numHuespedes=${bly_numHuespedes}&bly_numCamas=${bly_numCamas}&bly_numBanos=${bly_numBanos}&bly_tipoBano=${bly_tipoBano}&bly_tipoPropiedad=${bly_tipoPropiedad}&bly_tipoAlojamiento=${bly_tipoAlojamiento}&bly_tipoAventura=${bly_tipoAventura}&bly_frecuenciaRenta=${bly_frecuenciaRenta}&bly_historialPrevioPropiedad=${bly_historialPrevioPropiedad}&bly_tipoAprobacionRenta=${bly_tipoAprobacionRenta}&bly_usuario=${bly_usuario}&bly_statusAceptacionContrato=${bly_statusAceptacionContrato}`
       )
       .pipe(
         map((results) => {

@@ -3,25 +3,38 @@
     <h1>Promociones</h1>
   </ion-row>
   <div *ngIf="contentLoaded">
-    <ion-grid fixed>
-      <ion-row>
-        <ion-col size="12" size-lg="3" size-md="4" size-sm="6"
-                *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1]">
-          
-          <ion-card>
-            <ion-img src="/assets/templates/4.jpg"></ion-img>
-          </ion-card>
-  
-          <ion-card-header>
-            <ion-card-subtitle>Propiedad</ion-card-subtitle>
-            <ion-card-title>Cargando Información Propiedad</ion-card-title>
-          </ion-card-header>
-  
-          <ion-card-content>
-           ...
-          </ion-card-content>
-  
-  
+    <ion-grid>
+      <ion-row *ngFor="let exclusivo of promociones">
+        <ion-col size="12" size-lg="3" size-md="4" size-sm="6">
+          <ion-card  class="animate__animated animate__bounceInDown animate__slower 3s">
+            <ion-card-content>
+                <ion-thumbnail class="ion-text-center">
+                    <ion-img src="{{server + exclusivo.bly_imagen}}" (ionError)="onError(img)" #img></ion-img>
+                </ion-thumbnail>
+                <ion-row>
+                    <ion-col size="8">
+                        <ion-card-title>{{exclusivo.bly_estado}}</ion-card-title>
+                        <ion-card-subtitle>${{exclusivo.bly_precioBase}} por noche</ion-card-subtitle>
+                    </ion-col>
+                    <ion-col size="4" class="ion-text-right">
+                        <ion-button fill="clear" color="primary" size="large"
+                            >
+                            <ion-icon slot="icon-only" name="chevron-forward-circle-outline"></ion-icon>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-card-subtitle>Descuento Semanal</ion-card-subtitle>
+                    <ion-card-subtitle style="color: #2B297A">{{exclusivo.bly_descuentoSemana}}%</ion-card-subtitle>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-card-subtitle>Descuenco Mensual</ion-card-subtitle>
+                    <ion-card-subtitle style="color: #2B297A">{{exclusivo.bly_descuentoMes}}%</ion-card-subtitle>
+                  </ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -31,22 +44,10 @@
     <ion-grid fixed>
       <ion-row>
         <ion-col size="12" size-lg="3" size-md="4" size-sm="6"
-                *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1]">
-          
-          <ion-card>
-            <ion-skeleton-text animated style="width: 100%; height: 100%"></ion-skeleton-text>
-          </ion-card>
-  
-          <ion-card-header>
-            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-          </ion-card-header>
-  
+                *ngFor="let item of promociones">  
           <ion-card-content>
-            <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%; height: 150px"></ion-skeleton-text>
           </ion-card-content>
-  
-  
         </ion-col>
       </ion-row>
     </ion-grid>

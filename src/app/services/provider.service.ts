@@ -63,7 +63,7 @@ const apiCargarAlojamientoIndividual = environment.apiCargarAlojamientoIndividua
 const apiCargarAventuraIndividual = environment.apiCargarTipoAventuraIndividualURL;
 const apiCargarHistorialRentaIndividual = environment.apiCargarHistorialRentaIndividualURL;
 const apiCargarPlaceIDURL = environment.apiCargarPlaceIdURL;
-
+const apiCargarPropiedadesPromociones = environment.apiCargarPropiedadesConPromocionURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -559,5 +559,13 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiCargarPlaceIDURL + file, body, {headers})
+  }
+
+  cargarPropiedadPromocion(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarPropiedadesPromociones + file, body, {headers})
   }
 }

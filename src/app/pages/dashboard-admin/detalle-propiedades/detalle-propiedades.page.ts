@@ -10,6 +10,7 @@ import {
 } from '@ionic-native/native-geocoder/ngx';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { DataService } from 'src/app/services/data.service';
 declare var google;
 @Component({
   selector: 'app-detalle-propiedades',
@@ -31,7 +32,8 @@ export class DetallePropiedadesPage implements OnInit {
     private nativeGeocoder: NativeGeocoder,
     private alertController: AlertController,
     private loadingController: LoadingController,
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    private servicio: DataService
   ) {
     this.server = this.provider.server;
   }
@@ -54,6 +56,7 @@ export class DetallePropiedadesPage implements OnInit {
   }
   server: string;
   perfilData: any;
+  informacionPropiedades: any = [];
   ionViewWillEnter() {
     this.closep1();
     this.closep2();
@@ -85,6 +88,61 @@ export class DetallePropiedadesPage implements OnInit {
         (this.id = this.perfilData.bly_usuario),
         (this.tipoRol = this.perfilData.bly_rol);
       this.cargarFotoPerfil();
+    });
+  }
+
+  datosPromocionesR: any;
+  obtenerPromociones(){
+    this.storage.get('informacionPromocion').then((res)=>{
+      this.datosPromocionesR = res;
+    });
+    this.confirmacionPropmocion();
+  }
+
+  async confirmacionPropmocion() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¿Está apunto de anunciar su casa en promociones?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Anunciar',
+          handler: () => {
+            this.cargaRegistroPromocion();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async cargaRegistroPromocion() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+      this.registrarExclusividad();
+    },1500);
+  }
+
+  responseDataRPromocion: any;
+  registrarExclusividad(){
+    this.servicio.registrarPropiedadPromocion(this.datosPromocionesR.dueno, this.datosPromocionesR.propiedad).subscribe(data => {
+      this.responseDataRPromocion = data;
+    }, (error) => {
+      this.presentLoadingServer();
     });
   }
 
@@ -124,6 +182,7 @@ export class DetallePropiedadesPage implements OnInit {
     this.informacionP6 = [];
     this.informacionP7 = [];
     this.infoComoLlegar = [];
+    this.storage.remove('informacionPromocion');
   }
 
   onError(img) {
@@ -165,7 +224,8 @@ export class DetallePropiedadesPage implements OnInit {
   calle: string;
   ciudad: string;
   estado: string;
-
+  id_registroPropiedad: number;
+  id_duenocasa: number;
   informacionP1: any;
   cargarP1() {
     let body = {
@@ -197,12 +257,18 @@ export class DetallePropiedadesPage implements OnInit {
         this.estado = this.informacionP1.bly_estado;
         this.calle = this.informacionP1.bly_calle;
         this.bly_placeId = this.informacionP1.bly_placeid;
-        console.log(this.fecha);
+        this.id_registroPropiedad = this.informacionP1.bly_registroPropiedad;
+        this.id_duenocasa = this.informacionP1.bly_usuario;
         this.cargarTipoPropiedad();
         this.cargarAlojamiento();
         this.cargarTipoAventuraIndividual();
         this.cargarHistorial();
         this.loadMap();
+        this.informacionPropiedades = {
+          propiedad: this.id_registroPropiedad,
+          dueno: this.id_duenocasa
+        }
+        this.storage.set('informacionPromocion', this.informacionPropiedades);
         console.log(this.informacionP1);
       }, (error) => {
         this.presentLoadingServer();

@@ -36,6 +36,7 @@ const apiURLRegistroExclusividadPropiedad =
 const apiURLBuscarPropiedades = environment.apiBuscarPropiedadesURL;
 const apiURLBuscarPropiedadesPlaya = environment.apiBuscarPropiedadesPlayaURL;
 const apiURLBuscarPropiedadesCiudad = environment.apiBuscarPropiedadesCiudadURL;
+const apiURLRegistrarCasaPromocion = environment.apiRegistrarCasaEnPropomocionURL;
 @Injectable({
   providedIn: 'root',
 })
@@ -609,6 +610,40 @@ export class DataService {
           this.result = results;
         })
       );
+  }
+
+  registrarPropiedadPromocion(bly_usuario: number, bly_propiedad: number){
+    return this.http.get(`${apiURLRegistrarCasaPromocion}?bly_usuario=${bly_usuario}&bly_propiedad=${bly_propiedad}`).pipe(map(
+      (results) => {
+        this.result = results;
+        if (
+          this.result ==
+          'Tu propiedad ya está anunciada en promociones'
+        ) {
+          this.toast = this.toastController
+            .create({
+              message:
+                '¡Tu propiedad ya está anunciada en promociones!',
+              duration: 2000,
+              mode: 'ios',
+            })
+            .then((toastData) => {
+              toastData.present();
+            });
+        } else {
+          this.result = results;
+          this.toast = this.toastController
+            .create({
+              message: 'Se ha publicado tu propiedad en promociones',
+              duration: 2000,
+              mode: 'ios',
+            })
+            .then((toastData) => {
+              toastData.present();
+            });
+        }
+      })
+    );
   }
 
   buscarPropiedad(bly_buscar: string) {

@@ -117,7 +117,7 @@
                   <ion-label>
                     La salida del departamento terminada la renta es:
                     <ion-label class="parrafoFecha">{{llegadaSalida}}</ion-label>
-                  </ion-label>             
+                  </ion-label>
                 </ion-row>
               </ion-col>
               <ion-col size="6">
@@ -133,10 +133,10 @@
                   <ion-label>
                     La salida al terminar la renta es a las:
                     <ion-label class="parrafoFecha">{{salidaTerminoServicio}}</ion-label>
-                  </ion-label>  
+                  </ion-label>
                 </ion-row>
               </ion-col>
-            </ion-row>           
+            </ion-row>
           </ion-grid>
         </ion-row>
       </ion-item>
@@ -165,7 +165,7 @@
                       de tipo
                     </ion-label>
                     <ion-label class="parrafoFecha">{{tipoBano}}</ion-label>
-                  </ion-label>               
+                  </ion-label>
                 </ion-row>
                 <ion-row>
                   <ion-label>
@@ -186,7 +186,8 @@
                 <ion-row>
                   <ion-label>
                     Esta propiedad pertenece al tipo de aventura:
-                    <ion-label class="parrafoFecha" *ngFor="let aventura of informacionAventura">{{aventura.bly_aventura}}
+                    <ion-label class="parrafoFecha" *ngFor="let aventura of informacionAventura">
+                      {{aventura.bly_aventura}}
                     </ion-label>
                   </ion-label>
                 </ion-row>
@@ -205,7 +206,7 @@
                 </ion-row>
               </ion-col>
             </ion-row>
-          </ion-grid>   
+          </ion-grid>
         </ion-row>
       </ion-item>
     </div>
@@ -234,22 +235,22 @@
               </ion-row>
             </ion-col>
           </ion-row>
-        </ion-grid>      
+        </ion-grid>
       </ion-item>
     </div>
   </ion-row>
   <br>
-  <div class="map-wrapper" style="height: 50%; width: 100%">      
+  <div class="map-wrapper" style="height: 50%; width: 100%">
     <div id="map_center">
-      <ion-img src="/assets/icons/market.png"></ion-img>   
+      <ion-img src="/assets/icons/market.png"></ion-img>
     </div>
-    <div #map id="map"  style="height: 100%;"></div>
-  </div> 
+    <div #map id="map" style="height: 100%;"></div>
+  </div>
   <br>
   <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <div class="dueñoPropiedad1">
       <ion-item lines="none" class="ion-align-items-center ion-no-padding">
-        <ion-img src="/assets/iconosDetalle/ubicacion.svg" class="ionFotoD4"  (click)="llegarComo()"></ion-img>
+        <ion-img src="/assets/iconosDetalle/ubicacion.svg" class="ionFotoD4" (click)="llegarComo()"></ion-img>
         <ion-grid>
           <ion-row class="datoFecha">
             <ion-col size="6">
@@ -265,7 +266,7 @@
             <ion-col size="6">
               <ion-label>
                 Fecha de registro de la propiedad:
-                <ion-label  class="parrafoFecha">{{fecha}}.</ion-label>
+                <ion-label class="parrafoFecha">{{fecha}}.</ion-label>
               </ion-label>
               <ion-button fill="clear" (click)="llegarComo()">
                 Como llegar
@@ -273,10 +274,49 @@
               </ion-button>
             </ion-col>
           </ion-row>
-        </ion-grid>      
+        </ion-grid>
       </ion-item>
     </div>
   </ion-row>
+  <br>
+  <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
+    <div class="dueñoPropiedad1">
+      <ion-item lines="none" class="ion-align-items-center ion-no-padding">
+        <ion-img src="/assets/iconosDetalle/promo.svg" class="ionFotoD4" (click)="llegarComo()"></ion-img>
+        <ion-grid>
+          <ion-row class="datoFecha">
+            <ion-col size="6">
+              <ion-row>
+                <ion-item>
+                  <ion-label>
+                    Desea anunciar en promociones
+                  </ion-label>
+                </ion-item>
+              </ion-row>
+              <ion-row class="ion-align-items-center ion-no-padding" (click)="obtenerPromociones()">
+                <ion-button fill="clear">
+                  <ion-icon name="pricetags" color="warning"></ion-icon>
+                </ion-button>
+              </ion-row>
+            </ion-col>
+            <ion-col size="6">
+              <ion-row>
+                <ion-item>
+                  <ion-label>Desea cambiar el estatus de su propiedad</ion-label>
+                </ion-item>
+              </ion-row>
+              <ion-row class="ion-align-items-center ion-no-padding">
+                <ion-button fill="clear">
+                  <ion-icon name="toggle" color="success"></ion-icon>
+                </ion-button>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-row>
+  <br>
   <br>
   <div class="bgp1" (click)="closep1()"></div>
 

@@ -98,10 +98,10 @@
       <ion-item lines="none">
         <ion-img src="/assets/iconosDetalle/calendario.svg" class="ionFotoD1"></ion-img>
         <ion-row class="datoFecha">
-          <ion-grid>
+          <ion-grid class="ion-align-items-center ion-no-padding">
             <ion-row>
               <ion-col size="6">
-                <ion-row class="ion-align-items-center ion-no-padding">
+                <ion-row>
                   <ion-label>
                     La hora limite de reservación es:
                     <ion-label class="parrafoFecha">{{horaLimiteReservacion}}</ion-label>
@@ -213,7 +213,7 @@
   <br>
   <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <div class="dueñoPropiedad1">
-      <ion-item lines="none" class="ion-text-left">
+      <ion-item lines="none">
         <ion-img src="/assets/iconosDetalle/huesped.svg" class="ionFotoD3"></ion-img>
         <ion-grid>
           <ion-row>
@@ -227,7 +227,7 @@
                     </ion-label>
                     <ion-label>
                       Exclusividad de la propiedad:
-                      <ion-textarea rows="1" class="parrafoFecha">{{exclusividad}}.</ion-textarea>
+                      <ion-label rows="1" class="parrafoFecha">{{exclusividad}}.</ion-label>
                     </ion-label>
                   </ion-row>
                 </ion-col>
@@ -249,23 +249,31 @@
   <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <div class="dueñoPropiedad1">
       <ion-item lines="none" class="ion-align-items-center ion-no-padding">
-        <ion-img src="/assets/iconosDetalle/ubicacion.svg" class="ionFotoD1"  (click)="llegarComo()"></ion-img>
-        <ion-row class="datoFecha">
-          <ion-col size="12">
-            <ion-row class="ion-align-items-center">
-              <ion-label>
-                Dirección General:
-                <ion-label class="parrafoFecha">{{calle}}</ion-label>
-                <ion-label class="parrafoFecha">{{ciudad}}</ion-label>
-                <ion-label class="parrafoFecha">{{estado}}</ion-label>
-              </ion-label>
+        <ion-img src="/assets/iconosDetalle/ubicacion.svg" class="ionFotoD4"  (click)="llegarComo()"></ion-img>
+        <ion-grid>
+          <ion-row class="datoFecha">
+            <ion-col size="6">
+              <ion-row>
+                <ion-label>
+                  Dirección General:
+                  <ion-label class="parrafoFecha">{{calle}}</ion-label>
+                  <ion-label class="parrafoFecha">{{ciudad}}</ion-label>
+                  <ion-label class="parrafoFecha">{{estado}}</ion-label>
+                </ion-label>
+              </ion-row>
+            </ion-col>
+            <ion-col size="6">
               <ion-label>
                 Fecha de registro de la propiedad:
                 <ion-label  class="parrafoFecha">{{fecha}}.</ion-label>
               </ion-label>
-            </ion-row>
-          </ion-col>
-        </ion-row>
+              <ion-button fill="clear" (click)="llegarComo()">
+                Como llegar
+                <ion-icon name="footsteps-outline" slot="start"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>      
       </ion-item>
     </div>
   </ion-row>

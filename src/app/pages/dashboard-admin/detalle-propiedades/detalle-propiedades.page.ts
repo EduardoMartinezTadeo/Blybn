@@ -336,7 +336,6 @@ export class DetallePropiedadesPage implements OnInit {
           dueno: this.id_duenocasa
         }
         this.storage.set('informacionPromocion', this.informacionPropiedades);
-        console.log(this.informacionP1);
       }, (error) => {
         this.presentLoadingServer();
       });
@@ -361,7 +360,6 @@ export class DetallePropiedadesPage implements OnInit {
   }
 
   llegarComo(){
-    console.log(this.bly_placeId);
     this.iab.create(
       `https://www.google.com/maps/search/?api=1&query=Google&query_place_id=`+this.bly_placeId,
       `_system`
@@ -1357,7 +1355,6 @@ export class DetallePropiedadesPage implements OnInit {
   }
 
   getAddressFromCoords(lattitude, longitude) {
-    console.log('getAddressFromCoords ' + lattitude + ' ' + longitude);
     let options: NativeGeocoderOptions = {
       useLocale: true,
       maxResults: 5,

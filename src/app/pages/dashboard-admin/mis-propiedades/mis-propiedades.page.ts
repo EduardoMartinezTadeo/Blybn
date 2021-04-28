@@ -20,7 +20,13 @@ export class MisPropiedadesPage implements OnInit {
     this.server = this.provider.server;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.storage.get('perfil').then((res) => {
+      this.informacionPerfil = res;
+      this.bly_usuario = this.informacionPerfil.bly_usuario;
+      this.cargarPropiedad();
+    });
+  }
   server: string;
   informacionPerfil: any;
   bly_usuario: number;
@@ -31,7 +37,6 @@ export class MisPropiedadesPage implements OnInit {
       this.bly_usuario = this.informacionPerfil.bly_usuario;
       this.cargarPropiedad();
     });
-    console.log(this.propiedades);
   }
 
   propiedades: any = [];

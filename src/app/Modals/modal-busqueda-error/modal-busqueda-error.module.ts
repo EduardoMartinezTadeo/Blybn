@@ -13,7 +13,7 @@ import { ModalBusquedaErrorPage } from './modal-busqueda-error.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ModalBusquedaErrorPageRoutingModule
+    ModalBusquedaErrorPageRoutingModule 
   ],
   declarations: [ModalBusquedaErrorPage]
 })

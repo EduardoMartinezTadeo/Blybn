@@ -13,8 +13,14 @@
     </ion-label>
     <ion-card *ngFor="let exclusivo of propiedades" class="animate__animated animate__bounceInDown animate__slower 3s">
         <ion-card-header>
-            <ion-row class="ion-text-end">
-                <ion-col size="12">
+            <ion-row>
+                <ion-col size="6" class="ion-text-start">
+                    <ion-badge color="{{exclusivo.bly_colorStatus}}" mode="ios">
+                        <ion-icon name="radio-button-on"></ion-icon>
+                        {{exclusivo.bly_status}}
+                    </ion-badge>
+                </ion-col>
+                <ion-col size="6" class="ion-text-end">
                     <ion-badge color="warning" mode="ios">
                         <ion-icon name="document-attach"></ion-icon>
                         Editar

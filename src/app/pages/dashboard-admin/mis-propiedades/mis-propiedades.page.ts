@@ -30,8 +30,8 @@ export class MisPropiedadesPage implements OnInit {
       this.informacionPerfil = res;
       this.bly_usuario = this.informacionPerfil.bly_usuario;
       this.cargarPropiedad();
-      console.log(this.propiedades);
     });
+    console.log(this.propiedades);
   }
 
   propiedades: any = [];

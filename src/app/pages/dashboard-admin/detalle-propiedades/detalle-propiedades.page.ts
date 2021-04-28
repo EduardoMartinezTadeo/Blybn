@@ -8,7 +8,7 @@ import {
   NativeGeocoderOptions,
   NativeGeocoderResult,
 } from '@ionic-native/native-geocoder/ngx';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { DataService } from 'src/app/services/data.service';
 declare var google;
@@ -33,7 +33,8 @@ export class DetallePropiedadesPage implements OnInit {
     private alertController: AlertController,
     private loadingController: LoadingController,
     private iab: InAppBrowser,
-    private servicio: DataService
+    private servicio: DataService,
+    private toastController: ToastController
   ) {
     this.server = this.provider.server;
   }
@@ -99,6 +100,39 @@ export class DetallePropiedadesPage implements OnInit {
     this.confirmacionPropmocion();
   }
 
+  eliminarPromocion(){
+    this.storage.get('informacionPromocion').then((res)=>{
+      this.datosPromocionesR = res;
+    });
+    this.eliminarPromosion();
+  }
+
+  async eliminarPromosion() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¿Está apunto de quitar su casa de promociones?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Retirar',
+          handler: () => {
+            this.cargaEliminarPromosion();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   async confirmacionPropmocion() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -133,18 +167,51 @@ export class DetallePropiedadesPage implements OnInit {
     });
     await loading.present();
     setTimeout(()=>{
-      this.registrarExclusividad();
+      this.registrarPromocion();
     },1500);
   }
 
+  async cargaEliminarPromosion() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+      this.eleminarPromocion();
+    },1500);
+  }
+
+  toast: any;
+  eleminarPromocion() {
+    let body = {
+        aksi: 'Retirar-promocion',
+        id_propiedad: this.datosPromocionesR.propiedad
+      };
+
+    this.provider.eliminarPromocion(body, 'db_QuitarPropiedadPromociones.php').subscribe(data => {
+      this.toast = this.toastController
+      .create({
+        message: 'Se ha retirado tu propiedad de promociones...',
+        duration: 2000,
+        mode: 'ios',
+      })
+      .then((toastData) => {
+        toastData.present();
+      });
+      });
+  }
+
   responseDataRPromocion: any;
-  registrarExclusividad(){
+  registrarPromocion(){
     this.servicio.registrarPropiedadPromocion(this.datosPromocionesR.dueno, this.datosPromocionesR.propiedad).subscribe(data => {
       this.responseDataRPromocion = data;
     }, (error) => {
       this.presentLoadingServer();
     });
   }
+
 
   foto: string;
   fotoPerfil: any = [];
@@ -1342,5 +1409,136 @@ export class DetallePropiedadesPage implements OnInit {
     setTimeout(() => {
       this.presentAlertServer();
     }, 2000);
+  }
+
+
+  actualizarDisponible(){
+    this.storage.get('informacionPromocion').then((res)=>{
+      this.datosPromocionesR = res;
+    });
+    this.confirmarCambiarDisponible();
+  }
+
+  async confirmarCambiarDisponible() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¿Está apunto de establecer su propiedad como Disponible?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Cambiar',
+          handler: () => {
+            this.cargarDisponible();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async cargarDisponible() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+      this.actualizarDisponibleDB();
+    },1500);
+  }
+
+  actualizarDisponibleDB(){
+    let body = {
+      aksi: 'actualizarDispo',
+      bly_status: 1,
+      bly_colorStatus: "success",
+      bly_registroPropiedad: this.datosPromocionesR.propiedad
+    }
+    this.provider.actualizarDisponibilidadPropiedad(body, 'db_actualizarDisponibilidadPropiedad.php').subscribe(data =>{
+      this.toast = this.toastController
+      .create({
+        message: 'Se ha actualizado su estatus...',
+        duration: 2000,
+        mode: 'ios',
+      })
+      .then((toastData) => {
+        toastData.present();
+      });
+    });
+  }
+
+  actualizarnoDisponible(){
+    this.storage.get('informacionPromocion').then((res)=>{
+      this.datosPromocionesR = res;
+    });
+    this.confirmarCambiarNoDisponible();
+  }
+
+  async confirmarCambiarNoDisponible() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¿Está apunto de establecer su propiedad como No Disponible?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Cambiar',
+          handler: () => {
+            this.cargarNoDisponible();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async cargarNoDisponible() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      duration: 2000,
+      mode: 'ios'
+    });
+    await loading.present();
+    setTimeout(()=>{
+      this.actualizarNoDisponibleDB();
+    },1500);
+  }
+
+  actualizarNoDisponibleDB(){
+    let body = {
+      aksi: 'actualizarDispo',
+      bly_status: 2,
+      bly_colorStatus: "danger",
+      bly_registroPropiedad: this.datosPromocionesR.propiedad
+    }
+    this.provider.actualizarDisponibilidadPropiedad(body, 'db_actualizarDisponibilidadPropiedad.php').subscribe(data =>{
+      this.toast = this.toastController
+      .create({
+        message: 'Se ha actualizado su estatus...',
+        duration: 2000,
+        mode: 'ios',
+      })
+      .then((toastData) => {
+        toastData.present();
+      });
+    });
   }
 }

@@ -350,6 +350,10 @@ const routes: Routes = [
   {
     path: 'modal-busqueda',
     loadChildren: () => import('./Modals/modal-busqueda/modal-busqueda.module').then( m => m.ModalBusquedaPageModule)
+  },
+  {
+    path: 'modal-promociones',
+    loadChildren: () => import('./Modals/modal-promociones/modal-promociones.module').then( m => m.ModalPromocionesPageModule)
   }
 
 ];

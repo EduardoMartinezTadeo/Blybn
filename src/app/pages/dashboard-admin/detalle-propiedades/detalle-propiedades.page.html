@@ -285,30 +285,62 @@
         <ion-img src="/assets/iconosDetalle/promo.svg" class="ionFotoD4" (click)="llegarComo()"></ion-img>
         <ion-grid>
           <ion-row class="datoFecha">
-            <ion-col size="6">
+            <ion-col size="12">
               <ion-row>
                 <ion-item>
                   <ion-label>
-                    Desea anunciar en promociones
+                    Desea anunciar su propiedad en promociones
                   </ion-label>
+                  <ion-button fill="clear" (click)="obtenerPromociones()">
+                    <ion-icon name="pricetags" color="warning"></ion-icon>
+                  </ion-button>
                 </ion-item>
-              </ion-row>
-              <ion-row class="ion-align-items-center ion-no-padding" (click)="obtenerPromociones()">
-                <ion-button fill="clear">
-                  <ion-icon name="pricetags" color="warning"></ion-icon>
-                </ion-button>
               </ion-row>
             </ion-col>
-            <ion-col size="6">
+          </ion-row>
+          <ion-row class="datoFecha">
+            <ion-col size="12">
               <ion-row>
                 <ion-item>
-                  <ion-label>Desea cambiar el estatus de su propiedad</ion-label>
+                  <ion-label>Quitar propiedad de promociones</ion-label>
+                  <ion-button fill="clear" (click)="eliminarPromocion()">
+                    <ion-icon name="pricetags" color="danger"></ion-icon>
+                  </ion-button>
                 </ion-item>
               </ion-row>
-              <ion-row class="ion-align-items-center ion-no-padding">
-                <ion-button fill="clear">
-                  <ion-icon name="toggle" color="success"></ion-icon>
-                </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-row>
+  <br>
+  <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
+    <div class="dueñoPropiedad1">
+      <ion-item lines="none" class="ion-align-items-center ion-no-padding">
+        <ion-img src="/assets/iconosDetalle/tiempo.svg" class="ionFotoD4" (click)="llegarComo()"></ion-img>
+        <ion-grid>
+          <ion-row class="datoFecha">
+            <ion-col size="12">
+              <ion-row>
+                <ion-item>
+                  <ion-label>Desea cambiar el estatus de su propiedad a disponible</ion-label>
+                  <ion-button fill="clear" (click)="actualizarDisponible()">
+                    <ion-icon name="toggle" color="success"></ion-icon>
+                  </ion-button>
+                </ion-item>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+          <ion-row class="datoFecha">
+            <ion-col size="12">
+              <ion-row>
+                <ion-item>
+                  <ion-label>Desea cambiar el estatus de su propiedad a no disponible</ion-label>
+                  <ion-button fill="clear" (click)="actualizarnoDisponible()">
+                    <ion-icon name="toggle" color="danger"></ion-icon>
+                  </ion-button>
+                </ion-item>
               </ion-row>
             </ion-col>
           </ion-row>

@@ -64,6 +64,8 @@ const apiCargarAventuraIndividual = environment.apiCargarTipoAventuraIndividualU
 const apiCargarHistorialRentaIndividual = environment.apiCargarHistorialRentaIndividualURL;
 const apiCargarPlaceIDURL = environment.apiCargarPlaceIdURL;
 const apiCargarPropiedadesPromociones = environment.apiCargarPropiedadesConPromocionURL;
+const apiEliminarPromocion = environment.apiEliminarPromocionURL;
+const apiActualizarDisponibilidad = environment.apiActualizarDisponibilidadPropiedadURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -567,5 +569,21 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiCargarPropiedadesPromociones + file, body, {headers})
+  }
+
+  eliminarPromocion(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiEliminarPromocion + file, body, {headers})
+  }
+
+  actualizarDisponibilidadPropiedad(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiActualizarDisponibilidad + file, body, {headers})
   }
 }

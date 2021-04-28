@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ProviderService } from '../../services/provider.service';
+import { ModalPromocionesPage } from '../../Modals/modal-promociones/modal-promociones.page';
 
 @Component({
   selector: 'app-promociones',
@@ -10,19 +12,33 @@ export class PromocionesPage implements OnInit {
 
   contentLoaded = false;
   constructor(
-    private provider: ProviderService
+    private provider: ProviderService,
+    private modalCtrl: ModalController
   ) { 
     this.server = this.provider.server;
   }
   server: string;
   ngOnInit() {
+    this.promociones = [];
   }
 
+
   ionViewWillEnter() {
+    this.promociones = [];
     this.cargarPromociones();
     setTimeout(() => {
       this.contentLoaded = true;
+      if(this.promociones.length == 0){
+        this.mostrarModalSinResultado();
+      }
     }, 2500);    
+  }
+
+  async mostrarModalSinResultado() {
+    const modal = await this.modalCtrl.create({
+      component: ModalPromocionesPage,
+    });
+    await modal.present();
   }
 
 
@@ -35,7 +51,6 @@ export class PromocionesPage implements OnInit {
       this.provider.cargarPropiedadPromocion(body, 'db_CargarPromocionesGenerales.php').subscribe((data) => {
         for (let promocion of data.result){
           this.promociones.push(promocion);
-          console.log(data.result);
         }
         resolve(true);
       });

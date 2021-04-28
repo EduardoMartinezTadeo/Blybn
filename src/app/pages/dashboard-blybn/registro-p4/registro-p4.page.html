@@ -17,9 +17,9 @@
   <br>
   <br>
   <ion-grid fixed class="animate__animated animate__zoomInDown animate__slower 3s" mode="md">
-    <ion-row>
+    <ion-row class="ion-text-center">
       <ion-col size="12" size-lg="3" size-md="4" size-sm="6">
-        <ion-card (click)="presentActionCamera1()" class="ion-text-center">
+        <ion-card (click)="presentActionCamera1()">
           <ion-img src="{{foto1}}" (ionError)="onError(img)" #img></ion-img>
         </ion-card>
       </ion-col>

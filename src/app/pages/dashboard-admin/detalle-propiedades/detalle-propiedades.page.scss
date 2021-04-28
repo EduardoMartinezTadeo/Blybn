@@ -10,21 +10,25 @@ ion-toolbar {
     height: 65px;
 }
 
-.ionFotoD {
-    width: 175px;
-    height: 175px;
+.ionFotoD1 {
+    width: 140px;
+    height: 140px;
+}
+.ionFotoD2 {
+    width: 50px;
+    height: 50px;
 }
 
-.ionFotoD1{
-    margin-top: 9%;
-    width: 60px;
-    height: 60px;
+.ionFotoD3{
+    width: 50px;
+    height: 50px;
 }
 
 .datoFecha {
     margin-top: 2%;
     ion-label {
         font-family: 'HelveticaMedium';
+        white-space: pre-line;
         font-size: 11px;
     }
     ion-textarea {
@@ -37,6 +41,7 @@ ion-toolbar {
 
 .parrafoFecha{
     font-family: 'HelveticaBold';
+    white-space: pre-line;
     font-size: 9px;
     color: #316dd0;
 }

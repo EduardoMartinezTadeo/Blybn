@@ -17,7 +17,7 @@ ion-card {
     border-radius: 12px;
   
     ion-img {
-        width: 250px;
+        width: 100%;
         margin: 0 auto;
         border-radius: 10px
       }
@@ -38,7 +38,7 @@ ion-card {
   ion-thumbnail {
     --border-radius: 10px;
     border: 1px solid var(--grayColor);
-    width: 250px;
+    width: 100%;
     height: auto;
     margin: 0 auto;
   }

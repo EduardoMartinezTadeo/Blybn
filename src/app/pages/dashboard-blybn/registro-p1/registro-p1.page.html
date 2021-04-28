@@ -26,7 +26,7 @@
     </p>
     <ion-item>
       <ion-label class="parrafo">
-        Eligue un tipo de propiedad
+        Elige un tipo de propiedad
       </ion-label>
       <ion-select placeholder="Seleccionar" (ionChange)="ionChange($event)" ok-text="Aceptar" mode="ios"
         cancelText="Cancelar">
@@ -44,7 +44,7 @@
     </p>
     <ion-item>
       <ion-label class="parrafo">
-        Eligue un tipo de alojamiento
+        Elige un tipo de alojamiento
       </ion-label>
       <ion-select placeholder="Seleccionar" (ionChange)="ionChangeA($event)" ok-text="Aceptar" cancelText="Cancelar"
         mode="ios">
@@ -69,7 +69,7 @@
     </p>
     <ion-item>
       <ion-label class="parrafo">
-        Eligue un tipo de aventura
+        Elige un tipo de aventura
       </ion-label>
       <ion-select placeholder="Seleccionar" (ionChange)="ionChangeT($event)" ok-text="Aceptar" cancelText="Cancelar" mode="ios">
         <ion-select-option value="{{aventura.bly_tipoAventura}}" *ngFor="let aventura of aventuras">

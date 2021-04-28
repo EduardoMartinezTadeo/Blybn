@@ -78,7 +78,6 @@ export class DetallePropiedadesPage implements OnInit {
       this.cargarP9();
       this.comoLlegar();
     });
-    console.log(this.id_propiedad);
     this.storage.get('perfil').then((res) => {
       this.perfilData = res;
       (this.usuario = this.perfilData.bly_nombre),

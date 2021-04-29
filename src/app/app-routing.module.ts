@@ -354,6 +354,10 @@ const routes: Routes = [
   {
     path: 'modal-promociones',
     loadChildren: () => import('./Modals/modal-promociones/modal-promociones.module').then( m => m.ModalPromocionesPageModule)
+  },
+  {
+    path: 'modal-detalle/:bly_registroPropiedad/:bly_usuario',
+    loadChildren: () => import('./Modals/modal-detalle/modal-detalle.module').then( m => m.ModalDetallePageModule)
   }
 
 ];

@@ -21,11 +21,7 @@ export class MisPropiedadesPage implements OnInit {
   }
 
   ngOnInit() {
-    this.storage.get('perfil').then((res) => {
-      this.informacionPerfil = res;
-      this.bly_usuario = this.informacionPerfil.bly_usuario;
-      this.cargarPropiedad();
-    });
+ 
   }
   server: string;
   informacionPerfil: any;

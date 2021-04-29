@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ProviderService } from '../../services/provider.service';
 import { ModalPromocionesPage } from '../../Modals/modal-promociones/modal-promociones.page';
+import { ModalDetallePage } from '../../Modals/modal-detalle/modal-detalle.page';
 
 @Component({
   selector: 'app-promociones',
@@ -19,7 +20,6 @@ export class PromocionesPage implements OnInit {
   }
   server: string;
   ngOnInit() {
-    this.promociones = [];
   }
 
 
@@ -30,7 +30,7 @@ export class PromocionesPage implements OnInit {
       this.contentLoaded = true;
       if(this.promociones.length == 0){
         this.mostrarModalSinResultado();
-      }
+      } 
     }, 2500);    
   }
 
@@ -62,5 +62,25 @@ export class PromocionesPage implements OnInit {
 
   onError(img) {
     img.src = '../../../../assets/imgs/default-inicio.svg';
+  }
+
+  informacionDetalle: any = [];
+  mostrarDetalle(bly_registroPropiedad, bly_usuario){
+    this.informacionDetalle = {
+      propiedad: bly_registroPropiedad,
+      usuario: bly_usuario
+    }
+    this.mostrarModalResultado();
+    console.log(this.informacionDetalle);
+  }
+
+  async mostrarModalResultado() {
+    const modal = await this.modalCtrl.create({
+      component: ModalDetallePage,
+      componentProps: {
+        datos: this.informacionDetalle
+      },
+    });
+    await modal.present();
   }
 }

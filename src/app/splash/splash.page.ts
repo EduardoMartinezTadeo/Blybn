@@ -22,10 +22,8 @@ export class SplashPage implements OnInit {
   ) {
     setTimeout(() => {
       this.avisoService.authenticationState.subscribe(state => {
-        console.log('Estado', state);
         if (state) {
           this.storage.get('storage_blybn').then((res) => {
-            console.log(res);
             if (res == null) {
               this.navCtrl.navigateRoot('/login');
             } else if (res == "Blybn") {
@@ -40,7 +38,6 @@ export class SplashPage implements OnInit {
       });
     }, 4500);
   }
-
 
   ngOnInit() {
     this.dataService.TerminosCondiciones().subscribe((response) => {

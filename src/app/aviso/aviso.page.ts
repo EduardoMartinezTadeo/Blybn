@@ -362,37 +362,26 @@ export class AvisoPage implements OnInit {
       this.btnEspecial = false;
     });
     this.storage.set('registroP1', this.informacionR1).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP2', this.informacionR2).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP3', this.informacionR3).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP4', this.informacionR4).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP5', this.informacionR5).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP6', this.informacionR6).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP7', this.informacionR7).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP8', this.informacionR8).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP9', this.informacionR9).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP10', this.informacionR10).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP11', this.informacionR11).then((res) => {
-      console.log(res);
     }); 
   }
 

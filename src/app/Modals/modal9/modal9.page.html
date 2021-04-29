@@ -1,5 +1,5 @@
 <ion-header class="ion-no-border" translucent>
-  <ion-toolbar>
+  <ion-toolbar mode="ios">
     <ion-row class="diseñoModal">
       <ion-img src="/assets/imgs/buttons.svg"> </ion-img>
     </ion-row>
@@ -10,16 +10,36 @@
 <ion-content>
   <ion-list style="background-color: transparent !important;">
     <ion-row>
-      <h1>Formato Correcto Contraseña</h1>
+      <h1>Formato valido contraseña</h1>
     </ion-row>
-    <ion-row>
-      <p>
-        Para tener un formato valido para la contraseña esta debe contar con mínimo 8 caracteres entre ellos minúsculas
-        “a-z”, mayúsculas “A-Z”, numero del 1 al 9 y cualquiera de los siguientes caracteres especiales “@$!%*?&”.
-      </p>
-    </ion-row>
-    <ion-row class="imagen">
-      <ion-img src="/assets/imgs/formato-contrasena.svg"></ion-img>
-    </ion-row>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ul>
+            <li>
+              Mínimo 8 caracteres
+            </li>
+            <li>
+              Mínimo 1 mayúscula
+            </li>
+            <li>
+              Minúsculas
+            </li>
+            <li>
+              Mínimo 1 número
+            </li>
+            <li>
+              Mínimo 1 carácter especial
+            </li>
+          </ul>
+
+        </ion-col>
+        <ion-col size="6">
+          <ion-row class="imagen">
+            <ion-img src="/assets/imgs/formato-contrasena.svg"></ion-img>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-list>
 </ion-content>

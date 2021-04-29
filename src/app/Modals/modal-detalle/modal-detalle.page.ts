@@ -240,7 +240,7 @@ cargarFotoPerfil() {
 }
 
 salir() {
-  this.router.navigate(['/dashboard/mis-propiedades']);
+  this.modalController.dismiss();
   this.horaLimiteReservacion = '';
   this.llegadaAntes = '';
   this.llegadaSalida = '';

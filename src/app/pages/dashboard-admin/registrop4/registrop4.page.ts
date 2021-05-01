@@ -753,6 +753,8 @@ export class Registrop4Page implements OnInit {
     );
   }
 
+  
+
   informacionR4: any;
   guardarInformacion(){
     if(this.cameraData1 == undefined){

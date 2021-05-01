@@ -702,4 +702,20 @@ ion-avatar {
       margin-left: -21px;
       margin-top: -41px;
     }
+    
+  }
+
+  .datosDis {
+      width: 100%;
+      margin-top: 2%;
+      ion-label {
+        font-family: 'HelveticaMedium';
+        white-space: pre-line;
+        font-size: 11px;
+    }
+    ion-textarea {
+        font-family: 'HelveticaBold';
+        font-size: 9px;
+        color: #316dd0;
+    }
   }

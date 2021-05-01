@@ -1,7 +1,14 @@
 .ion-label1 {
+    margin-top: 6%;
+    margin-bottom: 5%;
+    margin-left: 5%;
     font-family: "HelveticaBold";
     font-size: 25px;
-    color: black;
+    color: white;
+}
+
+ion-content {
+    --background: #1d1e1e;
 }
 
 ion-card {
@@ -45,8 +52,3 @@ ion-card {
       font-size: 12px;
       color:white;
   }
-
-ion-toolbar {
-    --background: transparent !important;
-    --ion-color-base: transparent !important;
-}

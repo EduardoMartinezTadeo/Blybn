@@ -379,7 +379,7 @@ export class RegistrarPropiedad2Page implements OnInit {
         .then((toastData) => {
           toastData.present();
         });
-    } else if(this.valor4 == false ){
+    } else if (this.valor4 == false){
       this.toast = this.toastController
         .create({
           message: 'Debe completar el apartado de fotografías...',
@@ -493,7 +493,7 @@ export class RegistrarPropiedad2Page implements OnInit {
       this.dato22 = true;
 
       this.dato23 = true;
-      this.router.navigate(['/animacion9']);
+      this.confirmacionContrato();
     }
   }
 
@@ -529,6 +529,33 @@ export class RegistrarPropiedad2Page implements OnInit {
       this.dato21 = false;
       this.dator11 = true;
     }
+  }
+
+
+  async confirmacionContrato() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¡Antes de continuar asegúrese que tiene el tiempo necesario para terminar el proceso de publicación ya que si deja inconclusa la verificación de información todos los apartados serán reiniciados y su avance de publicación será eliminado!',
+      buttons: [
+        {
+          text: 'En otro momento',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Continuar',
+          handler: () => {
+            this.router.navigate(['/animacion9']);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   registroFinal() {

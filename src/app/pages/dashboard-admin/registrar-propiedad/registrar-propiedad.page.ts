@@ -970,10 +970,36 @@ export class RegistrarPropiedadPage implements OnInit {
       this.dato22 = true;
 
       this.dato23 = false;
-      this.router.navigate(['/animacionb09']);
+      this.confirmacionContrato();
     }
   }
   registroFinal() {
     this.router.navigate(['/animacionb12']);
+  }
+
+  async confirmacionContrato() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¡Antes de continuar asegúrese que tiene el tiempo necesario para terminar el proceso de publicación ya que si deja inconclusa la verificación de información todos los apartados serán reiniciados y su avance de publicación será eliminado!',
+      buttons: [
+        {
+          text: 'En otro momento',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Continuar',
+          handler: () => {
+            this.router.navigate(['/animacion9']);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

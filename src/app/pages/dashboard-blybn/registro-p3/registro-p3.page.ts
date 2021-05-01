@@ -50,7 +50,7 @@ export class RegistroP3Page implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            console.log('Confirmacion de cancelacion');
           },
         },
         {

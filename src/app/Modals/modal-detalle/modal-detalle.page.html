@@ -1,8 +1,8 @@
-<ion-header>
-  <ion-toolbar class="ion-no-border" translucent>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+
   </ion-toolbar>
 </ion-header>
-
 
 <ion-content>
   <ion-row>
@@ -28,22 +28,22 @@
         </ion-row>
         <ion-row>
           <div class="datos ion-text-center">
-            <ion-col size="2">
+            <ion-col size="2" class="ion-text-center ion-margin-bottom">
               <ion-button fill="clear" color="mueble" (click)="openp1()">
                 <ion-icon slot="icon-only" name="bed-sharp"></ion-icon>
               </ion-button>
             </ion-col>
-            <ion-col size="2">
+            <ion-col size="2" class="ion-text-center ion-margin-bottom">
               <ion-button fill="clear" color="amenidad" (click)="openp2()">
                 <ion-icon slot="icon-only" name="cafe-sharp"></ion-icon>
               </ion-button>
             </ion-col>
-            <ion-col size="2">
+            <ion-col size="2" class="ion-text-center ion-margin-bottom">
               <ion-button fill="clear" color="dinero" (click)="openp3()">
                 <ion-icon slot="icon-only" name="cash-sharp"></ion-icon>
               </ion-button>
             </ion-col>
-            <ion-col size="2">
+            <ion-col size="2" class="ion-text-center ion-margin-bottom">
               <ion-button fill="clear" color="restringir" (click)="openp4()">
                 <ion-icon slot="icon-only" name="logo-no-smoking"></ion-icon>
               </ion-button>
@@ -51,23 +51,23 @@
           </div>
         </ion-row>
         <ion-row>
-          <div class="datos ion-text-center">
-            <ion-col size="2">
+          <div class="datos">
+            <ion-col size="2" class="ion-text-center ion-margin-bottom">
               <ion-button fill="clear" color="seguridad" (click)="openp5()">
                 <ion-icon slot="icon-only" name="medkit-sharp"></ion-icon>
               </ion-button>
             </ion-col>
-            <ion-col size="2">
+            <ion-col size="2" class="ion-text-center ion-margin-bottom">
               <ion-button fill="clear" color="requisito" (click)="openp6()">
                 <ion-icon slot="icon-only" name="receipt-sharp"></ion-icon>
               </ion-button>
             </ion-col>
-            <ion-col size="2">
+            <ion-col size="2" class="ion-text-center ion-margin-bottom">
               <ion-button fill="clear" color="disponibilidad" (click)="openp7()">
                 <ion-icon slot="icon-only" name="calendar-sharp"></ion-icon>
               </ion-button>
             </ion-col>
-            <ion-col size="2">
+            <ion-col size="2" class="ion-text-center ion-margin-bottom">
               <ion-button fill="clear" color="dark" (click)="openp8()">
                 <ion-icon slot="icon-only" name="business"></ion-icon>
               </ion-button>
@@ -101,7 +101,7 @@
           <ion-grid class="ion-align-items-center ion-no-padding">
             <ion-row>
               <ion-col size="6">
-                <ion-row>
+                <ion-row class="ion-align-items-center ion-no-padding">
                   <ion-label>
                     La hora limite de reservación es:
                     <ion-label class="parrafoFecha">{{horaLimiteReservacion}}</ion-label>
@@ -114,14 +114,14 @@
                     La llegada al departamento es despues de las:
                     <ion-label class="parrafoFecha">{{llegadaDespues}}</ion-label>
                   </ion-label>
-                  <ion-label>
-                    La salida del departamento terminada la renta es:
-                    <ion-label class="parrafoFecha">{{llegadaSalida}}</ion-label>
-                  </ion-label>
                 </ion-row>
               </ion-col>
               <ion-col size="6">
                 <ion-row class="ion-align-items-center ion-no-padding">
+                  <ion-label>
+                    La salida del departamento terminada la renta es:
+                    <ion-label class="parrafoFecha">{{llegadaSalida}}</ion-label>
+                  </ion-label>
                   <ion-label>
                     Esta propiedad necesita tener preaviso de:
                     <ion-label class="parrafoFecha">{{preavisoPropiedad}}</ion-label>
@@ -149,7 +149,7 @@
         <ion-img src="/assets/iconosDetalle/cama.svg" class="ionFotoD2"></ion-img>
         <ion-row class="datoFecha">
           <ion-grid>
-            <ion-row>
+            <ion-row class="ion-align-items-center ion-no-padding">
               <ion-col size="6">
                 <ion-row>
                   <ion-label>
@@ -172,13 +172,6 @@
                     Esta propiedad es de tipo:
                     <ion-label class="parrafoFecha" *ngFor="let casa of informacionCasa">{{casa.bly_propiedadTipo}}
                     </ion-label>
-                  </ion-label>
-                </ion-row>
-                <ion-row>
-                  <ion-label>
-                    El tipo de alojamiento es:
-                    <ion-label class="parrafoFecha" *ngFor="let alojamiento of informacionAlojamiento">
-                      {{alojamiento.bly_alojamientoPropiedad}}</ion-label>
                   </ion-label>
                 </ion-row>
               </ion-col>
@@ -217,19 +210,28 @@
       <ion-item lines="none">
         <ion-img src="/assets/iconosDetalle/huesped.svg" class="ionFotoD3"></ion-img>
         <ion-grid>
-          <ion-row>
+          <ion-row class="ion-align-items-center ion-no-padding">
             <ion-col size="12">
               <ion-row class="datoFecha">
                 <ion-col size="12">
-                  <ion-row class="ion-align-items-center">
+                  <ion-row>
                     <ion-label>
                       Esta propiedad tiene cupo para:
                       <ion-label class="parrafoFecha">{{huespedes}} huesped.</ion-label>
                     </ion-label>
+                  </ion-row>
+                  <ion-row>
                     <ion-label>
                       Exclusividad de la propiedad:
                       <ion-label rows="1" class="parrafoFecha">{{exclusividad}}.</ion-label>
                     </ion-label>
+                  </ion-row>
+                  <ion-row>
+                    <ion-label>
+                      El tipo de alojamiento es:
+                      <ion-label class="parrafoFecha" *ngFor="let alojamiento of informacionAlojamiento">
+                        {{alojamiento.bly_alojamientoPropiedad}}</ion-label>
+                    </ion-label> 
                   </ion-row>
                 </ion-col>
               </ion-row>
@@ -240,18 +242,11 @@
     </div>
   </ion-row>
   <br>
-  <div class="map-wrapper" style="height: 50%; width: 100%">
-    <div id="map_center">
-      <ion-img src="/assets/icons/market.png"></ion-img>
-    </div>
-    <div #map id="map" style="height: 100%;"></div>
-  </div>
-  <br>
   <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <div class="dueñoPropiedad1">
       <ion-item lines="none" class="ion-align-items-center ion-no-padding">
         <ion-img src="/assets/iconosDetalle/ubicacion.svg" class="ionFotoD4" (click)="llegarComo()"></ion-img>
-        <ion-grid>
+        <ion-grid class="ion-align-items-center ion-no-padding">
           <ion-row class="datoFecha">
             <ion-col size="6">
               <ion-row>
@@ -279,14 +274,19 @@
     </div>
   </ion-row>
   <br>
-  <br>
+  <div class="map-wrapper" style="height: 50%; width: 100%">
+    <div id="map_center">
+      <ion-img src="/assets/icons/market.png"></ion-img>
+    </div>
+    <div #map id="map" style="height: 100%;"></div>
+  </div>
   <div class="bgp1" (click)="closep1()"></div>
 
   <div class="bottomSheetp1" (touchmove)="touchMovep1($event)" (touchend)="touchEndp1()">
     <div class="swipe-handler"></div>
     <div class="content ion-padding">
       <h1>Muebles de la propiedad</h1>
-      <ion-grid>
+      <ion-grid class="ion-align-items-center ion-no-padding">
         <p>
           Esta propiedad cuenta con los siguientes muebles:
         </p>
@@ -315,7 +315,7 @@
     <div class="swipe-handler"></div>
     <div class="content ion-padding">
       <h1>Amenidades de la propiedad</h1>
-      <ion-grid>
+      <ion-grid class="ion-align-items-center ion-no-padding">
         <p>Esta propiedad cuenta con las siguientes amenidades:</p>
         <ion-row *ngFor="let amenidad of informacionP2" class="ion-text-center">
           <ion-col size="10">
@@ -340,7 +340,7 @@
       <h1>Costos de renta de la propiedad</h1>
       <ion-grid *ngFor="let costos of informacionP3" class="ion-align-items-center ion-no-padding">
         <p>Los costos de renta son los siguientes:</p>
-        <ion-row class="ion-align-items-center">
+        <ion-row class="ion-align-items-center ion-text-center">
           <ion-col size="7">
             <p class="sub">El costo por noche es de:</p>
           </ion-col>
@@ -353,7 +353,7 @@
             <ion-icon name="checkmark-done-circle" color="dinero"></ion-icon>
           </ion-col>
         </ion-row>
-        <ion-row class="ion-align-items-center">
+        <ion-row class="ion-align-items-center ion-text-center">
           <ion-col size="7">
             <p class="sub">El costo de limpieza es de:</p>
           </ion-col>
@@ -366,7 +366,7 @@
             <ion-icon name="checkmark-done-circle" color="dinero"></ion-icon>
           </ion-col>
         </ion-row>
-        <ion-row class="ion-align-items-center">
+        <ion-row class="ion-align-items-center ion-text-center">
           <ion-col size="8">
             <p class="sub">El descuento por semana es del:</p>
           </ion-col>
@@ -379,7 +379,7 @@
             <ion-icon name="checkmark-done-circle" color="dinero"></ion-icon>
           </ion-col>
         </ion-row>
-        <ion-row class="ion-align-items-center">
+        <ion-row class="ion-align-items-center ion-text-center">
           <ion-col size="8">
             <p class="sub">El descuento por mes es del:</p>
           </ion-col>
@@ -392,7 +392,7 @@
             <ion-icon name="checkmark-done-circle" color="dinero"></ion-icon>
           </ion-col>
         </ion-row>
-        <ion-row class="ion-align-items-center">
+        <ion-row class="ion-align-items-center ion-text-center">
           <ion-col size="5">
             <p class="sub">El pago es en:</p>
           </ion-col>
@@ -415,7 +415,7 @@
     <div class="swipe-handler"></div>
     <div class="content ion-padding">
       <h1>Restricciones de la propiedad</h1>
-      <ion-grid>
+      <ion-grid class="ion-align-items-center ion-no-padding">
         <p>Estas son algunas de las cosas permitidas en la propiedad:</p>
         <ion-row *ngFor="let restriccion of informacionP5" class="ion-align-items-center">
           <ion-col size="10">
@@ -439,7 +439,7 @@
     <div class="swipe-handler"></div>
     <div class="content ion-padding">
       <h1>Medidas de seguridad de la propiedad</h1>
-      <ion-grid>
+      <ion-grid class="ion-align-items-center ion-no-padding">
         <p>Estas son algunas de las medidas de seguridad:</p>
         <ion-row *ngFor="let seguridad of informacionP6" class="ion-align-items-center">
           <ion-col size="10">
@@ -463,7 +463,7 @@
     <div class="swipe-handler"></div>
     <div class="content ion-padding">
       <h1>Requisitos de renta</h1>
-      <ion-grid>
+      <ion-grid class="ion-align-items-center ion-no-padding">
         <p>Estos son los requisitos para rentar esta propiedad:</p>
         <ion-row *ngFor="let requisitos of informacionP7" class="ion-align-items-center">
           <ion-col size="10">
@@ -485,7 +485,7 @@
     <div class="swipe-handler"></div>
     <div class="content ion-padding">
       <h1>Disponibilidad de renta</h1>
-      <ion-grid>
+      <ion-grid class="ion-align-items-center ion-no-padding">
         <p>Estas son las fechas de disponibilidad de la propiedad:</p>
         <ion-row class="ion-align-items-center">
           <ion-col size="5">
@@ -537,7 +537,7 @@
     <div class="swipe-handler"></div>
     <div class="content ion-padding">
       <h1>Espacios y áreas comunes</h1>
-      <ion-grid>
+      <ion-grid class="ion-align-items-center ion-no-padding">
         <p>
           Esta propiedad cuenta con las siguientes áreas comunes y espacios:
         </p>

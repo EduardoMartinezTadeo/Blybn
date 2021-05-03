@@ -1,32 +1,37 @@
 ion-toolbar {
     --background: #1897ed;
     color: #ffffff;
-    padding-bottom: 200px;
+    padding-bottom: 250px;
     border-radius: 0 0 20% 20%;
 }
 
 .ionFoto {
     width: 65px;
     height: 65px;
+    margin-right: 2%;
 }
 
 .ionFotoD1 {
     width: 140px;
     height: 140px;
+    margin-right: 2%;
 }
 .ionFotoD2 {
     width: 50px;
     height: 50px;
+    margin-right: 2%;
 }
 
 .ionFotoD3{
     width: 50px;
     height: 50px;
+    margin-right: 2%;
 }
 
 .ionFotoD4{
     width: 50px;
     height: 50px;
+    margin-right: 2%;
 }
 
 .datoFecha {
@@ -65,7 +70,7 @@ ion-content {
         border-radius: 2px 2px 16px 16px;
         overflow: visible;
         ion-img {
-            height: 200px;
+            height: 300px;
             width: 100%;
             margin: auto;
             display: block;
@@ -161,7 +166,7 @@ ion-content {
 .bottomSheetp1{
     position: fixed;
     width: 100%;
-    height: 425px;
+    height: 500px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -229,7 +234,7 @@ ion-content {
 .bottomSheetp2 {
     position: fixed;
     width: 100%;
-    height: 425px;
+    height: 500px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -290,7 +295,7 @@ ion-content {
 .bottomSheetp3 {
     position: fixed;
     width: 100%;
-    height: 425px;
+    height: 350px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -353,7 +358,7 @@ ion-content {
 .bottomSheetp4 {
     position: fixed;
     width: 100%;
-    height: 425px;
+    height: 500px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -413,7 +418,7 @@ ion-content {
 .bottomSheetp5 {
     position: fixed;
     width: 100%;
-    height: 425px;
+    height: 500px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -473,7 +478,7 @@ ion-content {
 .bottomSheetp6 {
     position: fixed;
     width: 100%;
-    height: 425px;
+    height: 450px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -533,7 +538,7 @@ ion-content {
 .bottomSheetp7 {
     position: fixed;
     width: 100%;
-    height: 425px;
+    height: 380px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -604,7 +609,7 @@ ion-content {
 .bottomSheetp8 {
     position: fixed;
     width: 100%;
-    height: 425px;
+    height: 500px;
     bottom: 0;
     border-radius: 20px 20px 0 0;
     z-index: 60;
@@ -696,5 +701,22 @@ ion-avatar {
       left: 50%;
       margin-left: -21px;
       margin-top: -41px;
+    }
+    
+  }
+
+  .datosDis {
+      width: 100%;
+      margin-top: 2%;
+      margin-bottom: 2%;
+      ion-label {
+        font-family: 'HelveticaMedium';
+        white-space: pre-line;
+        font-size: 11px;
+    }
+    ion-textarea {
+        font-family: 'HelveticaBold';
+        font-size: 9px;
+        color: #316dd0;
     }
   }

@@ -245,14 +245,14 @@
   <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <div class="dueñoPropiedad1">
       <ion-item lines="none" class="ion-align-items-center ion-no-padding">
-        <ion-img src="/assets/iconosDetalle/promo.svg" class="ionFotoD4" (click)="llegarComo()"></ion-img>
+        <ion-img src="/assets/iconosDetalle/promo.svg" class="ionFotoD4" ></ion-img>
         <ion-grid class="ion-align-items-center ion-no-padding">
           <ion-row class="datosDis">
             <ion-col size="12">
               <ion-row size="12">
-                <ion-item>
+                <ion-item (click)="obtenerPromociones()">
                   <ion-label>Desea anunciar su propiedad en el apartado de promociones</ion-label>
-                  <ion-button fill="clear" (click)="obtenerPromociones()">
+                  <ion-button fill="clear">
                     <ion-icon name="toggle" color="success"></ion-icon>
                   </ion-button>
                 </ion-item>
@@ -262,9 +262,9 @@
           <ion-row class="datosDis">
             <ion-col size="12">
               <ion-row size="12">
-                <ion-item>
+                <ion-item (click)="eliminarPromocion()">
                   <ion-label>Retirar propiedad del apartado de promociones</ion-label>
-                  <ion-button fill="clear" (click)="eliminarPromocion()">
+                  <ion-button fill="clear">
                     <ion-icon name="toggle" color="danger"></ion-icon>
                   </ion-button>
                 </ion-item>
@@ -279,14 +279,14 @@
   <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <div class="dueñoPropiedad1">
       <ion-item lines="none" class="ion-align-items-center ion-no-padding">
-        <ion-img src="/assets/iconosDetalle/cambiar.svg" class="ionFotoD4" (click)="llegarComo()"></ion-img>
+        <ion-img src="/assets/iconosDetalle/cambiar.svg" class="ionFotoD4"></ion-img>
         <ion-grid class="ion-align-items-center ion-no-padding">
           <ion-row class="datosDis">
             <ion-col size="12">
               <ion-row size="12">
-                <ion-item>
+                <ion-item (click)="actualizarDisponible()">
                   <ion-label>Desea cambiar el estatus de la propiedad a disponible</ion-label>
-                  <ion-button fill="clear" (click)="actualizarDisponible()">
+                  <ion-button fill="clear">
                     <ion-icon name="toggle" color="success"></ion-icon>
                   </ion-button>
                 </ion-item>
@@ -296,9 +296,9 @@
           <ion-row class="datosDis">
             <ion-col size="12">
               <ion-row size="12">
-                <ion-item>
+                <ion-item (click)="actualizarnoDisponible()">
                   <ion-label>Desea cambiar el estatus de la propiedad a no disponible</ion-label>
-                  <ion-button fill="clear" (click)="actualizarnoDisponible()">
+                  <ion-button fill="clear">
                     <ion-icon name="toggle" color="danger"></ion-icon>
                   </ion-button>
                 </ion-item>

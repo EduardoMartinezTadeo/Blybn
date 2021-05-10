@@ -822,6 +822,7 @@ export class RegistroFinalPage implements OnInit {
             mode: 'ios'
           }).then((toastData) => {
             toastData.present();
+            this.registrarCalificacion();
             this.cargarPerfilActualizado();
             this.cargarPerfilAdministrador();
             this.reiniciar();
@@ -1347,6 +1348,20 @@ export class RegistroFinalPage implements OnInit {
           toastData.present();
         });
       }
+    });
+  }
+
+  calificacion = 5;
+  responseDataCalificacion: any;
+  registrarCalificacion(){
+    this.storage.get('historial-Registro').then((res) => {
+      this.informacionRegistroPropiedad = res;
+      this.bly_propiedad = this.informacionRegistroPropiedad.id_registro;
+      this.servicio.registrarCalificacion(this.bly_usuario, this.bly_propiedad, this.calificacion).subscribe(data => {
+        this.responseDataCalificacion = data;
+      }, (error) => {
+        this.presentLoadingServer();
+      });
     });
   }
 

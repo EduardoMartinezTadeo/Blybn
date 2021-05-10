@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ProviderService } from '../../services/provider.service';
-import { ModalPromocionesPage } from '../../Modals/modal-promociones/modal-promociones.page';
+import { ProviderService } from '../../services/provider.service'
 import { ModalDetallePage } from '../../Modals/modal-detalle/modal-detalle.page';
+import { ModalPromocionesPage } from '../../Modals/modal-promociones/modal-promociones.page';
 
 @Component({
   selector: 'app-promociones',
@@ -51,6 +51,7 @@ export class PromocionesPage implements OnInit {
       this.provider.cargarPropiedadPromocion(body, 'db_CargarPromocionesGenerales.php').subscribe((data) => {
         for (let promocion of data.result){
           this.promociones.push(promocion);
+          console.log(this.promociones);
         }
         resolve(true);
       });
@@ -82,5 +83,13 @@ export class PromocionesPage implements OnInit {
       },
     });
     await modal.present();
+  }
+
+  doRefresh(event) {
+    this.promociones = [];
+    setTimeout(() => {
+      this.ionViewWillEnter();
+      event.target.complete();
+    }, 2000);
   }
 }

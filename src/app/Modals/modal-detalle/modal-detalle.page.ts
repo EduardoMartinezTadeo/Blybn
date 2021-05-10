@@ -40,8 +40,6 @@ export class ModalDetallePage implements OnInit {
     private alertController: AlertController,
     private loadingController: LoadingController,
     private iab: InAppBrowser,
-    private servicio: DataService,
-    private toastController: ToastController,
     private navParams: NavParams,
     private modalController: ModalController
   ) {
@@ -50,9 +48,6 @@ export class ModalDetallePage implements OnInit {
   id_usuario: number;
   id_propiedad: number;
   usuario: string;
-  correo: string;
-  id: string;
-  tipoRol: number;
   bly_placeId: string;
   ngOnInit() {
     this.closep1();
@@ -78,9 +73,8 @@ export class ModalDetallePage implements OnInit {
     this.closep7();
     this.closep8();
     this.datos = this.navParams.get('datos');
+    console.log('datos', this.datos);
     this.id_propiedad = this.datos.propiedad;
-    this.id_usuario = this.datos.usuario;
-    console.log(this.datos);
     this.actRoute.params.subscribe((data: any) => {
       this.cargarImagenesP();
       this.cargarP1();
@@ -93,25 +87,35 @@ export class ModalDetallePage implements OnInit {
       this.cargarP8();
       this.cargarP9();
       this.comoLlegar();
-    });
-    this.storage.get('perfil').then((res) => {
-      this.perfilData = res;
-      (this.usuario = this.perfilData.bly_nombre),
-        (this.correo = this.perfilData.bly_correoElectronico),
-        (this.id = this.perfilData.bly_usuario),
-        (this.tipoRol = this.perfilData.bly_rol);
       this.cargarFotoPerfil();
+      this.cargarInformacionBasica();
+    });
+  } 
+
+  informacionPersonal: any = [];
+  cargarInformacionBasica(){
+    return new Promise((resolve) => {
+      let body = {
+        aksi: 'info-propietario',
+        bly_propietario: this.datos.usuario
+      };
+      this.provider.cargarInformacionPropietario(body, 'db_CargarInformacionPropietario.php').subscribe(
+        (data) => {
+          this.informacionPersonal = data.result;
+          console.log(this.informacionPersonal);
+          resolve(true);
+        }
+      )
     });
   }
 
-  
   foto: string;
-  fotoPerfil: any = [];
+  fotoPerfil: any = []; 
   cargarFotoPerfil() {
     return new Promise((resolve) => {
       let body = {
         aksi: 'perfilFoto',
-        bly_usuario: this.id,
+        bly_usuario: this.datos.usuario
       };
       this.provider.postDataCFPA(body, 'db_cargarFotoPerfilAct.php').subscribe(
         (data) => {
@@ -122,7 +126,7 @@ export class ModalDetallePage implements OnInit {
         (error) => {
           this.presentLoadingServer();
         }
-      );
+      );  
     });
   }
 

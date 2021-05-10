@@ -85,8 +85,8 @@
           <ion-img src="{{server + foto}}" (ionError)="onErrorf(img)" #img></ion-img>
         </ion-avatar>
         <ion-label>Propiedad de
-          <p>
-            {{usuario}}
+          <p *ngFor="let propietarioCasa of informacionPersonal">
+            {{propietarioCasa.bly_nombre}}
           </p>
         </ion-label>
       </ion-item>

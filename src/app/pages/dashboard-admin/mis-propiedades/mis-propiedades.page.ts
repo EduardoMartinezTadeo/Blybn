@@ -126,4 +126,12 @@ export class MisPropiedadesPage implements OnInit {
       this.presentAlertServer();
     }, 2000);
   }
+
+  doRefresh(event) {
+    this.propiedades = [];
+    setTimeout(() => {
+      this.ionViewWillEnter();
+      event.target.complete();
+    }, 2000);
+  }
 }

@@ -37,6 +37,7 @@ const apiURLBuscarPropiedades = environment.apiBuscarPropiedadesURL;
 const apiURLBuscarPropiedadesPlaya = environment.apiBuscarPropiedadesPlayaURL;
 const apiURLBuscarPropiedadesCiudad = environment.apiBuscarPropiedadesCiudadURL;
 const apiURLRegistrarCasaPromocion = environment.apiRegistrarCasaEnPropomocionURL;
+const apiURLRegistrarCalificacion = environment.apiRegistrarCalificacionURL;
 @Injectable({
   providedIn: 'root',
 })
@@ -644,6 +645,15 @@ export class DataService {
         }
       })
     );
+  }
+
+  registrarCalificacion(bly_usuario: number, bly_propiedad: number, bly_calificacion: number){
+    return this.http.get(`${apiURLRegistrarCalificacion}?bly_usuario=${bly_usuario}&bly_propiedad=${bly_propiedad}&bly_calificacion=${bly_calificacion}`).pipe(map (
+      (results) => {
+        this.result = results;
+        console.log(this.result);
+      }
+    ))
   }
 
   buscarPropiedad(bly_buscar: string) {

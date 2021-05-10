@@ -1,4 +1,7 @@
 <ion-content class="ion-no-padding background" fullscreen>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-row>
     <h1>Promociones</h1>
   </ion-row>

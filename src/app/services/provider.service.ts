@@ -66,6 +66,7 @@ const apiCargarPlaceIDURL = environment.apiCargarPlaceIdURL;
 const apiCargarPropiedadesPromociones = environment.apiCargarPropiedadesConPromocionURL;
 const apiEliminarPromocion = environment.apiEliminarPromocionURL;
 const apiActualizarDisponibilidad = environment.apiActualizarDisponibilidadPropiedadURL;
+const apiCargarInformacionBasica = environment.apiCargarInformacionBasicaDueñoURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -585,5 +586,13 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiActualizarDisponibilidad + file, body, {headers})
+  }
+
+  cargarInformacionPropietario(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarInformacionBasica + file, body, {headers})
   }
 }

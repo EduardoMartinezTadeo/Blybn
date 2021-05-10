@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { ProviderService } from '../../services/provider.service';
 import { ModalDetallePage } from '../modal-detalle/modal-detalle.page';
 
@@ -12,7 +12,6 @@ export class ModalBusquedaPage implements OnInit {
   datos: any = [];
   server: string;
   constructor(
-    private navParams: NavParams,
     private modalController: ModalController,
     private provider : ProviderService
   ) { 
@@ -20,8 +19,6 @@ export class ModalBusquedaPage implements OnInit {
   }
 
   ngOnInit() {
-    this.datos = this.navParams.get('datos');
-    console.log(this.datos);
   }
 
   salir(){
@@ -38,8 +35,8 @@ export class ModalBusquedaPage implements OnInit {
       propiedad: bly_registroPropiedad,
       usuario: bly_usuario
     }
-    this.mostrarModalResultado();
     console.log(this.informacionDetalle);
+    this.mostrarModalResultado();    
   }
 
   async mostrarModalResultado() {

@@ -91,7 +91,9 @@ export const environment = {
   apiRegistrarCasaEnPropomocionURL: 'https://emtdeveloper.com/server_blybn/api/db_PropiedadesPromocion.php/',
   apiCargarPropiedadesConPromocionURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarPromocionesGenerales.php/',
   apiEliminarPromocionURL: 'https://emtdeveloper.com/server_blybn/api/db_QuitarPropiedadPromociones.php/',
-  apiActualizarDisponibilidadPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_actualizarDisponibilidadPropiedad.php/'
+  apiActualizarDisponibilidadPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_actualizarDisponibilidadPropiedad.php/',
+  apiCargarInformacionBasicaDueñoURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarInformacionPropietario.php/',
+  apiRegistrarCalificacionURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarCalificacionPropiedad.php/'
 };
 
 /*

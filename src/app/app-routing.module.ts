@@ -358,6 +358,14 @@ const routes: Routes = [
   {
     path: 'modal-detalle/:bly_registroPropiedad/:bly_usuario',
     loadChildren: () => import('./Modals/modal-detalle/modal-detalle.module').then( m => m.ModalDetallePageModule)
+  },
+  {
+    path: 'modal-busqueda-avanzada',
+    loadChildren: () => import('./Modals/modal-busqueda-avanzada/modal-busqueda-avanzada.module').then( m => m.ModalBusquedaAvanzadaPageModule)
+  },
+  {
+    path: 'modal-busqueda-simple',
+    loadChildren: () => import('./Modals/modal-busqueda-simple/modal-busqueda-simple.module').then( m => m.ModalBusquedaSimplePageModule)
   }
 
 ];

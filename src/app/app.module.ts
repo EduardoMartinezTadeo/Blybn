@@ -21,7 +21,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-
+import { CalendarModule } from 'ion2-calendar';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -32,7 +32,8 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     }), 
     AppRoutingModule, 
     IonicStorageModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    CalendarModule
   ],
   providers: [
     StatusBar,

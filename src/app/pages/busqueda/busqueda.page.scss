@@ -39,3 +39,34 @@ ion-content.background {
     color: white;
     display: inline-block;
 }
+
+.contenedor {
+    position: relative;
+}
+
+.buscador {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    margin: 0 0 1rem;
+    height: 10rem;
+    display: flex;
+    align-items: start;
+  }
+  .center-h {
+    justify-content: center;
+  }
+  .center-v {
+    align-items: center;
+  }
+  .child {
+    padding: 1.2rem;
+  }
+
+  .texto-boton {
+      color: white;
+      display: inline-block;
+  }

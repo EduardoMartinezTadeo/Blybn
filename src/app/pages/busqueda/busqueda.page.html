@@ -6,4 +6,16 @@
   <ion-label class="ion-label2">
     Aventura
   </ion-label>
+
+ <div class="container center-h center-v">
+  <div class="child">
+    <ion-searchbar placeholder="¿En dónde?" [debounce]="400" animated class="buscarPromociones" mode="md" (ionChange)="onSearchChange($event)" autocomplete="true" spellcheck="true"> </ion-searchbar>
+  </div>
+</div>
+
+<div class="container center-h center-v">
+  <div class="child">
+    <ion-button expand="full" fill="clear" class="texto-boton"><ion-icon name="add-circle-outline" slot="end"></ion-icon>Búsqueda Avanzada</ion-button>
+  </div>
+</div>
 </ion-content>

@@ -274,7 +274,89 @@
     </div>
   </ion-row>
   <br>
-  <div class="map-wrapper" style="height: 50%; width: 100%">
+  <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
+    <div class="dueñoPropiedad1">
+      <ion-item lines="none" class="ion-align-items-center ion-no-padding">
+        <ion-grid class="ion-align-items-center ion-no-padding">
+          <ion-row class="ion-justify-content-center">
+            <ion-col size="10">
+              <ion-row class="ion-justify-content-center">
+                <ion-col size="2">
+                  <ion-button fill="clear" *ngIf="start6" (click)="calificar1()">
+                    <ion-icon name="star-outline"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start1" (click)="descalificar1()">
+                    <ion-icon name="star" color="danger"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start11" (click)="descalificar1()">
+                    <ion-icon name="star" color="warning"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start19" (click)="descalificar5()">
+                    <ion-icon name="star" color="success"></ion-icon>
+                  </ion-button>
+                </ion-col>
+                <ion-col size="2">
+                  <ion-button fill="clear" *ngIf="start7" (click)="calificar2()">
+                    <ion-icon name="star-outline"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start2" (click)="descalificar2()">
+                    <ion-icon name="star" color="danger"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start12" (click)="descalificar3()">
+                    <ion-icon name="star" color="warning"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start15" (click)="descalificar5()">
+                    <ion-icon name="star" color="success"></ion-icon>
+                  </ion-button>
+                </ion-col>
+                <ion-col size="2">
+                  <ion-button fill="clear" *ngIf="start8" (click)="calificar3()">
+                    <ion-icon name="star-outline"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start3" (click)="descalificar3()">
+                    <ion-icon name="star" color="warning"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start13" (click)="descalificar3()">
+                    <ion-icon name="star" color="warning"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start16" (click)="descalificar5()">
+                    <ion-icon name="star" color="success"></ion-icon>
+                  </ion-button>
+                </ion-col>
+                <ion-col size="2">
+                  <ion-button fill="clear" *ngIf="start9" (click)="calificar4()">
+                    <ion-icon name="star-outline"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start4" (click)="descalificar4()">
+                    <ion-icon name="star" color="warning"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start14" (click)="descalificar4()">
+                    <ion-icon name="star" color="warning"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start17" (click)="descalificar5()">
+                    <ion-icon name="star" color="success"></ion-icon>
+                  </ion-button>
+                </ion-col>
+                <ion-col size="2">
+                  <ion-button fill="clear" *ngIf="start10" (click)="calificar5()">
+                    <ion-icon name="star-outline"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start5">
+                    <ion-icon name="star" color="success" (click)="descalificar5()"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" *ngIf="start18" (click)="descalificar5()">
+                    <ion-icon name="star" color="success"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-row>
+  <br>
+  <div class="map-wrapper" style="height: 50%; width: 100%" disabled>
     <div id="map_center">
       <ion-img src="/assets/icons/market.png"></ion-img>
     </div>

@@ -47,6 +47,7 @@ export class MisPropiedadesPage implements OnInit {
         .subscribe((data) => {
           for (let exclusivo of data.result) {
             this.propiedades.push(exclusivo);
+            console.log(this.propiedades);
           }
           resolve(true);
         }, (error) => {

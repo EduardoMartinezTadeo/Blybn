@@ -969,14 +969,11 @@ export class RegistrarPropiedadPage implements OnInit {
       this.dato21 = false;
       this.dato22 = true;
 
-      this.dato23 = false;
+      this.dato23 = true;
       this.confirmacionContrato();
     }
   }
-  registroFinal() {
-    this.router.navigate(['/animacionb12']);
-  }
-
+  
   async confirmacionContrato() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',

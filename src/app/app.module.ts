@@ -20,6 +20,7 @@ import { File } from '@ionic-native/file/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -46,6 +47,7 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
     Geolocation,    
     NativeGeocoder,
     ImagePicker,
+    SocialSharing,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

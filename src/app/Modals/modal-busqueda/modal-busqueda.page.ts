@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ActionSheetController, ModalController } from '@ionic/angular';
 import { ProviderService } from '../../services/provider.service';
 import { ModalDetallePage } from '../modal-detalle/modal-detalle.page';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { DataLocalService } from '../../services/data-local.service';
 
 @Component({
   selector: 'app-modal-busqueda',
@@ -13,8 +15,10 @@ export class ModalBusquedaPage implements OnInit {
   server: string;
   constructor(
     private modalController: ModalController,
-    private provider : ProviderService
-  ) { 
+    private provider : ProviderService,
+    private actionSheetController: ActionSheetController,
+    private socialSharing: SocialSharing,
+    private datalocalService: DataLocalService) { 
     this.server = this.provider.server;
   }
 
@@ -35,7 +39,6 @@ export class ModalBusquedaPage implements OnInit {
       propiedad: bly_registroPropiedad,
       usuario: bly_usuario
     }
-    console.log(this.informacionDetalle);
     this.mostrarModalResultado();    
   }
 
@@ -48,4 +51,12 @@ export class ModalBusquedaPage implements OnInit {
     });
     await modal.present();
   }
+
+  infoFavoritos(datos: any){
+     console.log(datos);
+  }
+  enFavoritos = false;
+  async lanzarMenu() {
+  
+}
 }

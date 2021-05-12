@@ -46,12 +46,18 @@ ion-toolbar {
         font-size: 9px;
         color: #316dd0;
     }
-  
+}
+
+.calificar {
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .parrafoFecha{
     font-family: 'HelveticaBold';
-    white-space: pre-line;
+    white-space: normal;
     font-size: 9px;
     color: #316dd0;
 }

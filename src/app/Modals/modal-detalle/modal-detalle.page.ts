@@ -16,7 +16,7 @@ import {
   ToastController,
 } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { DataService } from 'src/app/services/data.service';
+
 declare var google;
 
 @Component({
@@ -30,6 +30,30 @@ export class ModalDetallePage implements OnInit {
   lat: string;
   long: string;
   address: string;
+  public start1: boolean = false;
+  public start2: boolean = false;
+  public start3: boolean = false;
+  public start4: boolean = false;
+  public start5: boolean = false;
+
+  public start6: boolean = true;
+  public start7: boolean = true;
+  public start8: boolean = true;
+  public start9: boolean = true;
+  public start10: boolean = true;
+
+  public start11: boolean = false;
+  public start12: boolean = false;
+  public start13: boolean = false;
+  public start14: boolean = false;
+
+  public start15: boolean = false;
+  public start16: boolean = false;
+  public start17: boolean = false;
+  public start18: boolean = false;
+  public start19: boolean = false;
+
+
   constructor(
     private actRoute: ActivatedRoute,
     private router: Router,
@@ -73,7 +97,6 @@ export class ModalDetallePage implements OnInit {
     this.closep7();
     this.closep8();
     this.datos = this.navParams.get('datos');
-    console.log('datos', this.datos);
     this.id_propiedad = this.datos.propiedad;
     this.actRoute.params.subscribe((data: any) => {
       this.cargarImagenesP();
@@ -102,7 +125,6 @@ export class ModalDetallePage implements OnInit {
       this.provider.cargarInformacionPropietario(body, 'db_CargarInformacionPropietario.php').subscribe(
         (data) => {
           this.informacionPersonal = data.result;
-          console.log(this.informacionPersonal);
           resolve(true);
         }
       )
@@ -315,7 +337,6 @@ export class ModalDetallePage implements OnInit {
     this.provider.detalleP4(body, 'db_CargarMueblesPropiedades.php').subscribe(
       (data) => {
         this.informacionP4 = data.result;
-        console.log(this.informacionP4);
       },
       (error) => {
         this.presentLoadingServer();
@@ -1355,4 +1376,160 @@ export class ModalDetallePage implements OnInit {
       this.presentAlertServer();
     }, 2000);
   }
+
+  calificar1 () {
+    this.start6 = false;
+    this.start1 = true;
+  }
+
+  descalificar1() {
+    this.start1 = false;
+    this.start2 = false;
+    this.start3 = false;
+    this.start4 = false;
+    this.start5 = false;
+    this.start6 = true;   
+    this.start7 = true;
+    this.start8 = true;
+    this.start9 = true;
+    this.start10 = true;
+    this.start11 = false;
+    this.start12 = false;
+    this.start13 = false;
+    this.start14 = false;
+    this.start15 = false;
+  }
+
+  calificar2() {
+    this.start6 = false;
+    this.start7 = false;
+    this.start1 = true;
+    this.start2 = true;
+  }
+
+  descalificar2(){
+    this.start1 = false;
+    this.start2 = false;
+    this.start3 = false;
+    this.start4 = false;
+    this.start5 = false;
+    this.start6 = true;   
+    this.start7 = true;
+    this.start8 = true;
+    this.start9 = true;
+    this.start10 = true;
+    this.start11 = false;
+    this.start12 = false;
+    this.start13 = false;
+    this.start14 = false;
+    this.start15 = false;
+  }
+
+  calificar3() {
+    this.start6 = false;
+    this.start7 = false;
+    this.start8 = false;
+    this.start1 = false;
+    this.start2 = false;
+    this.start3 = false;
+    this.start11 = true;
+    this.start12 = true;
+    this.start13 = true;
+  }
+
+  descalificar3() {
+    this.start1 = false;
+    this.start2 = false;
+    this.start3 = false;
+    this.start4 = false;
+    this.start5 = false;
+    this.start6 = true;   
+    this.start7 = true;
+    this.start8 = true;
+    this.start9 = true;
+    this.start10 = true;
+    this.start11 = false;
+    this.start12 = false;
+    this.start13 = false;
+    this.start14 = false;
+    this.start15 = false;
+  }
+
+  calificar4() {
+    this.start6 = false;
+    this.start7 = false;
+    this.start8 = false;
+    this.start9 = false;  
+    this.start1 = false;
+    this.start2 = false;
+    this.start3 = false;
+    this.start4 = false;
+    this.start11 = true;
+    this.start12 = true;
+    this.start13 = true;
+    this.start14 = true;
+  }
+
+  descalificar4() {
+    this.start1 = false;
+    this.start2 = false;
+    this.start3 = false;
+    this.start4 = false;
+    this.start5 = false;
+    this.start6 = true;   
+    this.start7 = true;
+    this.start8 = true;
+    this.start9 = true;
+    this.start10 = true;
+    this.start11 = false;
+    this.start12 = false;
+    this.start13 = false;
+    this.start14 = false;
+    this.start15 = false;
+  }
+
+  calificar5() {
+    this.start1 = false;
+    this.start2 = false;
+    this.start3 = false;
+    this.start4 = false;
+    this.start5 = false;
+    this.start6 = false;
+    this.start7 = false;
+    this.start8 = false;
+    this.start9 = false;
+    this.start10 = false;
+    this.start11 = false;
+    this.start12 = false;
+    this.start13 = false;
+    this.start14 = false;
+    this.start15 = true;
+    this.start16 = true;
+    this.start17 = true;
+    this.start18 = true;
+    this.start19 = true;
+  }
+
+  descalificar5() {
+    this.start1 = false;
+    this.start2 = false;
+    this.start3 = false;
+    this.start4 = false;
+    this.start5 = false;
+    this.start6 = true;   
+    this.start7 = true;
+    this.start8 = true;
+    this.start9 = true;
+    this.start10 = true;
+    this.start11 = false;
+    this.start12 = false;
+    this.start13 = false;
+    this.start14 = false;
+    this.start15 = false;
+    this.start16 = false;
+    this.start17 = false;
+    this.start18 = false;
+    this.start19 = false;
+  }
 }
+

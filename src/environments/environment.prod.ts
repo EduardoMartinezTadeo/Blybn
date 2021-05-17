@@ -90,5 +90,7 @@ export const environment = {
   apiActualizarDisponibilidadPropiedadURL: 'https://emtdeveloper.com/server_blybn/api/db_actualizarDisponibilidadPropiedad.php/',
   apiCargarInformacionBasicaDueñoURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarInformacionPropietario.php/',
   apiRegistrarCalificacionURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarCalificacionPropiedad.php/',
-  apiRegistrarFavoritosURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarFavoritos.php/'
+  apiRegistrarFavoritosURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarFavoritos.php/',
+  apiEliminarFavoritosURL: 'https://emtdeveloper.com/server_blybn/api/db_eliminarFavoritos.php/',
+  apiCargarFavoritosURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarFavoritos.php/'
 };

@@ -67,6 +67,8 @@ const apiCargarPropiedadesPromociones = environment.apiCargarPropiedadesConPromo
 const apiEliminarPromocion = environment.apiEliminarPromocionURL;
 const apiActualizarDisponibilidad = environment.apiActualizarDisponibilidadPropiedadURL;
 const apiCargarInformacionBasica = environment.apiCargarInformacionBasicaDueñoURL;
+const apiEliminarFavoritos = environment.apiEliminarFavoritosURL;
+const apiCargarFavoritos = environment.apiCargarFavoritosURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -594,5 +596,21 @@ export class ProviderService {
     })
     
     return this.http.post<any>(apiCargarInformacionBasica + file, body, {headers})
+  }
+
+  eliminarFavoritos(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiEliminarFavoritos + file, body, {headers})
+  }
+
+  cargarFavoritos(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type':"application/json; charset=UTF-8"
+    })
+    
+    return this.http.post<any>(apiCargarFavoritos + file, body, {headers})
   }
 }

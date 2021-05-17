@@ -3,7 +3,8 @@ import { ActionSheetController, ModalController } from '@ionic/angular';
 import { ProviderService } from '../../services/provider.service';
 import { ModalDetallePage } from '../modal-detalle/modal-detalle.page';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import { DataLocalService } from '../../services/data-local.service';
+import { Storage } from '@ionic/storage';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-modal-busqueda',
@@ -15,17 +16,18 @@ export class ModalBusquedaPage implements OnInit {
   server: string;
   constructor(
     private modalController: ModalController,
-    private provider : ProviderService,
+    private provider: ProviderService,
     private actionSheetController: ActionSheetController,
     private socialSharing: SocialSharing,
-    private datalocalService: DataLocalService) { 
+    private datalocalService: DataService,
+    private storage: Storage
+  ) {
     this.server = this.provider.server;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  salir(){
+  salir() {
     this.modalController.dismiss();
   }
 
@@ -34,29 +36,50 @@ export class ModalBusquedaPage implements OnInit {
   }
 
   informacionDetalle: any = [];
-  mostrarDetalle(bly_registroPropiedad, bly_usuario){
+  mostrarDetalle(bly_registroPropiedad, bly_usuario) {
     this.informacionDetalle = {
       propiedad: bly_registroPropiedad,
-      usuario: bly_usuario
-    }
-    this.mostrarModalResultado();    
+      usuario: bly_usuario,
+    };
+    this.mostrarModalResultado();
   }
 
   async mostrarModalResultado() {
     const modal = await this.modalController.create({
       component: ModalDetallePage,
       componentProps: {
-        datos: this.informacionDetalle
+        datos: this.informacionDetalle,
       },
     });
     await modal.present();
   }
 
-  infoFavoritos(datos: any){
-     console.log(datos);
+  responseData: any;
+  perfilData: any;
+  bly_tituloPropiedad: string;
+  bly_ciudad: string;
+  bly_calificacion: string;
+  bly_imagen: string;
+  bly_estado: string;
+  bly_precioBase: string;
+  bly_duenoPropiedad: number;
+  bly_usuario: number;
+  bly_registroPropiedad: number;
+  infoFavoritos(datos: any) {
+    this.bly_tituloPropiedad = datos.bly_tituloPropiedad;
+    this.bly_ciudad = datos.bly_ciudad;
+    this.bly_calificacion = datos.calificacion;
+    this.bly_imagen = datos.bly_imagen;
+    this.bly_estado = datos.bly_estado;
+    this.bly_precioBase = datos.bly_precioBase;
+    this.bly_duenoPropiedad = datos.bly_usuario;
+    this.bly_registroPropiedad = datos.bly_registroPropiedad;
+    this.storage.get('perfil').then((res) => {
+      this.perfilData = res;
+      this.bly_usuario = this.perfilData.bly_usuario,
+      this.datalocalService.registrarFavoritos(this.bly_tituloPropiedad, this.bly_ciudad, this.bly_calificacion, this.bly_imagen, this.bly_estado, this.bly_precioBase, this.bly_duenoPropiedad, this.bly_usuario, this.bly_registroPropiedad).subscribe(data => {
+        this.responseData = data;
+      });
+    });
   }
-  enFavoritos = false;
-  async lanzarMenu() {
-  
-}
 }

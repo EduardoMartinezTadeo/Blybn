@@ -25,6 +25,7 @@
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyCwnclfyVJvmY239XuDWjyd_iZI2RWSqAc" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyCwnclfyVJvmY239XuDWjyd_iZI2RWSqAc" />
+    <preference name="AndroidXEnabled" value="true" />
     <platform name="android">
         <access origin="*" />
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">

@@ -6,12 +6,15 @@ import {
   LoadingController,
   NavController,
   ModalController,
+  ActionSheetController,
 } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { environment } from '../../environments/environment.prod';
 import { ModalBusquedaErrorPage } from '../Modals/modal-busqueda-error/modal-busqueda-error.page';
 import { ModalBusquedaPage } from '../Modals/modal-busqueda/modal-busqueda.page';
+import { ProviderService } from './provider.service';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 const apiUrlRegistro = environment.apiRegistroURL;
 const apiUrlLogin = environment.apiLoginURL;
@@ -36,8 +39,10 @@ const apiURLRegistroExclusividadPropiedad =
 const apiURLBuscarPropiedades = environment.apiBuscarPropiedadesURL;
 const apiURLBuscarPropiedadesPlaya = environment.apiBuscarPropiedadesPlayaURL;
 const apiURLBuscarPropiedadesCiudad = environment.apiBuscarPropiedadesCiudadURL;
-const apiURLRegistrarCasaPromocion = environment.apiRegistrarCasaEnPropomocionURL;
+const apiURLRegistrarCasaPromocion =
+  environment.apiRegistrarCasaEnPropomocionURL;
 const apiURLRegistrarCalificacion = environment.apiRegistrarCalificacionURL;
+const apiURLRegistrarFavoritos = environment.apiRegistrarFavoritosURL;
 @Injectable({
   providedIn: 'root',
 })
@@ -45,6 +50,7 @@ export class DataService {
   result: any;
   responseData: any;
   toast: any;
+  actionSheet: any;
   rol = 'Blybn';
   constructor(
     public http: HttpClient,
@@ -53,7 +59,10 @@ export class DataService {
     private router: Router,
     private storage: Storage,
     private navCtrl: NavController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private actionSheetController: ActionSheetController,
+    private provider: ProviderService,
+    private socialSharing: SocialSharing
   ) {}
 
   registrarUsuario(
@@ -613,47 +622,180 @@ export class DataService {
       );
   }
 
-  registrarPropiedadPromocion(bly_usuario: number, bly_propiedad: number){
-    return this.http.get(`${apiURLRegistrarCasaPromocion}?bly_usuario=${bly_usuario}&bly_propiedad=${bly_propiedad}`).pipe(map(
-      (results) => {
-        this.result = results;
-        if (
-          this.result ==
-          'Tu propiedad ya está anunciada en promociones'
-        ) {
-          this.toast = this.toastController
-            .create({
-              message:
-                '¡Tu propiedad ya está anunciada en promociones!',
-              duration: 2000,
-              mode: 'ios',
-            })
-            .then((toastData) => {
-              toastData.present();
-            });
-        } else {
+  registrarPropiedadPromocion(bly_usuario: number, bly_propiedad: number) {
+    return this.http
+      .get(
+        `${apiURLRegistrarCasaPromocion}?bly_usuario=${bly_usuario}&bly_propiedad=${bly_propiedad}`
+      )
+      .pipe(
+        map((results) => {
           this.result = results;
-          this.toast = this.toastController
-            .create({
-              message: 'Se ha publicado tu propiedad en promociones',
-              duration: 2000,
-              mode: 'ios',
-            })
-            .then((toastData) => {
-              toastData.present();
-            });
-        }
-      })
-    );
+          if (this.result == 'Tu propiedad ya está anunciada en promociones') {
+            this.toast = this.toastController
+              .create({
+                message: '¡Tu propiedad ya está anunciada en promociones!',
+                duration: 2000,
+                mode: 'ios',
+              })
+              .then((toastData) => {
+                toastData.present();
+              });
+          } else {
+            this.result = results;
+            this.toast = this.toastController
+              .create({
+                message: 'Se ha publicado tu propiedad en promociones',
+                duration: 2000,
+                mode: 'ios',
+              })
+              .then((toastData) => {
+                toastData.present();
+              });
+          }
+        })
+      );
   }
 
-  registrarCalificacion(bly_usuario: number, bly_propiedad: number, bly_calificacion: number){
-    return this.http.get(`${apiURLRegistrarCalificacion}?bly_usuario=${bly_usuario}&bly_propiedad=${bly_propiedad}&bly_calificacion=${bly_calificacion}`).pipe(map (
-      (results) => {
-        this.result = results;
-        console.log(this.result);
-      }
-    ))
+  registrarCalificacion(
+    bly_usuario: number,
+    bly_propiedad: number,
+    bly_calificacion: number
+  ) {
+    return this.http
+      .get(
+        `${apiURLRegistrarCalificacion}?bly_usuario=${bly_usuario}&bly_propiedad=${bly_propiedad}&bly_calificacion=${bly_calificacion}`
+      )
+      .pipe(
+        map((results) => {
+          this.result = results;
+          console.log(this.result);
+        })
+      );
+  }
+
+  bly_url: 'https://www.facebook.com/Blybnmx/';
+  registrarFavoritos(
+    bly_tituloPropiedad: string,
+    bly_ciudad: string,
+    bly_calificacion: string,
+    bly_imagen: string,
+    bly_estado: string,
+    bly_precioBase: string,
+    bly_duenoPropiedad: number,
+    bly_usuario: number,
+    bly_registroPropiedad: number
+  ) {
+    return this.http
+      .get(
+        `${apiURLRegistrarFavoritos}?bly_tituloPropiedad=${bly_tituloPropiedad}&bly_ciudad=${bly_ciudad}&bly_calificacion=${bly_calificacion}&bly_imagen=${bly_imagen}&bly_estado=${bly_estado}&bly_precioBase=${bly_precioBase}&bly_duenoPropiedad=${bly_duenoPropiedad}&bly_usuario=${bly_usuario}&bly_registroPropiedad=${bly_registroPropiedad}`
+      )
+      .pipe(
+        map((results) => {
+          this.result = results;
+          if (this.result == 'Ya está en favoritos…') {
+            this.actionSheet = this.actionSheetController
+              .create({
+                header: 'Favoritos',
+                mode: 'ios',
+                buttons: [
+                  {
+                    text: 'Eliminar de favoritos ',
+                    icon: 'trash',
+                    cssClass: 'elminar',
+                    handler: () => {
+                      let body = {
+                        aksi: 'retirar-favorito',
+                        bly_registroPropiedad: bly_registroPropiedad,
+                        bly_usuario: bly_usuario
+                      }
+                      this.provider.eliminarFavoritos(body, 'db_eliminarFavoritos.php').subscribe(data => {
+                        this.toast = this.toastController.create({
+                          message: 'Se ha retirado de favoritos...',
+                          duration: 2000,
+                          mode: 'ios',
+                        }).then((toastData) => {
+                          toastData.present();
+                        });
+                      });
+                    },
+                  },
+                  {
+                    text: 'Compartir',
+                    icon: 'share',
+                    cssClass: 'shared',
+                    handler: () => {
+                      this.socialSharing.share(
+                        bly_tituloPropiedad,
+                        bly_ciudad,
+                        '',
+                        this.bly_url
+                      );
+                    }
+                  },
+                  {
+                    text: 'Cancelar',
+                    icon: 'close-circle-outline',
+                    role: 'cancel',
+                    cssClass: 'iconCancelar',
+                    handler: () => {
+                      console.log('Cancel clicked');
+                    },
+                  },
+                ],
+              })
+              .then((actionSheet) => {
+                actionSheet.present();
+              });
+          } else {
+            this.actionSheet = this.actionSheetController
+              .create({
+                header: 'Favoritos',
+                mode: 'ios',
+                buttons: [
+                  {
+                    text: 'Agregar a favoritos',
+                    icon: 'star',
+                    cssClass: 'favorito',
+                    handler: () => {
+                      this.toast = this.toastController.create({
+                        message: 'Se ha agregado a favoritos...',
+                        duration: 2000,
+                        mode: 'ios',
+                      }).then((toastData) => {
+                        toastData.present();
+                      });
+                    },
+                  },
+                  {
+                    text: 'Compartir',
+                    icon: 'share',
+                    cssClass: 'shared',
+                    handler: () => {
+                      this.socialSharing.share(
+                        bly_tituloPropiedad,
+                        bly_ciudad,
+                        '',
+                        this.bly_url
+                      );
+                    }
+                  },
+                  {
+                    text: 'Cancelar',
+                    icon: 'close-circle-outline',
+                    cssClass: 'iconCancelar',
+                    role: 'cancel',
+                    handler: () => {
+                      console.log('Cancel clicked');
+                    },
+                  },
+                ],
+              })
+              .then((actionSheet) => {
+                actionSheet.present();
+              });
+          }
+        })
+      );
   }
 
   buscarPropiedad(bly_buscar: string) {
@@ -675,7 +817,7 @@ export class DataService {
     const modal = await this.modalCtrl.create({
       component: ModalBusquedaErrorPage,
       componentProps: {
-        datos: this.result.result
+        datos: this.result.result,
       },
     });
     await modal.present();
@@ -685,7 +827,7 @@ export class DataService {
     const modal = await this.modalCtrl.create({
       component: ModalBusquedaPage,
       componentProps: {
-        datos: this.result.result
+        datos: this.result.result,
       },
     });
     await modal.present();

@@ -60,4 +60,48 @@
     <ion-img src="assets/icons/logo-favorito.svg"></ion-img><br>
     <ion-label class="texto-f">No hay favoritos</ion-label>
   </div>
+
+  <div class="container-img" *ngIf="vistas">
+    <ion-img src="assets/icons/logo-favorito.svg"></ion-img><br>
+    <ion-label class="texto-f">Aun no hay propiedades populares</ion-label>
+  </div>
+
+  <ion-card *ngFor="let vistas of dataVistas" class="animate__animated animate__bounceInDown animate__slower 3s">
+    <ion-card-content>
+      <ion-row class="ion-align-items-center ion-no-padding">
+        <ion-col size="9">
+          <ion-row class="ion-align-items-center ion-no-padding">
+            <ion-col size="3" class="ion-text-right">
+              <ion-button fill="clear" size="medium" (click)="infoFavoritos(vistas.bly_registroPropiedad, vistas.bly_usuario, vistas.bly_tituloPropiedad, vistas.bly_ciudad)">
+                <ion-icon name="ellipsis-vertical-circle" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-card-title class="tituloPropiedad">{{vistas.bly_tituloPropiedad}}</ion-card-title>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="3" class="ion-text-right">
+          <ion-card-subtitle>{{vistas.bly_calificacion}} <ion-icon name="star"></ion-icon>
+          </ion-card-subtitle>
+        </ion-col>
+      </ion-row>
+      <ion-thumbnail class="ion-text-center">
+        <ion-img src="{{server + vistas.bly_imagen}}" (ionError)="onError(img)" #img class="detalle"></ion-img>
+      </ion-thumbnail>
+      <ion-row>
+        <ion-col size="8">
+          <ion-card-title>{{vistas.bly_ciudad}}</ion-card-title>
+          <ion-card-title>{{vistas.bly_estado}}</ion-card-title>
+          <ion-card-subtitle>${{vistas.bly_precioBase}} por noche</ion-card-subtitle>
+        </ion-col>
+        <ion-col size="4" class="ion-text-right">
+          <ion-button fill="clear" color="primary" size="large"
+            (click)="mostrarDetalleVista(vistas.bly_propiedad, vistas.bly_duenoPropiedad)">
+            <ion-icon slot="icon-only" name="chevron-forward-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

@@ -81,16 +81,30 @@ export class ModalBusquedaPage implements OnInit {
   }
 
   bly_vPropiedad: number;
-  bly_vUsuario: number;
+  bly_vbly_tituloPropiedad: string;
+  bly_vbly_ciudad: string;
+  bly_vbly_calificacion: string;
+  bly_vbly_imagen: string;
+  bly_vbly_estado: string;
+  bly_vbly_precioBase: number;
+  bly_vbly_duenoPropiedad: number;
   responseDataVista: any;
   registrarVisita(vistas: any){
+    console.log(vistas);
     this.bly_vPropiedad = vistas.bly_registroPropiedad;
+    this.bly_vbly_tituloPropiedad = vistas.bly_tituloPropiedad;
+    this.bly_vbly_ciudad = vistas.bly_ciudad;
+    this.bly_vbly_calificacion = vistas.calificacion;
+    this.bly_vbly_imagen = vistas.bly_imagen;
+    this.bly_vbly_estado = vistas.bly_estado;
+    this.bly_vbly_precioBase = vistas.bly_precioBase;
+    this.bly_vbly_duenoPropiedad = vistas.bly_usuario;
     this.storage.get('perfil').then((res) => {
       this.perfilData = res;
       this.bly_usuario = this.perfilData.bly_usuario,
-      this.datalocalService.registrarVisitasPropiedad(this.bly_vPropiedad, this.bly_usuario ).subscribe(data => {
+      this.datalocalService.registrarVisitasPropiedad(this.bly_vPropiedad, this.bly_vbly_tituloPropiedad, this.bly_vbly_ciudad, this.bly_vbly_calificacion, this.bly_vbly_imagen, this.bly_vbly_estado, this.bly_vbly_precioBase, this.bly_vbly_duenoPropiedad ).subscribe(data => {
         this.responseData = data;
       });
-    });
+    });    
   }
 }

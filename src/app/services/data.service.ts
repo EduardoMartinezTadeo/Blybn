@@ -676,9 +676,15 @@ export class DataService {
 
   registrarVisitasPropiedad (
     bly_propiedad: number,
-    bly_usuario: number
+    bly_tituloPropiedad: string,
+    bly_ciudad: string,
+    bly_calificacion: string,
+    bly_imagen: string,
+    bly_estado: string,
+    bly_precioBase: number,
+    bly_duenoPropiedad: number
   ) {
-    return this.http.get(`${apiURLRegistrarVistasPropiedad}?bly_propiedad=${bly_propiedad}&bly_usuario=${bly_usuario}`).pipe(map ( 
+    return this.http.get(`${apiURLRegistrarVistasPropiedad}?bly_propiedad=${bly_propiedad}&bly_tituloPropiedad=${bly_tituloPropiedad}&bly_ciudad=${bly_ciudad}&bly_calificacion=${bly_calificacion}&bly_imagen=${bly_imagen}&bly_estado=${bly_estado}&bly_precioBase=${bly_precioBase}&bly_duenoPropiedad=${bly_duenoPropiedad}`).pipe(map ( 
       (results) => {
         this.result = results;
         console.log(this.result);

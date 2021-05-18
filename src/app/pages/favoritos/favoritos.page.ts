@@ -38,8 +38,11 @@ export class FavoritosPage implements OnInit {
   ngOnInit() {}
 
   public favorito: boolean = false;
+  public vistas: boolean = false;
 
   ionViewWillEnter() {
+    this.dataVistas = [];
+    this.cargarVistas();
     setTimeout(() => {
       this.contentLoaded = true;
     }, 5000);
@@ -51,6 +54,8 @@ export class FavoritosPage implements OnInit {
   body: any = [];
   customers: any = [];
   segmentChanged(event) {
+    this.vistas = false;
+    this.dataVistas = [];
     this.favoritos = [];
     this.valor = event.detail.value;
     if (this.valor == 'Favoritos') {
@@ -61,16 +66,29 @@ export class FavoritosPage implements OnInit {
       });
     } else {
       this.favorito = false;
-      this.storage.get('perfil').then((res) => {
-        this.perfilData = res;
-        (this.bly_usuario = this.perfilData.bly_usuario),
-          (this.body = {
-            aksi: 'mas-buscados',
-            bly_usuario: this.bly_usuario,
-          });
-        console.log(this.body);
-      });
+      this.favoritos = [];
+      this.cargarVistas();
     }
+  }
+
+  dataVistas: any = [];
+  cargarVistas(){
+    return new Promise((resolve) => {
+      let body = {
+        aksi: 'mas-buscados'
+      };
+      this.provider.cargarVistasPropiedades(body, 'db_CargarVistasPropiedades.php').subscribe((data) => {
+        console.log(data.result);
+        if (data.result == 0) {
+          this.vistas = true;
+        } else {
+          for (let vista of data.result){
+            this.dataVistas.push(vista);
+          }
+          resolve(true);
+        }
+      });
+    });
   }
 
   favoritos: any = [];
@@ -103,6 +121,25 @@ export class FavoritosPage implements OnInit {
       usuario: bly_usuario,
     };
     this.mostrarModalResultado();
+  }
+
+  informacionDetalleVista: any = [];
+  mostrarDetalleVista(bly_propiedad, bly_duenoPropiedad) {
+    this.informacionDetalleVista = {
+      propiedad: bly_propiedad,
+      usuario: bly_duenoPropiedad,
+    };
+    this.mostrarModalResultadoVista();
+  }
+
+  async mostrarModalResultadoVista() {
+    const modal = await this.modalController.create({
+      component: ModalDetallePage,
+      componentProps: {
+        datos: this.informacionDetalleVista,
+      },
+    });
+    await modal.present();
   }
 
   async mostrarModalResultado() {

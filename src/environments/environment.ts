@@ -96,7 +96,8 @@ export const environment = {
   apiRegistrarCalificacionURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarCalificacionPropiedad.php/',
   apiRegistrarFavoritosURL: 'https://emtdeveloper.com/server_blybn/api/db_registrarFavoritos.php/',
   apiEliminarFavoritosURL: 'https://emtdeveloper.com/server_blybn/api/db_eliminarFavoritos.php/',
-  apiCargarFavoritosURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarFavoritos.php/'
+  apiCargarFavoritosURL: 'https://emtdeveloper.com/server_blybn/api/db_CargarFavoritos.php/',
+  apiRegistrarVistasURL: 'https://emtdeveloper.com/server_blybn/api/db_RegistrarVistasPropiedad.php/'
 };
 
 /*

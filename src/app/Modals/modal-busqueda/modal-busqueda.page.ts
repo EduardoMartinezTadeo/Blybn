@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { ProviderService } from '../../services/provider.service';
 import { ModalDetallePage } from '../modal-detalle/modal-detalle.page';
-import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Storage } from '@ionic/storage';
 import { DataService } from 'src/app/services/data.service';
 
@@ -17,8 +16,6 @@ export class ModalBusquedaPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private provider: ProviderService,
-    private actionSheetController: ActionSheetController,
-    private socialSharing: SocialSharing,
     private datalocalService: DataService,
     private storage: Storage
   ) {
@@ -78,6 +75,20 @@ export class ModalBusquedaPage implements OnInit {
       this.perfilData = res;
       this.bly_usuario = this.perfilData.bly_usuario,
       this.datalocalService.registrarFavoritos(this.bly_tituloPropiedad, this.bly_ciudad, this.bly_calificacion, this.bly_imagen, this.bly_estado, this.bly_precioBase, this.bly_duenoPropiedad, this.bly_usuario, this.bly_registroPropiedad).subscribe(data => {
+        this.responseData = data;
+      });
+    });
+  }
+
+  bly_vPropiedad: number;
+  bly_vUsuario: number;
+  responseDataVista: any;
+  registrarVisita(vistas: any){
+    this.bly_vPropiedad = vistas.bly_registroPropiedad;
+    this.storage.get('perfil').then((res) => {
+      this.perfilData = res;
+      this.bly_usuario = this.perfilData.bly_usuario,
+      this.datalocalService.registrarVisitasPropiedad(this.bly_vPropiedad, this.bly_usuario ).subscribe(data => {
         this.responseData = data;
       });
     });

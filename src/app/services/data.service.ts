@@ -43,6 +43,7 @@ const apiURLRegistrarCasaPromocion =
   environment.apiRegistrarCasaEnPropomocionURL;
 const apiURLRegistrarCalificacion = environment.apiRegistrarCalificacionURL;
 const apiURLRegistrarFavoritos = environment.apiRegistrarFavoritosURL;
+const apiURLRegistrarVistasPropiedad = environment.apiRegistrarVistasURL;
 @Injectable({
   providedIn: 'root',
 })
@@ -672,6 +673,18 @@ export class DataService {
         })
       );
   }
+
+  registrarVisitasPropiedad (
+    bly_propiedad: number,
+    bly_usuario: number
+  ) {
+    return this.http.get(`${apiURLRegistrarVistasPropiedad}?bly_propiedad=${bly_propiedad}&bly_usuario=${bly_usuario}`).pipe(map ( 
+      (results) => {
+        this.result = results;
+        console.log(this.result);
+      }
+    ))
+  };
 
   bly_url: 'https://www.facebook.com/Blybnmx/';
   registrarFavoritos(

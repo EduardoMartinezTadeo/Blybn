@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {
   ActionSheetController,
+  LoadingController,
   ModalController,
   ToastController,
 } from '@ionic/angular';
@@ -8,6 +9,7 @@ import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../services/provider.service';
 import { ModalDetallePage } from '../../Modals/modal-detalle/modal-detalle.page';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-favoritos',
@@ -26,12 +28,16 @@ export class FavoritosPage implements OnInit {
     private modalController: ModalController,
     private actionSheetController: ActionSheetController,
     private toastController: ToastController,
-    private socialSharing: SocialSharing
+    private socialSharing: SocialSharing,
+    private loadingController: LoadingController,
+    private servicio: DataService
   ) {
     this.server = this.provider.server;
   }
 
   ngOnInit() {}
+
+  public favorito: boolean = false;
 
   ionViewWillEnter() {
     setTimeout(() => {
@@ -54,6 +60,7 @@ export class FavoritosPage implements OnInit {
           this.cargarFavoritos();
       });
     } else {
+      this.favorito = false;
       this.storage.get('perfil').then((res) => {
         this.perfilData = res;
         (this.bly_usuario = this.perfilData.bly_usuario),
@@ -76,11 +83,15 @@ export class FavoritosPage implements OnInit {
       this.provider
         .cargarFavoritos(body, 'db_CargarFavoritos.php')
         .subscribe((data) => {
-          for (let requisito of data.result) {
-            this.favoritos.push(requisito);
-            console.log(this.favoritos);
+          console.log(data.result);
+          if (data.result == 0) {
+            this.favorito = true;
+          } else {
+            for (let requisito of data.result) {
+              this.favoritos.push(requisito);
+            }
+            resolve(true);
           }
-          resolve(true);
         });
     });
   }
@@ -108,8 +119,12 @@ export class FavoritosPage implements OnInit {
     img.src = '../../../../assets/imgs/default-inicio.svg';
   }
 
-  bly_url: 'https://www.facebook.com/Blybnmx/';
-  async infoFavoritos(bly_registroPropiedad, bly_usuario, bly_tituloPropiedad, bly_ciudad) {
+  async infoFavoritos(
+    bly_registroPropiedad,
+    bly_usuario,
+    bly_tituloPropiedad,
+    bly_ciudad
+  ) {
     const actionSheet = await this.actionSheetController.create({
       header: 'Favoritos',
       mode: 'ios',
@@ -150,7 +165,7 @@ export class FavoritosPage implements OnInit {
               bly_tituloPropiedad,
               bly_ciudad,
               '',
-              this.bly_url
+              'https://www.facebook.com/Blybnmx/'
             );
           },
         },
@@ -166,8 +181,34 @@ export class FavoritosPage implements OnInit {
       ],
     });
     await actionSheet.present();
+  }
 
-    const { role } = await actionSheet.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
+  buscar: string;
+  onSearchChange(event) {
+    this.buscar = event.detail.value;
+    if (this.buscar == '') {
+      this.buscar == '';
+      console.log('no buscar');
+    } else {
+      setTimeout(() => {
+        this.buscarPropiedadLoading();
+      }, 500);
+    }
+  }
+
+  responseData: any;
+  async buscarPropiedadLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento',
+      mode: 'ios',
+      spinner: 'bubbles',
+      duration: 1500,
+    });
+    await loading.present();
+    setTimeout(() => {
+      this.servicio.buscarPropiedad(this.buscar).subscribe((data) => {
+        this.responseData = data;
+      });
+    }, 1600);
   }
 }

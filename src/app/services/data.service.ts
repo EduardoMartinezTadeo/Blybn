@@ -728,7 +728,7 @@ export class DataService {
                         bly_tituloPropiedad,
                         bly_ciudad,
                         '',
-                        this.bly_url
+                        'https://www.facebook.com/Blybnmx/'
                       );
                     }
                   },
@@ -775,7 +775,7 @@ export class DataService {
                         bly_tituloPropiedad,
                         bly_ciudad,
                         '',
-                        this.bly_url
+                        'https://www.facebook.com/Blybnmx/'
                       );
                     }
                   },

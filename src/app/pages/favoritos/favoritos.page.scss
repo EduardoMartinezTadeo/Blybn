@@ -86,3 +86,23 @@ ion-card {
   .separador{
       margin-top: 10%;
   }
+
+  .tituloPropiedad {
+      text-transform: capitalize;
+  }
+
+  .container-img{
+        text-align: center;
+        position: absolute;
+        top: 40%; /* Buscamos el centro horizontal (relativo) del navegador */
+        left: 50%; /* Buscamos el centro vertical (relativo) del navegador */
+        width: 150px; /* Definimos el ancho del objeto a centrar */
+        height: 150px; /* Definimos el alto del objeto a centrar */
+        margin-top: -75px; /* Restamos la mitad de la altura del objeto con un margin-top */
+        margin-left: -75px; /* Restamos la mitad de la anchura del objeto con un margin-left */
+        
+  }
+
+  .texto-f {
+      width: 100%;
+  }

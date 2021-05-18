@@ -5,7 +5,7 @@
         <ion-icon src="/assets/imgs/sidemenu.svg"></ion-icon>
       </ion-menu-button>
     </ion-buttons>
-    <ion-searchbar placeholder="¿A donde quieres ir?" [debounce]="250" animated mode="md"> </ion-searchbar>
+    <ion-searchbar placeholder="¿A dónde quieres ir?" [debounce]="400" animated class="buscarPromociones" mode="md" (ionChange)="onSearchChange($event)" autocomplete="true" spellcheck="true" > </ion-searchbar>
   </ion-toolbar>
   <ion-segment value="Mas buscados" mode="ios" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="Mas buscados">
@@ -56,4 +56,8 @@
     </ion-card-content>
   </ion-card>
 
+  <div class="container-img" *ngIf="favorito">
+    <ion-img src="assets/icons/logo-favorito.svg"></ion-img><br>
+    <ion-label class="texto-f">No hay favoritos</ion-label>
+  </div>
 </ion-content>

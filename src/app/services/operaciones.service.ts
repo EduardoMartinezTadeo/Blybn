@@ -110,7 +110,7 @@ export class OperacionesService {
                   '¡No tiene aun información respecto a facturación de pagos te invitamos a registrar dicha información!',
                 buttons: [
                   {
-                    text: 'Aceptar',
+                    text: 'Proceder al registro',
                     handler: () => {
                       this.storage.set('facturacion', this.dataFacturacion);
                       this.modalCtrl.create({
@@ -120,6 +120,11 @@ export class OperacionesService {
                         return modal.onDidDismiss();
                       });
                     },
+                  },
+                  {
+                    text: 'En otro momento',
+                    role: 'cancel',
+                    cssClass: 'iconCancelar'
                   },
                 ],
               })
@@ -160,7 +165,7 @@ export class OperacionesService {
                   '¡No tiene aun información respecto a facturación de pagos te invitamos a registrar dicha información!',
                 buttons: [
                   {
-                    text: 'Aceptar',
+                    text: 'Proceder al registro',
                     handler: () => {
                       this.storage.set('facturacion', this.dataFacturacion);
                       this.modalCtrl.create({
@@ -171,6 +176,11 @@ export class OperacionesService {
                       });
                     },
                   },
+                  {
+                    text: 'En otro momento',
+                    role: 'cancel',
+                    cssClass: 'iconCancelar'
+                  }, 
                 ],
               })
               .then((alertData) => {

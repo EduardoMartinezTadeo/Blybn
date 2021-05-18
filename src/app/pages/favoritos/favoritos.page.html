@@ -5,11 +5,9 @@
         <ion-icon src="/assets/imgs/sidemenu.svg"></ion-icon>
       </ion-menu-button>
     </ion-buttons>
-      <ion-searchbar placeholder="¿A donde quieres ir?" [debounce]="250" animated mode="md"> </ion-searchbar>
+    <ion-searchbar placeholder="¿A donde quieres ir?" [debounce]="250" animated mode="md"> </ion-searchbar>
   </ion-toolbar>
-</ion-header>
-<ion-content>  
-  <ion-segment value="Mas buscados" mode="ios">
+  <ion-segment value="Mas buscados" mode="ios" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="Mas buscados">
       <ion-label>Más buscados</ion-label>
     </ion-segment-button>
@@ -17,5 +15,45 @@
       <ion-label>Favoritos</ion-label>
     </ion-segment-button>
   </ion-segment>
- 
+</ion-header>
+<ion-content>
+  <ion-card *ngFor="let exclusivo of favoritos" class="animate__animated animate__bounceInDown animate__slower 3s">
+    <ion-card-content>
+      <ion-row class="ion-align-items-center ion-no-padding">
+        <ion-col size="9">
+          <ion-row class="ion-align-items-center ion-no-padding">
+            <ion-col size="3" class="ion-text-right">
+              <ion-button fill="clear" size="medium" (click)="infoFavoritos(exclusivo.bly_registroPropiedad, exclusivo.bly_usuario, exclusivo.bly_tituloPropiedad, exclusivo.bly_ciudad)">
+                <ion-icon name="ellipsis-vertical-circle" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-card-title class="tituloPropiedad">{{exclusivo.bly_tituloPropiedad}}</ion-card-title>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="3" class="ion-text-right">
+          <ion-card-subtitle>{{exclusivo.bly_calificacion}} <ion-icon name="star"></ion-icon>
+          </ion-card-subtitle>
+        </ion-col>
+      </ion-row>
+      <ion-thumbnail class="ion-text-center">
+        <ion-img src="{{server + exclusivo.bly_imagen}}" (ionError)="onError(img)" #img class="detalle"></ion-img>
+      </ion-thumbnail>
+      <ion-row>
+        <ion-col size="8">
+          <ion-card-title>{{exclusivo.bly_ciudad}}</ion-card-title>
+          <ion-card-title>{{exclusivo.bly_estado}}</ion-card-title>
+          <ion-card-subtitle>${{exclusivo.bly_precioBase}} por noche</ion-card-subtitle>
+        </ion-col>
+        <ion-col size="4" class="ion-text-right">
+          <ion-button fill="clear" color="primary" size="large"
+            (click)="mostrarDetalle(exclusivo.bly_registroPropiedad, exclusivo.bly_usuario)">
+            <ion-icon slot="icon-only" name="chevron-forward-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

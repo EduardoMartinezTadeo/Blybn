@@ -362,6 +362,22 @@ const routes: Routes = [
   {
     path: 'modal-busqueda-avanzada',
     loadChildren: () => import('./Modals/modal-busqueda-avanzada/modal-busqueda-avanzada.module').then( m => m.ModalBusquedaAvanzadaPageModule)
+  },
+  {
+    path: 'modal-reserva',
+    loadChildren: () => import('./Modals/modal-reserva/modal-reserva.module').then( m => m.ModalReservaPageModule)
+  },
+  {
+    path: 'modal-pago',
+    loadChildren: () => import('./Modals/modal-pago/modal-pago.module').then( m => m.ModalPagoPageModule)
+  },
+  {
+    path: 'modal-pago-exitoso',
+    loadChildren: () => import('./Modals/modal-pago-exitoso/modal-pago-exitoso.module').then( m => m.ModalPagoExitosoPageModule)
+  },
+  {
+    path: 'modal-pago-fallido',
+    loadChildren: () => import('./Modals/modal-pago-fallido/modal-pago-fallido.module').then( m => m.ModalPagoFallidoPageModule)
   }
 ];
 

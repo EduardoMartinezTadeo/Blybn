@@ -1,0 +1,79 @@
+<ion-content class="ion-padding">
+  <ion-row>
+    <h1>Tus métodos de pago</h1>
+  </ion-row>
+  <br>
+  <ion-list>
+    <ion-row class="ion-align-items-center ion-no-padding">
+      <ion-card class="listCards" (click)="onClick()" *ngFor="let item of [1]">
+        <ion-card-content>
+          <ion-item class="detailCards">
+            <ion-avatar slot="start">
+              <ion-img src="/assets/imgs/visa.svg"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h3>
+                416916****3149
+              </h3>
+              <p>
+                Usuario Blybn
+              </p>
+            </ion-label>
+            <ion-button slot="end" fill="clear">
+              <ion-icon [name]=" favorito ? 'card': 'card-outline'" slot="icon-only" color="visa">
+              </ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+
+    <ion-row class="ion-align-items-center ion-no-padding">
+      <ion-card class="listCards" (click)="onClick2()" *ngFor="let item of [1]">
+        <ion-card-content>
+          <ion-item class="detailCards">
+            <ion-avatar slot="start">
+              <ion-img src="/assets/imgs/mastercard.svg"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h3>
+                416916****3149
+              </h3>
+              <p>
+                Usuario Blybn
+              </p>
+            </ion-label>
+            <ion-button slot="end" fill="clear">
+              <ion-icon [name]=" favorito2 ? 'card': 'card-outline'" slot="icon-only" color="master">
+              </ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+
+    <ion-row class="ion-align-items-center ion-no-padding">
+      <ion-card class="listCards" (click)="onClick3()" *ngFor="let item of [1]">
+        <ion-card-content>
+          <ion-item class="detailCards">
+            <ion-avatar slot="start">
+              <ion-img src="/assets/imgs/amex.svg"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h3>
+                416916****3149
+              </h3>
+              <p>
+                Usuario Blybn
+              </p>
+            </ion-label>
+            <ion-button slot="end" fill="clear">
+              <ion-icon [name]=" favorito3 ? 'card': 'card-outline'" slot="icon-only" color="amex">
+              </ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+  </ion-list>
+</ion-content>

@@ -16,6 +16,7 @@ import {
   ToastController,
 } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { ModalReservaPage } from '../modal-reserva/modal-reserva.page';
 
 declare var google;
 
@@ -30,7 +31,7 @@ export class ModalDetallePage implements OnInit {
   lat: string;
   long: string;
   address: string;
- 
+
   constructor(
     private actRoute: ActivatedRoute,
     private router: Router,
@@ -90,31 +91,34 @@ export class ModalDetallePage implements OnInit {
       this.cargarFotoPerfil();
       this.cargarInformacionBasica();
     });
-  } 
+  }
 
   informacionPersonal: any = [];
-  cargarInformacionBasica(){
+  cargarInformacionBasica() {
     return new Promise((resolve) => {
       let body = {
         aksi: 'info-propietario',
-        bly_propietario: this.datos.usuario
+        bly_propietario: this.datos.usuario,
       };
-      this.provider.cargarInformacionPropietario(body, 'db_CargarInformacionPropietario.php').subscribe(
-        (data) => {
+      this.provider
+        .cargarInformacionPropietario(
+          body,
+          'db_CargarInformacionPropietario.php'
+        )
+        .subscribe((data) => {
           this.informacionPersonal = data.result;
           resolve(true);
-        }
-      )
+        });
     });
   }
 
   foto: string;
-  fotoPerfil: any = []; 
+  fotoPerfil: any = [];
   cargarFotoPerfil() {
     return new Promise((resolve) => {
       let body = {
         aksi: 'perfilFoto',
-        bly_usuario: this.datos.usuario
+        bly_usuario: this.datos.usuario,
       };
       this.provider.postDataCFPA(body, 'db_cargarFotoPerfilAct.php').subscribe(
         (data) => {
@@ -125,7 +129,7 @@ export class ModalDetallePage implements OnInit {
         (error) => {
           this.presentLoadingServer();
         }
-      );  
+      );
     });
   }
 
@@ -1354,6 +1358,22 @@ export class ModalDetallePage implements OnInit {
     }, 2000);
   }
 
- 
-}
+  informacionDetalle: any = [];
+  mostrarDetalle() {
+    this.informacionDetalle = {
+      propiedad: this.id_registroPropiedad,
+      usuario: this.id_duenocasa,
+    };
+    this.mostrarModalResultado();
+  }
 
+  async mostrarModalResultado() {
+    const modal = await this.modalController.create({
+      component: ModalReservaPage,
+      componentProps: {
+        datos: this.informacionDetalle,
+      },
+    });
+    await modal.present();
+  }
+}

@@ -55,7 +55,7 @@ export class PromocionesPage implements OnInit {
         }
         resolve(true);
       });
-    });
+    }); 
   }
 
   showToolbar = false;

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
 import { ModalBusquedaAvanzadaPage } from '../../Modals/modal-busqueda-avanzada/modal-busqueda-avanzada.page';
-import { ModalBusquedaSimplePage } from '../../Modals/modal-busqueda-simple/modal-busqueda-simple.page';
 @Component({
   selector: 'app-busqueda',
   templateUrl: './busqueda.page.html',
@@ -51,14 +50,6 @@ export class BusquedaPage implements OnInit {
   async modalBusquedaAvanzada() {
     const modal = await this.modalController.create({
       component: ModalBusquedaAvanzadaPage
-    });
-    return await modal.present();
-  }
-
-  
-  async modalBusquedaSimple() {
-    const modal = await this.modalController.create({
-      component: ModalBusquedaSimplePage
     });
     return await modal.present();
   }

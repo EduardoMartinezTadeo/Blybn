@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ModalBusquedaAvanzadaPageRoutingModule } from './modal-busqueda-avanzada-routing.module';
 
 import { ModalBusquedaAvanzadaPage } from './modal-busqueda-avanzada.page';
+import { CalendarModule } from 'ion2-calendar';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ModalBusquedaAvanzadaPageRoutingModule
+    ModalBusquedaAvanzadaPageRoutingModule,
+    CalendarModule
   ],
   declarations: [ModalBusquedaAvanzadaPage]
 })

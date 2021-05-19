@@ -362,12 +362,7 @@ const routes: Routes = [
   {
     path: 'modal-busqueda-avanzada',
     loadChildren: () => import('./Modals/modal-busqueda-avanzada/modal-busqueda-avanzada.module').then( m => m.ModalBusquedaAvanzadaPageModule)
-  },
-  {
-    path: 'modal-busqueda-simple',
-    loadChildren: () => import('./Modals/modal-busqueda-simple/modal-busqueda-simple.module').then( m => m.ModalBusquedaSimplePageModule)
   }
-
 ];
 
 @NgModule({

@@ -1364,7 +1364,22 @@ export class ModalDetallePage implements OnInit {
       propiedad: this.id_registroPropiedad,
       usuario: this.id_duenocasa,
     };
-    this.mostrarModalResultado();
+    this.modalController.dismiss();
+    this.cargandoInformacionResultado();
+  }
+
+  async cargandoInformacionResultado() {
+    const loading = await this.loadingController.create({
+      mode: 'ios',
+      spinner: 'bubbles',
+      message: 'Cargando información...',
+      duration: 2000,
+    });
+    await loading.present();
+
+    setTimeout(() => {
+      this.mostrarModalResultado();
+    }, 1500);
   }
 
   async mostrarModalResultado() {

@@ -1,5 +1,5 @@
 ion-toolbar {
-    --background: #1897ed;
+    --background: #76801a;
     color: #ffffff;
     padding-bottom: 250px;
     border-radius: 0 0 20% 20%;
@@ -36,6 +36,23 @@ ion-toolbar {
 
 .datoFecha {
     margin-top: 2%;
+    ion-label {
+        font-family: "HelveticaMedium";
+        white-space: pre-line;
+        font-size: 11px;
+    }
+    ion-textarea {
+        font-family: "HelveticaBold";
+        font-size: 9px;
+        color: #316dd0;
+    }
+}
+
+.datoCosto {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 35%;
+    margin-right: 20%;
     ion-label {
         font-family: "HelveticaMedium";
         white-space: pre-line;
@@ -218,4 +235,9 @@ ion-avatar {
         font-size: 9px;
         color: #316dd0;
     }
+}
+
+.titulos-costos {
+    font-family: "HelveticaBold";
+    font-size: 25px;
 }

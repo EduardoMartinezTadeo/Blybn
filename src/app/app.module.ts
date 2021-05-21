@@ -22,18 +22,21 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { CalendarModule } from 'ion2-calendar';
+import { PayPal } from '@ionic-native/paypal/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, 
+  imports: [
+    BrowserModule,
     IonicModule.forRoot({
       hardwareBackButton: false,
-      mode: 'md'
-    }), 
-    AppRoutingModule, 
+      mode: 'md',
+    }),
+    AppRoutingModule,
     IonicStorageModule.forRoot(),
     HttpClientModule,
-    CalendarModule
+    CalendarModule,
   ],
   providers: [
     StatusBar,
@@ -45,11 +48,13 @@ import { CalendarModule } from 'ion2-calendar';
     Camera,
     File,
     ProviderService,
-    Geolocation,    
+    Geolocation,
     NativeGeocoder,
     ImagePicker,
     SocialSharing,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+    PayPal,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

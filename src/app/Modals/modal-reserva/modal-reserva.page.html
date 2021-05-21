@@ -46,155 +46,6 @@
   </ion-row>
   <br>
   <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
-    <div class="dueñoPropiedad">
-      <ion-item lines="none">
-        <ion-img src="/assets/iconosDetalle/calendario.svg" class="ionFotoD1"></ion-img>
-        <ion-row class="datoFecha">
-          <ion-grid class="ion-align-items-center ion-no-padding">
-            <ion-row>
-              <ion-col size="6">
-                <ion-row class="ion-align-items-center ion-no-padding">
-                  <ion-label>
-                    La hora limite de reservación es:
-                    <ion-label class="parrafoFecha">{{horaLimiteReservacion}}</ion-label>
-                  </ion-label>
-                  <ion-label>
-                    La llegada al departamento es antes de las:
-                    <ion-label class="parrafoFecha">{{llegadaAntes}}</ion-label>
-                  </ion-label>
-                  <ion-label>
-                    La llegada al departamento es despues de las:
-                    <ion-label class="parrafoFecha">{{llegadaDespues}}</ion-label>
-                  </ion-label>
-                </ion-row>
-              </ion-col>
-              <ion-col size="6">
-                <ion-row class="ion-align-items-center ion-no-padding">
-                  <ion-label>
-                    La salida del departamento terminada la renta es:
-                    <ion-label class="parrafoFecha">{{llegadaSalida}}</ion-label>
-                  </ion-label>
-                  <ion-label>
-                    Esta propiedad necesita tener preaviso de:
-                    <ion-label class="parrafoFecha">{{preavisoPropiedad}}</ion-label>
-                  </ion-label>
-                  <ion-label>
-                    La anticipacion para rentar es:
-                    <ion-label class="parrafoFecha">{{anticipacionRenta}}</ion-label>
-                  </ion-label>
-                  <ion-label>
-                    La salida al terminar la renta es a las:
-                    <ion-label class="parrafoFecha">{{salidaTerminoServicio}}</ion-label>
-                  </ion-label>
-                </ion-row>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-row>
-      </ion-item>
-    </div>
-  </ion-row>
-  <br>
-  <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
-    <div class="dueñoPropiedad">
-      <ion-item lines="none">
-        <ion-img src="/assets/iconosDetalle/cama.svg" class="ionFotoD2"></ion-img>
-        <ion-row class="datoFecha">
-          <ion-grid>
-            <ion-row class="ion-align-items-center ion-no-padding">
-              <ion-col size="6">
-                <ion-row>
-                  <ion-label>
-                    La propiedad cuenta con:
-                    <ion-label class="parrafoFecha">{{cantidadHabitacion}} habitación</ion-label>
-                  </ion-label>
-                </ion-row>
-                <ion-row>
-                  <ion-label>
-                    Esta propiedad cuenta con:
-                    <ion-label class="parrafoFecha">{{cantidadBano}}</ion-label>
-                    <ion-label>
-                      de tipo
-                    </ion-label>
-                    <ion-label class="parrafoFecha">{{tipoBano}}</ion-label>
-                  </ion-label>
-                </ion-row>
-                <ion-row>
-                  <ion-label>
-                    Esta propiedad es de tipo:
-                    <ion-label class="parrafoFecha" *ngFor="let casa of informacionCasa">{{casa.bly_propiedadTipo}}
-                    </ion-label>
-                  </ion-label>
-                </ion-row>
-              </ion-col>
-              <ion-col size="6">
-                <ion-row>
-                  <ion-label>
-                    Esta propiedad pertenece al tipo de aventura:
-                    <ion-label class="parrafoFecha" *ngFor="let aventura of informacionAventura">
-                      {{aventura.bly_aventura}}
-                    </ion-label>
-                  </ion-label>
-                </ion-row>
-                <ion-row>
-                  <ion-label>
-                    El historial de renta es:
-                    <ion-label class="parrafoFecha" *ngFor="let historial of informacionHistorial">
-                      {{historial.bly_tipoHistorial}}</ion-label>
-                  </ion-label>
-                </ion-row>
-                <ion-row>
-                  <ion-label>
-                    Frecuencia de renta:
-                    <ion-label class="parrafoFecha">{{id_frecuencia}}</ion-label>
-                  </ion-label>
-                </ion-row>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-row>
-      </ion-item>
-    </div>
-  </ion-row>
-  <br>
-  <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
-    <div class="dueñoPropiedad1">
-      <ion-item lines="none">
-        <ion-img src="/assets/iconosDetalle/huesped.svg" class="ionFotoD3"></ion-img>
-        <ion-grid>
-          <ion-row class="ion-align-items-center ion-no-padding">
-            <ion-col size="12">
-              <ion-row class="datoFecha">
-                <ion-col size="12">
-                  <ion-row>
-                    <ion-label>
-                      Esta propiedad tiene cupo para:
-                      <ion-label class="parrafoFecha">{{huespedes}} huesped.</ion-label>
-                    </ion-label>
-                  </ion-row>
-                  <ion-row>
-                    <ion-label>
-                      Exclusividad de la propiedad:
-                      <ion-label rows="1" class="parrafoFecha">{{exclusividad}}.</ion-label>
-                    </ion-label>
-                  </ion-row>
-                  <ion-row>
-                    <ion-label>
-                      El tipo de alojamiento es:
-                      <ion-label class="parrafoFecha" *ngFor="let alojamiento of informacionAlojamiento">
-                        {{alojamiento.bly_alojamientoPropiedad}}</ion-label>
-                    </ion-label>
-                  </ion-row>
-                </ion-col>
-              </ion-row>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-    </div>
-  </ion-row>
-  <br>
-  <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <div class="dueñoPropiedad1">
       <ion-item lines="none" class="ion-align-items-center ion-no-padding">
         <ion-img src="/assets/iconosDetalle/ubicacion.svg" class="ionFotoD4" (click)="llegarComo()"></ion-img>
@@ -226,9 +77,43 @@
     </div>
   </ion-row>
   <br>
-  <ion-card>
+  <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
+    <div class="dueñoPropiedad1">
+      <ion-item lines="none" class="ion-align-items-center ion-no-padding">
+        <ion-img src="/assets/icons/dinero.svg" class="ionFotoD4" (click)="llegarComo()"></ion-img>
+        <ion-grid class="ion-align-items-center ion-no-padding">
+          <ion-row class="datoFecha">
+            <ion-col size="6">
+              <ion-row>
+                <ion-label *ngFor="let precio of informacionP3">
+                  Precios de renta:
+                  <ion-label>Costo por noche:</ion-label>
+                  <ion-label class="parrafoFecha">{{precio.bly_precioBase}}</ion-label>
+                  <ion-label>Costo de limpieza:</ion-label>
+                  <ion-label class="parrafoFecha">{{precio.bly_cargoLimpieza}}</ion-label>
+                </ion-label>
+              </ion-row>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label *ngFor="let precio of informacionP3">
+                Información Personal:
+                <ion-label>Nombre completo:</ion-label>
+                <ion-label class="parrafoFecha">{{bly_nombre}}</ion-label>
+                <ion-label>Correo eléctronico:</ion-label>
+                <ion-label class="parrafoFecha">{{bly_correo}}</ion-label>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-row>
+  <br>
+  <ion-card *ngFor="let precio of informacionP3">
     <ion-card-content>
-      <ion-button expand="block" color="success" (click)="actualizarnoDisponible()">Pagar</ion-button>
+      <ion-button expand="block" color="success"
+        (click)="subtotal(precio.bly_precioBase, precio.bly_cargoLimpieza, bly_nombre, bly_correo)">Calcular Subtotal
+      </ion-button>
     </ion-card-content>
   </ion-card>
   <br>

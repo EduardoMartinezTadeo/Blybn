@@ -1,5 +1,5 @@
 ion-toolbar {
-    --background: #1897ed;
+    --background: #76801a;
     color: #ffffff;
     padding-bottom: 250px;
     border-radius: 0 0 20% 20%;
@@ -22,13 +22,13 @@ ion-toolbar {
     margin-right: 2%;
 }
 
-.ionFotoD3{
+.ionFotoD3 {
     width: 50px;
     height: 50px;
     margin-right: 2%;
 }
 
-.ionFotoD4{
+.ionFotoD4 {
     width: 50px;
     height: 50px;
     margin-right: 2%;
@@ -37,20 +37,19 @@ ion-toolbar {
 .datoFecha {
     margin-top: 2%;
     ion-label {
-        font-family: 'HelveticaMedium';
+        font-family: "HelveticaMedium";
         white-space: pre-line;
         font-size: 11px;
     }
     ion-textarea {
-        font-family: 'HelveticaBold';
+        font-family: "HelveticaBold";
         font-size: 9px;
         color: #316dd0;
     }
-  
 }
 
-.parrafoFecha{
-    font-family: 'HelveticaBold';
+.parrafoFecha {
+    font-family: "HelveticaBold";
     white-space: pre-line;
     font-size: 9px;
     color: #316dd0;
@@ -86,17 +85,17 @@ ion-content {
         }
 
         ion-card-title {
-            font-family: 'HelveticaBold';
+            font-family: "HelveticaBold";
             font-size: 17px;
             text-transform: capitalize;
             color: black;
         }
 
         ion-card-subtitle {
-            font-family: 'Helvetica';
+            font-family: "Helvetica";
             font-size: 12px;
             text-transform: capitalize;
-            color:#000000;
+            color: #000000;
         }
     }
 
@@ -129,41 +128,40 @@ ion-content {
     }
 }
 
-.dueñoPropiedad{
+.dueñoPropiedad {
     margin-left: 5%;
     width: 90%;
-    ion-item{
+    ion-item {
         --background: #e4e0e0 !important;
     }
     ion-label {
-        font-family: 'HelveticaMedium';
+        font-family: "HelveticaMedium";
         margin-left: 2%;
         p {
-            font-family: 'Helvetica';
+            font-family: "Helvetica";
             font-size: 14px;
         }
     }
 }
 
-
-.dueñoPropiedad1{
+.dueñoPropiedad1 {
     margin-left: 5%;
     width: 90%;
-    ion-item{
+    ion-item {
         --background: #e4e0e0 !important;
     }
     ion-label {
         margin-top: 5%;
-        font-family: 'HelveticaMedium';
+        font-family: "HelveticaMedium";
         margin-left: 2%;
         p {
-            font-family: 'Helvetica';
+            font-family: "Helvetica";
             font-size: 14px;
         }
     }
 }
 
-.bottomSheetp1{
+.bottomSheetp1 {
     position: fixed;
     width: 100%;
     height: 500px;
@@ -172,31 +170,30 @@ ion-content {
     z-index: 60;
     background-color: var(--ion-color-titulos);
     transition: 0.3s;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
 
-    .content{
+    .content {
         h1 {
             margin-left: 10%;
             font-family: "HelveticaBold";
             font-size: 25px;
             color: white;
             display: inline-block;
-           
         }
-        p{
+        p {
             font-family: "HelveticaMedium";
             font-size: 14px;
             color: white;
             text-align: justify;
         }
-        
+
         ul {
             li {
                 font-family: "Helvetica";
                 font-size: 12px;
                 color: white;
             }
-        }        
+        }
 
         .can {
             font-family: "Helvetica";
@@ -206,12 +203,12 @@ ion-content {
     }
 
     .swipe-handler::after {
-        content: '';
+        content: "";
         width: 50px;
         height: 6px;
         position: absolute;
-        left:50%;
-        top:5%;
+        left: 50%;
+        top: 5%;
         margin-left: -18px;
         margin-top: -3px;
         border-radius: 3px;
@@ -230,7 +227,6 @@ ion-content {
     transition: 0.3s;
 }
 
-
 .bottomSheetp2 {
     position: fixed;
     width: 100%;
@@ -240,18 +236,17 @@ ion-content {
     z-index: 60;
     background-color: var(--ion-color-titulos);
     transition: 0.3s;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
 
-    .content{
+    .content {
         h1 {
             margin-left: 10%;
             font-family: "HelveticaBold";
             font-size: 25px;
             color: white;
             display: inline-block;
-           
         }
-        p{
+        p {
             font-family: "HelveticaMedium";
             font-size: 14px;
             color: white;
@@ -268,12 +263,12 @@ ion-content {
     }
 
     .swipe-handler::after {
-        content: '';
+        content: "";
         width: 50px;
         height: 6px;
         position: absolute;
-        left:50%;
-        top:5%;
+        left: 50%;
+        top: 5%;
         margin-left: -18px;
         margin-top: -3px;
         border-radius: 3px;
@@ -301,18 +296,17 @@ ion-content {
     z-index: 60;
     background-color: var(--ion-color-titulos);
     transition: 0.3s;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
 
-    .content{
+    .content {
         h1 {
             margin-left: 10%;
             font-family: "HelveticaBold";
             font-size: 25px;
             color: white;
             display: inline-block;
-           
         }
-        p{
+        p {
             font-family: "HelveticaMedium";
             font-size: 14px;
             color: white;
@@ -323,7 +317,7 @@ ion-content {
             font-size: 11px;
             color: white;
         }
-        .sub{
+        .sub {
             font-family: "HelveticaBold";
             font-size: 12px;
             color: #316dd0;
@@ -331,12 +325,12 @@ ion-content {
     }
 
     .swipe-handler::after {
-        content: '';
+        content: "";
         width: 50px;
         height: 6px;
         position: absolute;
-        left:50%;
-        top:5%;
+        left: 50%;
+        top: 5%;
         margin-left: -18px;
         margin-top: -3px;
         border-radius: 3px;
@@ -364,18 +358,17 @@ ion-content {
     z-index: 60;
     background-color: var(--ion-color-titulos);
     transition: 0.3s;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
 
-    .content{
+    .content {
         h1 {
             margin-left: 10%;
             font-family: "HelveticaBold";
             font-size: 25px;
             color: white;
             display: inline-block;
-           
         }
-        p{
+        p {
             font-family: "HelveticaMedium";
             font-size: 14px;
             color: white;
@@ -387,16 +380,16 @@ ion-content {
                 font-size: 12px;
                 color: white;
             }
-        }     
+        }
     }
 
     .swipe-handler::after {
-        content: '';
+        content: "";
         width: 50px;
         height: 6px;
         position: absolute;
-        left:50%;
-        top:5%;
+        left: 50%;
+        top: 5%;
         margin-left: -18px;
         margin-top: -3px;
         border-radius: 3px;
@@ -424,18 +417,17 @@ ion-content {
     z-index: 60;
     background-color: var(--ion-color-titulos);
     transition: 0.3s;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
 
-    .content{
+    .content {
         h1 {
             margin-left: 10%;
             font-family: "HelveticaBold";
             font-size: 25px;
             color: white;
             display: inline-block;
-           
         }
-        p{
+        p {
             font-family: "HelveticaMedium";
             font-size: 14px;
             color: white;
@@ -447,16 +439,16 @@ ion-content {
                 font-size: 12px;
                 color: white;
             }
-        } 
+        }
     }
 
     .swipe-handler::after {
-        content: '';
+        content: "";
         width: 50px;
         height: 6px;
         position: absolute;
-        left:50%;
-        top:5%;
+        left: 50%;
+        top: 5%;
         margin-left: -18px;
         margin-top: -3px;
         border-radius: 3px;
@@ -484,18 +476,17 @@ ion-content {
     z-index: 60;
     background-color: var(--ion-color-titulos);
     transition: 0.3s;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
 
-    .content{
+    .content {
         h1 {
             margin-left: 10%;
             font-family: "HelveticaBold";
             font-size: 25px;
             color: white;
             display: inline-block;
-           
         }
-        p{
+        p {
             font-family: "HelveticaMedium";
             font-size: 14px;
             color: white;
@@ -507,16 +498,16 @@ ion-content {
                 font-size: 12px;
                 color: white;
             }
-        } 
+        }
     }
 
     .swipe-handler::after {
-        content: '';
+        content: "";
         width: 50px;
         height: 6px;
         position: absolute;
-        left:50%;
-        top:5%;
+        left: 50%;
+        top: 5%;
         margin-left: -18px;
         margin-top: -3px;
         border-radius: 3px;
@@ -544,18 +535,17 @@ ion-content {
     z-index: 60;
     background-color: var(--ion-color-titulos);
     transition: 0.3s;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
 
-    .content{
+    .content {
         h1 {
             margin-left: 10%;
             font-family: "HelveticaBold";
             font-size: 25px;
             color: white;
             display: inline-block;
-           
         }
-        p{
+        p {
             font-family: "HelveticaMedium";
             font-size: 14px;
             color: white;
@@ -567,9 +557,8 @@ ion-content {
                 font-size: 12px;
                 color: #316dd0;
             }
-           
-        } 
-        ion-datetime{
+        }
+        ion-datetime {
             font-family: "HelveticaBold";
             font-size: 12px;
             color: white;
@@ -577,17 +566,17 @@ ion-content {
         ion-input {
             font-family: "Helvetica";
             font-size: 12px;
-            color:white;
+            color: white;
         }
     }
 
     .swipe-handler::after {
-        content: '';
+        content: "";
         width: 50px;
         height: 6px;
         position: absolute;
-        left:50%;
-        top:5%;
+        left: 50%;
+        top: 5%;
         margin-left: -18px;
         margin-top: -3px;
         border-radius: 3px;
@@ -615,18 +604,17 @@ ion-content {
     z-index: 60;
     background-color: var(--ion-color-titulos);
     transition: 0.3s;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
 
-    .content{
+    .content {
         h1 {
             margin-left: 10%;
             font-family: "HelveticaBold";
             font-size: 25px;
             color: white;
             display: inline-block;
-           
         }
-        p{
+        p {
             font-family: "HelveticaMedium";
             font-size: 14px;
             color: white;
@@ -638,17 +626,16 @@ ion-content {
                 font-size: 12px;
                 color: white;
             }
-            
-        } 
+        }
     }
 
     .swipe-handler::after {
-        content: '';
+        content: "";
         width: 50px;
         height: 6px;
         position: absolute;
-        left:50%;
-        top:5%;
+        left: 50%;
+        top: 5%;
         margin-left: -18px;
         margin-top: -3px;
         border-radius: 3px;
@@ -676,47 +663,45 @@ ion-avatar {
     width: 90%;
     height: 80%;
     border: 1px solid red;
-  }
-   
-   
-  #address {
+}
+
+#address {
     padding: 10px;
     font-size: 18px;
     font-weight: bold;
-  }
-   
-  #map {
+}
+
+#map {
     width: 100%;
     height: 100px;
-  }
-   
-  .map-wrapper {
+}
+
+.map-wrapper {
     position: relative;
     #map_center {
-      position: absolute;
-      z-index: 99;
-      height: 40px;
-      width: 40px;
-      top: 50%;
-      left: 50%;
-      margin-left: -21px;
-      margin-top: -41px;
+        position: absolute;
+        z-index: 99;
+        height: 40px;
+        width: 40px;
+        top: 50%;
+        left: 50%;
+        margin-left: -21px;
+        margin-top: -41px;
     }
-    
-  }
+}
 
-  .datosDis {
-      width: 100%;
-      margin-top: 2%;
-      margin-bottom: 2%;
-      ion-label {
-        font-family: 'HelveticaMedium';
+.datosDis {
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    ion-label {
+        font-family: "HelveticaMedium";
         white-space: pre-line;
         font-size: 11px;
     }
     ion-textarea {
-        font-family: 'HelveticaBold';
+        font-family: "HelveticaBold";
         font-size: 9px;
         color: #316dd0;
     }
-  }
+}

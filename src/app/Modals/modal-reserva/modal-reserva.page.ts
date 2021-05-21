@@ -11,6 +11,11 @@ import {
 } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ModalPagoPage } from '../modal-pago/modal-pago.page';
+import {
+  PayPal,
+  PayPalPayment,
+  PayPalConfiguration,
+} from '@ionic-native/paypal/ngx';
 
 @Component({
   selector: 'app-modal-reserva',
@@ -34,7 +39,8 @@ export class ModalReservaPage implements OnInit {
     private iab: InAppBrowser,
     private navParams: NavParams,
     private modalController: ModalController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private payPal: PayPal
   ) {
     this.server = this.provider.server;
   }
@@ -55,18 +61,18 @@ export class ModalReservaPage implements OnInit {
       this.cargarP1();
       this.cargarP2();
       this.cargarP3();
-      this.cargarP4();
-      this.cargarP5();
-      this.cargarP6();
-      this.cargarP7();
-      this.cargarP8();
-      this.cargarP9();
       this.comoLlegar();
       this.cargarFotoPerfil();
       this.cargarInformacionBasica();
     });
+    this.storage.get('perfil').then((data) => {
+      this.bly_nombre = data.bly_nombre;
+      this.bly_correo = data.bly_correoElectronico;
+    });
   }
 
+  bly_nombre: string;
+  bly_correo: string;
   informacionPersonal: any = [];
   cargarInformacionBasica() {
     return new Promise((resolve) => {
@@ -118,10 +124,6 @@ export class ModalReservaPage implements OnInit {
     this.informacionP1 = [];
     this.informacionP2 = [];
     this.informacionP3 = [];
-    this.informacionP4 = [];
-    this.informacionP5 = [];
-    this.informacionP6 = [];
-    this.informacionP7 = [];
     this.infoComoLlegar = [];
     this.storage.remove('informacionPromocion');
   }
@@ -202,10 +204,6 @@ export class ModalReservaPage implements OnInit {
         this.bly_placeId = this.informacionP1.bly_placeid;
         this.id_registroPropiedad = this.informacionP1.bly_registroPropiedad;
         this.id_duenocasa = this.informacionP1.bly_usuario;
-        this.cargarTipoPropiedad();
-        this.cargarAlojamiento();
-        this.cargarTipoAventuraIndividual();
-        this.cargarHistorial();
         this.informacionPropiedades = {
           propiedad: this.id_registroPropiedad,
           dueno: this.id_duenocasa,
@@ -266,6 +264,8 @@ export class ModalReservaPage implements OnInit {
       );
   }
 
+  bly_precio: number;
+  bly_limpieza: number;
   informacionP3: any = [];
   cargarP3() {
     let body = {
@@ -275,73 +275,8 @@ export class ModalReservaPage implements OnInit {
     this.provider.detalleP3(body, 'db_CargarCostosPropiedad.php').subscribe(
       (data) => {
         this.informacionP3 = data.result;
-      },
-      (error) => {
-        this.presentLoadingServer();
-      }
-    );
-  }
-
-  informacionP4: any = [];
-  cargarP4() {
-    console.log('numero casa', this.id_propiedad);
-    let body = {
-      aksi: 'tipo5',
-      bly_propiedad: this.id_propiedad,
-    };
-    this.provider.detalleP4(body, 'db_CargarMueblesPropiedades.php').subscribe(
-      (data) => {
-        this.informacionP4 = data.result;
-      },
-      (error) => {
-        this.presentLoadingServer();
-      }
-    );
-  }
-
-  informacionP5: any = [];
-  cargarP5() {
-    let body = {
-      aksi: 'restriccionP',
-      bly_propiedad: this.id_propiedad,
-    };
-    this.provider
-      .detalleP5(body, 'db_CargarRestriccionesPropiedad.php')
-      .subscribe(
-        (data) => {
-          this.informacionP5 = data.result;
-        },
-        (error) => {
-          this.presentLoadingServer();
-        }
-      );
-  }
-
-  informacionP6: any = [];
-  cargarP6() {
-    let body = {
-      aksi: 'requisitos',
-      bly_propiedad: this.id_propiedad,
-    };
-    this.provider.detalleP6(body, 'db_CargarSeguridadPropiedad.php').subscribe(
-      (data) => {
-        this.informacionP6 = data.result;
-      },
-      (error) => {
-        this.presentLoadingServer();
-      }
-    );
-  }
-
-  informacionP7: any = [];
-  cargarP7() {
-    let body = {
-      aksi: 'requisitos',
-      bly_propiedad: this.id_propiedad,
-    };
-    this.provider.detalleP7(body, 'db_CargarRequisitosPropiedad.php').subscribe(
-      (data) => {
-        this.informacionP7 = data.result;
+        this.bly_precio = this.informacionP3.bly_precioBase;
+        console.log(this.informacionP3);
       },
       (error) => {
         this.presentLoadingServer();
@@ -384,13 +319,6 @@ export class ModalReservaPage implements OnInit {
           this.dato10 = this.informacionP8.bly_salidaAntes;
           this.dato11 = this.informacionP8.bly_tiempoAnticipacionReservacion;
           this.dato12 = this.informacionP8.bly_tiempoSalidadH;
-          this.cargarLLegadaAntes();
-          this.cargarLlegadaDespues();
-          this.cargarLlegadaSalida();
-          this.cargarHoraLimiteReservacion();
-          this.cargarPreaviso();
-          this.cargarVentanaDisponibilidad();
-          this.cargarSalidaTerminoServicio();
         },
         (error) => {
           this.presentLoadingServer();
@@ -407,211 +335,6 @@ export class ModalReservaPage implements OnInit {
   preavisoPropiedad: string;
   anticipacionRenta: string;
   salidaTerminoServicio: string;
-
-  cargarLLegadaAntes() {
-    let body = {
-      aksi: 'tipoLlegada',
-      bly_llegada: this.dato6,
-    };
-    this.provider
-      .cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php')
-      .subscribe(
-        (data) => {
-          this.llegadaAntes = data.result.bly_descripcionLlegadas;
-        },
-        (error) => {
-          this.presentLoadingServer();
-        }
-      );
-  }
-  cargarLlegadaDespues() {
-    let body = {
-      aksi: 'tipoLlegada',
-      bly_llegada: this.dato7,
-    };
-    this.provider
-      .cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php')
-      .subscribe(
-        (data) => {
-          this.llegadaDespues = data.result.bly_descripcionLlegadas;
-        },
-        (error) => {
-          this.presentLoadingServer();
-        }
-      );
-  }
-
-  cargarLlegadaSalida() {
-    let body = {
-      aksi: 'tipoLlegada',
-      bly_llegada: this.dato10,
-    };
-    this.provider
-      .cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php')
-      .subscribe(
-        (data) => {
-          this.llegadaSalida = data.result.bly_descripcionLlegadas;
-        },
-        (error) => {
-          this.presentLoadingServer();
-        }
-      );
-  }
-
-  cargarHoraLimiteReservacion() {
-    let body = {
-      aksi: 'horas',
-      bly_hora: this.dato5,
-    };
-    this.provider
-      .cargarHoraIndividual(body, 'db_CargarHorasPropiedades.php')
-      .subscribe(
-        (data) => {
-          this.horaLimiteReservacion = data.result.bly_Horas;
-        },
-        (error) => {
-          this.presentLoadingServer();
-        }
-      );
-  }
-
-  cargarPreaviso() {
-    let body = {
-      aksi: 'preaviso',
-      bly_numPreaviso: this.dato8,
-    };
-    this.provider
-      .cargarPreavisoIndividual(body, 'db_CargarPreavisoPropiedades.php')
-      .subscribe(
-        (data) => {
-          this.preavisoPropiedad = data.result.bly_preavisoDescripcion;
-        },
-        (error) => {
-          this.presentLoadingServer();
-        }
-      );
-  }
-
-  cargarVentanaDisponibilidad() {
-    let body = {
-      aksi: 'ventanaDisponibilidad',
-      bly_numventanaDisponibilidad: this.dato11,
-    };
-    this.provider
-      .cargarVentanaDisponibilidadIndividual(
-        body,
-        'db_CargarVentanaDisponibilidadIndividual.php'
-      )
-      .subscribe(
-        (data) => {
-          this.anticipacionRenta =
-            data.result.bly_descripcionVentanaDisponibilidad;
-        },
-        (error) => {
-          this.presentLoadingServer();
-        }
-      );
-  }
-
-  cargarSalidaTerminoServicio() {
-    let body = {
-      aksi: 'tipoLlegada',
-      bly_llegada: this.dato12,
-    };
-    this.provider
-      .cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php')
-      .subscribe(
-        (data) => {
-          this.salidaTerminoServicio = data.result.bly_descripcionLlegadas;
-        },
-        (error) => {
-          this.presentLoadingServer();
-        }
-      );
-  }
-
-  informacionCasa: any = [];
-  cargarTipoPropiedad() {
-    let body = {
-      aksi: 'tipo_propiedad',
-      bly_tipoPropiedad: this.id_propiedad,
-    };
-    this.provider
-      .cargarTipoPropiedadIndividual(body, 'db_cargarTipoPropiedad.php')
-      .subscribe(
-        (data) => {
-          this.informacionCasa = data.result;
-        },
-        (error) => {
-          this.presentLoadingServer();
-        }
-      );
-  }
-
-  informacionAlojamiento: any = [];
-  cargarAlojamiento() {
-    let body = {
-      aksi: 'tipo_alojamiento',
-      bly_tipoAlojamiento: this.id_alojamiento,
-    };
-    this.provider
-      .cargarAlojamientoIndividual(body, 'db_cargarAlojamientoPropiedad.php')
-      .subscribe(
-        (data) => {
-          this.informacionAlojamiento = data.result;
-        },
-        (error) => {
-          this.presentLoadingServer();
-        }
-      );
-  }
-
-  informacionAventura: any = [];
-  cargarTipoAventuraIndividual() {
-    let body = {
-      aksi: 'tipo_aventura',
-      bly_tipoAventura: this.id_aventura,
-    };
-    this.provider
-      .cargarAventuraIndividual(body, 'db_cargarTipoAventuraPropiedad.php')
-      .subscribe((data) => {
-        this.informacionAventura = data.result;
-      });
-  }
-
-  informacionHistorial: any = [];
-  cargarHistorial() {
-    let body = {
-      aksi: 'historial',
-      bly_historial: this.id_historial,
-    };
-    this.provider
-      .cargarHistorialRenta(body, 'db_CargarHistorialPrevioPropiedad.php')
-      .subscribe(
-        (data) => {
-          this.informacionHistorial = data.result;
-        },
-        (error) => {
-          this.presentLoadingServer();
-        }
-      );
-  }
-
-  informacionP9: any = [];
-  cargarP9() {
-    let body = {
-      aksi: 'tipo2',
-      bly_propiedad: this.id_propiedad,
-    };
-    this.provider.detalleP9(body, 'db_CargarEspaciosPropiedades.php').subscribe(
-      (data) => {
-        this.informacionP9 = data.result;
-      },
-      (error) => {
-        this.presentLoadingServer();
-      }
-    );
-  }
 
   slideOpts = {
     grabCursor: true,
@@ -932,5 +655,65 @@ export class ModalReservaPage implements OnInit {
       component: ModalPagoPage,
     });
     await modal.present();
+  }
+
+  totalFinal: number;
+  total1: number;
+  total2: number;
+  datosFactura: any = [];
+  totalFinalPay: string;
+  subtotal(
+    bly_precioBase: number,
+    bly_cargoLimpieza: number,
+    bly_nombre: string,
+    bly_correo: string
+  ) {
+    this.totalFinal =
+      parseInt(bly_precioBase.toString()) +
+      parseInt(bly_cargoLimpieza.toString());
+    this.totalFinalPay = this.totalFinal.toString();
+    console.log(this.totalFinalPay);
+    this.payPal
+      .init({
+        PayPalEnvironmentProduction:
+          'AS6GpXmXXEOGHh8CjQXAiq_S95Ookwd7tgiSdDWH9yFucP8kYUxlhVrr3q48x-p0QI22lQi8Okj49cBP',
+        PayPalEnvironmentSandbox:
+          'AfiDthdPUJXvz6kkuoOriRoQaieknEqXyVzmAFcYhSBJcrtZXGwriMSZ3jtcRsNzvpRWdhtLc6SV5Vf9',
+      })
+      .then(
+        () => {
+          // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
+          this.payPal
+            .prepareToRender(
+              'PayPalEnvironmentSandbox',
+              new PayPalConfiguration({
+                // Only needed if you get an "Internal Service Error" after PayPal login!
+                //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
+              })
+            )
+            .then(
+              () => {
+                let payment = new PayPalPayment(
+                  this.totalFinalPay,
+                  'USD',
+                  'Description',
+                  'sale'
+                );
+                this.payPal.renderSinglePaymentUI(payment).then(
+                  () => {},
+                  () => {
+                    // Error or render dialog closed without being successful
+                  }
+                );
+              },
+              () => {
+                // Error in configuration
+              }
+            );
+        },
+        () => {
+          // Error in initialization, maybe PayPal isn't supported or something else
+        }
+      );
   }
 }

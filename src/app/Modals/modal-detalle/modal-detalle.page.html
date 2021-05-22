@@ -231,7 +231,7 @@
                       El tipo de alojamiento es:
                       <ion-label class="parrafoFecha" *ngFor="let alojamiento of informacionAlojamiento">
                         {{alojamiento.bly_alojamientoPropiedad}}</ion-label>
-                    </ion-label> 
+                    </ion-label>
                   </ion-row>
                 </ion-col>
               </ion-row>
@@ -274,14 +274,16 @@
     </div>
   </ion-row>
   <br>
-  <ion-card>
+  <ion-card class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <ion-card-content>
-      <ion-button expand="block" (click)="mostrarDetalle()">Reservar</ion-button>
+      <ion-button expand="block" (click)="mostrarDetalle()">
+        <ion-icon name="calendar-number-outline" slot="start"></ion-icon>Reservar
+      </ion-button>
     </ion-card-content>
   </ion-card>
   <br>
   <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
-    
+
   </ion-row>
   <br>
   <div class="map-wrapper" style="height: 50%; width: 100%" disabled>

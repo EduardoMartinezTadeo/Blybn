@@ -108,17 +108,59 @@
       </ion-item>
     </div>
   </ion-row>
-  <br>
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row class="ion-align-items-center ion-no-padding">
+          <ion-col class="ion-no-border" lines="none">
+            <ion-label>Cuantas noches desea reservar:</ion-label>
+          </ion-col>
+          <ion-col size="7">
+            <ion-col size="2">
+              <ion-button fill="clear" (click)="decrementarNoche()">
+                <ion-icon name="remove-circle-outline" color="primary"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="3" class="datos">
+              {{ (cantidadNoche) ? cantidadNoche: 0}}
+            </ion-col>
+            <ion-col size="2">
+              <ion-button fill="clear" (click)="incrementarNoche()">
+                <ion-icon name="add-circle-outline" color="primary"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-col>
+        </ion-row>
+        <ion-button color="primary" expand="full" (click)="calendarioActivar()">
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          Fechas reservación
+        </ion-button>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="calendario">
+    <ion-card-content>
+      <div class="ion-padding">
+
+        <ion-calendar [(ngModel)]="dateRange" [options]="optionsRange" [type]="type" [format]="'YYYY-MM-DD'">
+        </ion-calendar>
+
+      </div>
+    </ion-card-content>
+  </ion-card>
+
   <ion-card *ngFor="let precio of informacionP3">
     <ion-card-content>
       <ion-button expand="block" color="success"
-        (click)="subtotal(precio.bly_precioBase, precio.bly_cargoLimpieza, bly_nombre, bly_correo)">Calcular Subtotal
+        (click)="subtotal(precio.bly_precioBase, precio.bly_cargoLimpieza, bly_nombre, bly_correo)"
+        *ngIf="botonCalcular2">Calcular Subtotal
+      </ion-button>
+      <ion-button expand="block" color="success" disabled *ngIf="botonCalcular">Calcular Subtotal
       </ion-button>
     </ion-card-content>
   </ion-card>
   <br>
-  <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
-
-  </ion-row>
+  <div #paypal></div>
   <br>
 </ion-content>

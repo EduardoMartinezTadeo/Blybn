@@ -8,5 +8,8 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
         <domain includeSubdomains="true">https://emtdeveloper.com/server_blybn/api/</domain>
+        <domain includeSubdomains="true">https://*.paypal.com/</domain>
+        <domain includeSubdomains="true">https://*.paypalobjects.com/</domain>
+        <domain includeSubdomains="true">https://www.paypal.com/</domain>
     </domain-config>
 </network-security-config>

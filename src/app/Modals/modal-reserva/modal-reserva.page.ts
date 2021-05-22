@@ -16,18 +16,39 @@ import {
   PayPalPayment,
   PayPalConfiguration,
 } from '@ionic-native/paypal/ngx';
+import * as moment from 'moment';
+import { CalendarComponentOptions } from 'ion2-calendar';
 
+declare var paypal;
 @Component({
   selector: 'app-modal-reserva',
   templateUrl: './modal-reserva.page.html',
   styleUrls: ['./modal-reserva.page.scss'],
 })
 export class ModalReservaPage implements OnInit {
-  @ViewChild('map', { static: false }) mapElement: ElementRef;
-  map: any;
-  lat: string;
-  long: string;
-  address: string;
+  dateRange: { from: string; to: string };
+  type: 'string';
+
+  optionsRange: CalendarComponentOptions = {
+    pickMode: 'range',
+    weekdays: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
+    monthPickerFormat: [
+      'Ene',
+      'Feb',
+      'Mar',
+      'Abr',
+      'May',
+      'Jun',
+      'Jul',
+      'Ago',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dic',
+    ],
+  };
+
+  public calendario: boolean = false;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -48,6 +69,9 @@ export class ModalReservaPage implements OnInit {
   id_propiedad: number;
   usuario: string;
   bly_placeId: string;
+  @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
+
+  title = 'angular-paypal-payment';
   ngOnInit() {}
   datos: any = [];
   server: string;
@@ -657,12 +681,21 @@ export class ModalReservaPage implements OnInit {
     await modal.present();
   }
 
+  arregloPayPal: any = [];
+  totalCargoPay: string;
   totalFinal: number;
   total1: number;
   total2: number;
   datosFactura: any = [];
-  totalFinalPay: string;
-  subtotal(
+  totalFinalPay: number;
+  bly_correoFactura: string;
+  bly_descripcionFactura: string;
+  bly_nombreRentador: string;
+  fecha1: any = [];
+  fecha2: any = [];
+  diaInicial: any;
+  diaFinal: any;
+  async subtotal(
     bly_precioBase: number,
     bly_cargoLimpieza: number,
     bly_nombre: string,
@@ -671,49 +704,113 @@ export class ModalReservaPage implements OnInit {
     this.totalFinal =
       parseInt(bly_precioBase.toString()) +
       parseInt(bly_cargoLimpieza.toString());
-    this.totalFinalPay = this.totalFinal.toString();
-    console.log(this.totalFinalPay);
-    this.payPal
-      .init({
-        PayPalEnvironmentProduction:
-          'AS6GpXmXXEOGHh8CjQXAiq_S95Ookwd7tgiSdDWH9yFucP8kYUxlhVrr3q48x-p0QI22lQi8Okj49cBP',
-        PayPalEnvironmentSandbox:
-          'AfiDthdPUJXvz6kkuoOriRoQaieknEqXyVzmAFcYhSBJcrtZXGwriMSZ3jtcRsNzvpRWdhtLc6SV5Vf9',
-      })
-      .then(
-        () => {
-          // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
-          this.payPal
-            .prepareToRender(
-              'PayPalEnvironmentSandbox',
-              new PayPalConfiguration({
-                // Only needed if you get an "Internal Service Error" after PayPal login!
-                //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
-              })
-            )
-            .then(
-              () => {
-                let payment = new PayPalPayment(
-                  this.totalFinalPay,
-                  'USD',
-                  'Description',
-                  'sale'
-                );
-                this.payPal.renderSinglePaymentUI(payment).then(
-                  () => {},
-                  () => {
-                    // Error or render dialog closed without being successful
-                  }
-                );
-              },
-              () => {
-                // Error in configuration
-              }
-            );
+    this.totalFinalPay =
+      parseInt(this.totalFinal.toString()) *
+      parseInt(this.cantidadNoche.toString());
+    this.totalCargoPay = this.totalFinalPay.toString();
+    this.bly_correoFactura = bly_correo;
+    this.bly_descripcionFactura =
+      'Cargo por renta de propiedad ' +
+      this.tituloPropiedad +
+      ' desde la aplicación Blybn.';
+    this.fecha1 = this.dateRange.from;
+    this.fecha2 = this.dateRange.to;
+    this.diaInicial = this.fecha1._d;
+    this.diaFinal = this.fecha2._d;
+    this.bly_nombreRentador = bly_nombre;
+    const alert = await this.alertController.create({
+      header: 'Subtotal',
+      subHeader: 'Resúmen renta de propiedad',
+      mode: 'ios',
+      message:
+        '<strong>El total es de: </strong>' +
+        this.totalCargoPay +
+        '<br>' +
+        '<strong> Referencia de pago: </strong>' +
+        this.bly_descripcionFactura +
+        '<br>' +
+        '<strong>Dia de entrada es: </strong>' +
+        this.diaInicial +
+        '<br>' +
+        '<strong>Dia de salidad es: </strong>' +
+        this.diaFinal,
+      buttons: [
+        {
+          text: 'Cancelar reservación',
+          role: 'cancel',
+          cssClass: 'iconCancelar',
+          handler: (blah) => {
+            this.modalController.dismiss();
+            this.storage.remove('informacionPromocion');
+          },
         },
-        () => {
-          // Error in initialization, maybe PayPal isn't supported or something else
-        }
-      );
+        {
+          text: 'Pagar',
+          handler: () => {
+            this.arregloPayPal = {
+              descripcion: this.bly_descripcionFactura,
+              precio: this.totalCargoPay,
+            };
+            console.log(this.arregloPayPal);
+            this.botonesPayPal = true;
+            paypal
+              .Buttons({
+                createOrder: (data, actions) => {
+                  console.log(this.arregloPayPal);
+                  return actions.order.create({
+                    purchase_units: [
+                      {
+                        description: this.arregloPayPal.descripcion,
+                        amount: {
+                          currency_code: 'USD',
+                          value: this.arregloPayPal.precio,
+                        },
+                      },
+                    ],
+                  });
+                },
+                onApprove: async (data, actions) => {
+                  const order = await actions.order.capture();
+                  console.log(order);
+                },
+                onError: (err) => {
+                  console.log(err);
+                },
+              })
+              .render(this.paypalElement.nativeElement);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  public botonesPayPal: boolean = false;
+  cantidadNoche: number = 0;
+
+  incrementarNoche() {
+    if (this.cantidadNoche == undefined) {
+      this.cantidadNoche = 1;
+    } else if (this.cantidadNoche != undefined) {
+      ++this.cantidadNoche;
+    }
+  }
+
+  decrementarNoche() {
+    if (this.cantidadNoche == undefined) {
+      this.cantidadNoche = 0;
+    } else if (this.cantidadNoche != undefined && this.cantidadNoche > 0) {
+      --this.cantidadNoche;
+    }
+  }
+
+  public botonCalcular: boolean = true;
+  public botonCalcular2: boolean = false;
+
+  calendarioActivar() {
+    this.botonCalcular = false;
+    this.calendario = true;
+    this.botonCalcular2 = true;
   }
 }

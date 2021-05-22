@@ -241,3 +241,18 @@ ion-avatar {
     font-family: "HelveticaBold";
     font-size: 25px;
 }
+
+ion-grid {
+    ion-label {
+        font-family: "HelveticaMedium";
+        font-size: 14px;
+        margin-left: 20px;
+    }
+
+    .datos {
+        font-family: "HelveticaMedium";
+        font-size: 14px;
+        text-align: justify;
+        align-items: flex-start;
+    }
+}

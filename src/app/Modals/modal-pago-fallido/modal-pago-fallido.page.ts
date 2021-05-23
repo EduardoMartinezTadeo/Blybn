@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ModalPagoPage } from '../modal-pago/modal-pago.page';
 
 @Component({
   selector: 'app-modal-pago-fallido',
@@ -13,9 +12,6 @@ export class ModalPagoFallidoPage implements OnInit {
   ngOnInit() {}
 
   async intentarPago() {
-    const modal = await this.modalController.create({
-      component: ModalPagoPage,
-    });
-    await modal.present();
+    this.modalController.dismiss();
   }
 }

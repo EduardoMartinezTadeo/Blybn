@@ -77,6 +77,7 @@ export class ModalDetallePage implements OnInit {
     this.datos = this.navParams.get('datos');
     this.id_propiedad = this.datos.propiedad;
     this.actRoute.params.subscribe((data: any) => {
+      console.log(data);
       this.cargarImagenesP();
       this.cargarP1();
       this.cargarP2();

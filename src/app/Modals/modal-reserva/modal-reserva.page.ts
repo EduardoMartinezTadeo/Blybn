@@ -10,7 +10,6 @@ import {
   ToastController,
 } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { ModalPagoPage } from '../modal-pago/modal-pago.page';
 import {
   PayPal,
   PayPalPayment,
@@ -18,6 +17,8 @@ import {
 } from '@ionic-native/paypal/ngx';
 import * as moment from 'moment';
 import { CalendarComponentOptions } from 'ion2-calendar';
+import { ModalPagoExitosoPage } from '../modal-pago-exitoso/modal-pago-exitoso.page';
+import { ModalPagoFallidoPage } from '../modal-pago-fallido/modal-pago-fallido.page';
 
 declare var paypal;
 @Component({
@@ -72,18 +73,20 @@ export class ModalReservaPage implements OnInit {
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
 
   title = 'angular-paypal-payment';
-  ngOnInit() {}
+  ngOnInit() {
+    this.actualizarnoDisponible();
+  }
   datos: any = [];
   server: string;
   perfilData: any;
   informacionPropiedades: any = [];
   ionViewWillEnter() {
+    this.actualizarnoDisponible();
     this.datos = this.navParams.get('datos');
     this.id_propiedad = this.datos.propiedad;
     this.actRoute.params.subscribe((data: any) => {
       this.cargarImagenesP();
       this.cargarP1();
-      this.cargarP2();
       this.cargarP3();
       this.comoLlegar();
       this.cargarFotoPerfil();
@@ -146,7 +149,6 @@ export class ModalReservaPage implements OnInit {
     this.preavisoPropiedad = '';
     this.anticipacionRenta = '';
     this.informacionP1 = [];
-    this.informacionP2 = [];
     this.informacionP3 = [];
     this.infoComoLlegar = [];
     this.storage.remove('informacionPromocion');
@@ -268,24 +270,6 @@ export class ModalReservaPage implements OnInit {
         this.bly_placeId,
       `_system`
     );
-  }
-
-  informacionP2: any = [];
-  cargarP2() {
-    let body = {
-      aksi: 'tipo1',
-      bly_propiedad: this.id_propiedad,
-    };
-    this.provider
-      .detalleP2(body, 'db_CargarAmenidadesPropiedades.php')
-      .subscribe(
-        (data) => {
-          this.informacionP2 = data.result;
-        },
-        (error) => {
-          this.presentLoadingServer();
-        }
-      );
   }
 
   bly_precio: number;
@@ -589,7 +573,6 @@ export class ModalReservaPage implements OnInit {
 
   async presentLoadingServer() {
     const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
       duration: 1500,
       spinner: 'bubbles',
       mode: 'ios',
@@ -599,60 +582,20 @@ export class ModalReservaPage implements OnInit {
       this.presentAlertServer();
     }, 2000);
   }
+
   toast: any;
   datosPromocionesR: any;
   actualizarnoDisponible() {
     this.storage.get('informacionPromocion').then((res) => {
       this.datosPromocionesR = res;
     });
-    this.confirmarCambiarNoDisponible();
-  }
-
-  async confirmarCambiarNoDisponible() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Confirmación',
-      mode: 'ios',
-      message:
-        '¿Está apunto de realizar el pago de reservación de esta propiedad?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
-        },
-        {
-          text: 'Proceder',
-          handler: () => {
-            this.cargarNoDisponible();
-          },
-        },
-      ],
-    });
-
-    await alert.present();
-  }
-
-  async cargarNoDisponible() {
-    const loading = await this.loadingController.create({
-      message: 'Espere un momento...',
-      duration: 2000,
-      mode: 'ios',
-    });
-    await loading.present();
-    setTimeout(() => {
-      this.actualizarNoDisponibleDB();
-    }, 1500);
   }
 
   actualizarNoDisponibleDB() {
     let body = {
       aksi: 'actualizarDispo',
-      bly_status: 2,
-      bly_colorStatus: 'danger',
+      bly_status: 3,
+      bly_colorStatus: 'warning',
       bly_registroPropiedad: this.datosPromocionesR.propiedad,
     };
     this.provider
@@ -663,11 +606,12 @@ export class ModalReservaPage implements OnInit {
       .subscribe((data) => {
         this.toast = this.toastController
           .create({
-            message: 'Se redireccionará a seleccionar su método de pago...',
+            message: 'Espere un momento...',
             duration: 2000,
             mode: 'ios',
           })
           .then((toastData) => {
+            this.modalController.dismiss();
             toastData.present();
             this.mostrarModalResultado();
           });
@@ -676,14 +620,25 @@ export class ModalReservaPage implements OnInit {
 
   async mostrarModalResultado() {
     const modal = await this.modalController.create({
-      component: ModalPagoPage,
+      component: ModalPagoExitosoPage,
     });
     await modal.present();
   }
 
+  async mostrarModalErrorPago() {
+    const modal = await this.modalController.create({
+      component: ModalPagoFallidoPage,
+    });
+    await modal.present();
+  }
+
+  descuentoSemana: number;
+  descuentoMes: number;
   arregloPayPal: any = [];
   totalCargoPay: string;
   totalFinal: number;
+  totalFinalSemana: number;
+  totalFinalMes: number;
   total1: number;
   total2: number;
   datosFactura: any = [];
@@ -699,91 +654,278 @@ export class ModalReservaPage implements OnInit {
     bly_precioBase: number,
     bly_cargoLimpieza: number,
     bly_nombre: string,
-    bly_correo: string
+    bly_correo: string,
+    bly_descuentoSemana: number,
+    bly_descuentoMes: number
   ) {
-    this.totalFinal =
-      parseInt(bly_precioBase.toString()) +
-      parseInt(bly_cargoLimpieza.toString());
-    this.totalFinalPay =
-      parseInt(this.totalFinal.toString()) *
-      parseInt(this.cantidadNoche.toString());
-    this.totalCargoPay = this.totalFinalPay.toString();
-    this.bly_correoFactura = bly_correo;
-    this.bly_descripcionFactura =
-      'Cargo por renta de propiedad ' +
-      this.tituloPropiedad +
-      ' desde la aplicación Blybn.';
-    this.fecha1 = this.dateRange.from;
-    this.fecha2 = this.dateRange.to;
-    this.diaInicial = this.fecha1._d;
-    this.diaFinal = this.fecha2._d;
-    this.bly_nombreRentador = bly_nombre;
-    const alert = await this.alertController.create({
-      header: 'Subtotal',
-      subHeader: 'Resúmen renta de propiedad',
-      mode: 'ios',
-      message:
-        '<strong>El total es de: </strong>' +
-        this.totalCargoPay +
-        '<br>' +
-        '<strong> Referencia de pago: </strong>' +
-        this.bly_descripcionFactura +
-        '<br>' +
-        '<strong>Dia de entrada es: </strong>' +
-        this.diaInicial +
-        '<br>' +
-        '<strong>Dia de salidad es: </strong>' +
-        this.diaFinal,
-      buttons: [
-        {
-          text: 'Cancelar reservación',
-          role: 'cancel',
-          cssClass: 'iconCancelar',
-          handler: (blah) => {
-            this.modalController.dismiss();
-            this.storage.remove('informacionPromocion');
+    this.botonCalcular = true;
+    this.botonCalcular2 = false;
+    if (this.cantidadNoche == 7) {
+      this.descuentoSemana = bly_descuentoSemana;
+      this.totalFinalSemana =
+        (parseInt(bly_precioBase.toString()) *
+          parseInt(this.descuentoSemana.toString())) /
+        100;
+      this.totalFinal =
+        parseInt(bly_precioBase.toString()) *
+          parseInt(this.cantidadNoche.toString()) +
+        parseInt(bly_cargoLimpieza.toString()) -
+        parseInt(this.totalFinalSemana.toString());
+      this.totalCargoPay = this.totalFinal.toString();
+      this.bly_correoFactura = bly_correo;
+      this.bly_descripcionFactura =
+        'Cargo por renta de propiedad ' +
+        this.tituloPropiedad +
+        ' desde la aplicación Blybn.';
+      this.fecha1 = this.dateRange.from;
+      this.fecha2 = this.dateRange.to;
+      this.diaInicial = this.fecha1._d;
+      this.diaFinal = this.fecha2._d;
+      this.bly_nombreRentador = bly_nombre;
+      const alert = await this.alertController.create({
+        header: 'Subtotal',
+        subHeader: 'Resúmen renta de propiedad',
+        mode: 'ios',
+        message:
+          '<strong>El total es de: </strong>' +
+          this.totalCargoPay +
+          '<br>' +
+          '<strong> Referencia de pago: </strong>' +
+          this.bly_descripcionFactura +
+          '<br>' +
+          '<strong>Dia de entrada es: </strong>' +
+          this.diaInicial +
+          '<br>' +
+          '<strong>Dia de salidad es: </strong>' +
+          this.diaFinal,
+        buttons: [
+          {
+            text: 'Cancelar reservación',
+            role: 'cancel',
+            cssClass: 'iconCancelar',
+            handler: (blah) => {
+              this.modalController.dismiss();
+              this.storage.remove('informacionPromocion');
+            },
           },
-        },
-        {
-          text: 'Pagar',
-          handler: () => {
-            this.arregloPayPal = {
-              descripcion: this.bly_descripcionFactura,
-              precio: this.totalCargoPay,
-            };
-            console.log(this.arregloPayPal);
-            this.botonesPayPal = true;
-            paypal
-              .Buttons({
-                createOrder: (data, actions) => {
-                  console.log(this.arregloPayPal);
-                  return actions.order.create({
-                    purchase_units: [
-                      {
-                        description: this.arregloPayPal.descripcion,
-                        amount: {
-                          currency_code: 'USD',
-                          value: this.arregloPayPal.precio,
+          {
+            text: 'Pagar',
+            handler: () => {
+              this.arregloPayPal = {
+                descripcion: this.bly_descripcionFactura,
+                precio: this.totalCargoPay,
+              };
+              console.log(this.arregloPayPal);
+              this.botonesPayPal = true;
+              paypal
+                .Buttons({
+                  createOrder: (data, actions) => {
+                    console.log(this.arregloPayPal);
+                    return actions.order.create({
+                      purchase_units: [
+                        {
+                          description: this.arregloPayPal.descripcion,
+                          amount: {
+                            currency_code: 'USD',
+                            value: this.arregloPayPal.precio,
+                          },
                         },
-                      },
-                    ],
-                  });
-                },
-                onApprove: async (data, actions) => {
-                  const order = await actions.order.capture();
-                  console.log(order);
-                },
-                onError: (err) => {
-                  console.log(err);
-                },
-              })
-              .render(this.paypalElement.nativeElement);
+                      ],
+                    });
+                  },
+                  onApprove: async (data, actions) => {
+                    const order = await actions.order.capture();
+                    console.log(order);
+                    this.actualizarNoDisponibleDB();
+                  },
+                  onError: (err) => {
+                    console.log(err);
+                    this.mostrarModalErrorPago();
+                  },
+                })
+                .render(this.paypalElement.nativeElement);
+            },
           },
-        },
-      ],
-    });
-
-    await alert.present();
+        ],
+      });
+      await alert.present();
+    } else if (this.cantidadNoche >= 20) {
+      this.descuentoMes = bly_descuentoMes;
+      this.totalFinalMes =
+        (parseInt(bly_precioBase.toString()) *
+          parseInt(this.descuentoMes.toString())) /
+        100;
+      this.totalFinal =
+        parseInt(bly_precioBase.toString()) *
+          parseInt(this.cantidadNoche.toString()) +
+        parseInt(bly_cargoLimpieza.toString()) -
+        parseInt(this.totalFinalMes.toString());
+      this.totalCargoPay = this.totalFinal.toString();
+      this.bly_correoFactura = bly_correo;
+      this.bly_descripcionFactura =
+        'Cargo por renta de propiedad ' +
+        this.tituloPropiedad +
+        ' desde la aplicación Blybn.';
+      this.fecha1 = this.dateRange.from;
+      this.fecha2 = this.dateRange.to;
+      this.diaInicial = this.fecha1._d;
+      this.diaFinal = this.fecha2._d;
+      this.bly_nombreRentador = bly_nombre;
+      const alert = await this.alertController.create({
+        header: 'Subtotal',
+        subHeader: 'Resúmen renta de propiedad',
+        mode: 'ios',
+        backdropDismiss: false,
+        message:
+          '<strong>El total es de: </strong>' +
+          this.totalCargoPay +
+          '<br>' +
+          '<strong> Referencia de pago: </strong>' +
+          this.bly_descripcionFactura +
+          '<br>' +
+          '<strong>Dia de entrada es: </strong>' +
+          this.diaInicial +
+          '<br>' +
+          '<strong>Dia de salidad es: </strong>' +
+          this.diaFinal,
+        buttons: [
+          {
+            text: 'Cancelar reservación',
+            role: 'cancel',
+            cssClass: 'iconCancelar',
+            handler: (blah) => {
+              this.modalController.dismiss();
+              this.storage.remove('informacionPromocion');
+            },
+          },
+          {
+            text: 'Pagar',
+            handler: () => {
+              this.arregloPayPal = {
+                descripcion: this.bly_descripcionFactura,
+                precio: this.totalCargoPay,
+              };
+              console.log(this.arregloPayPal);
+              this.botonesPayPal = true;
+              paypal
+                .Buttons({
+                  createOrder: (data, actions) => {
+                    console.log(this.arregloPayPal);
+                    return actions.order.create({
+                      purchase_units: [
+                        {
+                          description: this.arregloPayPal.descripcion,
+                          amount: {
+                            currency_code: 'USD',
+                            value: this.arregloPayPal.precio,
+                          },
+                        },
+                      ],
+                    });
+                  },
+                  onApprove: async (data, actions) => {
+                    const order = await actions.order.capture();
+                    console.log(order);
+                    this.actualizarNoDisponibleDB();
+                  },
+                  onError: (err) => {
+                    console.log(err);
+                    this.mostrarModalErrorPago();
+                  },
+                })
+                .render(this.paypalElement.nativeElement);
+            },
+          },
+        ],
+      });
+      await alert.present();
+    } else if (this.cantidadNoche < 7) {
+      this.totalFinal =
+        parseInt(bly_precioBase.toString()) +
+        parseInt(bly_cargoLimpieza.toString());
+      this.totalFinalPay =
+        parseInt(this.totalFinal.toString()) *
+        parseInt(this.cantidadNoche.toString());
+      this.totalCargoPay = this.totalFinalPay.toString();
+      this.bly_correoFactura = bly_correo;
+      this.bly_descripcionFactura =
+        'Cargo por renta de propiedad ' +
+        this.tituloPropiedad +
+        ' desde la aplicación Blybn.';
+      this.fecha1 = this.dateRange.from;
+      this.fecha2 = this.dateRange.to;
+      this.diaInicial = this.fecha1._d;
+      this.diaFinal = this.fecha2._d;
+      this.bly_nombreRentador = bly_nombre;
+      const alert = await this.alertController.create({
+        header: 'Subtotal',
+        subHeader: 'Resúmen renta de propiedad',
+        mode: 'ios',
+        backdropDismiss: false,
+        message:
+          '<strong>El total es de: </strong>' +
+          this.totalCargoPay +
+          '<br>' +
+          '<strong> Referencia de pago: </strong>' +
+          this.bly_descripcionFactura +
+          '<br>' +
+          '<strong>Dia de entrada es: </strong>' +
+          this.diaInicial +
+          '<br>' +
+          '<strong>Dia de salidad es: </strong>' +
+          this.diaFinal,
+        buttons: [
+          {
+            text: 'Cancelar reservación',
+            role: 'cancel',
+            cssClass: 'iconCancelar',
+            handler: (blah) => {
+              this.modalController.dismiss();
+              this.storage.remove('informacionPromocion');
+            },
+          },
+          {
+            text: 'Pagar',
+            handler: () => {
+              this.arregloPayPal = {
+                descripcion: this.bly_descripcionFactura,
+                precio: this.totalCargoPay,
+              };
+              console.log(this.arregloPayPal);
+              this.botonesPayPal = true;
+              paypal
+                .Buttons({
+                  createOrder: (data, actions) => {
+                    console.log(this.arregloPayPal);
+                    return actions.order.create({
+                      purchase_units: [
+                        {
+                          description: this.arregloPayPal.descripcion,
+                          amount: {
+                            currency_code: 'USD',
+                            value: this.arregloPayPal.precio,
+                          },
+                        },
+                      ],
+                    });
+                  },
+                  onApprove: async (data, actions) => {
+                    const order = await actions.order.capture();
+                    console.log(order);
+                    this.actualizarNoDisponibleDB();
+                  },
+                  onError: (err) => {
+                    console.log(err);
+                    this.mostrarModalErrorPago();
+                  },
+                })
+                .render(this.paypalElement.nativeElement);
+            },
+          },
+        ],
+      });
+      await alert.present();
+    }
   }
 
   public botonesPayPal: boolean = false;

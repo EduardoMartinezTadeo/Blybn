@@ -108,7 +108,7 @@
       </ion-item>
     </div>
   </ion-row>
-  <ion-card>
+  <ion-card class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <ion-card-content>
       <ion-grid>
         <ion-row class="ion-align-items-center ion-no-padding">
@@ -139,7 +139,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card *ngIf="calendario">
+  <ion-card *ngIf="calendario" class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <ion-card-content>
       <div class="ion-padding">
 
@@ -150,17 +150,16 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card *ngFor="let precio of informacionP3">
+  <ion-card *ngFor="let precio of informacionP3" class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <ion-card-content>
       <ion-button expand="block" color="success"
-        (click)="subtotal(precio.bly_precioBase, precio.bly_cargoLimpieza, bly_nombre, bly_correo)"
+        (click)="subtotal(precio.bly_precioBase, precio.bly_cargoLimpieza, bly_nombre, bly_correo, precio.bly_descuentoSemana, precio.bly_descuentoMes)"
         *ngIf="botonCalcular2">Calcular Subtotal
       </ion-button>
       <ion-button expand="block" color="success" disabled *ngIf="botonCalcular">Calcular Subtotal
       </ion-button>
     </ion-card-content>
   </ion-card>
-  <br>
+
   <div #paypal></div>
-  <br>
 </ion-content>

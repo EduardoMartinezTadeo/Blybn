@@ -20,14 +20,18 @@ export class DetalleMensajePage implements OnInit {
     private storage: Storage,
     private navParams: NavParams,
     private provider: ProviderService
-  ) {}
+  ) {
+    this.server = this.provider.server;
+  }
+
+  server: string;
   ngOnInit() {}
   id_usuario: number;
   id_propiedad: number;
   usuario: string;
   bly_placeId: string;
   datos: any = [];
-  server: string;
+
   perfilData: any;
   informacionPropiedades: any = [];
   ionViewWillEnter() {
@@ -38,6 +42,7 @@ export class DetalleMensajePage implements OnInit {
       this.bly_nombre = data.bly_nombre;
       this.bly_correo = data.bly_correoElectronico;
     });
+    this.cargarInformacionBasica();
   }
 
   bly_nombre: string;
@@ -56,6 +61,7 @@ export class DetalleMensajePage implements OnInit {
         )
         .subscribe((data) => {
           this.informacionPersonal = data.result;
+          console.log(this.informacionPersonal);
           resolve(true);
         });
     });

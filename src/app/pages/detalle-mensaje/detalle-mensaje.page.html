@@ -1,4 +1,4 @@
-<ion-header class="border" translucent>
+<ion-header class="border" translucent *ngFor="let datos of informacionPersonal">
   <ion-toolbar>
 
     <ion-buttons slot="start">
@@ -7,11 +7,11 @@
       </ion-button>
     </ion-buttons>
     <ion-title class="ion-text-capitalize" class="detalleMensaje">
-      Usuario Blybn
+      {{datos.bly_nombre}}
     </ion-title>
     <ion-buttons slot="end">
       <ion-avatar>
-        <img src="/assets/imgs/avatar.svg">
+        <img src="{{server + datos.bly_fotografia}}" alt="imagen-usuario">
       </ion-avatar>
     </ion-buttons>
 

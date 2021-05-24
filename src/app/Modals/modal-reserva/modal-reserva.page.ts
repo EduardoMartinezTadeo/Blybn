@@ -585,9 +585,13 @@ export class ModalReservaPage implements OnInit {
 
   toast: any;
   datosPromocionesR: any;
+  datosPerfilR: any;
   actualizarnoDisponible() {
     this.storage.get('informacionPromocion').then((res) => {
       this.datosPromocionesR = res;
+    });
+    this.storage.get('perfil').then((res) => {
+      this.datosPerfilR = res;
     });
   }
 
@@ -631,6 +635,19 @@ export class ModalReservaPage implements OnInit {
     });
     await modal.present();
   }
+
+  //informacion order capture
+  informacionPagoFinalizado: any = [];
+  bly_fechapago: string;
+  bly_idPago: string;
+  bly_correoUsuario: string;
+  bly_paisCompra: string;
+  bly_nombreUsuario: string;
+  bly_apellidoUsuario: string;
+  bly_idUsuario: string;
+  bly_montoFinal: string;
+  bly_descripcionPago: string;
+  bly_statusPago: string;
 
   descuentoSemana: number;
   descuentoMes: number;
@@ -735,7 +752,16 @@ export class ModalReservaPage implements OnInit {
                   },
                   onApprove: async (data, actions) => {
                     const order = await actions.order.capture();
-                    console.log(order);
+                    this.informacionPagoFinalizado = order;
+                    let body = {
+                      bly_fechapago: this.informacionPagoFinalizado.create_time,
+                      bly_idPago: this.informacionPagoFinalizado.id,
+
+                      bly_correoUsuario:
+                        this.informacionPagoFinalizado.payer.email_address,
+                    };
+                    console.log(body);
+
                     this.actualizarNoDisponibleDB();
                   },
                   onError: (err) => {
@@ -825,7 +851,16 @@ export class ModalReservaPage implements OnInit {
                   },
                   onApprove: async (data, actions) => {
                     const order = await actions.order.capture();
-                    console.log(order);
+                    this.informacionPagoFinalizado = order;
+                    let body = {
+                      bly_fechapago: this.informacionPagoFinalizado.create_time,
+                      bly_idPago: this.informacionPagoFinalizado.id,
+
+                      bly_correoUsuario:
+                        this.informacionPagoFinalizado.payer.email_address,
+                    };
+                    console.log(body);
+
                     this.actualizarNoDisponibleDB();
                   },
                   onError: (err) => {
@@ -891,12 +926,10 @@ export class ModalReservaPage implements OnInit {
                 descripcion: this.bly_descripcionFactura,
                 precio: this.totalCargoPay,
               };
-              console.log(this.arregloPayPal);
               this.botonesPayPal = true;
               paypal
                 .Buttons({
                   createOrder: (data, actions) => {
-                    console.log(this.arregloPayPal);
                     return actions.order.create({
                       purchase_units: [
                         {
@@ -911,7 +944,26 @@ export class ModalReservaPage implements OnInit {
                   },
                   onApprove: async (data, actions) => {
                     const order = await actions.order.capture();
-                    console.log(order);
+                    this.informacionPagoFinalizado = order;
+                    let body = {
+                      bly_fechapago: this.informacionPagoFinalizado.create_time,
+                      bly_idPago: this.informacionPagoFinalizado.id,
+                      bly_correoUsuario:
+                        this.informacionPagoFinalizado.payer.email_address,
+                      bly_paisCompra:
+                        this.informacionPagoFinalizado.payer.address
+                          .country_code,
+                      bly_nombreUsuario:
+                        this.informacionPagoFinalizado.payer.name.given_name,
+                      bly_apellidoUsuario:
+                        this.informacionPagoFinalizado.payer.name.surname,
+                      bly_idUsuario:
+                        this.informacionPagoFinalizado.payer.payer_id,
+                      bly_statusPago: this.informacionPagoFinalizado.status,
+                      bly_montoFinal: this.totalCargoPay,
+                      bly_descripcion: this.bly_descripcionFactura,
+                    };
+                    this.registrarHistorialServico(body);
                     this.actualizarNoDisponibleDB();
                   },
                   onError: (err) => {
@@ -954,5 +1006,24 @@ export class ModalReservaPage implements OnInit {
     this.botonCalcular = false;
     this.calendario = true;
     this.botonCalcular2 = true;
+  }
+
+  id_historialServicio: number;
+  registrarHistorialServico(datos: any) {
+    let body = {
+      aksi: 'registrarServicio',
+      bly_propiedad: this.datosPromocionesR.propiedad,
+      bly_usuario: this.datosPerfilR.bly_usuario,
+    };
+    this.provider
+      .registrarHistorialServicio(
+        body,
+        'https://emtdeveloper.com/server_blybn/api/db_registrarServicio.php'
+      )
+      .subscribe((data) => {
+        this.id_historialServicio = data.id_registro;
+        console.log(this.id_historialServicio);
+        console.log(datos);
+      });
   }
 }

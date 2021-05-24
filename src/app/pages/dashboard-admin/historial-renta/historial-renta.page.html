@@ -23,7 +23,7 @@
                     <ion-card-title>{{exclusivo.bly_estado}}</ion-card-title>
                 </ion-col>
             </ion-row>
-            <ion-row class="ion-text-center">
+            <ion-row class="ion-text-center" (click)="mostrarChat(exclusivo.bly_duenoPropiedad)">
                 <ion-col size="6">
                     <ion-button color="primary">Comunicate</ion-button>
                 </ion-col>

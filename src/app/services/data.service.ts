@@ -44,6 +44,8 @@ const apiURLRegistrarCasaPromocion =
 const apiURLRegistrarCalificacion = environment.apiRegistrarCalificacionURL;
 const apiURLRegistrarFavoritos = environment.apiRegistrarFavoritosURL;
 const apiURLRegistrarVistasPropiedad = environment.apiRegistrarVistasURL;
+const apiURLRegistrarPagoPaypal = environment.apiRegistrarPagoProcesadoURL;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -674,7 +676,7 @@ export class DataService {
       );
   }
 
-  registrarVisitasPropiedad (
+  registrarVisitasPropiedad(
     bly_propiedad: number,
     bly_tituloPropiedad: string,
     bly_ciudad: string,
@@ -684,13 +686,42 @@ export class DataService {
     bly_precioBase: number,
     bly_duenoPropiedad: number
   ) {
-    return this.http.get(`${apiURLRegistrarVistasPropiedad}?bly_propiedad=${bly_propiedad}&bly_tituloPropiedad=${bly_tituloPropiedad}&bly_ciudad=${bly_ciudad}&bly_calificacion=${bly_calificacion}&bly_imagen=${bly_imagen}&bly_estado=${bly_estado}&bly_precioBase=${bly_precioBase}&bly_duenoPropiedad=${bly_duenoPropiedad}`).pipe(map ( 
-      (results) => {
-        this.result = results;
-        console.log(this.result);
-      }
-    ))
-  };
+    return this.http
+      .get(
+        `${apiURLRegistrarVistasPropiedad}?bly_propiedad=${bly_propiedad}&bly_tituloPropiedad=${bly_tituloPropiedad}&bly_ciudad=${bly_ciudad}&bly_calificacion=${bly_calificacion}&bly_imagen=${bly_imagen}&bly_estado=${bly_estado}&bly_precioBase=${bly_precioBase}&bly_duenoPropiedad=${bly_duenoPropiedad}`
+      )
+      .pipe(
+        map((results) => {
+          this.result = results;
+          console.log(this.result);
+        })
+      );
+  }
+
+  registrarCargoPayPal(
+    bly_fechapago: string,
+    bly_idPago: string,
+    bly_montoFinal: number,
+    bly_idUsuario: string,
+    bly_nombreUsuario: string,
+    bly_apellidoUsuario: string,
+    bly_correoUsuario: string,
+    bly_descripcion: string,
+    bly_servicio: number,
+    bly_paisCompra: string,
+    bly_statusPago: string
+  ) {
+    return this.http
+      .get(
+        `${apiURLRegistrarPagoPaypal}?bly_fechapago=${bly_fechapago}&bly_idPago=${bly_idPago}&bly_montoFinal=${bly_montoFinal}&bly_idUsuario=${bly_idUsuario}&bly_nombreUsuario=${bly_nombreUsuario}&bly_apellidoUsuario=${bly_apellidoUsuario}&bly_correoUsuario=${bly_correoUsuario}&bly_descripcion=${bly_descripcion}&bly_servicio=${bly_servicio}&bly_paisCompra=${bly_paisCompra}&bly_statusPago=${bly_statusPago}`
+      )
+      .pipe(
+        map((results) => {
+          this.result = results;
+          console.log(this.result);
+        })
+      );
+  }
 
   bly_url: 'https://www.facebook.com/Blybnmx/';
   registrarFavoritos(
@@ -725,17 +756,21 @@ export class DataService {
                       let body = {
                         aksi: 'retirar-favorito',
                         bly_registroPropiedad: bly_registroPropiedad,
-                        bly_usuario: bly_usuario
-                      }
-                      this.provider.eliminarFavoritos(body, 'db_eliminarFavoritos.php').subscribe(data => {
-                        this.toast = this.toastController.create({
-                          message: 'Se ha retirado de favoritos...',
-                          duration: 2000,
-                          mode: 'ios',
-                        }).then((toastData) => {
-                          toastData.present();
+                        bly_usuario: bly_usuario,
+                      };
+                      this.provider
+                        .eliminarFavoritos(body, 'db_eliminarFavoritos.php')
+                        .subscribe((data) => {
+                          this.toast = this.toastController
+                            .create({
+                              message: 'Se ha retirado de favoritos...',
+                              duration: 2000,
+                              mode: 'ios',
+                            })
+                            .then((toastData) => {
+                              toastData.present();
+                            });
                         });
-                      });
                     },
                   },
                   {
@@ -749,7 +784,7 @@ export class DataService {
                         '',
                         'https://www.facebook.com/Blybnmx/'
                       );
-                    }
+                    },
                   },
                   {
                     text: 'Cancelar',
@@ -776,13 +811,15 @@ export class DataService {
                     icon: 'star',
                     cssClass: 'favorito',
                     handler: () => {
-                      this.toast = this.toastController.create({
-                        message: 'Se ha agregado a favoritos...',
-                        duration: 2000,
-                        mode: 'ios',
-                      }).then((toastData) => {
-                        toastData.present();
-                      });
+                      this.toast = this.toastController
+                        .create({
+                          message: 'Se ha agregado a favoritos...',
+                          duration: 2000,
+                          mode: 'ios',
+                        })
+                        .then((toastData) => {
+                          toastData.present();
+                        });
                     },
                   },
                   {
@@ -796,7 +833,7 @@ export class DataService {
                         '',
                         'https://www.facebook.com/Blybnmx/'
                       );
-                    }
+                    },
                   },
                   {
                     text: 'Cancelar',

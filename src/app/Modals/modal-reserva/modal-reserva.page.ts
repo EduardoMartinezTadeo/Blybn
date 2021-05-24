@@ -19,6 +19,7 @@ import * as moment from 'moment';
 import { CalendarComponentOptions } from 'ion2-calendar';
 import { ModalPagoExitosoPage } from '../modal-pago-exitoso/modal-pago-exitoso.page';
 import { ModalPagoFallidoPage } from '../modal-pago-fallido/modal-pago-fallido.page';
+import { DataService } from '../../services/data.service';
 
 declare var paypal;
 @Component({
@@ -62,7 +63,8 @@ export class ModalReservaPage implements OnInit {
     private navParams: NavParams,
     private modalController: ModalController,
     private toastController: ToastController,
-    private payPal: PayPal
+    private payPal: PayPal,
+    private servicio: DataService
   ) {
     this.server = this.provider.server;
   }
@@ -756,12 +758,22 @@ export class ModalReservaPage implements OnInit {
                     let body = {
                       bly_fechapago: this.informacionPagoFinalizado.create_time,
                       bly_idPago: this.informacionPagoFinalizado.id,
-
                       bly_correoUsuario:
                         this.informacionPagoFinalizado.payer.email_address,
+                      bly_paisCompra:
+                        this.informacionPagoFinalizado.payer.address
+                          .country_code,
+                      bly_nombreUsuario:
+                        this.informacionPagoFinalizado.payer.name.given_name,
+                      bly_apellidoUsuario:
+                        this.informacionPagoFinalizado.payer.name.surname,
+                      bly_idUsuario:
+                        this.informacionPagoFinalizado.payer.payer_id,
+                      bly_statusPago: this.informacionPagoFinalizado.status,
+                      bly_montoFinal: this.totalCargoPay,
+                      bly_descripcion: this.bly_descripcionFactura,
                     };
-                    console.log(body);
-
+                    this.registrarHistorialServico(body);
                     this.actualizarNoDisponibleDB();
                   },
                   onError: (err) => {
@@ -855,12 +867,22 @@ export class ModalReservaPage implements OnInit {
                     let body = {
                       bly_fechapago: this.informacionPagoFinalizado.create_time,
                       bly_idPago: this.informacionPagoFinalizado.id,
-
                       bly_correoUsuario:
                         this.informacionPagoFinalizado.payer.email_address,
+                      bly_paisCompra:
+                        this.informacionPagoFinalizado.payer.address
+                          .country_code,
+                      bly_nombreUsuario:
+                        this.informacionPagoFinalizado.payer.name.given_name,
+                      bly_apellidoUsuario:
+                        this.informacionPagoFinalizado.payer.name.surname,
+                      bly_idUsuario:
+                        this.informacionPagoFinalizado.payer.payer_id,
+                      bly_statusPago: this.informacionPagoFinalizado.status,
+                      bly_montoFinal: this.totalCargoPay,
+                      bly_descripcion: this.bly_descripcionFactura,
                     };
-                    console.log(body);
-
+                    this.registrarHistorialServico(body);
                     this.actualizarNoDisponibleDB();
                   },
                   onError: (err) => {
@@ -1008,6 +1030,18 @@ export class ModalReservaPage implements OnInit {
     this.botonCalcular2 = true;
   }
 
+  respuestaPago: any;
+  fechaPago: string;
+  id_Pago: string;
+  montoFinal: number;
+  idUsuario: string;
+  nombreUsuario: string;
+  apellidoUsuario: string;
+  descripcion: string;
+  paisCompra: string;
+  bly_status: string;
+  correoElectronico: string;
+
   id_historialServicio: number;
   registrarHistorialServico(datos: any) {
     let body = {
@@ -1022,8 +1056,33 @@ export class ModalReservaPage implements OnInit {
       )
       .subscribe((data) => {
         this.id_historialServicio = data.id_registro;
-        console.log(this.id_historialServicio);
-        console.log(datos);
+        this.fechaPago = datos.bly_fechapago;
+        this.id_Pago = datos.bly_idPago;
+        this.montoFinal = datos.bly_montoFinal;
+        this.idUsuario = datos.bly_idUsuario;
+        this.nombreUsuario = datos.bly_nombreUsuario;
+        this.apellidoUsuario = datos.bly_apellidoUsuario;
+        this.descripcion = datos.bly_descripcion;
+        this.paisCompra = datos.bly_paisCompra;
+        this.bly_status = datos.bly_statusPago;
+        this.correoElectronico = datos.bly_correoUsuario;
+        this.servicio
+          .registrarCargoPayPal(
+            this.fechaPago,
+            this.id_Pago,
+            this.montoFinal,
+            this.idUsuario,
+            this.nombreUsuario,
+            this.apellidoUsuario,
+            this.correoElectronico,
+            this.descripcion,
+            this.id_historialServicio,
+            this.paisCompra,
+            this.bly_status
+          )
+          .subscribe((data) => {
+            this.respuestaPago = data;
+          });
       });
   }
 }

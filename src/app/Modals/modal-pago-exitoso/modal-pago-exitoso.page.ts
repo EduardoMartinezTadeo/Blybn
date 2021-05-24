@@ -66,6 +66,5 @@ export class ModalPagoExitosoPage implements OnInit {
 
   cerrar() {
     this.modalController.dismiss();
-    this.router.navigateByUrl('/dashboard/historial-renta');
   }
 }

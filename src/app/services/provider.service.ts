@@ -89,6 +89,7 @@ const apiCargarFavoritos = environment.apiCargarFavoritosURL;
 const apiCargarPropiedadesVistas = environment.apiCargarPropiedadesVistasURL;
 const apiRegistrarHistorialServicio =
   environment.apiRegistrarHistorialServicioURL;
+const apiCargarHistorialRenta = environment.apiCargarHistorialRentaURL;
 @Injectable({
   providedIn: 'root',
 })
@@ -728,6 +729,16 @@ export class ProviderService {
     });
 
     return this.http.post<any>(apiRegistrarHistorialServicio + file, body, {
+      headers,
+    });
+  }
+
+  cargarHistorialRentaPropiedades(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apiCargarHistorialRenta + file, body, {
       headers,
     });
   }

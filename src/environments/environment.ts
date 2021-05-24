@@ -196,6 +196,10 @@ export const environment = {
     'https://emtdeveloper.com/server_blybn/api/db_CargarVistasPropiedades.php/',
   apiRegistrarHistorialServicioURL:
     'https://emtdeveloper.com/server_blybn/api/db_registrarServicio.php/',
+  apiRegistrarPagoProcesadoURL:
+    'https://emtdeveloper.com/server_blybn/api/db_registrarPagoRenta.php/',
+  apiCargarHistorialRentaURL:
+    'https://emtdeveloper.com/server_blybn/api/db_cargarHistorialRenta.php/',
 };
 
 /*

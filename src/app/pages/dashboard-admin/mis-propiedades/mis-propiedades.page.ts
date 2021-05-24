@@ -20,9 +20,7 @@ export class MisPropiedadesPage implements OnInit {
     this.server = this.provider.server;
   }
 
-  ngOnInit() {
- 
-  }
+  ngOnInit() {}
   server: string;
   informacionPerfil: any;
   bly_usuario: number;
@@ -44,15 +42,18 @@ export class MisPropiedadesPage implements OnInit {
       };
       this.provider
         .postDataCPUF(body, 'db_cargarPropiedadesUsuario.php')
-        .subscribe((data) => {
-          for (let exclusivo of data.result) {
-            this.propiedades.push(exclusivo);
-            console.log(this.propiedades);
+        .subscribe(
+          (data) => {
+            for (let exclusivo of data.result) {
+              this.propiedades.push(exclusivo);
+              console.log(this.propiedades);
+            }
+            resolve(true);
+          },
+          (error) => {
+            this.presentLoadingServer();
           }
-          resolve(true);
-        }, (error) => {
-          this.presentLoadingServer();
-        });
+        );
     });
   }
   salir() {
@@ -81,21 +82,24 @@ export class MisPropiedadesPage implements OnInit {
           cssClass: 'secondary',
           handler: (blah) => {
             console.log('Confirm Cancel: blah');
-          }
-        }, {
+          },
+        },
+        {
           text: 'Si, continuar',
           handler: () => {
             this.registrarPropiedad();
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
     await alert.present();
   }
 
-  mostrarDetalle(bly_registroPropiedad, bly_usuario){
-    this.router.navigate(['/detalle-propiedades/' + bly_registroPropiedad + '/' + bly_usuario]);
+  mostrarDetalle(bly_registroPropiedad, bly_usuario) {
+    this.router.navigate([
+      '/detalle-propiedades/' + bly_registroPropiedad + '/' + bly_usuario,
+    ]);
   }
 
   async presentAlertServer() {
@@ -104,13 +108,14 @@ export class MisPropiedadesPage implements OnInit {
       header: 'Error',
       message: 'Ha ocurrido un error, verifique su conexión!!!',
       mode: 'ios',
-      buttons: [{
-        text: 'Reintentar',
-        handler: () => {
-          this.router.navigateByUrl('/offline');
-        }
-      }
-      ]
+      buttons: [
+        {
+          text: 'Reintentar',
+          handler: () => {
+            this.router.navigateByUrl('/offline');
+          },
+        },
+      ],
     });
     await alert.present();
   }
@@ -119,7 +124,7 @@ export class MisPropiedadesPage implements OnInit {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       duration: 1500,
-      spinner: "bubbles",
+      spinner: 'bubbles',
       mode: 'ios',
     });
     await loading.present();

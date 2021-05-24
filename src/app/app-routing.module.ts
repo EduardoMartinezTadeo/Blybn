@@ -630,6 +630,10 @@ const routes: Routes = [
         (m) => m.ModalPagoFallidoPageModule
       ),
   },
+  {
+    path: 'modalresena',
+    loadChildren: () => import('./Modals/modalresena/modalresena.module').then( m => m.ModalresenaPageModule)
+  },
 ];
 
 @NgModule({

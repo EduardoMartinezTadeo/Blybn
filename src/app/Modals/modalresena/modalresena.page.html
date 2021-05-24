@@ -1,0 +1,111 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-button fill="clear" (click)="salir()">
+      <ion-icon slot="icon-only" color="dark" name="chevron-back-outline"></ion-icon>
+    </ion-button>
+  </ion-row>
+  <div class="ion-padding" class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
+    <ion-card class="ion-margin-bottom">
+      <ion-card-content>
+        <ion-slides pager="ios" class="slide-full" [options]="slideOpts">
+          <ion-slide *ngFor="let propiedades of informacionPropiedad">
+            <ion-thumbnail class="ion-text-center">
+              <ion-img src="{{server + propiedades.bly_imagen}}" (ionError)="onError(img)" #img></ion-img>
+            </ion-thumbnail>
+          </ion-slide>
+        </ion-slides>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center ion-margin-bottom">
+            <ion-card-title>{{tituloPropiedad}}</ion-card-title>
+            <ion-card-subtitle>Propiedad {{status}}</ion-card-subtitle>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
+    <div class="dueñoPropiedad">
+      <ion-item lines="none">
+        <ion-avatar class="ionFoto">
+          <ion-img src="{{server + foto}}" (ionError)="onErrorf(img)" #img></ion-img>
+        </ion-avatar>
+        <ion-label>Propiedad de
+          <p *ngFor="let propietarioCasa of informacionPersonal">
+            {{propietarioCasa.bly_nombre}}
+          </p>
+        </ion-label>
+      </ion-item>
+    </div>
+  </ion-row>
+  <br>
+  <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
+    <div class="dueñoPropiedad1">
+      <ion-item lines="none" class="ion-align-items-center ion-no-padding">
+        <ion-img src="/assets/iconosDetalle/ubicacion.svg" class="ionFotoD4" (click)="llegarComo()"></ion-img>
+        <ion-grid class="ion-align-items-center ion-no-padding">
+          <ion-row class="datoFecha">
+            <ion-col size="6">
+              <ion-row>
+                <ion-label>
+                  Dirección General:
+                  <ion-label class="parrafoFecha">{{calle}}</ion-label>
+                  <ion-label class="parrafoFecha">{{ciudad}}</ion-label>
+                  <ion-label class="parrafoFecha">{{estado}}</ion-label>
+                </ion-label>
+              </ion-row>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>
+                Fecha de registro de la propiedad:
+                <ion-label class="parrafoFecha">{{fecha}}.</ion-label>
+              </ion-label>
+              <ion-button fill="clear" (click)="llegarComo()">
+                Como llegar
+                <ion-icon name="footsteps-outline" slot="start"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-row>
+  <br>
+  <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
+    <div class="dueñoPropiedad1">
+      <ion-item lines="none" class="ion-align-items-center ion-no-padding">
+        <ion-img src="/assets/icons/dinero.svg" class="ionFotoD4" (click)="llegarComo()"></ion-img>
+        <ion-grid class="ion-align-items-center ion-no-padding">
+          <ion-row class="datoFecha">
+            <ion-col size="6">
+              <ion-row>
+                <ion-label *ngFor="let precio of informacionP3">
+                  Precios de renta:
+                  <ion-label>Costo por noche:</ion-label>
+                  <ion-label class="parrafoFecha">{{precio.bly_precioBase}}</ion-label>
+                  <ion-label>Costo de limpieza:</ion-label>
+                  <ion-label class="parrafoFecha">{{precio.bly_cargoLimpieza}}</ion-label>
+                </ion-label>
+              </ion-row>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label *ngFor="let precio of informacionP3">
+                Información Personal:
+                <ion-label>Nombre completo:</ion-label>
+                <ion-label class="parrafoFecha">{{bly_nombre}}</ion-label>
+                <ion-label>Correo eléctronico:</ion-label>
+                <ion-label class="parrafoFecha">{{bly_correo}}</ion-label>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-row>
+</ion-content>

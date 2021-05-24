@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
+import { ModalresenaPage } from '../../../Modals/modalresena/modalresena.page';
 
 @Component({
   selector: 'app-historial-renta',
@@ -12,7 +14,8 @@ export class HistorialRentaPage implements OnInit {
   constructor(
     private router: Router,
     private storage: Storage,
-    private provider: ProviderService
+    private provider: ProviderService,
+    private modalController: ModalController
   ) {
     this.server = this.provider.server;
   }
@@ -47,6 +50,26 @@ export class HistorialRentaPage implements OnInit {
     });
   }
   salir() {
+    this.historial = [];
     this.router.navigateByUrl('/dashboard/menutabs/inicio-menu2');
+  }
+
+  informacionDetalle: any = [];
+  mostrarDetalle(bly_registroPropiedad, bly_duenoPropiedad) {
+    this.informacionDetalle = {
+      propiedad: bly_registroPropiedad,
+      usuario: bly_duenoPropiedad,
+    };
+    this.mostrarModalResultado();
+  }
+
+  async mostrarModalResultado() {
+    const modal = await this.modalController.create({
+      component: ModalresenaPage,
+      componentProps: {
+        datos: this.informacionDetalle,
+      },
+    });
+    await modal.present();
   }
 }

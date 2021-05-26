@@ -12,6 +12,8 @@ import { DetalleMensajePage } from '../../detalle-mensaje/detalle-mensaje.page';
   styleUrls: ['./historial-renta.page.scss'],
 })
 export class HistorialRentaPage implements OnInit {
+
+  public noRentas: boolean = false;
   constructor(
     private router: Router,
     private storage: Storage,
@@ -43,10 +45,10 @@ export class HistorialRentaPage implements OnInit {
       this.provider
         .cargarHistorialRentaPropiedades(body, 'db_cargarHistorialRenta.php')
         .subscribe((data) => {
-          for (let exclusivo of data.result) {
-            this.historial.push(exclusivo);
+          this.historial = data.result;
+          if (this.historial == 0) {
+            this.noRentas = true;
           }
-          resolve(true);
         });
     });
   }

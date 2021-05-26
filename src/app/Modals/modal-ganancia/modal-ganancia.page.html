@@ -13,6 +13,38 @@
     Ganancias
   </ion-label>
 
-     <canvas baseChart [datasets]="chartData" [chartType]="chartType" [labels]="chartLabels" 
-    [colors]="chartColors" [legend]="chartLegend"></canvas>
+<div *ngIf="graficos">
+<ion-card>
+  <ion-card-title>Gráfico ganancia general</ion-card-title>
+  <ion-card-content>
+    <canvas baseChart [datasets]="chartData" [chartType]="chartType" [colors]="chartColors"
+      [legend]="chartLegend"></canvas>
+  </ion-card-content>
+</ion-card>
+
+<ion-card>
+  <ion-card-title>Gráfico ganancia por servicio</ion-card-title>
+  <ion-card-content>
+    <canvas baseChart [datasets]="chartData" [chartType]="chartType2" [colors]="chartColors2"
+      [labels]="chartLabels"></canvas>
+  </ion-card-content>
+</ion-card>
+
+
+<ion-card>
+  <ion-card-title>
+    Ganancia total de esta propiedad
+  </ion-card-title>
+  <ion-card-content>
+
+  </ion-card-content>
+</ion-card>
+</div>
+
+<div class="container-img" *ngIf="noGanancia">
+<ion-img src="assets/icons/logo-favorito.svg"></ion-img><br>
+<ion-label class="texto-f">No hay ganancias aún de esta propiedad</ion-label>
+</div>
+ 
+
 </ion-content>

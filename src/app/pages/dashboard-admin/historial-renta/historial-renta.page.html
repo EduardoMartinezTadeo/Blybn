@@ -12,6 +12,7 @@
     <ion-row>
         <h1>Historial</h1>
     </ion-row>
+
     <ion-card *ngFor="let exclusivo of historial" class="animate__animated animate__bounceInDown animate__slower 3s">
         <ion-card-content>
             <ion-thumbnail class="ion-text-center">
@@ -36,5 +37,10 @@
             </ion-row>
         </ion-card-content>
     </ion-card>
+
+    <div class="container-img" *ngIf="noRentas">
+        <ion-img src="assets/icons/logo-favorito.svg"></ion-img><br>
+        <ion-label class="texto-f">No hay historial de renta</ion-label>
+    </div>
 
 </ion-content>

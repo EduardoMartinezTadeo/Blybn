@@ -11,6 +11,7 @@ import { ModalresenaPage } from '../../../Modals/modalresena/modalresena.page';
   styleUrls: ['./historial-renta2.page.scss'],
 })
 export class HistorialRenta2Page implements OnInit {
+  public noRentas: boolean = false;
   constructor(
     private router: Router,
     private storage: Storage,
@@ -43,10 +44,10 @@ export class HistorialRenta2Page implements OnInit {
       this.provider
         .cargarHistorialRentaPropiedades(body, 'db_cargarHistorialRenta.php')
         .subscribe((data) => {
-          for (let exclusivo of data.result) {
-            this.historial.push(exclusivo);
+          this.historial = data.result;
+          if (this.historial == 0) {
+            this.noRentas = true;
           }
-          resolve(true);
         });
     });
   }

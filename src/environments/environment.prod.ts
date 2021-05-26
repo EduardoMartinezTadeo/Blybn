@@ -198,4 +198,6 @@ export const environment = {
     'https://emtdeveloper.com/server_blybn/api/db_cargarHistorialRenta.php/',
   apiCargarCostosIngresosURL:
     'https://emtdeveloper.com/server_blybn/api/db_cargarIngresos.php/',
+    apiCargarGananciaTotalURL: 
+    'https://emtdeveloper.com/server_blybn/api/db_cargarGananciaTotal.php/'
 };

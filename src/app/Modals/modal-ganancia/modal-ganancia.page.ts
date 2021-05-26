@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { ChartDataSets, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { ProviderService } from '../../services/provider.service';
+
 
 @Component({
   selector: 'app-modal-ganancia',
@@ -55,7 +57,8 @@ export class ModalGananciaPage {
 
   constructor(
     private navParams: NavParams,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private provider: ProviderService
   ) {}
 
   labels: ['Servicio con ganancia de:'];
@@ -64,7 +67,6 @@ export class ModalGananciaPage {
 
   ionViewWillEnter() {
     this.datos = this.navParams.get('datos');
-    console.log(this.datos);
     if (this.datos == 0) {
       this.noGanancia = true;
     } else {
@@ -78,6 +80,14 @@ export class ModalGananciaPage {
         this.chartLabels.push(data[i].bly_idPago);
       }
     }
+  }
+
+  informacion: any;
+  bly_propiedad: number;
+  obtenerPropiedad(datos: any) {
+    this.informacion = datos;
+    this.bly_propiedad = this.informacion;
+    console.log(this.bly_propiedad);
   }
 
   salir() {

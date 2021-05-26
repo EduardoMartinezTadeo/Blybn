@@ -32,11 +32,8 @@
 
 
 <ion-card>
-  <ion-card-title>
-    Ganancia total de esta propiedad
-  </ion-card-title>
-  <ion-card-content>
-
+  <ion-card-content *ngFor="let propiedad of datos">
+    <ion-button (click)="obtenerPropiedad(propiedad.bly_propiedad)" expand="block" color="primary">Obtener ganancia total</ion-button>
   </ion-card-content>
 </ion-card>
 </div>

@@ -1041,6 +1041,8 @@ export class ModalReservaPage implements OnInit {
       aksi: 'registrarServicio',
       bly_propiedad: this.datosPromocionesR.propiedad,
       bly_usuario: this.datosPerfilR.bly_usuario,
+      bly_fechaInicio: this.fecha1._d,
+      bly_fechaFinal: this.fecha2._d
     };
     this.provider
       .registrarHistorialServicio(

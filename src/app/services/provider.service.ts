@@ -91,6 +91,7 @@ const apiRegistrarHistorialServicio =
   environment.apiRegistrarHistorialServicioURL;
 const apiCargarHistorialRenta = environment.apiCargarHistorialRentaURL;
 const apiCargarIngresosPropiedad = environment.apiCargarCostosIngresosURL;
+const apiCargarTotalDinero = environment.apiCargarGananciaTotalURL; 
 
 @Injectable({
   providedIn: 'root',
@@ -751,6 +752,16 @@ export class ProviderService {
     });
 
     return this.http.post<any>(apiCargarIngresosPropiedad + file, body, {
+      headers,
+    });
+  }
+
+  cargarGananciaTotal(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apiCargarTotalDinero + file, body, {
       headers,
     });
   }

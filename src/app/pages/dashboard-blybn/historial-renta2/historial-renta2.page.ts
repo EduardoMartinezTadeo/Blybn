@@ -53,6 +53,7 @@ export class HistorialRenta2Page implements OnInit {
   }
   salir() {
     this.historial = [];
+    this.noRentas = false;
     this.router.navigateByUrl('/dashboard2/menutabs2/inicio-menu');
   }
 

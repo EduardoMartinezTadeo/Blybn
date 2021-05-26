@@ -200,6 +200,8 @@ export const environment = {
     'https://emtdeveloper.com/server_blybn/api/db_registrarPagoRenta.php/',
   apiCargarHistorialRentaURL:
     'https://emtdeveloper.com/server_blybn/api/db_cargarHistorialRenta.php/',
+  apiCargarCostosIngresosURL:
+    'https://emtdeveloper.com/server_blybn/api/db_cargarIngresos.php/',
 };
 
 /*

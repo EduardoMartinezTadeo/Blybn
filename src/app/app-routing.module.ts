@@ -634,6 +634,10 @@ const routes: Routes = [
     path: 'modalresena',
     loadChildren: () => import('./Modals/modalresena/modalresena.module').then( m => m.ModalresenaPageModule)
   },
+  {
+    path: 'modal-ganancia',
+    loadChildren: () => import('./Modals/modal-ganancia/modal-ganancia.module').then( m => m.ModalGananciaPageModule)
+  },
 ];
 
 @NgModule({

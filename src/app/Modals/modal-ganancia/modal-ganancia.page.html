@@ -1,0 +1,18 @@
+<ion-header class="ion-no-border" translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="salir()">
+        <ion-icon slot="icon-only" color="primary" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label class="ion-label1">
+    Ganancias
+  </ion-label>
+
+     <canvas baseChart [datasets]="chartData" [chartType]="chartType" [labels]="chartLabels" 
+    [colors]="chartColors" [legend]="chartLegend"></canvas>
+</ion-content>

@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  ModalController,
+} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
+import { ModalGananciaPage } from '../../../Modals/modal-ganancia/modal-ganancia.page';
 
 @Component({
   selector: 'app-mis-propiedades',
@@ -15,7 +20,8 @@ export class MisPropiedadesPage implements OnInit {
     private storage: Storage,
     private provider: ProviderService,
     private alertController: AlertController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private modalController: ModalController
   ) {
     this.server = this.provider.server;
   }
@@ -139,5 +145,29 @@ export class MisPropiedadesPage implements OnInit {
       this.ionViewWillEnter();
       event.target.complete();
     }, 2000);
+  }
+
+  informacionGanancia: any;
+  ganancia(ganancia: any) {
+    let body = {
+      aksi: 'ingresos',
+      bly_propiedad: ganancia,
+    };
+    this.provider
+      .cargarIngresosPropiedad(body, 'db_cargarIngresos.php')
+      .subscribe((data) => {
+        this.informacionGanancia = data;
+        this.mostrarModalResultado();
+      });
+  }
+
+  async mostrarModalResultado() {
+    const modal = await this.modalController.create({
+      component: ModalGananciaPage,
+      componentProps: {
+        datos: this.informacionGanancia,
+      },
+    });
+    await modal.present();
   }
 }

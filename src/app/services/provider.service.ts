@@ -90,6 +90,8 @@ const apiCargarPropiedadesVistas = environment.apiCargarPropiedadesVistasURL;
 const apiRegistrarHistorialServicio =
   environment.apiRegistrarHistorialServicioURL;
 const apiCargarHistorialRenta = environment.apiCargarHistorialRentaURL;
+const apiCargarIngresosPropiedad = environment.apiCargarCostosIngresosURL;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -739,6 +741,16 @@ export class ProviderService {
     });
 
     return this.http.post<any>(apiCargarHistorialRenta + file, body, {
+      headers,
+    });
+  }
+
+  cargarIngresosPropiedad(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apiCargarIngresosPropiedad + file, body, {
       headers,
     });
   }

@@ -19,12 +19,12 @@
                             <ion-icon slot="icon-only" name="archive-outline"></ion-icon>
                         </ion-item-option>
                     </ion-item-options>
-                    <ion-item (click)="mostrarModal()">
+                    <ion-item (click)="mostrarChat(mensajes.id)">
                         <ion-avatar slot="start">
                             <img src="/assets/imgs/avatar.svg">
                         </ion-avatar>
                         <ion-label>
-                            <h3>{{ mensajes.usr }} </h3>
+                            <h3>{{ mensajes.user }} </h3>
                             <p> {{ mensajes.msg }}</p>
                         </ion-label>
                         <ion-label slot="end" class="ion-text-end text-small"> {{ mensajes.createdAt | date: 'short'}}

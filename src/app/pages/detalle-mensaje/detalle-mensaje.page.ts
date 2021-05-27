@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   ModalController,
   AlertController,
   LoadingController,
   NavParams,
   ToastController,
+  IonContent,
 } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../services/provider.service';
@@ -36,17 +37,30 @@ export class DetalleMensajePage implements OnInit {
   informacionPropiedades: any = [];
   ionViewWillEnter() {
     this.datos = this.navParams.get('datos');
-    console.log(this.datos);
     this.id_propiedad = this.datos.propiedad;
     this.storage.get('perfil').then((data) => {
       this.bly_nombre = data.bly_nombre;
       this.bly_correo = data.bly_correoElectronico;
+      this.currentUser = this.bly_nombre;
+      this.bly_id = data.bly_usuario;
+
+
+      let body1 = {
+        aksi: 'mensaje-id',
+        id: this.bly_id,
+        id2: this.datos.usuario
+      }
+      this.provider.CargarMisMensajes(body1, 'db_cargarMisMensajes.php').subscribe((data) => {
+        console.log(data.result);
+        this.messages = data.result;
+      });
     });
     this.cargarInformacionBasica();
   }
 
   bly_nombre: string;
   bly_correo: string;
+  bly_id: number;
   informacionPersonal: any = [];
   cargarInformacionBasica() {
     return new Promise((resolve) => {
@@ -61,7 +75,7 @@ export class DetalleMensajePage implements OnInit {
         )
         .subscribe((data) => {
           this.informacionPersonal = data.result;
-          console.log(this.informacionPersonal);
+    
           resolve(true);
         });
     });
@@ -89,39 +103,31 @@ export class DetalleMensajePage implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-  messages = [
-    {
-      user: 'simmon',
-      createdAt: 1554090856000,
-      msg: 'Buen dia, aun esta disponible?',
-    },
-    {
-      user: 'max',
-      createdAt: 1554090956000,
-      msg: 'La casa esta disponible aun',
-    },
-    {
-      user: 'simmon',
-      createdAt: 1554091056000,
-      msg: 'Deseo una cita para la casa',
-    },
-    {
-      user: 'max',
-      createdAt: 1554099156000,
-      msg: 'Se agendara la previa cita',
-    },
-  ];
-
-  currentUser = 'simmon';
+  body: any;
+  messages = [];
+  messagesE = [];
+  currentUser = '';
   newMsg = '';
+  @ViewChild(IonContent) content: IonContent
+  usuario1: string;
+  sendMessage(datos: any) {
+    this.storage.get('perfil').then((data) => {
+      this.usuario1 = data.bly_nombre;
+      let body = {
+        aksi: 'chat',
+        user: this.usuario1,
+        createdAt: new Date().getTime(),
+        msg: this.newMsg,
+        id: data.bly_usuario,
+        id2: datos.usuario
+      };
 
-  sendMessage() {
-    this.messages.push({
-      user: 'simmon',
-      createdAt: new Date().getTime(),
-      msg: this.newMsg,
+      this.provider.enviarMensaje(body, 'db_registrarChat.php').subscribe((data) => {
+  
+      });
+      this.messages.push(body);
+      this.newMsg = '';
+      this.content.scrollToBottom(500);
     });
-
-    this.newMsg = '';
   }
 }

@@ -91,8 +91,10 @@ const apiRegistrarHistorialServicio =
   environment.apiRegistrarHistorialServicioURL;
 const apiCargarHistorialRenta = environment.apiCargarHistorialRentaURL;
 const apiCargarIngresosPropiedad = environment.apiCargarCostosIngresosURL;
-const apiCargarTotalDinero = environment.apiCargarGananciaTotalURL; 
-
+const apiCargarTotalDinero = environment.apiCargarGananciaTotalURL;
+const apiEnviarMensaje = environment.apiEnviarMensajeURL;
+const apiCargarMensajesIndividuales = environment.apiCargarMensajesIndividualesURL;
+const apiCargarMisMensajes = environment.apiCargarMisMensajesURL;
 @Injectable({
   providedIn: 'root',
 })
@@ -762,6 +764,36 @@ export class ProviderService {
     });
 
     return this.http.post<any>(apiCargarTotalDinero + file, body, {
+      headers,
+    });
+  }
+
+  enviarMensaje(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apiEnviarMensaje + file, body, {
+      headers,
+    });
+  }
+
+  CargarMensajesIndividuales(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apiCargarMensajesIndividuales + file, body, {
+      headers,
+    });
+  }
+
+  CargarMisMensajes(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apiCargarMisMensajes + file, body, {
       headers,
     });
   }

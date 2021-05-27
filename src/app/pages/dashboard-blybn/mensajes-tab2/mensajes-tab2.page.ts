@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonList, ModalController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import { DetalleMensajePage } from '../../detalle-mensaje/detalle-mensaje.page';
+import { ProviderService } from '../../../services/provider.service';
 
 @Component({
   selector: 'app-mensajes-tab2',
@@ -8,53 +10,38 @@ import { DetalleMensajePage } from '../../detalle-mensaje/detalle-mensaje.page';
   styleUrls: ['./mensajes-tab2.page.scss'],
 })
 export class MensajesTab2Page implements OnInit {
-
   @ViewChild(IonList) ionList: IonList;
 
   contentLoaded = false;
   constructor(
-    private modalCtrl: ModalController
-  ) { }
+    private modalCtrl: ModalController,
+    private provider: ProviderService,
+    private storage: Storage
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-
-  ionViewWillEnter(){
+  mensaje: any = [];
+  id: number;
+  ionViewWillEnter() {
+    this.storage.get('perfil').then((data) => {
+      this.id = data.bly_usuario;
+      let body = {
+        aksi: 'mensaje',
+        id: this.id,
+      };
+      this.provider
+        .CargarMensajesIndividuales(body, 'db_cargarChatIndividuales.php')
+        .subscribe((data) => {
+          this.mensaje = data.result;
+          console.log(this.mensaje);
+          console.log(data.result);
+        });
+    });
     setTimeout(() => {
       this.contentLoaded = true;
-      this.mensaje;
     }, 6000);
   }
-
-
-  mensaje = [
-    {
-      usr: 'Simmon',
-      createdAt: 1554090856000,
-      msg: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit.'
-    },
-    {
-      usr: 'Simmon',
-      createdAt: 1554091156000,
-      msg: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit.'
-    },
-    {
-      usr: 'Alex',
-      createdAt: 1554090956000,
-      msg: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit.'
-    },
-    {
-      usr: 'Alex',
-      createdAt: 1554090856000,
-      msg: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit.'
-    },
-    {
-      usr: 'Hugo',
-      createdAt: 1554090856000,
-      msg: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit.'
-    }
-  ];
 
   delete() {
     console.log('chat eliminado');
@@ -66,11 +53,21 @@ export class MensajesTab2Page implements OnInit {
     this.ionList.closeSlidingItems();
   }
 
-  async mostrarModal() {
-    const modal = await this.modalCtrl.create({
-      component: DetalleMensajePage
-    });
-    return await modal.present();
+  informacionChat: any = [];
+  mostrarChat(bly_duenoPropiedad) {
+    this.informacionChat = {
+      usuario: bly_duenoPropiedad,
+    };
+    this.mostrarModalChat();
   }
 
+  async mostrarModalChat() {
+    const modal = await this.modalCtrl.create({
+      component: DetalleMensajePage,
+      componentProps: {
+        datos: this.informacionChat,
+      },
+    });
+    await modal.present();
+  }
 }

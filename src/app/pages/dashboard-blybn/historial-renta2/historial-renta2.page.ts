@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 import { ModalresenaPage } from '../../../Modals/modalresena/modalresena.page';
+import { DetalleMensajePage } from '../../detalle-mensaje/detalle-mensaje.page';
 
 @Component({
   selector: 'app-historial-renta2',
@@ -71,6 +72,24 @@ export class HistorialRenta2Page implements OnInit {
       component: ModalresenaPage,
       componentProps: {
         datos: this.informacionDetalle,
+      },
+    });
+    await modal.present();
+  }
+
+  informacionChat: any = [];
+  mostrarChat(bly_duenoPropiedad) {
+    this.informacionChat = {
+      usuario: bly_duenoPropiedad,
+    };
+    this.mostrarModalChat();
+  }
+
+  async mostrarModalChat() {
+    const modal = await this.modalController.create({
+      component: DetalleMensajePage,
+      componentProps: {
+        datos: this.informacionChat,
       },
     });
     await modal.present();

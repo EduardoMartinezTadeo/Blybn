@@ -202,8 +202,14 @@ export const environment = {
     'https://emtdeveloper.com/server_blybn/api/db_cargarHistorialRenta.php/',
   apiCargarCostosIngresosURL:
     'https://emtdeveloper.com/server_blybn/api/db_cargarIngresos.php/',
-    apiCargarGananciaTotalURL: 
-    'https://emtdeveloper.com/server_blybn/api/db_cargarGananciaTotal.php/'
+  apiCargarGananciaTotalURL:
+    'https://emtdeveloper.com/server_blybn/api/db_cargarGananciaTotal.php/',
+  apiEnviarMensajeURL:
+    'https://emtdeveloper.com/server_blybn/api/db_registrarChat.php/',
+  apiCargarMensajesIndividualesURL:
+    'https://emtdeveloper.com/server_blybn/api/db_cargarChatIndividuales.php/',
+  apiCargarMisMensajesURL:
+    'https://emtdeveloper.com/server_blybn/api/db_cargarMisMensajes.php/',
 };
 
 /*

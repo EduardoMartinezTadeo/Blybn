@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Provider, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonList, ModalController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import { DetalleMensajePage } from '../../detalle-mensaje/detalle-mensaje.page';
+import { ProviderService } from '../../../services/provider.service';
 
 @Component({
   selector: 'app-mensajes',
@@ -9,53 +11,40 @@ import { DetalleMensajePage } from '../../detalle-mensaje/detalle-mensaje.page';
   styleUrls: ['./mensajes.page.scss'],
 })
 export class MensajesPage implements OnInit {
-  
   @ViewChild(IonList) ionList: IonList;
 
   contentLoaded = false;
 
   constructor(
     public modalController: ModalController,
-    private router: Router
-    ) { } 
+    private router: Router,
+    private storage: Storage,
+    private provider: ProviderService
+  ) {}
 
-  ionViewWillEnter(){
+  mensaje: any = [];
+  id: number;
+  ionViewWillEnter() {
+    this.storage.get('perfil').then((data) => {
+      this.id = data.bly_usuario;
+      let body = {
+        aksi: 'mensaje',
+        id: this.id,
+      };
+      this.provider
+        .CargarMensajesIndividuales(body, 'db_cargarChatIndividuales.php')
+        .subscribe((data) => {
+          this.mensaje = data.result;
+          console.log(this.mensaje);
+          console.log(data.result);
+        });
+    });
     setTimeout(() => {
       this.contentLoaded = true;
-      this.mensaje;
     }, 6000);
   }
 
-  mensaje = [
-    {
-      usr: 'Simmon',
-      createdAt: 1554090856000,
-      msg: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit.'
-    },
-    {
-      usr: 'Simmon',
-      createdAt: 1554091156000,
-      msg: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit.'
-    },
-    {
-      usr: 'Alex',
-      createdAt: 1554090956000,
-      msg: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit.'
-    },
-    {
-      usr: 'Alex',
-      createdAt: 1554090856000,
-      msg: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit.'
-    },
-    {
-      usr: 'Hugo',
-      createdAt: 1554090856000,
-      msg: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi soluta beatae consequuntur! Necessitatibus alias, blanditiis velit animi dignissimos repellat optio, id dicta, hic perferendis officia. A voluptatem maxime eaque fugit.'
-    }
-  ];
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   delete() {
     console.log('chat eliminado');
@@ -67,15 +56,25 @@ export class MensajesPage implements OnInit {
     this.ionList.closeSlidingItems();
   }
 
-  async mostrarModal() {
-    const modal = await this.modalController.create({
-      component: DetalleMensajePage
-    });
-    return await modal.present();
+  informacionChat: any = [];
+  mostrarChat(bly_duenoPropiedad) {
+    this.informacionChat = {
+      usuario: bly_duenoPropiedad,
+    };
+    this.mostrarModalChat();
   }
 
-  salir(){
+  async mostrarModalChat() {
+    const modal = await this.modalController.create({
+      component: DetalleMensajePage,
+      componentProps: {
+        datos: this.informacionChat,
+      },
+    });
+    await modal.present();
+  }
+
+  salir() {
     this.router.navigateByUrl('/dashboard/menutabs/inicio-menu2');
   }
-
 }

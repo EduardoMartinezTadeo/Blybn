@@ -36,6 +36,12 @@
     <ion-button (click)="obtenerPropiedad(propiedad.bly_propiedad)" expand="block" color="primary">Obtener ganancia total</ion-button>
   </ion-card-content>
 </ion-card>
+
+<ion-card class="ion-text-center ganancias">
+  <ion-card-content *ngFor="let dineroF of alertGanancia">
+    <ion-label>La ganancia de esta propiedad es: <div class="totales">$ {{dineroF.total}}</div></ion-label>
+  </ion-card-content>
+</ion-card>
 </div>
 
 <div class="container-img" *ngIf="noGanancia">

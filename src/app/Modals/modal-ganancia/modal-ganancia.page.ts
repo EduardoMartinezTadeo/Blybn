@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { AlertController, ModalController, NavParams } from '@ionic/angular';
 import { ChartDataSets, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { ProviderService } from '../../services/provider.service';
@@ -58,7 +58,8 @@ export class ModalGananciaPage {
   constructor(
     private navParams: NavParams,
     private modalController: ModalController,
-    private provider: ProviderService
+    private provider: ProviderService,
+    private alertController: AlertController
   ) {}
 
   labels: ['Servicio con ganancia de:'];
@@ -82,14 +83,23 @@ export class ModalGananciaPage {
     }
   }
 
+  alertGanancia: any = [];  
   informacion: any;
   bly_propiedad: number;
-  obtenerPropiedad(datos: any) {
+  async obtenerPropiedad(datos: any) {
     this.informacion = datos;
     this.bly_propiedad = this.informacion;
-    console.log(this.bly_propiedad);
+    let body = {
+      aksi: 'ingresos',
+      bly_propiedad: this.bly_propiedad
+    }
+    this.provider.cargarGananciaTotal(body, 'db_cargarGananciaTotal.php').subscribe((data) => {
+      this.alertGanancia = data.result;
+    });
   }
 
+  
+  
   salir() {
     this.modalController.dismiss();
   }

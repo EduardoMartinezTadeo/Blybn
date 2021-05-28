@@ -13,13 +13,14 @@ export class MensajesTabPage implements OnInit {
   @ViewChild(IonList) ionList: IonList;
 
   contentLoaded = false;
+  public noRentas: boolean = false;
 
   constructor(
     public modalController: ModalController,
     private provider: ProviderService,
     private storage: Storage
   ) {
-     this.server = this.provider.server;
+    this.server = this.provider.server;
   }
 
   server: string;
@@ -37,8 +38,9 @@ export class MensajesTabPage implements OnInit {
         .CargarMensajesIndividuales(body, 'db_cargarChatIndividuales.php')
         .subscribe((data) => {
           this.mensaje = data.result;
-          console.log(this.mensaje);
-          console.log(data.result);
+          if (this.mensaje == 0) {
+            this.noRentas = true;
+          }
         });
     });
     setTimeout(() => {
@@ -81,5 +83,12 @@ export class MensajesTabPage implements OnInit {
       },
     });
     await modal.present();
+  }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.ionViewWillEnter();
+      event.target.complete();
+    }, 2000);
   }
 }

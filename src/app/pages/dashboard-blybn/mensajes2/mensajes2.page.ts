@@ -12,6 +12,7 @@ import { Storage } from '@ionic/storage';
 })
 export class Mensajes2Page implements OnInit {
   @ViewChild(IonList) ionList: IonList;
+  public noRentas: boolean = false;
 
   contentLoaded = false;
   constructor(
@@ -39,8 +40,9 @@ export class Mensajes2Page implements OnInit {
         .CargarMensajesIndividuales(body, 'db_cargarChatIndividuales.php')
         .subscribe((data) => {
           this.mensaje = data.result;
-          console.log(this.mensaje);
-          console.log(data.result);
+          if (this.mensaje == 0) {
+            this.noRentas = true;
+          }
         });
     });
     setTimeout(() => {
@@ -78,5 +80,12 @@ export class Mensajes2Page implements OnInit {
 
   salir() {
     this.router.navigateByUrl('/dashboard2/menutabs2/inicio-menu');
+  }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.ionViewWillEnter();
+      event.target.complete();
+    }, 2000);
   }
 }

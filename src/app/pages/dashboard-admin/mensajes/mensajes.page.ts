@@ -11,6 +11,8 @@ import { ProviderService } from '../../../services/provider.service';
   styleUrls: ['./mensajes.page.scss'],
 })
 export class MensajesPage implements OnInit {
+  public noRentas: boolean = false;
+
   @ViewChild(IonList) ionList: IonList;
 
   contentLoaded = false;
@@ -21,7 +23,7 @@ export class MensajesPage implements OnInit {
     private storage: Storage,
     private provider: ProviderService
   ) {
-     this.server = this.provider.server;
+    this.server = this.provider.server;
   }
 
   server: string;
@@ -38,19 +40,20 @@ export class MensajesPage implements OnInit {
         .CargarMensajesIndividuales(body, 'db_cargarChatIndividuales.php')
         .subscribe((data) => {
           this.mensaje = data.result;
-          console.log(this.mensaje);
-          console.log(data.result);
+          if (this.mensaje == 0) {
+            this.noRentas = true;
+          }
         });
     });
     setTimeout(() => {
       this.contentLoaded = true;
+      console.log(this.mensaje);
     }, 6000);
   }
 
   ngOnInit() {}
 
   delete() {
-    console.log('chat eliminado');
     this.ionList.closeSlidingItems();
   }
 
@@ -79,5 +82,12 @@ export class MensajesPage implements OnInit {
 
   salir() {
     this.router.navigateByUrl('/dashboard/menutabs/inicio-menu2');
+  }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.ionViewWillEnter();
+      event.target.complete();
+    }, 2000);
   }
 }

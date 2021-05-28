@@ -8,13 +8,16 @@
     </ion-toolbar>
   </ion-header>
 <ion-content class="ion-padding">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <ion-row>
         <h1>Chats</h1>
     </ion-row>
-    <div class="ion-searchbar2">
-        <ion-searchbar placeholder="Buscar conversación..." animated></ion-searchbar>
-    </div>
     <div *ngIf="contentLoaded">
+        <div class="ion-searchbar2">
+            <ion-searchbar placeholder="Buscar conversación..." animated></ion-searchbar>
+        </div>
         <ion-list>
             <ion-item-sliding *ngFor="let mensajes of mensaje">
                 <ion-item-options side="end">
@@ -64,5 +67,10 @@
                 </ion-item>
             </ion-item-sliding>
         </ion-list>
+    </div>
+
+    <div class="container-img" *ngIf="noRentas">
+        <ion-img src="assets/icons/logo-favorito.svg"></ion-img><br>
+        <ion-label class="texto-f">No hay mensajes aun</ion-label>
     </div>
 </ion-content>

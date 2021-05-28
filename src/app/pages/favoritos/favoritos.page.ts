@@ -72,22 +72,24 @@ export class FavoritosPage implements OnInit {
   }
 
   dataVistas: any = [];
-  cargarVistas(){
+  cargarVistas() {
     return new Promise((resolve) => {
       let body = {
-        aksi: 'mas-buscados'
+        aksi: 'mas-buscados',
       };
-      this.provider.cargarVistasPropiedades(body, 'db_CargarVistasPropiedades.php').subscribe((data) => {
-        console.log(data.result);
-        if (data.result == 0) {
-          this.vistas = true;
-        } else {
-          for (let vista of data.result){
-            this.dataVistas.push(vista);
+      this.provider
+        .cargarVistasPropiedades(body, 'db_CargarVistasPropiedades.php')
+        .subscribe((data) => {
+          console.log(data.result);
+          if (data.result == 0) {
+            this.vistas = true;
+          } else {
+            for (let vista of data.result) {
+              this.dataVistas.push(vista);
+            }
+            resolve(true);
           }
-          resolve(true);
-        }
-      });
+        });
     });
   }
 
@@ -248,4 +250,7 @@ export class FavoritosPage implements OnInit {
       });
     }, 1600);
   }
+
+  
+ 
 }

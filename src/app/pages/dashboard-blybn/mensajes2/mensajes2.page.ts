@@ -19,8 +19,11 @@ export class Mensajes2Page implements OnInit {
     private modalCtrl: ModalController,
     private provider: ProviderService,
     private storage: Storage
-  ) {}
+  ) {
+    this.server = this.provider.server;
+  }
 
+  server: string;
   ngOnInit() {}
 
   mensaje: any = [];

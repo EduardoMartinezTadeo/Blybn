@@ -18,8 +18,11 @@ export class MensajesTabPage implements OnInit {
     public modalController: ModalController,
     private provider: ProviderService,
     private storage: Storage
-  ) {}
+  ) {
+     this.server = this.provider.server;
+  }
 
+  server: string;
   ngOnInit() {}
 
   id: number;

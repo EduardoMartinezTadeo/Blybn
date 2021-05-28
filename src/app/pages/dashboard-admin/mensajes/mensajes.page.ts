@@ -20,8 +20,11 @@ export class MensajesPage implements OnInit {
     private router: Router,
     private storage: Storage,
     private provider: ProviderService
-  ) {}
+  ) {
+     this.server = this.provider.server;
+  }
 
+  server: string;
   mensaje: any = [];
   id: number;
   ionViewWillEnter() {

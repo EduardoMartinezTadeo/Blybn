@@ -20,7 +20,8 @@ export class DetalleMensajePage implements OnInit {
     private modalCtrl: ModalController,
     private storage: Storage,
     private navParams: NavParams,
-    private provider: ProviderService
+    private provider: ProviderService,
+    private loadingController: LoadingController
   ) {
     this.server = this.provider.server;
   }
@@ -44,16 +45,17 @@ export class DetalleMensajePage implements OnInit {
       this.currentUser = this.bly_nombre;
       this.bly_id = data.bly_usuario;
 
-
       let body1 = {
         aksi: 'mensaje-id',
         id: this.bly_id,
-        id2: this.datos.usuario
-      }
-      this.provider.CargarMisMensajes(body1, 'db_cargarMisMensajes.php').subscribe((data) => {
-        console.log(data.result);
-        this.messages = data.result;
-      });
+        id2: this.datos.usuario,
+      };
+      this.provider
+        .CargarMisMensajes(body1, 'db_cargarMisMensajes.php')
+        .subscribe((data) => {
+          console.log(data.result);
+          this.messages = data.result;
+        });
     });
     this.cargarInformacionBasica();
   }
@@ -75,7 +77,7 @@ export class DetalleMensajePage implements OnInit {
         )
         .subscribe((data) => {
           this.informacionPersonal = data.result;
-    
+
           resolve(true);
         });
     });
@@ -108,7 +110,7 @@ export class DetalleMensajePage implements OnInit {
   messagesE = [];
   currentUser = '';
   newMsg = '';
-  @ViewChild(IonContent) content: IonContent
+  @ViewChild(IonContent) content: IonContent;
   usuario1: string;
   sendMessage(datos: any) {
     this.storage.get('perfil').then((data) => {
@@ -119,15 +121,36 @@ export class DetalleMensajePage implements OnInit {
         createdAt: new Date().getTime(),
         msg: this.newMsg,
         id: data.bly_usuario,
-        id2: datos.usuario
+        id2: datos.usuario,
       };
 
-      this.provider.enviarMensaje(body, 'db_registrarChat.php').subscribe((data) => {
-  
-      });
+      this.provider
+        .enviarMensaje(body, 'db_registrarChat.php')
+        .subscribe((data) => {});
       this.messages.push(body);
       this.newMsg = '';
-      this.content.scrollToBottom(500);
+      this.content.scrollToBottom(200);
     });
+  }
+
+  doRefresh(event) {
+    this.ionViewWillEnter();
+    setTimeout(() => {
+      event.target.complete();
+    }, 1500);
+  }
+
+  async actualizarMensajes() {
+    const loading = await this.loadingController.create({
+      mode: 'ios',
+      spinner: 'bubbles',
+      message: 'Espere un momento...',
+      duration: 2000,
+    });
+    await loading.present();
+
+    setTimeout(() => {
+      this.ionViewWillEnter();
+    }, 1500)
   }
 }

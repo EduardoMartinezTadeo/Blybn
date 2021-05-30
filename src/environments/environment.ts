@@ -210,6 +210,8 @@ export const environment = {
     'https://emtdeveloper.com/server_blybn/api/db_cargarChatIndividuales.php/',
   apiCargarMisMensajesURL:
     'https://emtdeveloper.com/server_blybn/api/db_cargarMisMensajes.php/',
+  apiEliminarChatIndividualURL:
+    'https://emtdeveloper.com/server_blybn/api/db_eliminar_Chat.php/'
 };
 
 /*

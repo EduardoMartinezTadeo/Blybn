@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonList, ModalController } from '@ionic/angular';
+import { AlertController, IonList, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { DetalleMensajePage } from '../../detalle-mensaje/detalle-mensaje.page';
 import { ProviderService } from '../../../services/provider.service';
 import { Storage } from '@ionic/storage';
@@ -18,7 +18,10 @@ export class MensajesTabPage implements OnInit {
   constructor(
     public modalController: ModalController,
     private provider: ProviderService,
-    private storage: Storage
+    private storage: Storage,
+    private alertController: AlertController,
+    private loadingController: LoadingController,
+    private toastController: ToastController
   ) {
     this.server = this.provider.server;
   }
@@ -50,9 +53,64 @@ export class MensajesTabPage implements OnInit {
 
   mensaje: any = [];
 
-  delete() {
-    console.log('chat eliminado');
-    this.ionList.closeSlidingItems();
+  async delete(id: any) {
+    const alert = await this.alertController.create({
+      mode: 'ios',
+      header: 'Confirmación',
+      message: '¿Esta seguro de eliminar esta conversación?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: (blah) => {
+            this.ionList.closeSlidingItems();
+          },
+        },
+        {
+          text: 'Eliminar',
+          cssClass: 'iconCancelar',
+          handler: () => {
+            let body = {
+              aksi: 'retirar-chat',
+              id2: this.id,
+              id: id,
+            };
+            console.log(body);
+            this.provider
+              .EliminarMensajeIndividual(body, 'db_eliminar_Chat.php')
+              .subscribe((data) => {
+                this.cargaAccion();
+                setTimeout(() => {
+                  this.ionViewWillEnter();
+                  this.toastEliminacion();
+                }, 1500);
+              });
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  async cargaAccion() {
+    const loading = await this.loadingController.create({
+      message: 'Espere un momento...',
+      mode: 'ios',
+      spinner: 'bubbles',
+      duration: 2000,
+    });
+    await loading.present();
+  }
+
+  async toastEliminacion() {
+    const toast = await this.toastController.create({
+      header: 'Eliminación',
+      message: 'Se ha eliminado correctamente esta conversación...',
+      position: 'bottom',
+      duration: 1500,
+    });
+    await toast.present();
   }
 
   archived() {

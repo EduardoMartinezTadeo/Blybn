@@ -95,6 +95,7 @@ const apiCargarTotalDinero = environment.apiCargarGananciaTotalURL;
 const apiEnviarMensaje = environment.apiEnviarMensajeURL;
 const apiCargarMensajesIndividuales = environment.apiCargarMensajesIndividualesURL;
 const apiCargarMisMensajes = environment.apiCargarMisMensajesURL;
+const apiEliminarChat = environment.apiEliminarChatIndividualURL;
 @Injectable({
   providedIn: 'root',
 })
@@ -794,6 +795,16 @@ export class ProviderService {
     });
 
     return this.http.post<any>(apiCargarMisMensajes + file, body, {
+      headers,
+    });
+  }
+
+   EliminarMensajeIndividual(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apiEliminarChat + file, body, {
       headers,
     });
   }

@@ -21,7 +21,7 @@
         <ion-list>
             <ion-item-sliding *ngFor="let mensajes of mensaje">
                 <ion-item-options side="end">
-                    <ion-item-option color="danger" (click)="delete()">
+                    <ion-item-option color="danger" (click)="delete(mensajes.id)">
                         <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
                     </ion-item-option>
                     <ion-item-option color="primary" (click)="archived()">
@@ -45,6 +45,9 @@
 
     <div *ngIf="!contentLoaded">
         <ion-list >
+            <div class="ion-searchbar2">
+                <ion-skeleton-text animated style="width: 45%; height: 15px;"></ion-skeleton-text>
+            </div>
             <ion-item-sliding *ngFor="let mensajes of mensaje">
                 <ion-item-options side="end">
                     <ion-skeleton-text animated></ion-skeleton-text>

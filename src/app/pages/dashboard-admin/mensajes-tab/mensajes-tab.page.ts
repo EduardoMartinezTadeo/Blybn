@@ -31,6 +31,8 @@ export class MensajesTabPage implements OnInit {
 
   id: number;
   ionViewWillEnter() {
+        this.noRentas = false;
+        this.mensaje = [];
     this.storage.get('perfil').then((data) => {
       this.id = data.bly_usuario;
       let body = {

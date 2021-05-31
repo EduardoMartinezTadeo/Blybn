@@ -780,7 +780,113 @@ export class ModalReservaPage implements OnInit {
         ],
       });
       await alert.present();
-    } else if (this.cantidadNoche >= 20) {
+    } else if (this.cantidadNoche >= 8 && this.cantidadNoche <= 19) {
+        this.descuentoSemana = bly_descuentoSemana;
+      this.totalFinalSemana =
+        parseInt(bly_precioBase.toString());
+      this.totalFinal =
+        parseInt(bly_precioBase.toString()) *
+        parseInt(this.cantidadNoche.toString()) +
+        parseInt(bly_cargoLimpieza.toString());
+        this.totalCargoPay = this.totalFinal.toString();
+        this.bly_correoFactura = bly_correo;
+        this.bly_descripcionFactura =
+          'Cargo por renta de propiedad ' +
+          this.tituloPropiedad +
+          ' desde la aplicación Blybn.';
+        this.fecha1 = this.dateRange.from;
+        this.fecha2 = this.dateRange.to;
+        this.diaInicial = this.fecha1._d;
+        this.diaFinal = this.fecha2._d;
+        this.bly_nombreRentador = bly_nombre;
+        const alert = await this.alertController.create({
+          header: 'Subtotal',
+          subHeader: 'Resúmen renta de propiedad',
+          mode: 'ios',
+          message:
+            '<strong>El total es de: </strong>' +
+            this.totalCargoPay +
+            '<br>' +
+            '<strong> Referencia de pago: </strong>' +
+            this.bly_descripcionFactura +
+            '<br>' +
+            '<strong>Dia de entrada es: </strong>' +
+            this.diaInicial +
+            '<br>' +
+            '<strong>Dia de salidad es: </strong>' +
+            this.diaFinal,
+          buttons: [
+            {
+              text: 'Cancelar reservación',
+              role: 'cancel',
+              cssClass: 'iconCancelar',
+              handler: (blah) => {
+                this.modalController.dismiss();
+                this.storage.remove('informacionPromocion');
+              },
+            },
+            {
+              text: 'Pagar',
+              handler: () => {
+                this.arregloPayPal = {
+                  descripcion: this.bly_descripcionFactura,
+                  precio: this.totalCargoPay,
+                };
+                console.log(this.arregloPayPal);
+                this.botonesPayPal = true;
+                paypal
+                  .Buttons({
+                    createOrder: (data, actions) => {
+                      console.log(this.arregloPayPal);
+                      return actions.order.create({
+                        purchase_units: [
+                          {
+                            description: this.arregloPayPal.descripcion,
+                            amount: {
+                              currency_code: 'USD',
+                              value: this.arregloPayPal.precio,
+                            },
+                          },
+                        ],
+                      });
+                    },
+                    onApprove: async (data, actions) => {
+                      const order = await actions.order.capture();
+                      this.informacionPagoFinalizado = order;
+                      let body = {
+                        bly_fechapago:
+                          this.informacionPagoFinalizado.create_time,
+                        bly_idPago: this.informacionPagoFinalizado.id,
+                        bly_correoUsuario:
+                          this.informacionPagoFinalizado.payer.email_address,
+                        bly_paisCompra:
+                          this.informacionPagoFinalizado.payer.address
+                            .country_code,
+                        bly_nombreUsuario:
+                          this.informacionPagoFinalizado.payer.name.given_name,
+                        bly_apellidoUsuario:
+                          this.informacionPagoFinalizado.payer.name.surname,
+                        bly_idUsuario:
+                          this.informacionPagoFinalizado.payer.payer_id,
+                        bly_statusPago: this.informacionPagoFinalizado.status,
+                        bly_montoFinal: this.totalCargoPay,
+                        bly_descripcion: this.bly_descripcionFactura,
+                      };
+                      this.registrarHistorialServico(body);
+                      this.actualizarNoDisponibleDB();
+                    },
+                    onError: (err) => {
+                      console.log(err);
+                      this.mostrarModalErrorPago();
+                    },
+                  })
+                  .render(this.paypalElement.nativeElement);
+              },
+            },
+          ],
+        });
+        await alert.present();
+    }else if (this.cantidadNoche >= 20) {
       this.descuentoMes = bly_descuentoMes;
       this.totalFinalMes =
         (parseInt(bly_precioBase.toString()) *

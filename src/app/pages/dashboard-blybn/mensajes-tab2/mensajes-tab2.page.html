@@ -14,7 +14,7 @@
             <ion-list>
                 <ion-item-sliding *ngFor="let mensajes of mensaje">
                     <ion-item-options side="end">
-                        <ion-item-option color="danger" (click)="delete()">
+                        <ion-item-option color="danger"  (click)="delete(mensajes.id)">
                             <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
                         </ion-item-option>
                         <ion-item-option color="primary" (click)="archived()">
@@ -61,6 +61,8 @@
                 </ion-item-sliding>
             </ion-list>
         </div>
+
+        
         <div class="container-img" *ngIf="noRentas">
             <ion-img src="assets/icons/logo-favorito.svg"></ion-img><br>
             <ion-label class="texto-f">No hay mensajes aun</ion-label>

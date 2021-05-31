@@ -72,6 +72,17 @@
         </ion-list>
     </div>
 
+    <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+        <ion-fab-button color="primary">
+            <ion-icon md="archive" ios="albums"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="end">
+            <ion-fab-button color="light">
+                <ion-icon name="browsers"></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+
     <div class="container-img" *ngIf="noRentas">
         <ion-img src="assets/icons/logo-favorito.svg"></ion-img><br>
         <ion-label class="texto-f">No hay mensajes aun</ion-label>

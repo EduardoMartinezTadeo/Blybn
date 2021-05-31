@@ -638,6 +638,10 @@ const routes: Routes = [
     path: 'modal-ganancia',
     loadChildren: () => import('./Modals/modal-ganancia/modal-ganancia.module').then( m => m.ModalGananciaPageModule)
   },
+  {
+    path: 'modal-archived',
+    loadChildren: () => import('./Modals/modal-archived/modal-archived.module').then( m => m.ModalArchivedPageModule)
+  },
 ];
 
 @NgModule({

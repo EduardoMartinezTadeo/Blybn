@@ -67,6 +67,7 @@ export class ModalGananciaPage {
   datos: any = [];
 
   ionViewWillEnter() {
+    this.noGanancia = false;
     this.datos = this.navParams.get('datos');
     if (this.datos == 0) {
       this.noGanancia = true;

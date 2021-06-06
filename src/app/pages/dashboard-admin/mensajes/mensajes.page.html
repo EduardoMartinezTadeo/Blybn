@@ -6,7 +6,7 @@
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
-  </ion-header>
+</ion-header>
 <ion-content class="ion-padding">
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
@@ -24,7 +24,7 @@
                     <ion-item-option color="danger" (click)="delete(mensajes.id)">
                         <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
                     </ion-item-option>
-                    <ion-item-option color="primary" (click)="archived()">
+                    <ion-item-option color="primary" (click)="archived(mensajes.id)">
                         <ion-icon slot="icon-only" name="archive-outline"></ion-icon>
                     </ion-item-option>
                 </ion-item-options>
@@ -44,7 +44,7 @@
     </div>
 
     <div *ngIf="!contentLoaded">
-        <ion-list >
+        <ion-list>
             <div class="ion-searchbar2">
                 <ion-skeleton-text animated style="width: 45%; height: 15px;"></ion-skeleton-text>
             </div>
@@ -72,16 +72,10 @@
         </ion-list>
     </div>
 
-    <ion-fab horizontal="start" vertical="bottom" slot="fixed">
-        <ion-fab-button color="primary">
-            <ion-icon md="archive" ios="albums"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-list side="end">
-            <ion-fab-button color="light">
-                <ion-icon name="browsers"></ion-icon>
-            </ion-fab-button>
-        </ion-fab-list>
-    </ion-fab>
+    <div class="container-archivados" *ngIf="chatArchivado" (click)="modalArchivado()">
+        <ion-label class="text-f">Conversaciones Archivados</ion-label>
+    </div>
+
 
     <div class="container-img" *ngIf="noRentas">
         <ion-img src="assets/icons/logo-favorito.svg"></ion-img><br>

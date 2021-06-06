@@ -3,6 +3,7 @@ import { AlertController, IonList, LoadingController, ModalController, ToastCont
 import { Storage } from '@ionic/storage';
 import { DetalleMensajePage } from '../../detalle-mensaje/detalle-mensaje.page';
 import { ProviderService } from '../../../services/provider.service';
+import { ModalArchivedPage } from '../../../Modals/modal-archived/modal-archived.page';
 
 @Component({
   selector: 'app-mensajes-tab2',
@@ -12,6 +13,7 @@ import { ProviderService } from '../../../services/provider.service';
 export class MensajesTab2Page implements OnInit {
   @ViewChild(IonList) ionList: IonList;
   public noRentas: boolean = false;
+  public chatArchivado: boolean = false;
 
   contentLoaded = false;
   constructor(
@@ -20,7 +22,8 @@ export class MensajesTab2Page implements OnInit {
     private storage: Storage,
     private loadingController: LoadingController,
     private toastController: ToastController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private modalController: ModalController
   ) {
     this.server = this.provider.server;
   }
@@ -28,11 +31,14 @@ export class MensajesTab2Page implements OnInit {
   server: string;
   ngOnInit() {}
 
+  mensajeArchivado: any = [];
   mensaje: any = [];
   id: number;
   ionViewWillEnter() {
-        this.noRentas = false;
-        this.mensaje = [];
+    this.chatArchivado = false;
+    this.noRentas = false;
+    this.mensaje = [];
+    this.mensajeArchivado = [];
     this.storage.get('perfil').then((data) => {
       this.id = data.bly_usuario;
       let body = {
@@ -47,9 +53,25 @@ export class MensajesTab2Page implements OnInit {
             this.noRentas = true;
           }
         });
+      let body2 = {
+        aksi: 'mensaje',
+        id: this.id,
+      };
+      this.provider
+        .CargarChatArchivado(body2, 'db_cargarChatArchivados.php')
+        .subscribe((data) => {
+          this.mensajeArchivado = data.result;
+          if (this.mensajeArchivado == 0) {
+            this.mensajeArchivado = [];
+            this.chatArchivado = false;
+          } else {
+            this.chatArchivado = true;
+          }
+        });
     });
     setTimeout(() => {
       this.contentLoaded = true;
+      console.log(this.mensaje);
     }, 6000);
   }
 
@@ -113,9 +135,32 @@ export class MensajesTab2Page implements OnInit {
     await toast.present();
   }
 
-  archived() {
-    console.log('chat archivado');
+  archived(datosU: any) {
+    this.storage.get('perfil').then((data) => {
+      this.id = data.bly_usuario;
+      let body = {
+        aksi: 'actualizarChat',
+        id2: this.id,
+        id: datosU,
+      };
+      console.log(body);
+      this.provider
+        .ArchivarChat(body, 'db_archivarChat.php')
+        .subscribe((data) => {
+          this.toatsActualizar();
+          this.ionViewWillEnter();
+        });
+    });
     this.ionList.closeSlidingItems();
+  }
+
+  async toatsActualizar() {
+    const toast = await this.toastController.create({
+      message: 'Se ha archivado esta conversación...',
+      duration: 2000,
+      mode: 'ios',
+    });
+    toast.present();
   }
 
   informacionChat: any = [];
@@ -128,6 +173,7 @@ export class MensajesTab2Page implements OnInit {
 
   async mostrarModalChat() {
     const modal = await this.modalCtrl.create({
+      mode: 'ios',
       component: DetalleMensajePage,
       componentProps: {
         datos: this.informacionChat,
@@ -142,5 +188,13 @@ export class MensajesTab2Page implements OnInit {
       this.ionViewWillEnter();
       event.target.complete();
     }, 2000);
+  }
+
+  async modalArchivado() {
+    const modal = await this.modalController.create({
+      component: ModalArchivedPage,
+      mode: 'ios'
+    });
+    return await modal.present();
   }
 }

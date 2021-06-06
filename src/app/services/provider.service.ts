@@ -96,6 +96,9 @@ const apiEnviarMensaje = environment.apiEnviarMensajeURL;
 const apiCargarMensajesIndividuales = environment.apiCargarMensajesIndividualesURL;
 const apiCargarMisMensajes = environment.apiCargarMisMensajesURL;
 const apiEliminarChat = environment.apiEliminarChatIndividualURL;
+const apiCargarChatArchivado = environment.apiCargarChatArchivadoURL;
+const apiArchivarChat = environment.apiArchivarChatURL;
+const apiDesarchivarChat = environment.apiDesarchivarURL;
 @Injectable({
   providedIn: 'root',
 })
@@ -799,12 +802,42 @@ export class ProviderService {
     });
   }
 
-   EliminarMensajeIndividual(body, file) {
+  EliminarMensajeIndividual(body, file) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json; charset=UTF-8',
     });
 
     return this.http.post<any>(apiEliminarChat + file, body, {
+      headers,
+    });
+  }
+
+  CargarChatArchivado(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apiCargarChatArchivado + file, body, {
+      headers,
+    });
+  }
+
+  ArchivarChat(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apiArchivarChat + file, body, {
+      headers,
+    });
+  }
+
+  DesarchivarChat(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apiDesarchivarChat + file, body, {
       headers,
     });
   }

@@ -211,7 +211,13 @@ export const environment = {
   apiCargarMisMensajesURL:
     'https://emtdeveloper.com/server_blybn/api/db_cargarMisMensajes.php/',
   apiEliminarChatIndividualURL:
-    'https://emtdeveloper.com/server_blybn/api/db_eliminar_Chat.php/'
+    'https://emtdeveloper.com/server_blybn/api/db_eliminar_Chat.php/',
+  apiCargarChatArchivadoURL:
+    'https://emtdeveloper.com/server_blybn/api/db_cargarChatArchivados.php/',
+  apiArchivarChatURL:
+    'https://emtdeveloper.com/server_blybn/api/db_archivarChat.php/',
+  apiDesarchivarURL:
+    'https://emtdeveloper.com/server_blybn/api/db_desarchivarChat.php/',
 };
 
 /*

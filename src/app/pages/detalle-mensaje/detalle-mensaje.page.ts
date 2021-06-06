@@ -50,6 +50,7 @@ export class DetalleMensajePage implements OnInit {
         id: this.bly_id,
         id2: this.datos.usuario,
       };
+      console.log(body1);
       this.provider
         .CargarMisMensajes(body1, 'db_cargarMisMensajes.php')
         .subscribe((data) => {

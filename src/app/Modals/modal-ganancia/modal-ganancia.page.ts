@@ -14,7 +14,7 @@ export class ModalGananciaPage {
   public chartData: ChartDataSets[] = [
     { data: [], label: 'Ganancias generales' },
   ];
-  public chartType: ChartType = 'line';
+  public chartType: ChartType = 'bar';
   public chartType2: ChartType = 'pie';
   public chartLabels: Label[];
   public chartColors: Color[] = [

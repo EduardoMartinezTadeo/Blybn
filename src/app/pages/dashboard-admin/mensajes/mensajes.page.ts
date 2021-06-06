@@ -1,9 +1,16 @@
 import { Component, OnInit, Provider, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, IonList, ModalController, ToastController, LoadingController } from '@ionic/angular';
+import {
+  AlertController,
+  IonList,
+  ModalController,
+  ToastController,
+  LoadingController,
+} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { DetalleMensajePage } from '../../detalle-mensaje/detalle-mensaje.page';
 import { ProviderService } from '../../../services/provider.service';
+import { ModalArchivedPage } from '../../../Modals/modal-archived/modal-archived.page';
 
 @Component({
   selector: 'app-mensajes',
@@ -12,6 +19,7 @@ import { ProviderService } from '../../../services/provider.service';
 })
 export class MensajesPage implements OnInit {
   public noRentas: boolean = false;
+  public chatArchivado: boolean = false;
 
   @ViewChild(IonList) ionList: IonList;
 
@@ -31,9 +39,12 @@ export class MensajesPage implements OnInit {
 
   server: string;
   mensaje: any = [];
+  mensajeArchivado: any = [];
   id: number;
   ionViewWillEnter() {
+    this.chatArchivado = false;
     this.noRentas = false;
+    this.mensajeArchivado = [];
     this.mensaje = [];
     this.storage.get('perfil').then((data) => {
       this.id = data.bly_usuario;
@@ -47,6 +58,21 @@ export class MensajesPage implements OnInit {
           this.mensaje = data.result;
           if (this.mensaje == 0) {
             this.noRentas = true;
+          }
+        });
+      let body2 = {
+        aksi: 'mensaje',
+        id: this.id,
+      };
+      this.provider
+        .CargarChatArchivado(body2, 'db_cargarChatArchivados.php')
+        .subscribe((data) => {
+          this.mensajeArchivado = data.result;
+          if (this.mensajeArchivado == 0) {
+            this.mensajeArchivado = [];
+            this.chatArchivado = false;
+          } else {
+            this.chatArchivado = true;
           }
         });
     });
@@ -85,10 +111,10 @@ export class MensajesPage implements OnInit {
               .EliminarMensajeIndividual(body, 'db_eliminar_Chat.php')
               .subscribe((data) => {
                 this.cargaAccion();
-                setTimeout(() => {                  
+                setTimeout(() => {
                   this.ionViewWillEnter();
                   this.toastEliminacion();
-                }, 1500)
+                }, 1500);
               });
           },
         },
@@ -113,14 +139,37 @@ export class MensajesPage implements OnInit {
       header: 'Eliminación',
       message: 'Se ha eliminado correctamente esta conversación...',
       position: 'bottom',
-      duration: 1500
+      duration: 1500,
     });
     await toast.present();
   }
 
-  archived() {
-    console.log('chat archivado');
+  archived(datosU: any) {
+    this.storage.get('perfil').then((data) => {
+      this.id = data.bly_usuario;
+      let body = {
+        aksi: 'actualizarChat',
+        id2: this.id,
+        id: datosU,
+      };
+      console.log(body);
+      this.provider
+        .ArchivarChat(body, 'db_archivarChat.php')
+        .subscribe((data) => {
+          this.toatsActualizar();
+          this.ionViewWillEnter();
+        });
+    });
     this.ionList.closeSlidingItems();
+  }
+
+  async toatsActualizar() {
+    const toast = await this.toastController.create({
+      message: 'Se ha archivado esta conversación...',
+      duration: 2000,
+      mode: 'ios',
+    });
+    toast.present();
   }
 
   informacionChat: any = [];
@@ -133,6 +182,7 @@ export class MensajesPage implements OnInit {
 
   async mostrarModalChat() {
     const modal = await this.modalController.create({
+      mode: 'ios',
       component: DetalleMensajePage,
       componentProps: {
         datos: this.informacionChat,
@@ -150,5 +200,13 @@ export class MensajesPage implements OnInit {
       this.ionViewWillEnter();
       event.target.complete();
     }, 2000);
+  }
+
+  async modalArchivado() {
+    const modal = await this.modalController.create({
+      component: ModalArchivedPage,
+      mode: 'ios',
+    });
+    return await modal.present();
   }
 }

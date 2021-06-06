@@ -16,7 +16,7 @@
                     <ion-item-option color="danger" (click)="delete(mensajes.id)">
                         <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
                     </ion-item-option>
-                    <ion-item-option color="primary" (click)="archived()">
+                    <ion-item-option color="primary" (click)="archived(mensajes.id)">
                         <ion-icon slot="icon-only" name="archive-outline"></ion-icon>
                     </ion-item-option>
                 </ion-item-options>
@@ -61,6 +61,10 @@
         </ion-list>
     </div>
 
+    <div class="container-archivados" *ngIf="chatArchivado" (click)="modalArchivado()">
+        <ion-label class="text-f">Conversaciones Archivados</ion-label>
+    </div>
+    
     <div class="container-img" *ngIf="noRentas">
         <ion-img src="assets/icons/logo-favorito.svg"></ion-img><br>
         <ion-label class="texto-f">No hay mensajes aun</ion-label>

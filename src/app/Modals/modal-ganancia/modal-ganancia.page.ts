@@ -58,8 +58,7 @@ export class ModalGananciaPage {
   constructor(
     private navParams: NavParams,
     private modalController: ModalController,
-    private provider: ProviderService,
-    private alertController: AlertController
+    private provider: ProviderService
   ) {}
 
   labels: ['Servicio con ganancia de:'];
@@ -84,23 +83,15 @@ export class ModalGananciaPage {
     }
   }
 
-  alertGanancia: any = [];  
-  informacion: any;
-  bly_propiedad: number;
-  async obtenerPropiedad(datos: any) {
-    this.informacion = datos;
-    this.bly_propiedad = this.informacion;
-    let body = {
-      aksi: 'ingresos',
-      bly_propiedad: this.bly_propiedad
-    }
-    this.provider.cargarGananciaTotal(body, 'db_cargarGananciaTotal.php').subscribe((data) => {
-      this.alertGanancia = data.result;
-    });
+ 
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.ionViewWillEnter();
+      event.target.complete();
+    }, 2000);
   }
 
-  
-  
   salir() {
     this.modalController.dismiss();
   }

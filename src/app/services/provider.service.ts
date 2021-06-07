@@ -99,6 +99,7 @@ const apiEliminarChat = environment.apiEliminarChatIndividualURL;
 const apiCargarChatArchivado = environment.apiCargarChatArchivadoURL;
 const apiArchivarChat = environment.apiArchivarChatURL;
 const apiDesarchivarChat = environment.apiDesarchivarURL;
+const apiStatusChatHistorial = environment.apiCargarStatusRentaURL;
 @Injectable({
   providedIn: 'root',
 })
@@ -838,6 +839,16 @@ export class ProviderService {
     });
 
     return this.http.post<any>(apiDesarchivarChat + file, body, {
+      headers,
+    });
+  }
+
+  CargarStatusRentaPropiedad(body, file) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    return this.http.post<any>(apiStatusChatHistorial + file, body, {
       headers,
     });
   }

@@ -218,6 +218,8 @@ export const environment = {
     'https://emtdeveloper.com/server_blybn/api/db_archivarChat.php/',
   apiDesarchivarURL:
     'https://emtdeveloper.com/server_blybn/api/db_desarchivarChat.php/',
+  apiCargarStatusRentaURL:
+    'https://emtdeveloper.com/server_blybn/api/db_cargarStatusPropiedad.php/',
 };
 
 /*

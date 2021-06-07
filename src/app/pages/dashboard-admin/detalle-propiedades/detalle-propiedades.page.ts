@@ -8,9 +8,15 @@ import {
   NativeGeocoderOptions,
   NativeGeocoderResult,
 } from '@ionic-native/native-geocoder/ngx';
-import { AlertController, LoadingController, ToastController } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { DataService } from 'src/app/services/data.service';
+import { ModalHistorialPage } from '../../../Modals/modal-historial/modal-historial.page';
 declare var google;
 @Component({
   selector: 'app-detalle-propiedades',
@@ -34,7 +40,8 @@ export class DetallePropiedadesPage implements OnInit {
     private loadingController: LoadingController,
     private iab: InAppBrowser,
     private servicio: DataService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private modalController: ModalController
   ) {
     this.server = this.provider.server;
   }
@@ -93,15 +100,15 @@ export class DetallePropiedadesPage implements OnInit {
   }
 
   datosPromocionesR: any;
-  obtenerPromociones(){
-    this.storage.get('informacionPromocion').then((res)=>{
+  obtenerPromociones() {
+    this.storage.get('informacionPromocion').then((res) => {
       this.datosPromocionesR = res;
     });
     this.confirmacionPropmocion();
   }
 
-  eliminarPromocion(){
-    this.storage.get('informacionPromocion').then((res)=>{
+  eliminarPromocion() {
+    this.storage.get('informacionPromocion').then((res) => {
       this.datosPromocionesR = res;
     });
     this.eliminarPromosion();
@@ -117,17 +124,15 @@ export class DetallePropiedadesPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          }
-        }, {
+          cssClass: 'secondary'
+        },
+        {
           text: 'Retirar',
           handler: () => {
             this.cargaEliminarPromosion();
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
     await alert.present();
@@ -143,17 +148,15 @@ export class DetallePropiedadesPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          }
-        }, {
+          cssClass: 'secondary'
+        },
+        {
           text: 'Anunciar',
           handler: () => {
             this.cargaRegistroPromocion();
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
     await alert.present();
@@ -163,55 +166,64 @@ export class DetallePropiedadesPage implements OnInit {
     const loading = await this.loadingController.create({
       message: 'Espere un momento...',
       duration: 2000,
-      mode: 'ios'
+      mode: 'ios',
     });
     await loading.present();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.registrarPromocion();
-    },1500);
+    }, 1500);
   }
 
   async cargaEliminarPromosion() {
     const loading = await this.loadingController.create({
       message: 'Espere un momento...',
       duration: 2000,
-      mode: 'ios'
+      mode: 'ios',
     });
     await loading.present();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.eleminarPromocion();
-    },1500);
+    }, 1500);
   }
 
   toast: any;
   eleminarPromocion() {
     let body = {
-        aksi: 'Retirar-promocion',
-        id_propiedad: this.datosPromocionesR.propiedad
-      };
+      aksi: 'Retirar-promocion',
+      id_propiedad: this.datosPromocionesR.propiedad,
+    };
 
-    this.provider.eliminarPromocion(body, 'db_QuitarPropiedadPromociones.php').subscribe(data => {
-      this.toast = this.toastController
-      .create({
-        message: 'Se ha retirado tu propiedad de promociones...',
-        duration: 2000,
-        mode: 'ios',
-      })
-      .then((toastData) => {
-        toastData.present();
-      });
+    this.provider
+      .eliminarPromocion(body, 'db_QuitarPropiedadPromociones.php')
+      .subscribe((data) => {
+        this.toast = this.toastController
+          .create({
+            message: 'Se ha retirado tu propiedad de promociones...',
+            duration: 2000,
+            mode: 'ios',
+          })
+          .then((toastData) => {
+            toastData.present();
+          });
       });
   }
 
   responseDataRPromocion: any;
-  registrarPromocion(){
-    this.servicio.registrarPropiedadPromocion(this.datosPromocionesR.dueno, this.datosPromocionesR.propiedad).subscribe(data => {
-      this.responseDataRPromocion = data;
-    }, (error) => {
-      this.presentLoadingServer();
-    });
+  registrarPromocion() {
+    this.servicio
+      .registrarPropiedadPromocion(
+        this.datosPromocionesR.dueno,
+        this.datosPromocionesR.propiedad
+      )
+      .subscribe(
+        (data) => {
+          this.responseDataRPromocion = data;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
-
 
   foto: string;
   fotoPerfil: any = [];
@@ -221,15 +233,16 @@ export class DetallePropiedadesPage implements OnInit {
         aksi: 'perfilFoto',
         bly_usuario: this.id,
       };
-      this.provider
-        .postDataCFPA(body, 'db_cargarFotoPerfilAct.php')
-        .subscribe((data) => {
+      this.provider.postDataCFPA(body, 'db_cargarFotoPerfilAct.php').subscribe(
+        (data) => {
           this.fotoPerfil = data;
           this.foto = this.fotoPerfil.bly_fotografia;
           resolve(true);
-        }, (error) => {
+        },
+        (error) => {
           this.presentLoadingServer();
-        });
+        }
+      );
     });
   }
 
@@ -264,11 +277,14 @@ export class DetallePropiedadesPage implements OnInit {
     };
     this.provider
       .postDataCFPI(body, 'db_cargarImagenesPropiedadIndividualmente.php')
-      .subscribe((data) => {
-        this.informacionPropiedad = data.result;
-      },(error)  =>{
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.informacionPropiedad = data.result;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
   tituloPropiedad: string;
@@ -299,9 +315,8 @@ export class DetallePropiedadesPage implements OnInit {
       aksi: 'detallePropiedad',
       bly_propiedad: this.id_propiedad,
     };
-    this.provider
-      .detalleP1(body, 'db_CargarDetallePropiedad.php')
-      .subscribe((data) => {
+    this.provider.detalleP1(body, 'db_CargarDetallePropiedad.php').subscribe(
+      (data) => {
         this.informacionP1 = data.result;
         this.tituloPropiedad = this.informacionP1.bly_tituloPropiedad;
         this.cantidadHabitacion = this.informacionP1.bly_numHabitaciones;
@@ -330,38 +345,62 @@ export class DetallePropiedadesPage implements OnInit {
         this.cargarAlojamiento();
         this.cargarTipoAventuraIndividual();
         this.cargarHistorial();
+        this.cargarStatusPropiedad();
         this.loadMap();
         this.informacionPropiedades = {
           propiedad: this.id_registroPropiedad,
-          dueno: this.id_duenocasa
-        }
+          dueno: this.id_duenocasa,
+        };
         this.storage.set('informacionPromocion', this.informacionPropiedades);
-      }, (error) => {
+      },
+      (error) => {
         this.presentLoadingServer();
+      }
+    );
+  }
+
+  public controlRenta: boolean = false;
+  statusRenta: any = [];
+  id_casa: number;
+  cargarStatusPropiedad() {
+    this.storage.get('informacionPromocion').then((dataCasa) => {
+      this.id_casa = dataCasa.propiedad;
+      let bodySP = {
+        aksi: 'status-renta',
+        bly_propiedad: this.id_casa
+    };
+      this.provider.CargarStatusRentaPropiedad(bodySP, 'db_cargarStatusPropiedad.php').subscribe((data) => {
+        this.statusRenta = data.result;
+        console.log(this.statusRenta);
       });
+    });
   }
 
   url: string;
   infoComoLlegar: any = [];
-  comoLlegar(){
+  comoLlegar() {
     let body = {
       aksi: 'placeId',
       bly_registroPropiedad: this.id_propiedad,
     };
     this.provider
       .cargarPlaceID(body, 'db_CargarPlaceIDPropiedad.php')
-      .subscribe((data) => {
-        this.infoComoLlegar = data.result;
-        this.bly_placeId = this.infoComoLlegar.bly_placeid;
-        //this.url = 'https://www.google.com/maps/search/?api=1&query=Google&query_place_id='+this.bly_placeId;
-      }, (error) => {
-        this.presentLoadingServer();
-      }); 
+      .subscribe(
+        (data) => {
+          this.infoComoLlegar = data.result;
+          this.bly_placeId = this.infoComoLlegar.bly_placeid;
+          //this.url = 'https://www.google.com/maps/search/?api=1&query=Google&query_place_id='+this.bly_placeId;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
-  llegarComo(){
+  llegarComo() {
     this.iab.create(
-      `https://www.google.com/maps/search/?api=1&query=Google&query_place_id=`+this.bly_placeId,
+      `https://www.google.com/maps/search/?api=1&query=Google&query_place_id=` +
+        this.bly_placeId,
       `_system`
     );
   }
@@ -374,11 +413,14 @@ export class DetallePropiedadesPage implements OnInit {
     };
     this.provider
       .detalleP2(body, 'db_CargarAmenidadesPropiedades.php')
-      .subscribe((data) => {
-        this.informacionP2 = data.result;
-      }, (error) => {
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.informacionP2 = data.result;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
   informacionP3: any = [];
@@ -387,30 +429,30 @@ export class DetallePropiedadesPage implements OnInit {
       aksi: 'tipo4',
       bly_propiedad: this.id_propiedad,
     };
-    this.provider
-      .detalleP3(body, 'db_CargarCostosPropiedad.php')
-      .subscribe((data) => {
+    this.provider.detalleP3(body, 'db_CargarCostosPropiedad.php').subscribe(
+      (data) => {
         this.informacionP3 = data.result;
-      }, (error) => {
+      },
+      (error) => {
         this.presentLoadingServer();
-      });
+      }
+    );
   }
 
   informacionP4: any = [];
   cargarP4() {
-    console.log('numero casa',this.id_propiedad);
     let body = {
       aksi: 'tipo5',
       bly_propiedad: this.id_propiedad,
     };
-    this.provider
-      .detalleP4(body, 'db_CargarMueblesPropiedades.php')
-      .subscribe((data) => {
+    this.provider.detalleP4(body, 'db_CargarMueblesPropiedades.php').subscribe(
+      (data) => {
         this.informacionP4 = data.result;
-        console.log(this.informacionP4);
-      }, (error) => {
+      },
+      (error) => {
         this.presentLoadingServer();
-      });
+      }
+    );
   }
 
   informacionP5: any = [];
@@ -421,11 +463,14 @@ export class DetallePropiedadesPage implements OnInit {
     };
     this.provider
       .detalleP5(body, 'db_CargarRestriccionesPropiedad.php')
-      .subscribe((data) => {
-        this.informacionP5 = data.result;
-      },(error) => {
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.informacionP5 = data.result;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
   informacionP6: any = [];
@@ -434,13 +479,14 @@ export class DetallePropiedadesPage implements OnInit {
       aksi: 'requisitos',
       bly_propiedad: this.id_propiedad,
     };
-    this.provider
-      .detalleP6(body, 'db_CargarSeguridadPropiedad.php')
-      .subscribe((data) => {
+    this.provider.detalleP6(body, 'db_CargarSeguridadPropiedad.php').subscribe(
+      (data) => {
         this.informacionP6 = data.result;
-      }, (error) => {
+      },
+      (error) => {
         this.presentLoadingServer();
-      });
+      }
+    );
   }
 
   informacionP7: any = [];
@@ -449,13 +495,14 @@ export class DetallePropiedadesPage implements OnInit {
       aksi: 'requisitos',
       bly_propiedad: this.id_propiedad,
     };
-    this.provider
-      .detalleP7(body, 'db_CargarRequisitosPropiedad.php')
-      .subscribe((data) => {
+    this.provider.detalleP7(body, 'db_CargarRequisitosPropiedad.php').subscribe(
+      (data) => {
         this.informacionP7 = data.result;
-      }, (error) => {
+      },
+      (error) => {
         this.presentLoadingServer();
-      });
+      }
+    );
   }
 
   informacionP8: any = [];
@@ -478,30 +525,33 @@ export class DetallePropiedadesPage implements OnInit {
     };
     this.provider
       .detalleP8(body, 'db_CargarDisponibilidadPropiedad.php')
-      .subscribe((data) => {
-        this.informacionP8 = data.result;
-        this.dato1 = this.informacionP8.bly_fechaInicio;
-        this.dato2 = this.informacionP8.bly_fechaFinal;
-        this.dato3 = this.informacionP8.bly_fechaInicialND;
-        this.dato4 = this.informacionP8.bly_fechaFinalND;
-        this.dato5 = this.informacionP8.bly_horaLimiteReservacion;
-        this.dato6 = this.informacionP8.bly_llegadaAntes;
-        this.dato7 = this.informacionP8.bly_llegadaDespues;
-        this.dato8 = this.informacionP8.bly_preaviso;
-        this.dato9 = this.informacionP8.bly_propiedad;
-        this.dato10 = this.informacionP8.bly_salidaAntes;
-        this.dato11 = this.informacionP8.bly_tiempoAnticipacionReservacion;
-        this.dato12 = this.informacionP8.bly_tiempoSalidadH;
-        this.cargarLLegadaAntes();
-        this.cargarLlegadaDespues();
-        this.cargarLlegadaSalida();
-        this.cargarHoraLimiteReservacion();
-        this.cargarPreaviso();
-        this.cargarVentanaDisponibilidad();
-        this.cargarSalidaTerminoServicio();
-      }, (error) => {
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.informacionP8 = data.result;
+          this.dato1 = this.informacionP8.bly_fechaInicio;
+          this.dato2 = this.informacionP8.bly_fechaFinal;
+          this.dato3 = this.informacionP8.bly_fechaInicialND;
+          this.dato4 = this.informacionP8.bly_fechaFinalND;
+          this.dato5 = this.informacionP8.bly_horaLimiteReservacion;
+          this.dato6 = this.informacionP8.bly_llegadaAntes;
+          this.dato7 = this.informacionP8.bly_llegadaDespues;
+          this.dato8 = this.informacionP8.bly_preaviso;
+          this.dato9 = this.informacionP8.bly_propiedad;
+          this.dato10 = this.informacionP8.bly_salidaAntes;
+          this.dato11 = this.informacionP8.bly_tiempoAnticipacionReservacion;
+          this.dato12 = this.informacionP8.bly_tiempoSalidadH;
+          this.cargarLLegadaAntes();
+          this.cargarLlegadaDespues();
+          this.cargarLlegadaSalida();
+          this.cargarHoraLimiteReservacion();
+          this.cargarPreaviso();
+          this.cargarVentanaDisponibilidad();
+          this.cargarSalidaTerminoServicio();
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
   fechaLlegada: any;
@@ -521,11 +571,14 @@ export class DetallePropiedadesPage implements OnInit {
     };
     this.provider
       .cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php')
-      .subscribe((data) => {
-        this.llegadaAntes = data.result.bly_descripcionLlegadas;
-      }, (error) => {
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.llegadaAntes = data.result.bly_descripcionLlegadas;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
   cargarLlegadaDespues() {
     let body = {
@@ -534,11 +587,14 @@ export class DetallePropiedadesPage implements OnInit {
     };
     this.provider
       .cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php')
-      .subscribe((data) => {
-        this.llegadaDespues = data.result.bly_descripcionLlegadas;
-      }, (error) => {
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.llegadaDespues = data.result.bly_descripcionLlegadas;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
   cargarLlegadaSalida() {
@@ -548,11 +604,14 @@ export class DetallePropiedadesPage implements OnInit {
     };
     this.provider
       .cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php')
-      .subscribe((data) => {
-        this.llegadaSalida = data.result.bly_descripcionLlegadas;
-      }, (error) => {
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.llegadaSalida = data.result.bly_descripcionLlegadas;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
   cargarHoraLimiteReservacion() {
@@ -562,11 +621,14 @@ export class DetallePropiedadesPage implements OnInit {
     };
     this.provider
       .cargarHoraIndividual(body, 'db_CargarHorasPropiedades.php')
-      .subscribe((data) => {
-        this.horaLimiteReservacion = data.result.bly_Horas;
-      }, (error) => {
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.horaLimiteReservacion = data.result.bly_Horas;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
   cargarPreaviso() {
@@ -576,11 +638,14 @@ export class DetallePropiedadesPage implements OnInit {
     };
     this.provider
       .cargarPreavisoIndividual(body, 'db_CargarPreavisoPropiedades.php')
-      .subscribe((data) => {
-        this.preavisoPropiedad = data.result.bly_preavisoDescripcion;
-      }, (error) => {
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.preavisoPropiedad = data.result.bly_preavisoDescripcion;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
   cargarVentanaDisponibilidad() {
@@ -593,12 +658,15 @@ export class DetallePropiedadesPage implements OnInit {
         body,
         'db_CargarVentanaDisponibilidadIndividual.php'
       )
-      .subscribe((data) => {
-        this.anticipacionRenta =
-          data.result.bly_descripcionVentanaDisponibilidad;
-      }, (error) => {
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.anticipacionRenta =
+            data.result.bly_descripcionVentanaDisponibilidad;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
   cargarSalidaTerminoServicio() {
@@ -608,11 +676,14 @@ export class DetallePropiedadesPage implements OnInit {
     };
     this.provider
       .cargarLlegadaIndividual(body, 'db_CargarLLegadasIndividuales.php')
-      .subscribe((data) => {
-        this.salidaTerminoServicio = data.result.bly_descripcionLlegadas;
-      }, (error) => {
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.salidaTerminoServicio = data.result.bly_descripcionLlegadas;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
   informacionCasa: any = [];
@@ -623,11 +694,14 @@ export class DetallePropiedadesPage implements OnInit {
     };
     this.provider
       .cargarTipoPropiedadIndividual(body, 'db_cargarTipoPropiedad.php')
-      .subscribe((data) => {
-        this.informacionCasa = data.result;
-      }, (error) => {
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.informacionCasa = data.result;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
   informacionAlojamiento: any = [];
@@ -638,11 +712,14 @@ export class DetallePropiedadesPage implements OnInit {
     };
     this.provider
       .cargarAlojamientoIndividual(body, 'db_cargarAlojamientoPropiedad.php')
-      .subscribe((data) => {
-        this.informacionAlojamiento = data.result;
-      }, (error) => {
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.informacionAlojamiento = data.result;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
   informacionAventura: any = [];
@@ -666,11 +743,14 @@ export class DetallePropiedadesPage implements OnInit {
     };
     this.provider
       .cargarHistorialRenta(body, 'db_CargarHistorialPrevioPropiedad.php')
-      .subscribe((data) => {
-        this.informacionHistorial = data.result;
-      }, (error) => {
-        this.presentLoadingServer();
-      });
+      .subscribe(
+        (data) => {
+          this.informacionHistorial = data.result;
+        },
+        (error) => {
+          this.presentLoadingServer();
+        }
+      );
   }
 
   informacionP9: any = [];
@@ -679,13 +759,14 @@ export class DetallePropiedadesPage implements OnInit {
       aksi: 'tipo2',
       bly_propiedad: this.id_propiedad,
     };
-    this.provider
-      .detalleP9(body, 'db_CargarEspaciosPropiedades.php')
-      .subscribe((data) => {
+    this.provider.detalleP9(body, 'db_CargarEspaciosPropiedades.php').subscribe(
+      (data) => {
         this.informacionP9 = data.result;
-      }, (error) => {
+      },
+      (error) => {
         this.presentLoadingServer();
-      });
+      }
+    );
   }
 
   slideOpts = {
@@ -899,7 +980,6 @@ export class DetallePropiedadesPage implements OnInit {
   startPositionp1;
 
   openp1() {
-    
     (<HTMLStyleElement>document.querySelector('.bottomSheetp1')).style.bottom =
       '0px';
     (<HTMLStyleElement>document.querySelector('.bgp1')).style.display = 'block';
@@ -1324,7 +1404,7 @@ export class DetallePropiedadesPage implements OnInit {
 
   loadMap() {
     //OBTENEMOS LAS COORDENADAS DESDE EL TELEFONO.
- 
+
     this.geolocation
       .getCurrentPosition()
       .then((resp) => {
@@ -1350,8 +1430,7 @@ export class DetallePropiedadesPage implements OnInit {
           this.long = this.map.center.lng();
         });
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
   }
 
   getAddressFromCoords(lattitude, longitude) {
@@ -1384,13 +1463,14 @@ export class DetallePropiedadesPage implements OnInit {
       header: 'Error',
       message: 'Ha ocurrido un error, verifique su conexión!!!',
       mode: 'ios',
-      buttons: [{
-        text: 'Reintentar',
-        handler: () => {
-          this.router.navigateByUrl('/dashboard/mis-propiedades');
-        }
-      }
-      ]
+      buttons: [
+        {
+          text: 'Reintentar',
+          handler: () => {
+            this.router.navigateByUrl('/dashboard/mis-propiedades');
+          },
+        },
+      ],
     });
     await alert.present();
   }
@@ -1399,7 +1479,7 @@ export class DetallePropiedadesPage implements OnInit {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       duration: 1500,
-      spinner: "bubbles",
+      spinner: 'bubbles',
       mode: 'ios',
     });
     await loading.present();
@@ -1408,9 +1488,8 @@ export class DetallePropiedadesPage implements OnInit {
     }, 2000);
   }
 
-
-  actualizarDisponible(){
-    this.storage.get('informacionPromocion').then((res)=>{
+  actualizarDisponible() {
+    this.storage.get('informacionPromocion').then((res) => {
       this.datosPromocionesR = res;
     });
     this.confirmarCambiarDisponible();
@@ -1426,17 +1505,15 @@ export class DetallePropiedadesPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          }
-        }, {
+          cssClass: 'secondary'
+        },
+        {
           text: 'Cambiar',
           handler: () => {
             this.cargarDisponible();
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
     await alert.present();
@@ -1446,36 +1523,41 @@ export class DetallePropiedadesPage implements OnInit {
     const loading = await this.loadingController.create({
       message: 'Espere un momento...',
       duration: 2000,
-      mode: 'ios'
+      mode: 'ios',
     });
     await loading.present();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.actualizarDisponibleDB();
-    },1500);
+    }, 1500);
   }
 
-  actualizarDisponibleDB(){
+  actualizarDisponibleDB() {
     let body = {
       aksi: 'actualizarDispo',
       bly_status: 1,
-      bly_colorStatus: "success",
-      bly_registroPropiedad: this.datosPromocionesR.propiedad
-    }
-    this.provider.actualizarDisponibilidadPropiedad(body, 'db_actualizarDisponibilidadPropiedad.php').subscribe(data =>{
-      this.toast = this.toastController
-      .create({
-        message: 'Se ha actualizado su estatus...',
-        duration: 2000,
-        mode: 'ios',
-      })
-      .then((toastData) => {
-        toastData.present();
+      bly_colorStatus: 'success',
+      bly_registroPropiedad: this.datosPromocionesR.propiedad,
+    };
+    this.provider
+      .actualizarDisponibilidadPropiedad(
+        body,
+        'db_actualizarDisponibilidadPropiedad.php'
+      )
+      .subscribe((data) => {
+        this.toast = this.toastController
+          .create({
+            message: 'Se ha actualizado su estatus...',
+            duration: 2000,
+            mode: 'ios',
+          })
+          .then((toastData) => {
+            toastData.present();
+          });
       });
-    });
   }
 
-  actualizarnoDisponible(){
-    this.storage.get('informacionPromocion').then((res)=>{
+  actualizarnoDisponible() {
+    this.storage.get('informacionPromocion').then((res) => {
       this.datosPromocionesR = res;
     });
     this.confirmarCambiarNoDisponible();
@@ -1491,17 +1573,15 @@ export class DetallePropiedadesPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          }
-        }, {
+          cssClass: 'secondary'
+        },
+        {
           text: 'Cambiar',
           handler: () => {
             this.cargarNoDisponible();
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
     await alert.present();
@@ -1511,31 +1591,44 @@ export class DetallePropiedadesPage implements OnInit {
     const loading = await this.loadingController.create({
       message: 'Espere un momento...',
       duration: 2000,
-      mode: 'ios'
+      mode: 'ios',
     });
     await loading.present();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.actualizarNoDisponibleDB();
-    },1500);
+    }, 1500);
   }
 
-  actualizarNoDisponibleDB(){
+  actualizarNoDisponibleDB() {
     let body = {
       aksi: 'actualizarDispo',
       bly_status: 2,
-      bly_colorStatus: "danger",
-      bly_registroPropiedad: this.datosPromocionesR.propiedad
-    }
-    this.provider.actualizarDisponibilidadPropiedad(body, 'db_actualizarDisponibilidadPropiedad.php').subscribe(data =>{
-      this.toast = this.toastController
-      .create({
-        message: 'Se ha actualizado su estatus...',
-        duration: 2000,
-        mode: 'ios',
-      })
-      .then((toastData) => {
-        toastData.present();
+      bly_colorStatus: 'danger',
+      bly_registroPropiedad: this.datosPromocionesR.propiedad,
+    };
+    this.provider
+      .actualizarDisponibilidadPropiedad(
+        body,
+        'db_actualizarDisponibilidadPropiedad.php'
+      )
+      .subscribe((data) => {
+        this.toast = this.toastController
+          .create({
+            message: 'Se ha actualizado su estatus...',
+            duration: 2000,
+            mode: 'ios',
+          })
+          .then((toastData) => {
+            toastData.present();
+          });
       });
+  }
+
+  async modalHistorial() {
+    const modal = await this.modalController.create({
+      component: ModalHistorialPage,
+      mode: 'ios',
     });
+    return await modal.present();
   }
 }

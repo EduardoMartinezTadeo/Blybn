@@ -1392,4 +1392,6 @@ export class ModalDetallePage implements OnInit {
     });
     await modal.present();
   }
+
+  
 }

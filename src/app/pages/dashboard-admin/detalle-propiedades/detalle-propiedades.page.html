@@ -310,6 +310,28 @@
     </div>
   </ion-row>
   <br>
+    <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s" *ngIf="controlRenta">
+      <div class="dueñoPropiedad1">
+        <ion-item lines="none" class="ion-align-items-center ion-no-padding">
+          <ion-img src="/assets/icons/senal-de-alquiler.svg" class="ionFotoD4"></ion-img>
+          <ion-grid class="ion-align-items-center ion-no-padding">
+            <ion-row class="datosDis">
+              <ion-col size="12">
+                <ion-row size="12">
+                  <ion-item (click)="modalHistorial()">
+                    <ion-label>Control de renta de esta propiedad:</ion-label>
+                    <ion-button fill="clear">
+                      <ion-icon name="calendar-outline" color="success"></ion-icon>
+                    </ion-button>
+                  </ion-item>
+                </ion-row>
+              </ion-col>
+            </ion-row>  
+          </ion-grid>
+        </ion-item>
+      </div>
+    </ion-row>
+  <br>
   <ion-row class="animate__animated animate__fadeInBottomLeft animate__slower 3s">
     <div class="dueñoPropiedad1">
       <ion-item lines="none" class="ion-align-items-center ion-no-padding">

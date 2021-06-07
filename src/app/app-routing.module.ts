@@ -642,6 +642,10 @@ const routes: Routes = [
     path: 'modal-archived',
     loadChildren: () => import('./Modals/modal-archived/modal-archived.module').then( m => m.ModalArchivedPageModule)
   },
+  {
+    path: 'modal-historial',
+    loadChildren: () => import('./Modals/modal-historial/modal-historial.module').then( m => m.ModalHistorialPageModule)
+  },
 ];
 
 @NgModule({

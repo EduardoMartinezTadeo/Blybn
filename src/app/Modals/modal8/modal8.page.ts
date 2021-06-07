@@ -55,10 +55,7 @@ export class Modal8Page implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
+          cssClass: 'secondary'
         },
         {
           text: 'Aceptar',
@@ -109,7 +106,6 @@ export class Modal8Page implements OnInit {
     });
 
     presentModel.onWillDismiss().then((data)=>{
-      console.log(data);
     });
     
     return await presentModel.present();
@@ -128,7 +124,6 @@ export class Modal8Page implements OnInit {
     });
 
     presentModel.onWillDismiss().then((data)=>{
-      console.log(data);
     });
     
     return await presentModel.present();

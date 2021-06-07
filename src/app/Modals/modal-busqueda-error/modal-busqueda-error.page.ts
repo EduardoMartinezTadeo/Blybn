@@ -16,7 +16,6 @@ export class ModalBusquedaErrorPage implements OnInit {
 
   ngOnInit() {
     this.datos = this.navParams.get('datos');
-    console.log(this.datos);
   }
 
   salir(){

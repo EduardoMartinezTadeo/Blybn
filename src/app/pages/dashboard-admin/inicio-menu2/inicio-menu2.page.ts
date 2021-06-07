@@ -113,10 +113,7 @@ export class InicioMenu2Page implements OnInit {
           text: 'Cancelar',
           icon: 'close-circle-outline',
           role: 'cancel',
-          cssClass: 'iconCancelar',
-          handler: () => {
-            console.log('Se cancelo la operacion');
-          },
+          cssClass: 'iconCancelar'
         },
       ],
     });
@@ -159,10 +156,7 @@ export class InicioMenu2Page implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          },
+          cssClass: 'secondary'
         },
         {
           text: 'Aceptar',

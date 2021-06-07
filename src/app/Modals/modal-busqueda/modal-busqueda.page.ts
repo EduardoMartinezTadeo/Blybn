@@ -102,7 +102,6 @@ export class ModalBusquedaPage implements OnInit {
   bly_vbly_duenoPropiedad: number;
   responseDataVista: any;
   registrarVisita(vistas: any) {
-    console.log(vistas);
     this.bly_vPropiedad = vistas.bly_registroPropiedad;
     this.bly_vbly_tituloPropiedad = vistas.bly_tituloPropiedad;
     this.bly_vbly_ciudad = vistas.bly_ciudad;

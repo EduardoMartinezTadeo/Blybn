@@ -75,7 +75,6 @@ export class According05Component implements OnInit {
 
     presentModel.onWillDismiss().then((data)=>{
       console.log(data);
-      //custom code
     });
     
     return await presentModel.present();

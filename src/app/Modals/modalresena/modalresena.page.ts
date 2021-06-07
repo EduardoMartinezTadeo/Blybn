@@ -77,7 +77,6 @@ export class ModalresenaPage implements OnInit {
   ionViewWillEnter() {
     this.actualizarnoDisponible();
     this.datos = this.navParams.get('datos');
-    console.log(this.datos);
     this.id_propiedad = this.datos.propiedad;
     this.actRoute.params.subscribe((data: any) => {
       this.cargarImagenesP();
@@ -279,7 +278,6 @@ export class ModalresenaPage implements OnInit {
       (data) => {
         this.informacionP3 = data.result;
         this.bly_precio = this.informacionP3.bly_precioBase;
-        console.log(this.informacionP3);
       },
       (error) => {
         this.presentLoadingServer();

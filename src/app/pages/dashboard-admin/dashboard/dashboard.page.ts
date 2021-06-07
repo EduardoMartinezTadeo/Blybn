@@ -129,10 +129,7 @@ export class DashboardPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Se cancelo la operación');
-          }
+          cssClass: 'secondary'
         }, {
           text: 'Aceptar',
           handler: () => {

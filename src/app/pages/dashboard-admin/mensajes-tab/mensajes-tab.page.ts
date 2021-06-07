@@ -69,7 +69,6 @@ export class MensajesTabPage implements OnInit {
     });
     setTimeout(() => {
       this.contentLoaded = true;
-      console.log(this.mensaje);
     }, 6000);
   }
 
@@ -97,7 +96,6 @@ export class MensajesTabPage implements OnInit {
               id2: this.id,
               id: id,
             };
-            console.log(body);
             this.provider
               .EliminarMensajeIndividual(body, 'db_eliminar_Chat.php')
               .subscribe((data) => {
@@ -143,7 +141,6 @@ export class MensajesTabPage implements OnInit {
         id2: this.id,
         id: datosU,
       };
-      console.log(body);
       this.provider
         .ArchivarChat(body, 'db_archivarChat.php')
         .subscribe((data) => {

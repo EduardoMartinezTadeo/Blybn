@@ -259,7 +259,6 @@ export class ModalDetallePage implements OnInit {
         (data) => {
           this.infoComoLlegar = data.result;
           this.bly_placeId = this.infoComoLlegar.bly_placeid;
-          //this.url = 'https://www.google.com/maps/search/?api=1&query=Google&query_place_id='+this.bly_placeId;
         },
         (error) => {
           this.presentLoadingServer();

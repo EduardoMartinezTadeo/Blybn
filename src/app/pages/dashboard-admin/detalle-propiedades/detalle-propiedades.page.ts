@@ -371,7 +371,6 @@ export class DetallePropiedadesPage implements OnInit {
     };
       this.provider.CargarStatusRentaPropiedad(bodySP, 'db_cargarStatusPropiedad.php').subscribe((data) => {
         this.statusRenta = data.result;
-        console.log(this.statusRenta);
       });
     });
   }

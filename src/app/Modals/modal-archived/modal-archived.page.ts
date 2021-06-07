@@ -37,7 +37,6 @@ export class ModalArchivedPage implements OnInit {
         aksi: 'mensaje',
         id: this.id,
       };
-      console.log(body2);
       this.provider
         .CargarChatArchivado(body2, 'db_cargarChatArchivados.php')
         .subscribe((data) => {
@@ -85,7 +84,6 @@ export class ModalArchivedPage implements OnInit {
               id2: this.id,
               id: id,
             };
-            console.log(body);
             this.provider
               .EliminarMensajeIndividual(body, 'db_eliminar_Chat.php')
               .subscribe((data) => {
@@ -131,7 +129,6 @@ export class ModalArchivedPage implements OnInit {
         id2: this.id,
         id: datosU,
       };
-      console.log(body);
       this.provider
         .DesarchivarChat(body, 'db_desarchivarChat.php')
         .subscribe((data) => {

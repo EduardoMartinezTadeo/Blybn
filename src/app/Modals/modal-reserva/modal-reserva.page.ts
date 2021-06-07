@@ -279,7 +279,6 @@ export class ModalReservaPage implements OnInit {
       (data) => {
         this.informacionP3 = data.result;
         this.bly_precio = this.informacionP3.bly_precioBase;
-        console.log(this.informacionP3);
       },
       (error) => {
         this.presentLoadingServer();
@@ -727,12 +726,10 @@ export class ModalReservaPage implements OnInit {
                 descripcion: this.bly_descripcionFactura,
                 precio: this.totalCargoPay,
               };
-              console.log(this.arregloPayPal);
               this.botonesPayPal = true;
               paypal
                 .Buttons({
                   createOrder: (data, actions) => {
-                    console.log(this.arregloPayPal);
                     return actions.order.create({
                       purchase_units: [
                         {
@@ -770,7 +767,6 @@ export class ModalReservaPage implements OnInit {
                     this.actualizarNoDisponibleDB();
                   },
                   onError: (err) => {
-                    console.log(err);
                     this.mostrarModalErrorPago();
                   },
                 })
@@ -832,12 +828,10 @@ export class ModalReservaPage implements OnInit {
                   descripcion: this.bly_descripcionFactura,
                   precio: this.totalCargoPay,
                 };
-                console.log(this.arregloPayPal);
                 this.botonesPayPal = true;
                 paypal
                   .Buttons({
                     createOrder: (data, actions) => {
-                      console.log(this.arregloPayPal);
                       return actions.order.create({
                         purchase_units: [
                           {
@@ -876,7 +870,6 @@ export class ModalReservaPage implements OnInit {
                       this.actualizarNoDisponibleDB();
                     },
                     onError: (err) => {
-                      console.log(err);
                       this.mostrarModalErrorPago();
                     },
                   })
@@ -942,12 +935,10 @@ export class ModalReservaPage implements OnInit {
                 descripcion: this.bly_descripcionFactura,
                 precio: this.totalCargoPay,
               };
-              console.log(this.arregloPayPal);
               this.botonesPayPal = true;
               paypal
                 .Buttons({
                   createOrder: (data, actions) => {
-                    console.log(this.arregloPayPal);
                     return actions.order.create({
                       purchase_units: [
                         {
@@ -985,7 +976,6 @@ export class ModalReservaPage implements OnInit {
                     this.actualizarNoDisponibleDB();
                   },
                   onError: (err) => {
-                    console.log(err);
                     this.mostrarModalErrorPago();
                   },
                 })
@@ -1088,7 +1078,6 @@ export class ModalReservaPage implements OnInit {
                     this.actualizarNoDisponibleDB();
                   },
                   onError: (err) => {
-                    console.log(err);
                     this.mostrarModalErrorPago();
                   },
                 })

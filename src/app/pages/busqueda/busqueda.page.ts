@@ -23,7 +23,6 @@ export class BusquedaPage implements OnInit {
     this.buscar = event.detail.value;
     if(this.buscar == ''){
       this.buscar == "";
-      console.log('no buscar'); 
     }else {
       setTimeout(()=>{
         this.buscarPropiedadLoading();

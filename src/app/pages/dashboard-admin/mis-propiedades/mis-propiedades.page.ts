@@ -85,10 +85,7 @@ export class MisPropiedadesPage implements OnInit {
         {
           text: 'No, en otro momento',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
+          cssClass: 'secondary'
         },
         {
           text: 'Si, continuar',

@@ -361,37 +361,26 @@ export class RegistrarPropiedadPage implements OnInit {
 
   reiniciar() {
     this.storage.set('registroP1', this.informacionR1).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP2', this.informacionR2).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP3', this.informacionR3).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP4', this.informacionR4).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP5', this.informacionR5).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP6', this.informacionR6).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP7', this.informacionR7).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP8', this.informacionR8).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP9', this.informacionR9).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP10', this.informacionR10).then((res) => {
-      console.log(res);
     });
     this.storage.set('registroP11', this.informacionR11).then((res) => {
-      console.log(res);
     });
     this.storage.set('botonEspecial', this.informacionEspecial).then((res) => {
       this.btnEspecial = false;
@@ -472,10 +461,7 @@ export class RegistrarPropiedadPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
+          cssClass: 'secondary'
         },
         {
           text: 'Aceptar',
@@ -516,10 +502,7 @@ export class RegistrarPropiedadPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
+          cssClass: 'secondary'
         },
         {
           text: 'Aceptar',
@@ -560,10 +543,7 @@ export class RegistrarPropiedadPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
+          cssClass: 'secondary'
         },
         {
           text: 'Aceptar',
@@ -604,10 +584,7 @@ export class RegistrarPropiedadPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
+          cssClass: 'secondary'
         },
         {
           text: 'Aceptar',
@@ -648,10 +625,7 @@ export class RegistrarPropiedadPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
+          cssClass: 'secondary'
         },
         {
           text: 'Aceptar',
@@ -692,10 +666,7 @@ export class RegistrarPropiedadPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
+          cssClass: 'secondary'
         },
         {
           text: 'Aceptar',
@@ -738,10 +709,7 @@ export class RegistrarPropiedadPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
+          cssClass: 'secondary'
         },
         {
           text: 'Aceptar',
@@ -816,7 +784,6 @@ export class RegistrarPropiedadPage implements OnInit {
     this.storage.get('botonEspecial').then((res) => {
       this.resultadoVR9 = res;
       this.valor9 = this.resultadoVR9.finalActivar;
-      console.log(this.valor9);
     });
     this.storage.get('registroP10').then((res) => {
       this.resultadoVR10 = res;
@@ -984,10 +951,7 @@ export class RegistrarPropiedadPage implements OnInit {
         {
           text: 'En otro momento',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          }
+          cssClass: 'secondary'
         }, {
           text: 'Continuar',
           handler: () => {

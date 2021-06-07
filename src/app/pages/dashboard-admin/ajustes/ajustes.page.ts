@@ -90,8 +90,6 @@ export class AjustesPage implements OnInit {
     });
 
     presentModel.onWillDismiss().then((data) => {
-      console.log(data);
-      //custom code
     });
 
     return await presentModel.present();
@@ -110,8 +108,6 @@ export class AjustesPage implements OnInit {
     });
 
     presentModel.onWillDismiss().then((data) => {
-      console.log(data);
-      //custom code
     });
 
     return await presentModel.present();
@@ -439,10 +435,7 @@ export class AjustesPage implements OnInit {
         text: 'Cancelar',
         icon: 'close-circle-outline',
         role: 'cancel',
-        cssClass: 'iconCerrar',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
+        cssClass: 'iconCerrar'
       }]
     });
     await actionSheet.present();
@@ -471,10 +464,7 @@ export class AjustesPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
+          cssClass: 'secondary'
         },
         {
           text: 'Aceptar',

@@ -144,7 +144,7 @@ export class DataService {
       .pipe(
         map((results) => {
           this.result = results;
-          if (correoElectronico == '' && contrasena == '') {
+          if (correoElectronico == '' && contrasena === '') {
             this.toast = this.toastController
               .create({
                 message: '¡Debe completar todos los campos solicitados!',
@@ -155,7 +155,7 @@ export class DataService {
                 toastData.present();
               });
           } else if (
-            this.result == '¡Correo electronico o contrasena incorrectos!'
+            this.result === '¡Correo electronico o contrasena incorrectos!'
           ) {
             this.toast = this.toastController
               .create({
@@ -166,7 +166,17 @@ export class DataService {
               .then((toastData) => {
                 toastData.present();
               });
-          } else if (this.result == 'Blybn') {
+          } else if(this.result === 'Bloqueado'){
+            this.toast = this.toastController
+              .create({
+                message: '¡Tu cuenta ha sido bloqueada!',
+                duration: 2000,
+                mode: 'ios',
+              })
+              .then((toastData) => {
+                toastData.present();
+              });
+          } else if (this.result === 'Blybn') {
             this.loadingController
               .create({
                 message: 'Espere un momento…',
@@ -184,7 +194,7 @@ export class DataService {
                   ]);
                 });
               });
-          } else if (this.result == 'Propietario Blybner') {
+          } else if (this.result === 'Propietario Blybner') {
             this.loadingController
               .create({
                 message: 'Espere un momento…',

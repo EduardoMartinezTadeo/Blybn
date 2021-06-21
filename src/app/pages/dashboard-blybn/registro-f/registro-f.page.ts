@@ -830,11 +830,13 @@ export class RegistroFPage implements OnInit {
   alert: any;
   toast: any;
   bly_rol = 2;
+  bly_color = "blybn";
   async publicar(){
       let body = {
         aksi: 'actualizarRol',
         bly_correoElectronico: this.bly_correoElectronico,
-        bly_rol: this.bly_rol
+        bly_rol: this.bly_rol,
+        bly_color: this.bly_color
       };
       this.provider.postDataARUP(body, 'db_actualizarRolUsuario.php').subscribe((data) => {
         var alert = data.msg;

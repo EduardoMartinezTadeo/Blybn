@@ -4,7 +4,6 @@ import { ChartDataSets, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { ProviderService } from '../../services/provider.service';
 
-
 @Component({
   selector: 'app-modal-ganancia',
   templateUrl: './modal-ganancia.page.html',

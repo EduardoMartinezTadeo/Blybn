@@ -647,8 +647,12 @@ const routes: Routes = [
     loadChildren: () => import('./Modals/modal-historial/modal-historial.module').then( m => m.ModalHistorialPageModule)
   },
   {
-    path: 'status-renta',
-    loadChildren: () => import('./modals/status-renta/status-renta.module').then( m => m.StatusRentaPageModule)
+    path: 'modal-renta-status',
+    loadChildren: () => import('./Modals/modal-renta-status/modal-renta-status.module').then( m => m.ModalRentaStatusPageModule)
+  },
+  {
+    path: 'modal-renta-finalizada',
+    loadChildren: () => import('./Modals/modal-renta-finalizada/modal-renta-finalizada.module').then( m => m.ModalRentaFinalizadaPageModule)
   },
 ];
 

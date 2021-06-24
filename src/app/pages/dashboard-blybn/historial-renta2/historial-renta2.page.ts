@@ -5,6 +5,9 @@ import { Storage } from '@ionic/storage';
 import { ProviderService } from '../../../services/provider.service';
 import { ModalresenaPage } from '../../../Modals/modalresena/modalresena.page';
 import { DetalleMensajePage } from '../../detalle-mensaje/detalle-mensaje.page';
+import { ModalRentaFinalizadaPage } from '../../../Modals/modal-renta-finalizada/modal-renta-finalizada.page';
+import { ModalRentaStatusPage } from '../../../Modals/modal-renta-status/modal-renta-status.page';
+
 
 @Component({
   selector: 'app-historial-renta2',
@@ -59,12 +62,18 @@ export class HistorialRenta2Page implements OnInit {
   }
 
   informacionDetalle: any = [];
-  mostrarDetalle(bly_registroPropiedad, bly_duenoPropiedad) {
-    this.informacionDetalle = {
-      propiedad: bly_registroPropiedad,
-      usuario: bly_duenoPropiedad,
-    };
-    this.mostrarModalResultado();
+  mostrarDetalle(bly_status, bly_registroPropiedad, bly_duenoPropiedad) {
+    if(bly_status == 3){
+      this.mostrarModalRI();
+    } else if (bly_status == 4) {
+      this.informacionDetalle = {
+        propiedad: bly_registroPropiedad,
+        usuario: bly_duenoPropiedad,
+      };
+      this.mostrarModalResultado();
+    } else if (bly_status == 5) {
+      this.mostrarModalRFinalizada();
+    }
   }
 
   async mostrarModalResultado() {
@@ -76,6 +85,8 @@ export class HistorialRenta2Page implements OnInit {
     });
     await modal.present();
   }
+
+  
 
   informacionChat: any = [];
   mostrarChat(bly_duenoPropiedad) {
@@ -90,6 +101,26 @@ export class HistorialRenta2Page implements OnInit {
       component: DetalleMensajePage,
       componentProps: {
         datos: this.informacionChat,
+      },
+    });
+    await modal.present();
+  }
+
+  async mostrarModalRFinalizada() {
+    const modal = await this.modalController.create({
+      component: ModalRentaFinalizadaPage,
+      componentProps: {
+        datos: this.informacionDetalle,
+      },
+    });
+    await modal.present();
+  }
+
+  async mostrarModalRI() {
+    const modal = await this.modalController.create({
+      component: ModalRentaStatusPage,
+      componentProps: {
+        datos: this.informacionDetalle,
       },
     });
     await modal.present();

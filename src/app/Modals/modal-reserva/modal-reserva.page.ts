@@ -1130,6 +1130,7 @@ export class ModalReservaPage implements OnInit {
   bly_status: string;
   correoElectronico: string;
 
+  bly_statusRenta = 3;
   id_historialServicio: number;
   registrarHistorialServico(datos: any) {
     let body = {
@@ -1137,8 +1138,10 @@ export class ModalReservaPage implements OnInit {
       bly_propiedad: this.datosPromocionesR.propiedad,
       bly_usuario: this.datosPerfilR.bly_usuario,
       bly_fechaInicio: this.fecha1._d,
-      bly_fechaFinal: this.fecha2._d
+      bly_fechaFinal: this.fecha2._d,
+      bly_statusRenta: this.bly_statusRenta
     };
+    console.log(body);
     this.provider
       .registrarHistorialServicio(
         body,

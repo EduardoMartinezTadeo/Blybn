@@ -646,6 +646,10 @@ const routes: Routes = [
     path: 'modal-historial',
     loadChildren: () => import('./Modals/modal-historial/modal-historial.module').then( m => m.ModalHistorialPageModule)
   },
+  {
+    path: 'status-renta',
+    loadChildren: () => import('./modals/status-renta/status-renta.module').then( m => m.StatusRentaPageModule)
+  },
 ];
 
 @NgModule({

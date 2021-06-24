@@ -29,8 +29,8 @@
         Elige un tipo de propiedad
       </ion-label>
       <ion-select placeholder="Seleccionar" (ionChange)="ionChange($event)" ok-text="Aceptar" mode="ios"
-        cancelText="Cancelar">
-        <ion-select-option value="{{propiedad.bly_tipoPropiedad}}" *ngFor="let propiedad of propiedades">
+        cancelText="Cancelar" *ngFor="let propiedad of propiedades">
+        <ion-select-option value="{{propiedad.bly_tipoPropiedad}}">
           {{propiedad.bly_propiedadTipo}}</ion-select-option>
       </ion-select>
     </ion-item>

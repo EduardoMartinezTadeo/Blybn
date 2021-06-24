@@ -14,7 +14,6 @@ import { Modal9Page } from '../../Modals/modal9/modal9.page';
 })
 export class RegisterPage implements OnInit {
 
-
   constructor(
     private router: Router,
     private navCtrl: NavController,

@@ -10,12 +10,17 @@
 
 <ion-content class="background">
   <div class="contenedor">
-
     <h1>¡Bienvenida!</h1> 
     <h3>Primer día de tu estancia.</h3>  
-    <h3>¡Que la disfrutes!</h3>
+    <h3 class="h3">¡Que la disfrutes!</h3>
     <ion-row class="img">
       <ion-img src="../../../assets/imgs/ER.svg"></ion-img>
     </ion-row>
   </div>
+  <ion-col size="10">
+    <ion-button color="danger" fill="solid" size="medium" expand="full" (click)="cancelarReservacion()">
+      Cancelar reservación
+    </ion-button>
+  </ion-col>
 </ion-content>
+

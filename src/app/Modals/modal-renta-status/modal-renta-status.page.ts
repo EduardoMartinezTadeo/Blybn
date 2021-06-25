@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -11,7 +11,8 @@ export class ModalRentaStatusPage implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private storage: Storage
+    private storage: Storage,
+    private alertcontroller: AlertController
   ) { }
 
   ngOnInit() {
@@ -26,6 +27,29 @@ export class ModalRentaStatusPage implements OnInit {
 
   salir(){
     this.modalController.dismiss();
+  }
+
+
+  async cancelarReservacion(){
+    const alert = await this.alertcontroller.create({
+      header: 'Confirmación',
+      mode: 'ios',
+      message: '¿Está seguro de cancelar su reservación?',
+      buttons: [
+        {
+          text: 'Abortar operación',
+          role: 'cancel',
+          cssClass: 'iconCerrar'
+        }, {
+          text: 'Cancelar reservación',
+          handler: () => {
+            console.log('Confirm Okay');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }

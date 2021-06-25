@@ -21,7 +21,8 @@ export class DetalleMensajePage implements OnInit {
     private storage: Storage,
     private navParams: NavParams,
     private provider: ProviderService,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private alertController: AlertController
   ) {
     this.server = this.provider.server;
   }
@@ -127,11 +128,27 @@ export class DetalleMensajePage implements OnInit {
 
       this.provider
         .enviarMensaje(body, 'db_registrarChat.php')
-        .subscribe((data) => {});
+        .subscribe((data) => {
+          console.log(data.result);
+          if(data.result == "error"){
+            this.errorMensaje();
+            this.ionViewWillEnter();
+          }
+        });
       this.messages.push(body);
       this.newMsg = '';
       this.content.scrollToBottom(200);
     });
+  }
+
+  async errorMensaje() {
+    const alert = await this.alertController.create({
+      header: 'Error mensaje',
+      mode: 'ios',
+      message: '¡No se puede enviar tu mensaje, porque incluyes información no permitida.!',
+      buttons: ['Aceptar']
+    });
+    await alert.present();
   }
 
   doRefresh(event) {
